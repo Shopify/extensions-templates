@@ -1,0 +1,34 @@
+{%- if flavor contains "react" -%}
+import React from 'react';
+import {
+  useApi,
+  render,
+  Banner,
+  useTranslate,
+} from '@shopify/ui-extensions-react/admin';
+
+render('admin.product.index.action', () => <App />);
+
+function App() {
+  const {extensionPoint} = useApi();
+  const translate = useTranslate();
+  return (
+    <Banner title="{{ name }}">
+      {translate('welcome', {extensionPoint})}
+    </Banner>
+  );
+}
+
+{%- else -%}
+import { extend, Banner } from "@shopify/ui-extensions/admin";
+
+extend("admin.product.index.action", (root, { extensionPoint, i18n }) => {
+  root.appendChild(
+    root.createComponent(
+      Banner,
+      { title: "{{ name }}" },
+      i18n.translate('welcome', {extensionPoint})
+    )
+  );
+});
+{%- endif -%}

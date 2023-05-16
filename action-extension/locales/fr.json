@@ -1,0 +1,4 @@
+{
+  "label": "Action {{ name }}",
+  "welcome": "Bienvenue dans l'extension {{extensionPoint}}!"
+}

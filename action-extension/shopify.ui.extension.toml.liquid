@@ -1,0 +1,21 @@
+name = "{{ name }}"
+
+api_version = "2022-10"
+
+
+[[extension_points]]
+target = "admin.product.index.action"
+module = "./src/ActionExtension.{{ srcFileExtension }}"
+label = "t:label"
+
+
+# Valid extension points:
+# - admin.order.index.action
+# - admin.order.selection.action
+# - admin.order.item.action
+# - admin.customer.index.action
+# - admin.customer.selection.action
+# - admin.customer.item.action
+# - admin.product.index.action
+# - admin.product.selection.action
+# - admin.product.item.action

@@ -1,0 +1,25 @@
+{%- if flavor contains "react" -%}
+{
+  "name": "{{ name }}",
+  "version": "1.0.0",
+  "main": "dist/main.js",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "react": "^18.0.0",
+    "@shopify/ui-extensions-react": "unstable"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0"
+  }
+}
+{%- else -%}
+{
+  "name": "{{ name }}",
+  "version": "1.0.0",
+  "main": "dist/main.js",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@shopify/ui-extensions": "unstable"
+  }
+}
+{%- endif -%}
