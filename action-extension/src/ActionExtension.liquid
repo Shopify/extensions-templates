@@ -1,20 +1,22 @@
 {%- if flavor contains "react" -%}
-import React from 'react';
 import {
+  reactExtension
   useApi,
   render,
   Banner,
-  useTranslate,
 } from '@shopify/ui-extensions-react/admin';
 
-render('admin.product.index.action', () => <App />);
+{%- if flavor contains "typescript" -%}
+export default reactExtension<any>('admin.product.index.action', () => <App />);
+{%- else -%}
+export default reactExtension('admin.product.index.action', () => <App />);
+{%- endif -%}
 
 function App() {
-  const {extensionPoint} = useApi();
-  const translate = useTranslate();
+  const {extensionPoint, i18n} = useApi();
   return (
     <Banner title="{{ name }}">
-      {translate('welcome', {extensionPoint})}
+      {i18n.translate('welcome', {extensionPoint})}
     </Banner>
   );
 }
