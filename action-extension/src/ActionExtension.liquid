@@ -10,7 +10,7 @@ export default reactExtension<any>('admin.product.index.action', () => <App />);
 export default reactExtension('admin.product.index.action', () => <App />);
 {% endif %}
 function App() {
-  {%- if flavor contains "typescript" -%}
+  {% if flavor contains "typescript" %}
   const {extensionPoint, i18n} = useApi() as any;
   {% else %}
   const {extensionPoint, i18n} = useApi();
