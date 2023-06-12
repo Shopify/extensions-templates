@@ -1,0 +1,17 @@
+name = "{{ name }}"
+type = "ui_extension"
+
+api_version = "2022-10"
+
+
+[[extension_points]]
+# The target used here must match the target used in the module file (./src/BlockExtension.{{ srcFileExtension }})
+target = "admin.product.index.block"
+module = "./src/BlockExtension.{{ srcFileExtension }}"
+label = "t:label"
+
+
+# Valid extension points:
+# - admin.order.item.block
+# - admin.customer.item.block
+# - admin.product.item.block
