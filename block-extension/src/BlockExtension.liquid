@@ -5,9 +5,9 @@ import {
   Banner,
 } from '@shopify/ui-extensions-react/admin';
 {% if flavor contains "typescript" %}
-export default reactExtension<any>('admin.product.index.block', () => <App />);
+export default reactExtension<any>('admin.product.item.block', () => <App />);
 {% else %}
-export default reactExtension('admin.product.index.block', () => <App />);
+export default reactExtension('admin.product.item.block', () => <App />);
 {% endif %}
 function App() {
   {% if flavor contains "typescript" %}
@@ -25,7 +25,7 @@ function App() {
 {%- else -%}
 import { extend, Banner } from "@shopify/ui-extensions/admin";
 
-extend("admin.product.index.action", (root, { extensionPoint, i18n }) => {
+extend("admin.product.item.action", (root, { extensionPoint, i18n }) => {
   root.appendChild(
     root.createComponent(
       Banner,
