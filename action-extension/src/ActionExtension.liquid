@@ -80,9 +80,10 @@ function App() {
 import { extend, AppAction, Button } from "@shopify/ui-extensions/admin";
 
 extend("admin.product.item.action", (root, { extensionPoint, i18n, close, data }) => {
-  let productTitle = '';
+  const productTitle = root.createText('');
+
   getProductInfo(data).then((title) => {
-    productTitle = title;
+    productTitle.updateText(title);
   });
 
   root.appendChild(
