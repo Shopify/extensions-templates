@@ -1,37 +1,136 @@
 {%- if flavor contains "react" -%}
+import {useEffect, useState} from 'react';
 import {
   reactExtension,
   useApi,
-  Banner,
+  AppAction,
+  Button,
 } from '@shopify/ui-extensions-react/admin';
+
+// The target used here must match the target used in the extension's toml file (./shopify.ui.extension.toml)
 {% if flavor contains "typescript" %}
-export default reactExtension<any>('admin.product.index.action', () => <App />);
+export default reactExtension<any>('admin.product.item.action', () => <App />);
 {% else %}
-export default reactExtension('admin.product.index.action', () => <App />);
+export default reactExtension('admin.product.item.action', () => <App />);
 {% endif %}
 function App() {
   {% if flavor contains "typescript" %}
-  const {extensionPoint, i18n} = useApi() as any;
+  const {extensionPoint, i18n, close, data} = useApi() as any;
   {% else %}
-  const {extensionPoint, i18n} = useApi();
+  const {extensionPoint, i18n, close, data} = useApi();
   {% endif %}
+  const [productTitle, setProductTitle] = useState('');
+
+  useEffect(() => {
+    (async function getProductInfo() {
+      const getProductQuery = {
+        query: `query Product($id: ID!) {
+          product(id: $id) {
+            title
+          }
+        }`,
+        variables: {id: data.selected[0].id},
+      };
+
+      const res = await fetch("shopify:admin/api/graphql.json", {
+        method: "POST",
+        body: JSON.stringify(getProductQuery),
+      });
+
+      if (!res.ok) {
+        console.error('Network error');
+      }
+
+      const productData = await res.json();
+      setProductTitle(productData.data.product.title);
+    })();
+  }, []);
+
   return (
-    <Banner title="{{ name }}">
+    <AppAction
+      title="{{ name }}"
+      primaryAction={
+        <Button
+          onPress={() => {
+            console.log('saving');
+            close();
+          }}
+        >
+          Save
+        </Button>
+      }
+      secondaryAction={
+        <Button
+          onPress={() => {
+            console.log('closing');
+            close();
+          }}
+        >
+          Close
+        </Button>
+      }
+    >
       {i18n.translate('welcome', {extensionPoint})}
-    </Banner>
+      Current product: {productTitle}
+    </AppAction>
   );
 }
 
 {%- else -%}
-import { extend, Banner } from "@shopify/ui-extensions/admin";
+import { extend, AppAction, Button } from "@shopify/ui-extensions/admin";
 
-extend("admin.product.index.action", (root, { extensionPoint, i18n }) => {
+extend("admin.product.item.action", (root, { extensionPoint, i18n, close, data }) => {
+  const productTitle = root.createText('');
+
+  getProductInfo(data).then((title) => {
+    productTitle.updateText(title);
+  });
+
   root.appendChild(
     root.createComponent(
-      Banner,
-      { title: "{{ name }}" },
-      i18n.translate('welcome', {extensionPoint})
+      AppAction,
+      {
+        title: "{{ name }}",
+        primaryAction: root.createComponent(Button, {
+          onPress: () => {
+            console.log("saving");
+            close();
+          },
+        }, 'Save'),
+        secondaryAction: root.createComponent(Button, {
+          onPress: () => {
+            console.log("closing");
+            close();
+          },
+        }, 'Close')
+      },
+      i18n.translate('welcome', {extensionPoint}),
+      '\nCurrent product: ',
+      productTitle,
     )
   );
 });
+
+async function getProductInfo(data) {
+  const getProductQuery = {
+    query: `query Product($id: ID!) {
+      product(id: $id) {
+        title
+      }
+    }`,
+    variables: {id: data.selected[0].id},
+  };
+
+  const res = await fetch("shopify:admin/api/graphql.json", {
+    method: "POST",
+    body: JSON.stringify(getProductQuery),
+  });
+
+  if (!res.ok) {
+    console.error('Network error');
+  }
+
+  const productData = await res.json();
+  return productData.data.product.title;
+};
 {%- endif -%}
