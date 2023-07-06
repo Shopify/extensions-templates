@@ -104,7 +104,9 @@ extend("admin.product.item.action", (root, { extensionPoint, i18n, close, data }
           },
         }, 'Close')
       },
-      `${i18n.translate('welcome', {extensionPoint})}\nCurrent product: ${productTitle}`
+      i18n.translate('welcome', {extensionPoint}),
+      '\nCurrent product: ',
+      productTitle,
     )
   );
 });
