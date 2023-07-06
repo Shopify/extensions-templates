@@ -4,6 +4,8 @@ import {
   useApi,
   Banner,
 } from '@shopify/ui-extensions-react/admin';
+
+// The target used here must match the target used in the extension's toml file (./shopify.ui.extension.toml)
 {% if flavor contains "typescript" %}
 export default reactExtension<any>('admin.product.item.block', () => <App />);
 {% else %}

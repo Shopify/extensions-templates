@@ -1,12 +1,12 @@
 name = "{{ name }}"
 type = "ui_extension"
 
-api_version = "2022-10"
+api_version = "unstable"
 
 
 [[extension_points]]
 # The target used here must match the target used in the module file (./src/ActionExtension.{{ srcFileExtension }})
-target = "admin.product.index.action"
+target = "admin.product.item.action"
 module = "./src/ActionExtension.{{ srcFileExtension }}"
 label = "t:label"
 
