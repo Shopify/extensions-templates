@@ -1,0 +1,16 @@
+name = "{{ name }}"
+type = "ui_extension"
+
+api_version = "unstable"
+
+# Both extension points are required
+
+[[extension_points]]
+# The target used here must match the target used in the module file (./src/ProductDetailsConfigurationExtension.{{ srcFileExtension }})
+target = "admin.product-details.configuration.render"
+module = "./src/ProductDetailsConfigurationExtension.{{ srcFileExtension }}"
+
+[[extension_points]]
+# The target used here must match the target used in the module file (./src/ProductVariantDetailsConfigurationExtension.{{ srcFileExtension }})
+target = "admin.product-variant-details.configuration.render"
+module = "./src/ProductVariantDetailsConfigurationExtension.{{ srcFileExtension }}"
