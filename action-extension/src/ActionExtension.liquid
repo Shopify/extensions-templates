@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {
   reactExtension,
   useApi,
-  AppAction,
+  AdminAction,
   Button,
 } from '@shopify/ui-extensions-react/admin';
 
@@ -47,7 +47,7 @@ function App() {
   }, []);
 
   return (
-    <AppAction
+    <AdminAction
       title="{{ name }}"
       primaryAction={
         <Button
@@ -72,12 +72,12 @@ function App() {
     >
       {i18n.translate('welcome', {extensionPoint})}
       Current product: {productTitle}
-    </AppAction>
+    </AdminAction>
   );
 }
 
 {%- else -%}
-import { extend, AppAction, Button } from "@shopify/ui-extensions/admin";
+import { extend, AdminAction, Button } from "@shopify/ui-extensions/admin";
 
 extend("admin.product.item.action", (root, { extensionPoint, i18n, close, data }) => {
   const productTitle = root.createText('');
@@ -88,7 +88,7 @@ extend("admin.product.item.action", (root, { extensionPoint, i18n, close, data }
 
   root.appendChild(
     root.createComponent(
-      AppAction,
+      AdminAction,
       {
         title: "{{ name }}",
         primaryAction: root.createComponent(Button, {
