@@ -2,7 +2,7 @@
 import {
   reactExtension,
   useApi,
-  Banner,
+  AdminBlock,
 } from '@shopify/ui-extensions-react/admin';
 
 // The target used here must match the target used in the extension's toml file (./shopify.ui.extension.toml)
@@ -18,20 +18,20 @@ function App() {
   const {extensionPoint, i18n} = useApi();
   {% endif %}
   return (
-    <Banner title="{{ name }}">
+    <AdminBlock title="{{ name }}" subtitle="3 items">
       {i18n.translate('welcome', {extensionPoint})}
-    </Banner>
+    </AdminBlock>
   );
 }
 
 {%- else -%}
-import { extend, Banner } from "@shopify/ui-extensions/admin";
+import { extend, AdminBlock } from "@shopify/ui-extensions/admin";
 
 extend("admin.product.item.action", (root, { extensionPoint, i18n }) => {
   root.appendChild(
     root.createComponent(
-      Banner,
-      { title: "{{ name }}" },
+      AdminBlock,
+      { title: "{{ name }}", subtitle: "3 items" },
       i18n.translate('welcome', {extensionPoint})
     )
   );
