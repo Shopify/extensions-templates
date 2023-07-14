@@ -7,16 +7,22 @@ type = "ui_extension"
 [[extensions.targeting]]
 module = "./src/ActionExtension.{{ srcFileExtension }}"
 # The target used here must match the target used in the module file (./src/ActionExtension.{{ srcFileExtension }})
-target = "admin.product.item.action"
+target = "admin.product-details.action.render"
 
 
-# Valid extension targets:
-# - admin.order.index.action
-# - admin.order.selection.action
-# - admin.order.item.action
-# - admin.customer.index.action
-# - admin.customer.selection.action
-# - admin.customer.item.action
-# - admin.product.index.action
-# - admin.product.selection.action
-# - admin.product.item.action
+# Valid extension points:
+
+# Customer index and detail pages
+# - admin.customer-index.action.render
+# - admin.customer-index.selection-action.render
+# - admin.customer-details.action.render
+
+# Order index and detail pages
+# - admin.order-index.action.render
+# - admin.order-index.selection-action.render
+# - admin.order-details.action.render
+
+# Product index and detail pages
+# - admin.product-index.action.render
+# - admin.product-index.selection-action.render
+# - admin.product-details.action.render

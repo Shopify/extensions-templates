@@ -9,18 +9,20 @@ import {
 
 // The target used here must match the target used in the extension's toml file (./shopify.ui.extension.toml)
 {% if flavor contains "typescript" %}
-export default reactExtension<any>('admin.product.item.action', () => <App />);
+export default reactExtension<any>('admin.product-details.action.render', () => <App />);
 {% else %}
-export default reactExtension('admin.product.item.action', () => <App />);
+export default reactExtension('admin.product-details.action.render', () => <App />);
 {% endif %}
 function App() {
+  // The useApi hook provides access to several useful APIs like i18n, close, and data.
   {% if flavor contains "typescript" %}
   const {extensionPoint, i18n, close, data} = useApi() as any;
   {% else %}
   const {extensionPoint, i18n, close, data} = useApi();
   {% endif %}
   const [productTitle, setProductTitle] = useState('');
-
+  // Use direct API calls to fetch data from Shopify.
+  // See https://shopify.dev/docs/api/admin-graphql for more information about Shopify's GraphQL API
   useEffect(() => {
     (async function getProductInfo() {
       const getProductQuery = {
@@ -45,8 +47,8 @@ function App() {
       setProductTitle(productData.data.product.title);
     })();
   }, []);
-
   return (
+    // The AdminAction component provides an API for setting the title and actions of the Action extension wrapper.
     <AdminAction
       title="{{ name }}"
       primaryAction={
@@ -70,6 +72,7 @@ function App() {
         </Button>
       }
     >
+      {/* Set the translation values for each supported language in the locales directory */}
       {i18n.translate('welcome', {extensionPoint})}
       Current product: {productTitle}
     </AdminAction>
@@ -79,7 +82,9 @@ function App() {
 {%- else -%}
 import { extend, AdminAction, Button } from "@shopify/ui-extensions/admin";
 
-extend("admin.product.item.action", (root, { extensionPoint, i18n, close, data }) => {
+// The target used here must match the target used in the extension's toml file (./shopify.ui.extension.toml)
+// The second argument to the render callback provides access to several useful APIs like i18n, close, and data.
+extend("admin.product-details.action.render", (root, { extensionPoint, i18n, close, data }) => {
   const productTitle = root.createText('');
 
   getProductInfo(data).then((title) => {
@@ -88,6 +93,7 @@ extend("admin.product.item.action", (root, { extensionPoint, i18n, close, data }
 
   root.appendChild(
     root.createComponent(
+      // The AdminAction component provides an API for setting the title and actions of the Action extension wrapper.
       AdminAction,
       {
         title: "{{ name }}",
@@ -104,6 +110,7 @@ extend("admin.product.item.action", (root, { extensionPoint, i18n, close, data }
           },
         }, 'Close')
       },
+      // Set the translation values for each supported language in the locales directory
       i18n.translate('welcome', {extensionPoint}),
       '\nCurrent product: ',
       productTitle,
@@ -111,6 +118,8 @@ extend("admin.product.item.action", (root, { extensionPoint, i18n, close, data }
   );
 });
 
+// Use direct API calls to fetch data from Shopify.
+// See https://shopify.dev/docs/api/admin-graphql for more information about Shopify's GraphQL API
 async function getProductInfo(data) {
   const getProductQuery = {
     query: `query Product($id: ID!) {

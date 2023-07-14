@@ -7,10 +7,10 @@ type = "ui_extension"
 [[extensions.targeting]]
 module = "./src/BlockExtension.{{ srcFileExtension }}"
 # The target used here must match the target used in the module file (./src/BlockExtension.{{ srcFileExtension }})
-target = "admin.product.item.block"
+target = "admin.product-details.block.render"
 
 
 # Valid extension targets:
-# - admin.order.item.block
-# - admin.customer.item.block
-# - admin.product.item.block
+# - admin.customer-details.block.render
+# - admin.order-details.block.render
+# - admin.product-details.block.render
