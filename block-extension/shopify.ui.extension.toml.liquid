@@ -1,17 +1,16 @@
-name = "{{ name }}"
-type = "ui_extension"
-
+name = "t:label"
 api_version = "unstable"
 
-
-[[extension_points]]
+[[extensions]]
+handle = "{{ handle }}"
+type = "ui_extension"
+[[extensions.targeting]]
+module = "./src/BlockExtension.{{ srcFileExtension }}"
 # The target used here must match the target used in the module file (./src/BlockExtension.{{ srcFileExtension }})
 target = "admin.product.item.block"
-module = "./src/BlockExtension.{{ srcFileExtension }}"
-label = "t:label"
 
 
-# Valid extension points:
+# Valid extension targets:
 # - admin.order.item.block
 # - admin.customer.item.block
 # - admin.product.item.block
