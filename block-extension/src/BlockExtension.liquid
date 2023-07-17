@@ -22,7 +22,7 @@ function App() {
 
   return (
     // The AdminBlock component provides an API for setting the title and summary of the Block extension wrapper.
-    <AdminBlock title="{{ name }}" summary="3 items">
+    <AdminBlock summary="3 items">
       {i18n.translate('welcome', {target})}
     </AdminBlock>
   );
@@ -37,7 +37,7 @@ extend("admin.product-details.block.render", (root, { extension: {target}, i18n,
   root.appendChild(
     root.createComponent(
       AdminBlock,
-      { title: "{{ name }}", summary: "3 items" },
+      { summary: "3 items" },
       i18n.translate('welcome', {target})
     )
   );
