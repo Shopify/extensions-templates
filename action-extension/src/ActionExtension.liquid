@@ -16,9 +16,9 @@ export default reactExtension('admin.product-details.action.render', () => <App 
 function App() {
   // The useApi hook provides access to several useful APIs like i18n, close, and data.
   {% if flavor contains "typescript" %}
-  const {extensionPoint, i18n, close, data} = useApi() as any;
+  const {extension: {target}, i18n, close, data} = useApi() as any;
   {% else %}
-  const {extensionPoint, i18n, close, data} = useApi();
+  const {extension: {target}, i18n, close, data} = useApi();
   {% endif %}
   const [productTitle, setProductTitle] = useState('');
   // Use direct API calls to fetch data from Shopify.
@@ -73,7 +73,7 @@ function App() {
       }
     >
       {/* Set the translation values for each supported language in the locales directory */}
-      {i18n.translate('welcome', {extensionPoint})}
+      {i18n.translate('welcome', {target})}
       Current product: {productTitle}
     </AdminAction>
   );
@@ -84,7 +84,7 @@ import { extend, AdminAction, Button } from "@shopify/ui-extensions/admin";
 
 // The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
 // The second argument to the render callback provides access to several useful APIs like i18n, close, and data.
-extend("admin.product-details.action.render", (root, { extensionPoint, i18n, close, data }) => {
+extend("admin.product-details.action.render", (root, { extension: {target}, i18n, close, data }) => {
   const productTitle = root.createText('');
 
   getProductInfo(data).then((title) => {
@@ -111,7 +111,7 @@ extend("admin.product-details.action.render", (root, { extensionPoint, i18n, clo
         }, 'Close')
       },
       // Set the translation values for each supported language in the locales directory
-      i18n.translate('welcome', {extensionPoint}),
+      i18n.translate('welcome', {target}),
       '\nCurrent product: ',
       productTitle,
     )
