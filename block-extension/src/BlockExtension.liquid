@@ -5,7 +5,7 @@ import {
   AdminBlock,
 } from '@shopify/ui-extensions-react/admin';
 
-// The target used here must match the target used in the extension's toml file (./shopify.ui.extension.toml)
+// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
 {% if flavor contains "typescript" %}
 export default reactExtension<any>('admin.product-details.block.render', () => <App />);
 {% else %}
@@ -31,7 +31,7 @@ function App() {
 {%- else -%}
 import { extend,AdminBlock } from "@shopify/ui-extensions/admin";
 
-// The target used here must match the target used in the extension's toml file (./shopify.ui.extension.toml)
+// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
 extend("admin.product-details.block.render", (root, { extensionPoint, i18n, data }) => {
   console.log({data});
   root.appendChild(

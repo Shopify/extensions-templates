@@ -7,7 +7,7 @@ import {
   Button,
 } from '@shopify/ui-extensions-react/admin';
 
-// The target used here must match the target used in the extension's toml file (./shopify.ui.extension.toml)
+// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
 {% if flavor contains "typescript" %}
 export default reactExtension<any>('admin.product-details.action.render', () => <App />);
 {% else %}
@@ -82,7 +82,7 @@ function App() {
 {%- else -%}
 import { extend, AdminAction, Button } from "@shopify/ui-extensions/admin";
 
-// The target used here must match the target used in the extension's toml file (./shopify.ui.extension.toml)
+// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
 // The second argument to the render callback provides access to several useful APIs like i18n, close, and data.
 extend("admin.product-details.action.render", (root, { extensionPoint, i18n, close, data }) => {
   const productTitle = root.createText('');
