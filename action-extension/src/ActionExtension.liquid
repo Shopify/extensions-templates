@@ -50,7 +50,6 @@ function App() {
   return (
     // The AdminAction component provides an API for setting the title and actions of the Action extension wrapper.
     <AdminAction
-      title="{{ name }}"
       primaryAction={
         <Button
           onPress={() => {
@@ -96,7 +95,6 @@ extend("admin.product-details.action.render", (root, { extension: {target}, i18n
       // The AdminAction component provides an API for setting the title and actions of the Action extension wrapper.
       AdminAction,
       {
-        title: "{{ name }}",
         primaryAction: root.createComponent(Button, {
           onPress: () => {
             console.log("saving");
