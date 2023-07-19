@@ -1,6 +1,6 @@
 # Checkout UI Extension
 
-Checkout UI extensions let app developers build custom functionality that merchants can install at defined points in the checkout flow. You can learn more about checkout UI extensions in Shopify’s [developer documentation](https://shopify.dev/api/checkout-extensions/checkout).
+Checkout UI extensions let app developers build custom functionality that merchants can install at defined targets in the checkout flow. You can learn more about checkout UI extensions in Shopify’s [developer documentation](https://shopify.dev/api/checkout-extensions/checkout).
 
 
 ## Prerequisites
@@ -39,7 +39,7 @@ You can customize your new extension by editing the code in the `src/CheckoutDyn
 > By default, your extension is configured to target the `purchase.checkout.block.render` [extension target](https://shopify.dev/docs/api/checkout-ui-extensions/extension-targets-overview). This extension target does not have a single location in the checkout where it will appear; instead, a merchant installing your extension will configure where *they* want your extension to show up.
 > If you are building an extension that is tied to existing UI element in the checkout, such as the cart lines or shipping method, you can change the extension target so that your UI extension will render in the correct location. Check out the list of [all available extension targets](https://shopify.dev/docs/api/checkout-ui-extensions/extension-targets-overview) to get some inspiration for the kinds of content you can provide with checkout UI extensions.
 
-You can add new extension targets by adding a new entry point to `src/shopify.extension.toml`, e.g:
+You can add new extension targets by adding a new entry to `src/shopify.extension.toml`, e.g:
 
 ```` toml
 [[extensions.targeting]]
@@ -58,18 +58,18 @@ To shape your extension you have the following collection of tools available:
 > If you are using React, there is also a large collection of [React Hooks available](https://shopify.dev/docs/api/checkout-ui-extensions/react-hooks) to ease access to these operations, otherwise you'll need to manually subscribe to the subscribable value directly with a callback.
 
 ## FAQ
-* **How can I preview my extension?**
+* **How can I switch my extension between static and dynamic?**
 
   1. Make sure you've started your local development server using `npm|yarn|pnpm dev`
   2. Depending on your selected location they may be either `dynamic` or `static` extension targets, which diferr slightly on the process to preview them.
-      - `Dynamic extensions` can be placed using a [query string parameter](https://shopify.dev/apps/checkout/test-ui-extensions#dynamic-extension-points).
+      - `Dynamic extensions` can be placed using a [query string parameter](https://shopify.dev/apps/checkout/test-ui-extensions#dynamic-extension-targets).
       - `Static extensions` require no extra work, just note that a static extension is shown only if the section that they are attached to is enabled.
 
 * **How can I change my extension type?**
 
     To change your extension type, be mindful that you have to change it in the following places:
     1. In your `script file`, where you declared the extension (will be either _render()_ or _extend()_), you'll have to change the declared extension target.
-    2. In your `settings TOML file` (shopify.extension.toml) you'll have to change the `extension_points` declaration for your new desired type.
+    2. In your `settings TOML file` (shopify.extension.toml) you'll have to change the `[[extensions.targeting]]` declaration for your new desired target.
 
 * **How do I let merchants customize my extension?**
 
