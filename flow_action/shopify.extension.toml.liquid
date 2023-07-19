@@ -1,0 +1,20 @@
+description = "Your description"
+
+[[extensions]]
+name = "{{ name }}"
+type = "flow_action"
+handle = "{{ handle }}"
+runtime_url = "https://url.com/api/execute"
+
+[settings]
+
+  [[settings.fields]]
+  type = "customer_reference"
+  required = true
+
+  [[settings.fields]]
+  type = "single_line_text_field"
+  key = "your-field-key"
+  name = "Display name"
+  description = "A description of my field"
+  required = true
