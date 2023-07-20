@@ -1,0 +1,39 @@
+{%- if flavor contains "react" -%}
+import {
+  reactExtension,
+  useApi,
+  Text,
+} from '@shopify/ui-extensions-react/admin';
+
+// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
+{% if flavor contains "typescript" %}
+export default reactExtension<any>('admin.product-details.configuration.render', () => <App />);
+{% else %}
+export default reactExtension('admin.product-details.configuration.render', () => <App />);
+{% endif %}
+function App() {
+  {% if flavor contains "typescript" %}
+  const {extension: {target}, i18n} = useApi<'admin.product-details.configuration.render'>();
+  {% else %}
+  const {extension: {target}, i18n} = useApi();
+  {% endif %}
+  return (
+    <Text>
+      {i18n.translate('welcome', {target})}
+    </Text>
+  );
+}
+
+{%- else -%}
+import { extend, Banner } from "@shopify/ui-extensions/admin";
+
+extend("admin.product-details.configuration.render", (root, { extension: {target}, i18n }) => {
+  root.appendChild(
+    root.createComponent(
+      Text,
+      {},
+      i18n.translate('welcome', {target})
+    )
+  );
+});
+{%- endif -%}
