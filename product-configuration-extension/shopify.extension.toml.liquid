@@ -1,16 +1,18 @@
-name = "{{ name }}"
-type = "ui_extension"
-
 api_version = "2023-07"
 
-# Both extension points are required
+[[extensions]]
+name = "t:name"
+handle = "{{ handle }}"
+type = "ui_extension"
 
-[[extension_points]]
+# Both extension points are required
+[[extensions.targeting]]
+module = "./src/ProductDetailsConfigurationExtension.{{ srcFileExtension }}"
 # The target used here must match the target used in the module file (./src/ProductDetailsConfigurationExtension.{{ srcFileExtension }})
 target = "admin.product-details.configuration.render"
-module = "./src/ProductDetailsConfigurationExtension.{{ srcFileExtension }}"
 
-[[extension_points]]
+
+[[extensions.targeting]]
+module = "./src/ProductVariantDetailsConfigurationExtension.{{ srcFileExtension }}"
 # The target used here must match the target used in the module file (./src/ProductVariantDetailsConfigurationExtension.{{ srcFileExtension }})
 target = "admin.product-variant-details.configuration.render"
-module = "./src/ProductVariantDetailsConfigurationExtension.{{ srcFileExtension }}"

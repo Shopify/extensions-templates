@@ -15,7 +15,7 @@ function App() {
   {% if flavor contains "typescript" %}
   const {extension: {target}, i18n} = useApi<'admin.product-variant-details.configuration.render'>();
   {% else %}
-  const {extensionPoint, i18n} = useApi();
+  const {extension: {target}, i18n} = useApi();
   {% endif %}
   return (
     <Text>
