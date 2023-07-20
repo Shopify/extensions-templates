@@ -1,0 +1,34 @@
+{%- if flavor contains "react" -%}
+import React from 'react';
+import {
+  useApi,
+  useTranslate,
+  reactExtension,
+  Banner,
+} from '@shopify/ui-extensions-react/checkout';
+
+export default reactExtension('Checkout::Dynamic::Render', () => <App />);
+
+function App() {
+  const { extension: { target } } = useApi();
+  const translate = useTranslate();
+  return (
+    <Banner title="{{ name }}">
+      {translate('welcome', {target})}
+    </Banner>
+  );
+}
+
+{%- else -%}
+import { extension, Banner } from "@shopify/ui-extensions/checkout";
+
+export default extension("purchase.checkout.block.render", (root, { extension: { target } , i18n }) => {
+  root.appendChild(
+    root.createComponent(
+      Banner,
+      { title: "{{ name }}" },
+      i18n.translate('welcome', {target})
+    )
+  );
+});
+{%- endif -%}
