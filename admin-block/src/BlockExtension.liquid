@@ -3,33 +3,33 @@ import {
   reactExtension,
   useApi,
   AdminBlock,
+  BlockStack,
+  Text,
 } from '@shopify/ui-extensions-react/admin';
 
 // The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
-{% if flavor contains "typescript" %}
-export default reactExtension<any>('admin.product-details.block.render', () => <App />);
-{% else %}
-export default reactExtension('admin.product-details.block.render', () => <App />);
+{% if flavor contains "typescript" %}export default reactExtension<any>('admin.product-details.block.render', () => <App />);
+{% else %}export default reactExtension('admin.product-details.block.render', () => <App />);
 {% endif %}
 function App() {
-  {% if flavor contains "typescript" %}
   // The useApi hook provides access to several useful APIs like i18n and data.
-  const {extension: {target}, i18n, data} = useApi() as any;
-  {% else %}
-  const {extension: {target}, i18n, data} = useApi();
+  {% if flavor contains "typescript" %}const {extension: {target}, i18n, data} = useApi() as any;
+  {% else %}const {extension: {target}, i18n, data} = useApi();
   {% endif %}
   console.log({data});
 
   return (
     // The AdminBlock component provides an API for setting the title and summary of the Block extension wrapper.
     <AdminBlock summary="3 items">
-      {i18n.translate('welcome', {target})}
+      <BlockStack>
+        <Text fontWeight="bold">{i18n.translate('welcome', {target})}</Text>
+      </BlockStack>
     </AdminBlock>
   );
 }
 
 {%- else -%}
-import { extend,AdminBlock } from "@shopify/ui-extensions/admin";
+import { extend, AdminBlock, BlockStack, Text } from "@shopify/ui-extensions/admin";
 
 // The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
 extend("admin.product-details.block.render", (root, { extension: {target}, i18n, data }) => {
@@ -38,7 +38,9 @@ extend("admin.product-details.block.render", (root, { extension: {target}, i18n,
     root.createComponent(
       AdminBlock,
       { summary: "3 items" },
-      i18n.translate('welcome', {target})
+      root.createComponent(BlockStack, null,
+        root.createComponent(Text, { fontWeight: "bold" }, i18n.translate('welcome', {target}))
+      )
     )
   );
 });
