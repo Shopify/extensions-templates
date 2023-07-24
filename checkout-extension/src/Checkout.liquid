@@ -1,20 +1,23 @@
 {%- if flavor contains "react" -%}
-import React from 'react';
 import {
+  Banner,
   useApi,
   useTranslate,
   reactExtension,
-  Banner,
 } from '@shopify/ui-extensions-react/checkout';
 
-export default reactExtension('purchase.checkout.block.render', () => <App />);
+export default reactExtension(
+  'purchase.checkout.block.render',
+  () => <Extension />,
+);
 
-function App() {
-  const { extension: { target } } = useApi();
+function Extension() {
   const translate = useTranslate();
+  const { extension } = useApi();
+
   return (
     <Banner title="{{ name }}">
-      {translate('welcome', {target})}
+      {translate('welcome', {target: extension.target})}
     </Banner>
   );
 }
@@ -22,12 +25,14 @@ function App() {
 {%- else -%}
 import { extension, Banner } from "@shopify/ui-extensions/checkout";
 
-export default extension("purchase.checkout.block.render", (root, { extension: { target } , i18n }) => {
+export default extension("purchase.checkout.block.render", (root, api) => {
+  const { extension, i18n } = api;
+
   root.appendChild(
     root.createComponent(
       Banner,
       { title: "{{ name }}" },
-      i18n.translate('welcome', {target})
+      i18n.translate('welcome', {target: extension.target})
     )
   );
 });
