@@ -1,6 +1,6 @@
 {
-  "template": {
-    "title": "My Awesome Template!",
+  "template-1": {
+    "name": "My Awesome Template!",
     "description": "A Template that helps increase merchant productivity",
     "preInstallNote": "You must disable automatic payment capture in the Shopify Admin before using this Template",
     "postInstallNote": "Please ensure your have disabled automatic payment capture in the Shopify Admin before using this Template"
