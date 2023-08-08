@@ -1,0 +1,44 @@
+{%- if flavor contains "react" -%}
+import {
+  reactExtension,
+  CustomerSegmentTemplate,
+} from '@shopify/ui-extensions-react/admin';
+
+// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
+const TARGET = 'admin.customers.segmentation-templates.render';
+
+export default reactExtension(TARGET, () => <App />);
+
+function App() {
+  const templateQuery = 'number_of_orders = 1 AND products_purchased(id: (product_id)) = true'
+  const templateQueryToInsert = 'number_of_orders = 1 AND products_purchased(id: (',
+
+  return (
+    // The CustomerSegmentTemplate component provides an API for setting the title, description, date, query, and query to insert of the segmentation template.
+    <CustomerSegmentTemplate
+        dateAdded={new Date('2023-08-15').toISOString()}
+        templateQuery={templateQuery}
+        templateQueryToInsert={templateQueryToInsert}
+    />
+  );
+}
+
+{%- else -%}
+import { extend, CustomerSegmentTemplate } from "@shopify/ui-extensions/admin";
+
+// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
+// The second argument to the render callback provides access to several useful APIs like i18n.
+extend("admin.customers.segmentation-templates.render", (root) => {
+  root.appendChild(
+    root.createComponent(
+      // The CustomerSegmentTemplate component provides an API for setting the title, description, date, query, and query to insert of the segmentation template.
+      CustomerSegmentTemplate,
+      {
+        dateAdded: new Date('2023-08-15').toISOString(),
+        templateQuery: 'number_of_orders = 1 AND products_purchased(id: (product_id)) = true',
+        templateQueryToInsert: 'number_of_orders = 1 AND products_purchased(id: (',
+      }
+    )
+  );
+});
+{%- endif -%}
