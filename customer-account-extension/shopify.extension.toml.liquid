@@ -1,0 +1,10 @@
+api_version = "2023-07"
+
+[[extensions]]
+type = "ui_extension"
+name = "{{ name }}"
+handle = "{{ handle }}"
+
+[[extensions.targeting]]
+module = "./src/CustomerAccountExtension.{{ srcFileExtension }}"
+target = "customer-account.dynamic.render"
