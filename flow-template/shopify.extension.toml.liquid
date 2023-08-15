@@ -3,14 +3,14 @@ name = "{{ name }}"
 type = "flow_template"
 handle = "{{ handle }}"
 
-[[extensions.templates]]
-key = "template-1"
-
+[extensions.template]
 name = "My Awesome Template"
 
 description = "A Template that helps increase merchant productivity"
 
 categories = ["orders", "fraud"]
+
+workflow_path = "template.flow"
 
 require_app = false
 
