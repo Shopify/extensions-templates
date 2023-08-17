@@ -1,15 +1,15 @@
 {%- if flavor contains "react" -%}
   import React from 'react';
   import {render, Banner} from '@shopify/customer-account-ui-extensions-react';
-  
+
   render('customer-account.dynamic.render', (api) => <App api={api} />);
-  
-  function App(api) {
+
+  function App({api}) {
     return <Banner>{api.i18n.translate("welcome")}</Banner>;
   }
   {%- else -%}
   import { extend, Banner } from "@shopify/customer-account-ui-extensions";
-  
+
   extend('customer-account.dynamic.render', (root, api) => {
     const { i18n } = api;
 
