@@ -1,25 +1,34 @@
 {%- if flavor contains "react" -%}
   import React from 'react';
-  import {render, Banner} from '@shopify/customer-account-ui-extensions-react';
-  
-  render('customer-account.dynamic.render', (api) => <App api={api} />);
-  
-  function App(api) {
-    return <Banner>{api.i18n.translate("welcome")}</Banner>;
+  import { Banner, reactExtension, useTranslate } from '@shopify/ui-extensions-react/customer-account';
+
+  export default reactExtension(
+    'customer-account.dynamic.render',
+     () => <CustomerAccountExtension />
+  );
+
+  function CustomerAccountExtension() {
+    const translate = useTranslate();
+
+    return (
+      <Banner title='{{ name }}'>
+        {translate('welcome')}
+      </Banner>
+    );
   }
+
   {%- else -%}
-  import { extend, Banner } from "@shopify/customer-account-ui-extensions";
-  
-  extend('customer-account.dynamic.render', (root, api) => {
+  import { extension, Banner } from '@shopify/ui-extensions/customer-account';
+
+  export default extension('customer-account.dynamic.render', (root, api) => {
     const { i18n } = api;
 
     root.appendChild(
       root.createComponent(
         Banner,
-        {},
-        i18n.translate("welcome")
+        { title: '{{ name }}' },
+        i18n.translate('welcome')
       )
     );
-    root.mount();
   });
   {%- endif -%}
