@@ -5,12 +5,13 @@
   "version": "1.0.0",
   "license": "UNLICENSED",
   "dependencies": {
-    "react": "^17.0.0",
-    "@shopify/ui-extensions": "unstable",
-    "@shopify/ui-extensions-react": "unstable"
+    "react": "^18.0.0",
+    "@shopify/ui-extensions": "internal",
+    "@shopify/ui-extensions-react": "internal"
   },
   "devDependencies": {
-    "@types/react": "^17.0.0"
+    "@types/react": "^18.0.0",
+    "react-reconciler": "0.29.0"
   }
 }
 {%- else -%}
@@ -20,7 +21,7 @@
   "version": "1.0.0",
   "license": "UNLICENSED",
   "dependencies": {
-    "@shopify/ui-extensions": "unstable"
+    "@shopify/ui-extensions": "internal"
   }
 }
 {%- endif -%}
