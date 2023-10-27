@@ -1,0 +1,28 @@
+{%- if flavor contains "react" -%}
+import { Button, reactExtension, useApi } from '@shopify/ui-extensions-react/customer-account';
+
+export default reactExtension(
+  "customer-account.order.action.menu-item.render",
+  () => <OrderActionMenuItem />
+);
+
+function OrderActionMenuItem() {
+  const {i18n} = useApi()
+  return <Button to='extension:/'>{i18n.translate("menuItemButton")}</Button>;
+}
+
+{%- else -%}
+import { extension, Button } from '@shopify/ui-extensions/customer-account';
+
+export default extension('customer-account.order.action.menu-item.render', (root, api) => {
+  const { i18n } = api;
+
+  root.appendChild(
+    root.createComponent(
+      Button,
+      { to: 'extension:/' },
+      i18n.translate('menuItemButton')
+    )
+  );
+});
+{%- endif -%}
