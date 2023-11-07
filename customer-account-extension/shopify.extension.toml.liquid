@@ -19,28 +19,8 @@ module = "./src/OrderActionMenuItem.{{ srcFileExtension }}"
 target = "customer-account.order.action.menu-item.render"
 
 [[extensions.targeting]]
-module = "./src/OrderIndexBlock.{{ srcFileExtension }}"
-target = "customer-account.order-index.block.render"
-
-[[extensions.targeting]]
-module = "./src/OrderStatusFulfillmentDetails.{{ srcFileExtension }}"
-target = "customer-account.order-status.fulfillment-details.render-after"
-
-[[extensions.targeting]]
-module = "./src/OrderStatusUnfulfilledItems.{{ srcFileExtension }}"
-target = "customer-account.order-status.unfulfilled-items.render-after"
-
-[[extensions.targeting]]
-module = "./src/Page.{{ srcFileExtension }}"
+module = "./src/FullPage.{{ srcFileExtension }}"
 target = "customer-account.page.render"
-
-[[extensions.targeting]]
-module = "./src/ProfileAddresses.{{ srcFileExtension }}"
-target = "customer-account.profile.addresses.render-after"
-
-[[extensions.targeting]]
-module = "./src/ProfileBlock.{{ srcFileExtension }}"
-target = "customer-account.profile.block.render"
 
 [extensions.capabilities]
 # Gives your extension access to directly query Shopify’s storefront API.
