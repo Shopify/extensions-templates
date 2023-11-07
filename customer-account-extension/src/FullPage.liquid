@@ -3,10 +3,10 @@ import { Banner, reactExtension, useApi } from '@shopify/ui-extensions-react/cus
 
 export default reactExtension(
   "customer-account.page.render",
-  () => <Page />
+  () => <FullPage />
 );
 
-function Page() {
+function FullPage() {
   const { extension, i18n } = useApi();
   return <Banner>{i18n.translate('welcome', {target: extension.target})}</Banner>;
 }
