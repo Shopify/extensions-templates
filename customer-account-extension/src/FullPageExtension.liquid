@@ -1,0 +1,38 @@
+{%- if flavor contains "react" -%}
+import { Banner, Page, reactExtension, useApi } from '@shopify/ui-extensions-react/customer-account';
+
+export default reactExtension(
+  "customer-account.page.render",
+  () => <FullPageExtension />
+);
+
+function FullPageExtension() {
+  const { extension, i18n } = useApi();
+
+  return (
+    <Page title={i18n.translate('fullPageTitle')}>
+      <Banner>{i18n.translate('welcome', {target: extension.target})}</Banner>
+    </Page>
+  )
+}
+
+{%- else -%}
+import { extension, Banner, Page } from '@shopify/ui-extensions/customer-account';
+
+export default extension('customer-account.page.render', (root, api) => {
+  const { i18n, extension } = api;
+
+  const page = root.createComponent(Page, {
+    title: i18n.translate('fullPageTitle'),
+  })
+
+  const banner = root.createComponent(
+    Banner,
+    {},
+    i18n.translate('welcome', {target: extension.target})
+  )
+  
+  page.appendChild(banner)
+  root.appendChild(page);
+});
+{%- endif -%}
