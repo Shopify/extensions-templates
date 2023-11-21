@@ -1,0 +1,18 @@
+[[extensions]]
+name = "{{name}}"
+type = "payments_extension"
+target = "payments_app_credit_card"
+handle = "payments-ext-cc"
+description = "custom description"
+payment_session_url = "https://api.paymentprovider.com/endpoint"
+refund_session_url = "https://api.paymentprovider.com/refund"
+capture_session_url = "https://api.paymentprovider.com/capture"
+void_session_url = "https://api.paymentprovider.com/void"
+buyer_feature_3d_secure_enabled = "false"
+buyer_feature_buy_now_pay_later = "false"
+payment_methods = ["visa"]
+available_countries = ["US", "AU", "CA"]
+shopify_admin_name = "TODO: Name will be displayed to users in their admin"
+checkout_name = "TODO: Leave blank to use shopify_admin_name value, or set here"
+test_mode = "true"
+api_version = "unstable"
