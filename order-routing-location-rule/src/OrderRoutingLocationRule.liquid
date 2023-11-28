@@ -1,0 +1,97 @@
+{%- if flavor contains "react" -%}
+import {
+  reactExtension,
+  useApi,
+  Text,
+  Box,
+  Form,
+} from '@shopify/ui-extensions-react/admin';
+
+// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
+const TARGET = 'admin.settings.order-routing-rule.render';
+
+export default reactExtension(TARGET, () => <App />);
+
+function App() {
+  // The useApi hook provides access to several useful APIs like i18n, data and saveMetafields.
+  const {data, saveMetafields, i18n} = useApi(TARGET);
+
+  // Transform your state into metafields and send them back to the admin to batch the
+  // changes together with the rest of merchant updates to the routing strategy
+  const handleSubmit = () => {
+    console.log('submit');
+
+    /*
+     * const metafields = [
+     *   {
+     *     namespace: 'metafields',
+     *     key: 'test',
+     *     type: 'string',
+     *     value: 'test',
+     *   },
+     * ];
+     *
+     * saveMetafields(metafields);
+     */
+  };
+
+  // Reset your state to the default values
+  const handleOnReset = () => {
+    console.log('reset');
+  };
+
+  return (
+    <Form onSubmit={handleSubmit} onReset={handleOnReset}>
+      <Box padding="base">
+        <Text fontWeight="bold">
+          {i18n.translate('helpText', {label: data.rule.label})}
+        </Text>
+      </Box>
+      <Box padding="base">
+        {/* Create a UI to allow merchants to provide configuration values for your location rule function */}
+      </Box>
+    </Form>
+  );
+}
+
+{%- else -%}
+import { extend, Box, Form, Text } from "@shopify/ui-extensions/admin";
+
+// Transform your state into metafields and send them back to the admin to batch the
+// changes together with the rest of merchant updates to the routing strategy
+const handleSubmit = () => {
+  console.log('submit');
+
+  /*
+   * const metafields = [
+   *   {
+   *     namespace: 'metafields',
+   *     key: 'test',
+   *     type: 'string',
+   *     value: 'test',
+   *   },
+   * ];
+   *
+   * saveMetafields(metafields);
+   */
+};
+
+// Reset your state to the default values
+const handleOnReset = () => {
+  console.log('reset');
+};
+
+// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
+extend("admin.settings.order-routing-rule.render", (root, { extension: {target}, i18n, data, saveMetafields }) => {
+  console.log({data});
+  root.appendChild(
+    root.createComponent(
+      Form,
+      { onSubmit: handleSubmit, onReset: handleOnReset },
+      root.createComponent(Box, {padding: 'base'},
+        root.createComponent(Text, { fontWeight: "bold" }, i18n.translate('helpText', {label: data.rule.label}))
+      )
+    )
+  );
+});
+{%- endif -%}
