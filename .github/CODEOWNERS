@@ -14,4 +14,6 @@
 # You can also use email addresses if you prefer. They'll be used to look up
 # users just like we do for commit author emails.ne is a file pattern followed by one or more owners.
 
-* @shopify/app-ui
+/admin-action/ @shopify/app-ui
+/admin-block/ @shopify/app-ui
+
