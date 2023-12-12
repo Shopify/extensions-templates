@@ -18,8 +18,8 @@ function App() {
   console.log({data});
 
   return (
-    // The AdminBlock component provides an API for setting the title and summary of the Block extension wrapper.
-    <AdminBlock summary="3 items">
+    // The AdminBlock component provides an API for setting the title of the Block extension wrapper.
+    <AdminBlock title="My Block Extension">
       <BlockStack>
         <Text fontWeight="bold">{i18n.translate('welcome', {target})}</Text>
       </BlockStack>
@@ -34,9 +34,10 @@ import { extend, AdminBlock, BlockStack, Text } from "@shopify/ui-extensions/adm
 extend("admin.product-details.block.render", (root, { extension: {target}, i18n, data }) => {
   console.log({data});
   root.appendChild(
+    // The AdminBlock component provides an API for setting the title of the Block extension wrapper.
     root.createComponent(
       AdminBlock,
-      { summary: "3 items" },
+      { title: "My Block Extension" },
       root.createComponent(BlockStack, null,
         root.createComponent(Text, { fontWeight: "bold" }, i18n.translate('welcome', {target}))
       )
