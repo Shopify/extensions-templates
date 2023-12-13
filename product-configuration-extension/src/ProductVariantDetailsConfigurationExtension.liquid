@@ -1,4 +1,5 @@
 {%- if flavor contains "react" -%}
+import React = require('react');
 import {
   useApi,
   Text,
@@ -22,27 +23,29 @@ function App() {
   {% if flavor contains "typescript" %}
   // const {extension: {target}, i18n} = useApi<'admin.product-variant-details.configuration.render'>();
   {% else %}
-  const {extension: {target}, i18n} = useApi();
+  // const {extension: {target}, i18n} = useApi();
   {% endif %}
 
   // Render the bundle components
   return (
     <BlockStack gap="small">
-      {bundleComponents.flatMap((component, index) => [
-        <InlineStack gap key={component}>
-          <Box padding="none" inlineSize="10%">
-            <Icon name="ImageMajor" size="fill" />
-          </Box>
-          <Box padding="large none">
-            <BlockStack gap="none" padding="none">
-              <Text fontWeight="bold-200">
-                {component}
-              </Text>
-            </BlockStack>
-          </Box>
-        </InlineStack>,
-        index < bundleComponents.length - 1 && <Divider key={`divider-${index}`} />
-      ])}
+      {bundleComponents.map((component, index) =>
+        <React.Fragment key={component}>
+          <InlineStack gap>
+            <Box padding="none" inlineSize="10%">
+              <Icon name="ImageMajor" size="fill" />
+            </Box>
+            <Box padding="large none">
+              <BlockStack gap="none" padding="none">
+                <Text fontWeight="bold-200">
+                  {component}
+                </Text>
+              </BlockStack>
+            </Box>
+          </InlineStack>
+          {index < bundleComponents.length - 1 && <Divider />}
+        </React.Fragment>
+      )}
     </BlockStack>
   );
 }
