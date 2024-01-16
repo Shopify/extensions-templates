@@ -7,9 +7,6 @@ name = "{{ name }}"
 type = "payments_extension"
 handle = "{{ handle }}"
 
-[[extensions.targeting]]
-target = "payments.redeemable.render"
-
 redeemable_type = "gift_card"
 payment_session_url = "https://api.paymentprovider.com/endpoint"
 supported_countries = ["US"]
@@ -17,3 +14,6 @@ supported_payment_methods = ["visa"]
 test_mode_available = true
 merchant_label = "Redeemable Payments App Extension"
 balance_url = "https://api.paymentprovider.com/balance"
+
+[[extensions.targeting]]
+target = "payments.redeemable.render"

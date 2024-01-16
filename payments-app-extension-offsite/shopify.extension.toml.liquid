@@ -7,9 +7,6 @@ name = "{{ name }}"
 type = "payments_extension"
 handle = "{{ handle }}"
 
-[[extensions.targeting]]
-target = "payments.offsite.render"
-
 merchant_label = "Offsite Payments App Extension"
 payment_session_url = "https://api.paymentprovider.com/endpoint"
 supports_oversell_protection = false
@@ -19,3 +16,6 @@ supports_3ds = false
 supports_installments = false
 supports_deferred_payments = false
 test_mode_available = true
+
+[[extensions.targeting]]
+target = "payments.offsite.render"

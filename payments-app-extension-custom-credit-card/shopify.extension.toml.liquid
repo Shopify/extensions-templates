@@ -7,9 +7,6 @@ name = "{{ name }}"
 type = "payments_extension"
 handle = "{{ handle }}"
 
-[[extensions.targeting]]
-target = "payments.custom-credit-card.render"
-
 merchant_label = "Custom Credit Credit Payments App Extension"
 payment_session_url = "https://api.paymentprovider.com/endpoint"
 refund_session_url = "https://api.paymentprovider.com/refund"
@@ -21,3 +18,6 @@ supports_3ds = false
 test_mode_available = true
 encryption_certificate = {}
 multiple_capture = false
+
+[[extensions.targeting]]
+target = "payments.custom-credit-card.render"
