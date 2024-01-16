@@ -1,0 +1,21 @@
+# The version of APIs your extension will receive. Learn more:
+# https://shopify.dev/docs/api/usage/versioning
+api_version = "2021-07"
+
+[[extensions]]
+name = "{{ name }}"
+type = "payments_extension"
+handle = "{{ handle }}"
+
+[[extensions.targeting]]
+target = "payments.custom-onsite.render"
+
+merchant_label = "Custom Onsite Payments App Extension"
+payment_session_url = "https://api.paymentprovider.com/endpoint"
+supports_oversell_protection = false
+supported_countries = ["US"]
+supported_payment_methods = ["visa"]
+supports_3ds = false
+supports_installments = false
+supports_deferred_payments = false
+test_mode_available = true
