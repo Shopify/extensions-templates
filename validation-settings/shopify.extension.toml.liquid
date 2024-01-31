@@ -1,0 +1,18 @@
+api_version = "unstable"
+
+[[extensions]]
+# change the merchant-facing name of the extension in locales/en.default.json
+name = "t:name"
+# your validation function's shopify.extension.toml will require a reference
+# within [extensions.ui] to this handle:
+#
+#   [extensions.ui]
+#   handle = "{{ handle }}"
+handle = "{{ handle }}"
+type = "ui_extension"
+
+[[extensions.targeting]]
+module = "./src/ValidationSettings.{{ srcFileExtension }}"
+target = "admin.settings.validation.render"
+
+
