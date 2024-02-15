@@ -16,8 +16,8 @@ export default reactExtension(TARGET, () => <App />);
 
 function App() {
   // The useApi hook provides access to several useful APIs like i18n, close, and data.
-  const {extension: {target}, i18n, close, data} = useApi(TARGET);
-
+  const {i18n, close, data} = useApi(TARGET);
+  console.log({data});
   const [productTitle, setProductTitle] = useState('');
   // Use direct API calls to fetch data from Shopify.
   // See https://shopify.dev/docs/api/admin-graphql for more information about Shopify's GraphQL API
@@ -44,7 +44,7 @@ function App() {
       const productData = await res.json();
       setProductTitle(productData.data.product.title);
     })();
-  }, []);
+  }, [data.selected]);
   return (
     // The AdminAction component provides an API for setting the title and actions of the Action extension wrapper.
     <AdminAction
@@ -71,7 +71,7 @@ function App() {
     >
       <BlockStack>
         {/* Set the translation values for each supported language in the locales directory */}
-        <Text fontWeight="bold">{i18n.translate('welcome', {target})}</Text>
+        <Text fontWeight="bold">{i18n.translate('welcome', {TARGET})}</Text>
         <Text>Current product: {productTitle}</Text>
       </BlockStack>
     </AdminAction>
@@ -82,15 +82,17 @@ function App() {
 import { extend, AdminAction, BlockStack, Button, Text } from "@shopify/ui-extensions/admin";
 
 // The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
+const TARGET = 'admin.product-details.action.render';
+
 // The second argument to the render callback provides access to several useful APIs like i18n, close, and data.
-extend("admin.product-details.action.render", (root, { extension: {target}, i18n, close, data }) => {
+extend(TARGET, (root, { i18n, close, data }) => {
   const productTitle = root.createText('');
 
   getProductInfo(data).then((title) => {
-    productTitle.updateText(title);
+    productTitle.update(title);
   });
 
-  root.appendChild(
+  root.append(
     root.createComponent(
       // The AdminAction component provides an API for setting the title and actions of the Action extension wrapper.
       AdminAction,
@@ -110,7 +112,7 @@ extend("admin.product-details.action.render", (root, { extension: {target}, i18n
       },
       root.createComponent(BlockStack, null,
         // Set the translation values for each supported language in the locales directory
-        root.createComponent(Text, {fontWeight: 'bold'}, i18n.translate('welcome', {target})),
+        root.createComponent(Text, {fontWeight: 'bold'}, i18n.translate('welcome', {TARGET})),
         root.createComponent(Text, null, 'Current product: ', productTitle)
       )
     )
