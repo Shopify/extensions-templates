@@ -1,39 +1,87 @@
 {%- if flavor contains "react" -%}
+import React = require('react');
 import {
-  reactExtension,
   useApi,
   Text,
+  render,
+  BlockStack,
+  Icon,
+  InlineStack,
+  Box,
+  Divider
 } from '@shopify/ui-extensions-react/admin';
 
+// Define the bundle components
+const bundleComponents = ['Burger', 'Fries'];
+
 // The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
-{% if flavor contains "typescript" %}
-export default reactExtension<any>('admin.product-variant-details.configuration.render', () => <App />);
-{% else %}
-export default reactExtension('admin.product-variant-details.configuration.render', () => <App />);
-{% endif %}
+render('admin.product-variant-details.configuration.render', () => <App />);
+
+// The main App component
 function App() {
+  // Uncomment the following line if you need to access the API
   {% if flavor contains "typescript" %}
-  const {extension: {target}, i18n} = useApi<'admin.product-variant-details.configuration.render'>();
+  // const {extension: {target}, i18n} = useApi<'admin.product-variant-details.configuration.render'>();
   {% else %}
-  const {extension: {target}, i18n} = useApi();
+  // const {extension: {target}, i18n} = useApi();
   {% endif %}
+
+  // Render the bundle components
   return (
-    <Text>
-      {i18n.translate('welcome', {target})}
-    </Text>
+    <BlockStack gap="small">
+      {bundleComponents.map((component, index) =>
+        <React.Fragment key={component}>
+          <InlineStack gap>
+            <Box padding="none" inlineSize="10%">
+              <Icon name="ImageMajor" size="fill" />
+            </Box>
+            <Box padding="large none">
+              <BlockStack gap="none" padding="none">
+                <Text fontWeight="bold-200">
+                  {component}
+                </Text>
+              </BlockStack>
+            </Box>
+          </InlineStack>
+          {index < bundleComponents.length - 1 && <Divider />}
+        </React.Fragment>
+      )}
+    </BlockStack>
   );
 }
 
 {%- else -%}
-import { extend, Banner } from "@shopify/ui-extensions/admin";
+import { extend, Text, BlockStack, Icon, InlineStack, Box, Divider } from "@shopify/ui-extensions/admin";
+
+// Define the bundle components
+const bundleComponents = ['Burger', 'Fries'];
 
 extend("admin.product-variant-details.configuration.render", (root, { extension: {target}, i18n }) => {
-  root.appendChild(
-    root.createComponent(
-      Text,
-      {},
-      i18n.translate('welcome', {target})
-    )
-  );
+  // Create the main BlockStack
+  const blockStack = root.createComponent(BlockStack, {gap: "small"});
+
+  // For each bundle component, create an InlineStack and append it to the BlockStack
+  bundleComponents.forEach((component, index) => {
+    const inlineStack = root.createComponent(InlineStack, {gap: true}, [
+      root.createComponent(Box, {padding: "none", inlineSize: "10%"}, [
+        root.createComponent(Icon, {name: "ImageMajor", size: "fill"})
+      ]),
+      root.createComponent(Box, {padding: "large none"}, [
+        root.createComponent(BlockStack, {gap: "none", padding: "none"}, [
+          root.createComponent(Text, {fontWeight: "bold-200"}, component)
+        ])
+      ])
+    ]);
+
+    blockStack.appendChild(inlineStack);
+
+    // If this is not the last component, append a Divider
+    if (index < bundleComponents.length - 1) {
+      blockStack.appendChild(root.createComponent(Divider));
+    }
+  });
+
+  // Append the main BlockStack to the root
+  root.appendChild(blockStack);
 });
 {%- endif -%}
