@@ -1,0 +1,37 @@
+{%- if flavor contains "react" -%}
+import React from 'react'
+
+import { Tile, reactExtension, useApi } from '@shopify/ui-extensions-react/point-of-sale'
+
+const TileComponent = () => {
+  const api = useApi()
+  return (
+    <Tile
+      title="My app"
+      subtitle="SmartGrid {{ flavor }} Extension"
+      onPress={() => {
+        api.smartGrid.presentModal()
+      }}
+      enabled
+    />
+  )
+}
+
+export default reactExtension('pos.home.tile.render', () => {
+  return <TileComponent />
+})
+{%- else -%}
+import {extension, Tile} from '@shopify/ui-extensions/point-of-sale'
+
+export default extension('pos.home.tile.render', (root, api) => {
+    const tile = root.createComponent(Tile, {
+        title: "My app",
+        subtitle: "SmartGrid {{ flavor }} Extension",
+        onPress: () => api.smartGrid.presentModal(),
+        enabled: true
+    });
+
+    root.append(tile);
+});
+
+{%- endif -%}

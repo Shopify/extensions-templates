@@ -3,14 +3,15 @@
   "name": "{{ handle }}",
   "private": true,
   "version": "1.0.0",
-  "main": "dist/main.js",
   "license": "UNLICENSED",
   "dependencies": {
-    "react": "^17.0.0",
-    "@shopify/retail-ui-extensions-react": "1.7.0"
+    "react": "^18.0.0",
+    "@shopify/ui-extensions": "2024.4.x",
+    "@shopify/ui-extensions-react": "2024.4.x"
   },
   "devDependencies": {
-    "@types/react": "^17.0.0"
+    "@types/react": "^18.0.0",
+    "react-reconciler": "0.29.0"
   }
 }
 {%- else -%}
@@ -18,10 +19,9 @@
   "name": "{{ handle }}",
   "private": true,
   "version": "1.0.0",
-  "main": "dist/main.js",
   "license": "UNLICENSED",
   "dependencies": {
-    "@shopify/retail-ui-extensions": "1.7.0"
+    "@shopify/ui-extensions": "2024.4.x"
   }
 }
 {%- endif -%}
