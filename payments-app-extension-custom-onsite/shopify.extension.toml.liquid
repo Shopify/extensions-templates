@@ -10,7 +10,11 @@ handle = "{{ handle }}"
 merchant_label = "Custom Onsite Payments App Extension"
 payment_session_url = "https://api.paymentprovider.com/endpoint"
 supports_oversell_protection = false
+# List of ISO 3166 (alpha-2) country codes your app is available for installation by merchants. Learn more:
+# https://www.iso.org/iso-3166-country-codes.html
 supported_countries = ["US"]
+# List payment method names that your payment extension will support. Learn more:
+# https://github.com/activemerchant/payment_icons/blob/master/db/payment_icons.yml
 supported_payment_methods = ["visa"]
 supports_3ds = false
 supports_installments = false
