@@ -10,7 +10,7 @@ const TileComponent = () => {
       title="My app"
       subtitle="SmartGrid {{ flavor }} Extension"
       onPress={() => {
-        api.smartGrid.presentModal()
+        api.action.presentModal()
       }}
       enabled
     />
@@ -27,7 +27,7 @@ export default extension('pos.home.tile.render', (root, api) => {
     const tile = root.createComponent(Tile, {
         title: "My app",
         subtitle: "SmartGrid {{ flavor }} Extension",
-        onPress: () => api.smartGrid.presentModal(),
+        onPress: () => api.action.presentModal(),
         enabled: true
     });
 
