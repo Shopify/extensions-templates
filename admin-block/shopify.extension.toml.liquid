@@ -5,6 +5,7 @@ api_version = "2024-04"
 name = "t:name"
 handle = "{{ handle }}"
 type = "ui_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 [[extensions.targeting]]
 module = "./src/BlockExtension.{{ srcFileExtension }}"
 # The target used here must match the target used in the module file (./src/BlockExtension.{{ srcFileExtension }})

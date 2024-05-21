@@ -1,7 +1,8 @@
 [[extensions]]
 name = "{{ name }}"
-type = "flow_template"
 handle = "{{ handle }}"
+type = "flow_template"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 description = "A Template that helps increase merchant productivity"
 
 [extensions.template]

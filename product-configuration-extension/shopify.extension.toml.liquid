@@ -4,6 +4,7 @@ api_version = "2023-07"
 name = "t:name"
 handle = "{{ handle }}"
 type = "ui_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 
 # Both extension points are required
 [[extensions.targeting]]

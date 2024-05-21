@@ -1,5 +1,6 @@
-type = "pos_ui_extension"
 name = "{{ name }}"
+type = "pos_ui_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 description = "{{ name }}"
 
 extension_points = [

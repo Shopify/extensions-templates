@@ -1,7 +1,8 @@
 [[extensions]]
 name = "{{ name }}"
-type = "flow_action"
 handle = "{{ handle }}"
+type = "flow_action"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 description = "Your description"
 runtime_url = "https://url.com/api/execute"
 

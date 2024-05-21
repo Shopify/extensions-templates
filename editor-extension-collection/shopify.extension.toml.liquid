@@ -1,7 +1,8 @@
 [[extensions]]
 name = "t:collection_one_name"
-type = "editor_extension_collection"
 handle = "{{ handle }}"
+type = "editor_extension_collection"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 # Add the handles of the extensions you want in this collection here
 includes=[]
 
