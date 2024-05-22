@@ -380,5 +380,237 @@
         ]
       }
     ]
+  },
+  {
+    "identifier": "customer_segment_template",
+    "name": "Customer segment template",
+    "defaultName": "customer-segment-template",
+    "group": "Admin",
+    "sortPriority": null,
+    "supportLinks": [],
+    "types": [
+      {
+        "url": "https://github.com/Shopify/extensions-templates",
+        "type": "ui_extension",
+        "extensionPoints": [],
+        "supportedFlavors": [
+          {
+            "name": "JavaScript React",
+            "value": "react",
+            "path": "customer-segment-template-extension"
+          },
+          {
+            "name": "JavaScript",
+            "value": "vanilla-js",
+            "path": "customer-segment-template-extension"
+          },
+          {
+            "name": "TypeScript React",
+            "value": "typescript-react",
+            "path": "customer-segment-template-extension"
+          },
+          {
+            "name": "TypeScript",
+            "value": "typescript",
+            "path": "customer-segment-template-extension"
+          }
+        ]
+      }
+    ],
+    "organizationBetaFlags": [
+      "enable_cli_customer_segment_template_extension"
+    ]
+  },
+  {
+    "identifier": "order_routing_location_rule_ui",
+    "name": "Order routing location rule - UI Extension",
+    "defaultName": "order-routing-location-rule-ui",
+    "group": "Discounts and checkout",
+    "sortPriority": null,
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/fulfillment/order-routing-apps/location-rules"
+    ],
+    "types": [
+      {
+        "url": "https://github.com/Shopify/extensions-templates",
+        "type": "ui_extension",
+        "extensionPoints": [],
+        "supportedFlavors": [
+          {
+            "name": "JavaScript React",
+            "value": "react",
+            "path": "order-routing-location-rule"
+          },
+          {
+            "name": "JavaScript",
+            "value": "vanilla-js",
+            "path": "order-routing-location-rule"
+          },
+          {
+            "name": "TypeScript React",
+            "value": "typescript-react",
+            "path": "order-routing-location-rule"
+          },
+          {
+            "name": "TypeScript",
+            "value": "typescript",
+            "path": "order-routing-location-rule"
+          }
+        ]
+      }
+    ],
+    "organizationBetaFlags": [
+      "order_routing_extensibility_partner"
+    ]
+  },
+  {
+    "identifier": "editor_extension_collection",
+    "name": "Editor extension collection",
+    "defaultName": "Editor extension collection",
+    "group": "Admin",
+    "sortPriority": null,
+    "supportLinks": [],
+    "types": [
+      {
+        "url": "https://github.com/Shopify/extensions-templates",
+        "type": "editor_extension_collection",
+        "extensionPoints": [],
+        "supportedFlavors": [
+          {
+            "name": "Config only",
+            "value": "config-only",
+            "path": "editor-extension-collection"
+          }
+        ]
+      }
+    ],
+    "organizationBetaFlags": [
+      "editor_extension_collection"
+    ]
+  },
+  {
+    "identifier": "offsite_payments",
+    "name": "Offsite",
+    "defaultName": "Offsite",
+    "group": "Payments App Extension",
+    "sortPriority": null,
+    "supportLinks": [],
+    "types": [
+      {
+        "url": "https://github.com/Shopify/extensions-templates",
+        "type": "payments_extension",
+        "extensionPoints": [],
+        "supportedFlavors": [
+          {
+            "name": "Config only",
+            "value": "config-only",
+            "path": "payments-app-extension-offsite"
+          }
+        ]
+      }
+    ],
+    "organizationBetaFlags": [
+      "cli_payment_extensions"
+    ]
+  },
+  {
+    "identifier": "credit_card_payments",
+    "name": "Credit Card",
+    "defaultName": "Credit Card",
+    "group": "Payments App Extension",
+    "sortPriority": null,
+    "supportLinks": [],
+    "types": [
+      {
+        "url": "https://github.com/Shopify/extensions-templates",
+        "type": "payments_extension",
+        "extensionPoints": [],
+        "supportedFlavors": [
+          {
+            "name": "Config only",
+            "value": "config-only",
+            "path": "payments-app-extension-credit-card"
+          }
+        ]
+      }
+    ],
+    "organizationBetaFlags": [
+      "cli_payment_extensions"
+    ]
+  },
+  {
+    "identifier": "custom_credit_card_payments",
+    "name": "Custom Credit Card",
+    "defaultName": "Custom Credit Card",
+    "group": "Payments App Extension",
+    "sortPriority": null,
+    "supportLinks": [],
+    "types": [
+      {
+        "url": "https://github.com/Shopify/extensions-templates",
+        "type": "payments_extension",
+        "extensionPoints": [],
+        "supportedFlavors": [
+          {
+            "name": "Config only",
+            "value": "config-only",
+            "path": "payments-app-extension-custom-credit-card"
+          }
+        ]
+      }
+    ],
+    "organizationBetaFlags": [
+      "cli_payment_extensions"
+    ]
+  },
+  {
+    "identifier": "custom_onsite_payments",
+    "name": "Custom Onsite",
+    "defaultName": "Custom Onsite",
+    "group": "Payments App Extension",
+    "sortPriority": null,
+    "supportLinks": [],
+    "types": [
+      {
+        "url": "https://github.com/Shopify/extensions-templates",
+        "type": "payments_extension",
+        "extensionPoints": [],
+        "supportedFlavors": [
+          {
+            "name": "Config only",
+            "value": "config-only",
+            "path": "payments-app-extension-custom-onsite"
+          }
+        ]
+      }
+    ],
+    "organizationBetaFlags": [
+      "cli_payment_extensions"
+    ]
+  },
+  {
+    "identifier": "redeemable_payments",
+    "name": "Redeemable",
+    "defaultName": "Redeemable",
+    "group": "Payments App Extension",
+    "sortPriority": null,
+    "supportLinks": [],
+    "types": [
+      {
+        "url": "https://github.com/Shopify/extensions-templates",
+        "type": "payments_extension",
+        "extensionPoints": [],
+        "supportedFlavors": [
+          {
+            "name": "Config only",
+            "value": "config-only",
+            "path": "payments-app-extension-redeemable"
+          }
+        ]
+      }
+    ],
+    "organizationBetaFlags": [
+      "cli_payment_extensions"
+    ]
   }
 ]
