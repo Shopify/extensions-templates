@@ -1,5 +1,6 @@
-type = "checkout_post_purchase"
 name = "{{ name }}"
+type = "checkout_post_purchase"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 
 # [[metafields]]
 # namespace = "my-namespace"

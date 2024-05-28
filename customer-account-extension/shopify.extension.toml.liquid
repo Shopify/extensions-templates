@@ -6,9 +6,10 @@
 api_version = "unstable"
 
 [[extensions]]
-type = "ui_extension"
 name = "{{ name }}"
 handle = "{{ handle }}"
+type = "ui_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 
 # Controls where in Shopify your extension will be injected,
 # and the file that contains your extension’s source code. Learn more:

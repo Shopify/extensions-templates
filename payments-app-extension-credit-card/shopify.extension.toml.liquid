@@ -4,8 +4,9 @@ api_version = "2021-07"
 
 [[extensions]]
 name = "{{ name }}"
-type = "payments_extension"
 handle = "{{ handle }}"
+type = "payments_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 
 merchant_label = "Credit Credit Payments App Extension"
 payment_session_url = "https://api.paymentprovider.com/endpoint"

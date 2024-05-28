@@ -4,8 +4,9 @@ api_version = "2023-07"
 
 [[extensions]]
 name = "{{ name }}"
-type = "payments_extension"
 handle = "{{ handle }}"
+type = "payments_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 
 payment_session_url = "https://api.paymentprovider.com/endpoint"
 # List of ISO 3166 (alpha-2) country codes your app is available for installation by merchants. Learn more:
