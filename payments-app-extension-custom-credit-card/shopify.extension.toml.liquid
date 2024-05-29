@@ -1,6 +1,6 @@
 # The version of APIs your extension will receive. Learn more:
 # https://shopify.dev/docs/api/usage/versioning
-api_version = "unstable"
+api_version = "2024-04"
 
 [[extensions]]
 name = "{{ name }}"
@@ -23,6 +23,19 @@ supports_3ds = false
 test_mode_available = true
 encryption_certificate_fingerprint = ""
 multiple_capture = false
+
+# UI Extension
+# ui_extension_handle = "ui-ext-handle"
+
+# [[extensions.checkout_payment_method_fields]]
+# key = "field1"
+# type = "string"
+# required = true
+
+# [[extensions.checkout_payment_method_fields]]
+# key = "field2"
+# type = "string"
+# required = true
 
 [[extensions.targeting]]
 target = "payments.custom-credit-card.render"
