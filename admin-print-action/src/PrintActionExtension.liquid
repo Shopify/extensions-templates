@@ -1,0 +1,86 @@
+{%- if flavor contains "react" -%}
+import {useEffect, useState} from 'react';
+import {
+  reactExtension,
+  useApi,
+  AdminPrintAction,
+  BlockStack,
+  Checkbox,
+  Text,
+} from '@shopify/ui-extensions-react/admin';
+
+// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
+const TARGET = 'admin.order-details.print-action.render';
+
+export default reactExtension(TARGET, () => <App />);
+
+function App() {
+  // The useApi hook provides access to several useful APIs like i18n and data.
+  const {i18n, data} = useApi(TARGET);
+  console.log({data});
+  
+  const [src, setSrc] = useState("");
+
+  useEffect(() => { 
+    setSrc(null);
+  },[]); 
+
+  return (
+    // The AdminPrintAction component provides an API for setting the src of the print preview frame.
+    <AdminPrintAction src={src}> 
+      <BlockStack>
+        <Text>{i18n.translate('choose')}</Text> 
+        <Checkbox name="Invoice" checked onChange={(value) => console.log(value)}>
+          Invoice
+        </Checkbox>
+        <Checkbox name="Packing Slip" onChange={(value)=> console.log(value)}>
+          Packing Slip
+        </Checkbox>
+        <Checkbox name="Warranty" onChange={(value)=> console.log(value)}>
+          Warranty
+        </Checkbox> 
+      </BlockStack>
+    </AdminPrintAction>
+  );
+}
+
+{%- else -%}
+import { extend, AdminAction, BlockStack, Checkbox, Text } from "@shopify/ui-extensions/admin";
+
+// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
+const TARGET = 'admin.order-details.print-action.render';
+
+// The second argument to the render callback provides access to several useful APIs like i18n and data.
+extend(TARGET, (root, { i18n, data }) => {
+  console.log({data});
+
+  root.append(
+    root.createComponent(
+      // The AdminPrintAction component provides an API for setting the src of the Print Action extension wrapper.
+      AdminPrintAction,
+      {
+        src: null 
+      },
+      root.createComponent(BlockStack, null,
+        // Set the translation values for each supported language in the locales directory
+        root.createComponent(Text, {fontWeight: 'bold'}, i18n.translate('choose')),
+        root.createComponent(
+          Checkbox,
+          {id: 'invoice', name: 'invoice'},
+          'Invoice',
+        ),
+        root.createComponent(
+          Checkbox,
+          {id: 'packing_slip', name: 'packing_slip'},
+          'Packing slip',
+        ),
+        root.createComponent(
+          Checkbox,
+          {id: 'warranty', name: 'warranty'},
+          'Warranty',
+        )
+      )
+    )
+  );
+});
+{%- endif -%}
