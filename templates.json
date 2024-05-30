@@ -5,33 +5,29 @@
     "defaultName": "admin-action",
     "group": "Admin",
     "supportLinks": [],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "ui_extension",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "JavaScript React",
-            "value": "react",
-            "path": "admin-action"
-          },
-          {
-            "name": "JavaScript",
-            "value": "vanilla-js",
-            "path": "admin-action"
-          },
-          {
-            "name": "TypeScript React",
-            "value": "typescript-react",
-            "path": "admin-action"
-          },
-          {
-            "name": "TypeScript",
-            "value": "typescript",
-            "path": "admin-action"
-          }
-        ]
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "admin-action"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "admin-action"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "admin-action"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "admin-action"
       }
     ]
   },
@@ -41,33 +37,29 @@
     "defaultName": "admin-block",
     "group": "Admin",
     "supportLinks": [],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "ui_extension",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "JavaScript React",
-            "value": "react",
-            "path": "admin-block"
-          },
-          {
-            "name": "JavaScript",
-            "value": "vanilla-js",
-            "path": "admin-block"
-          },
-          {
-            "name": "TypeScript React",
-            "value": "typescript-react",
-            "path": "admin-block"
-          },
-          {
-            "name": "TypeScript",
-            "value": "typescript",
-            "path": "admin-block"
-          }
-        ]
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "admin-block"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "admin-block"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "admin-block"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "admin-block"
       }
     ]
   },
@@ -80,33 +72,29 @@
     "supportLinks": [
       "https://shopify.dev/api/checkout-extensions/checkout/configuration"
     ],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "ui_extension",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "JavaScript React",
-            "value": "react",
-            "path": "checkout-extension"
-          },
-          {
-            "name": "JavaScript",
-            "value": "vanilla-js",
-            "path": "checkout-extension"
-          },
-          {
-            "name": "TypeScript React",
-            "value": "typescript-react",
-            "path": "checkout-extension"
-          },
-          {
-            "name": "TypeScript",
-            "value": "typescript",
-            "path": "checkout-extension"
-          }
-        ]
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "checkout-extension"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "checkout-extension"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "checkout-extension"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "checkout-extension"
       }
     ]
   },
@@ -118,33 +106,29 @@
     "supportLinks": [
       "https://shopify.dev/docs/apps/selling-strategies/bundles/product-config"
     ],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "ui_extension",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "JavaScript React",
-            "value": "react",
-            "path": "product-configuration-extension"
-          },
-          {
-            "name": "JavaScript",
-            "value": "vanilla-js",
-            "path": "product-configuration-extension"
-          },
-          {
-            "name": "TypeScript React",
-            "value": "typescript-react",
-            "path": "product-configuration-extension"
-          },
-          {
-            "name": "TypeScript",
-            "value": "typescript",
-            "path": "product-configuration-extension"
-          }
-        ]
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "product-configuration-extension"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "product-configuration-extension"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "product-configuration-extension"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "product-configuration-extension"
       }
     ]
   },
@@ -154,33 +138,29 @@
     "defaultName": "customer-account-ui",
     "group": "Customer account",
     "supportLinks": [],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "ui_extension",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "JavaScript React",
-            "value": "react",
-            "path": "customer-account-extension"
-          },
-          {
-            "name": "JavaScript",
-            "value": "vanilla-js",
-            "path": "customer-account-extension"
-          },
-          {
-            "name": "TypeScript React",
-            "value": "typescript-react",
-            "path": "customer-account-extension"
-          },
-          {
-            "name": "TypeScript",
-            "value": "typescript",
-            "path": "customer-account-extension"
-          }
-        ]
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "customer-account-extension"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "customer-account-extension"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "customer-account-extension"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "customer-account-extension"
       }
     ]
   },
@@ -190,33 +170,29 @@
     "defaultName": "pos-ui",
     "group": "Point-of-Sale",
     "supportLinks": [],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "pos_ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "pos_ui_extension",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "JavaScript React",
-            "value": "react",
-            "path": "pos-ui-extension"
-          },
-          {
-            "name": "JavaScript",
-            "value": "vanilla-js",
-            "path": "pos-ui-extension"
-          },
-          {
-            "name": "TypeScript React",
-            "value": "typescript-react",
-            "path": "pos-ui-extension"
-          },
-          {
-            "name": "TypeScript",
-            "value": "typescript",
-            "path": "pos-ui-extension"
-          }
-        ]
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "pos-ui-extension"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "pos-ui-extension"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "pos-ui-extension"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "pos-ui-extension"
       }
     ]
   },
@@ -226,18 +202,14 @@
     "defaultName": "tax-calculation",
     "group": "Admin",
     "supportLinks": [],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "tax_calculation",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "tax_calculation",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "Config only",
-            "value": "config-only",
-            "path": "tax-calculation"
-          }
-        ]
+        "name": "Config only",
+        "value": "config-only",
+        "path": "tax-calculation"
       }
     ]
   },
@@ -247,18 +219,14 @@
     "defaultName": "Flow action",
     "group": "Automations",
     "supportLinks": [],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "flow_action",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "flow_action",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "Config only",
-            "value": "config-only",
-            "path": "flow-action"
-          }
-        ]
+        "name": "Config only",
+        "value": "config-only",
+        "path": "flow-action"
       }
     ]
   },
@@ -268,18 +236,14 @@
     "defaultName": "Flow trigger",
     "group": "Automations",
     "supportLinks": [],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "flow_trigger",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "flow_trigger",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "Config only",
-            "value": "config-only",
-            "path": "flow-trigger"
-          }
-        ]
+        "name": "Config only",
+        "value": "config-only",
+        "path": "flow-trigger"
       }
     ]
   },
@@ -292,33 +256,29 @@
     "supportLinks": [
       "https://shopify.dev/docs/apps/checkout/post-purchase"
     ],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "checkout_post_purchase",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "checkout_post_purchase",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "JavaScript React",
-            "value": "react",
-            "path": "checkout-post-purchase"
-          },
-          {
-            "name": "JavaScript",
-            "value": "vanilla-js",
-            "path": "checkout-post-purchase"
-          },
-          {
-            "name": "TypeScript React",
-            "value": "typescript-react",
-            "path": "checkout-post-purchase"
-          },
-          {
-            "name": "TypeScript",
-            "value": "typescript",
-            "path": "checkout-post-purchase"
-          }
-        ]
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "checkout-post-purchase"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "checkout-post-purchase"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "checkout-post-purchase"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "checkout-post-purchase"
       }
     ]
   },
@@ -330,33 +290,29 @@
     "supportLinks": [
       "https://shopify.dev/docs/apps/checkout/validation/server-side"
     ],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "ui_extension",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "JavaScript React",
-            "value": "react",
-            "path": "validation-settings"
-          },
-          {
-            "name": "JavaScript",
-            "value": "vanilla-js",
-            "path": "validation-settings"
-          },
-          {
-            "name": "TypeScript React",
-            "value": "typescript-react",
-            "path": "validation-settings"
-          },
-          {
-            "name": "TypeScript",
-            "value": "typescript",
-            "path": "validation-settings"
-          }
-        ]
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "validation-settings"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "validation-settings"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "validation-settings"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "validation-settings"
       }
     ]
   },
@@ -366,18 +322,14 @@
     "defaultName": "Flow template",
     "group": "Automations",
     "supportLinks": [],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "flow_template",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "flow_template",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "Config only",
-            "value": "config-only",
-            "path": "flow-template"
-          }
-        ]
+        "name": "Config only",
+        "value": "config-only",
+        "path": "flow-template"
       }
     ]
   },
@@ -388,33 +340,29 @@
     "group": "Admin",
     "sortPriority": null,
     "supportLinks": [],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "ui_extension",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "JavaScript React",
-            "value": "react",
-            "path": "customer-segment-template-extension"
-          },
-          {
-            "name": "JavaScript",
-            "value": "vanilla-js",
-            "path": "customer-segment-template-extension"
-          },
-          {
-            "name": "TypeScript React",
-            "value": "typescript-react",
-            "path": "customer-segment-template-extension"
-          },
-          {
-            "name": "TypeScript",
-            "value": "typescript",
-            "path": "customer-segment-template-extension"
-          }
-        ]
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "customer-segment-template-extension"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "customer-segment-template-extension"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "customer-segment-template-extension"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "customer-segment-template-extension"
       }
     ],
     "organizationBetaFlags": [
@@ -430,33 +378,29 @@
     "supportLinks": [
       "https://shopify.dev/docs/apps/fulfillment/order-routing-apps/location-rules"
     ],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "ui_extension",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "JavaScript React",
-            "value": "react",
-            "path": "order-routing-location-rule"
-          },
-          {
-            "name": "JavaScript",
-            "value": "vanilla-js",
-            "path": "order-routing-location-rule"
-          },
-          {
-            "name": "TypeScript React",
-            "value": "typescript-react",
-            "path": "order-routing-location-rule"
-          },
-          {
-            "name": "TypeScript",
-            "value": "typescript",
-            "path": "order-routing-location-rule"
-          }
-        ]
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "order-routing-location-rule"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "order-routing-location-rule"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "order-routing-location-rule"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "order-routing-location-rule"
       }
     ],
     "organizationBetaFlags": [
@@ -470,18 +414,14 @@
     "group": "Admin",
     "sortPriority": null,
     "supportLinks": [],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "editor_extension_collection",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "editor_extension_collection",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "Config only",
-            "value": "config-only",
-            "path": "editor-extension-collection"
-          }
-        ]
+        "name": "Config only",
+        "value": "config-only",
+        "path": "editor-extension-collection"
       }
     ],
     "organizationBetaFlags": [
@@ -495,18 +435,14 @@
     "group": "Payments App Extension",
     "sortPriority": null,
     "supportLinks": [],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "payments_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "payments_extension",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "Config only",
-            "value": "config-only",
-            "path": "payments-app-extension-offsite"
-          }
-        ]
+        "name": "Config only",
+        "value": "config-only",
+        "path": "payments-app-extension-offsite"
       }
     ],
     "organizationBetaFlags": [
@@ -520,18 +456,14 @@
     "group": "Payments App Extension",
     "sortPriority": null,
     "supportLinks": [],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "payments_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "payments_extension",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "Config only",
-            "value": "config-only",
-            "path": "payments-app-extension-credit-card"
-          }
-        ]
+        "name": "Config only",
+        "value": "config-only",
+        "path": "payments-app-extension-credit-card"
       }
     ],
     "organizationBetaFlags": [
@@ -545,18 +477,14 @@
     "group": "Payments App Extension",
     "sortPriority": null,
     "supportLinks": [],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "payments_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "payments_extension",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "Config only",
-            "value": "config-only",
-            "path": "payments-app-extension-custom-credit-card"
-          }
-        ]
+        "name": "Config only",
+        "value": "config-only",
+        "path": "payments-app-extension-custom-credit-card"
       }
     ],
     "organizationBetaFlags": [
@@ -570,18 +498,14 @@
     "group": "Payments App Extension",
     "sortPriority": null,
     "supportLinks": [],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "payments_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "payments_extension",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "Config only",
-            "value": "config-only",
-            "path": "payments-app-extension-custom-onsite"
-          }
-        ]
+        "name": "Config only",
+        "value": "config-only",
+        "path": "payments-app-extension-custom-onsite"
       }
     ],
     "organizationBetaFlags": [
@@ -595,18 +519,14 @@
     "group": "Payments App Extension",
     "sortPriority": null,
     "supportLinks": [],
-    "types": [
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "payments_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
       {
-        "url": "https://github.com/Shopify/extensions-templates",
-        "type": "payments_extension",
-        "extensionPoints": [],
-        "supportedFlavors": [
-          {
-            "name": "Config only",
-            "value": "config-only",
-            "path": "payments-app-extension-redeemable"
-          }
-        ]
+        "name": "Config only",
+        "value": "config-only",
+        "path": "payments-app-extension-redeemable"
       }
     ],
     "organizationBetaFlags": [
