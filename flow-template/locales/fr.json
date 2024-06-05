@@ -1,6 +1,5 @@
 {
   "name": "Mon modèle impressionnant!",
   "description": "Un modèle qui aide à augmenter la productivité des marchands",
-  "preInstallNote": "Vous devez désactiver la capture de paiement automatique dans l'administration de Shopify avant d'utiliser ce modèle",
-  "postInstallNote": "Veuillez vous assurer que vous avez désactivé la capture de paiement automatique dans l'administration de Shopify avant d'utiliser ce modèle"
+  "preInstallNote": "Vous devez désactiver la capture de paiement automatique dans l'administration de Shopify avant d'utiliser ce modèle"
 }
