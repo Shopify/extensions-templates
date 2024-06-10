@@ -1,7 +1,8 @@
 [[extensions]]
 name = "{{ name }}"
-type = "flow_trigger"
 handle = "{{ handle }}"
+type = "flow_trigger"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 description = "Your description"
 
 [settings]

@@ -5,6 +5,7 @@ api_version = "2024-04"
 name = "t:name"
 handle = "{{ handle }}"
 type = "ui_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 [[extensions.targeting]]
 module = "./src/BlockExtension.{{ srcFileExtension }}"
 # The target used here must match the target used in the module file (./src/BlockExtension.{{ srcFileExtension }})
@@ -12,6 +13,10 @@ target = "admin.product-details.block.render"
 
 
 # Valid extension targets:
+# - admin.abandoned-checkout-details.block.render
+# - admin.collection-details.block.render
 # - admin.customer-details.block.render
+# - admin.draft-order-details.block.render
 # - admin.order-details.block.render
 # - admin.product-details.block.render
+# - admin.product-variant-details.block.render

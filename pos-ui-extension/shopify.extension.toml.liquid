@@ -5,6 +5,7 @@ api_version = "2024-04"
 [[extensions]]
 type = "ui_extension"
 name = "{{ name }}"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 handle = "{{ handle }}"
 description = "A {{ flavor }} POS UI extension"
 

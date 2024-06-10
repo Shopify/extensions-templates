@@ -5,6 +5,7 @@ api_version = "unstable"
 name = "t:name"
 handle = "{{ handle }}"
 type = "ui_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 [[extensions.targeting]]
 module = "./src/OrderRoutingLocationRule.{{ srcFileExtension }}"
 target = "admin.settings.order-routing-rule.render"

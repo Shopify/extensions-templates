@@ -1,0 +1,176 @@
+{%- if flavor contains "react" -%}
+import {
+  reactExtension,
+  useApi,
+  AdminPrintAction,
+  Banner,
+  BlockStack,
+  Checkbox,
+  Text,
+} from "@shopify/ui-extensions-react/admin";
+import { useEffect, useState } from "react";
+
+// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
+const TARGET = "admin.order-details.print-action.render";
+
+const baseSrc = `https://cdn.shopify.com/static/extensibility/print-example`;
+
+export default reactExtension(TARGET, () => <App />);
+
+function App() {
+  // The useApi hook provides access to several useful APIs like i18n and data.
+  const {i18n, data} = useApi(TARGET);
+  const [src, setSrc] = useState(null);
+  // It's best practice to load a printable src when launching first the extension.
+  const [document1, setDocument1] = useState(true);
+  const [document2, setDocument2] = useState(false);
+
+  console.log({ data });
+
+  useEffect(() => {
+    if (document1 && document2) {
+      setSrc(`${baseSrc}/document1-and-document2.html`);
+    } else if (document1) {
+      setSrc(`${baseSrc}/document1.html`);
+    } else if (document2) {
+      setSrc(`${baseSrc}/document2.html`);
+    } else {
+      setSrc(null);
+    }
+  }, [document1, document2]);
+
+  return (
+    /* 
+      The AdminPrintAction component provides an API for setting the src of the Print Action extension wrapper.
+  
+      The `src` prop can be a...
+        - Full URL: https://cdn.shopify.com/static/extensibility/print-example/document1.html
+        - Relative path in your app: print-example/document1.html or /print-example/document1.html 
+        - Custom app: protocol: app:print (https://shopify.dev/docs/api/admin-extensions#custom-protocols)
+    */
+    <AdminPrintAction src={src}>
+      <BlockStack blockGap="base">
+        <Banner tone="warning" title={i18n.translate('warningTitle')}>
+          {i18n.translate('warningBody')}
+        </Banner>
+        <Text fontWeight="bold">{i18n.translate('documents')}</Text>
+        <Checkbox
+          name="document-2"
+          checked={document1}
+          onChange={(value) => {
+            setDocument1(value);
+          }}
+        >
+         {i18n.translate('document1')} 
+        </Checkbox>
+        <Checkbox
+          name="document-1"
+          checked={document2}
+          onChange={(value) => {
+            setDocument2(value);
+          }}
+        >
+         {i18n.translate('document2')}  
+        </Checkbox>
+      </BlockStack>
+    </AdminPrintAction>
+  );
+}
+
+{%- else -%}
+import {
+  extend,
+  AdminPrintAction,
+  Banner,
+  BlockStack,
+  Checkbox,
+  Text,
+} from "@shopify/ui-extensions/admin";
+import { createRemoteComponent } from "@remote-ui/core";
+
+// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
+const TARGET = "admin.order-details.print-action.render";
+
+const baseSrc = "https://cdn.shopify.com/static/extensibility/print-example";
+
+// The second argument to the render callback provides access to several useful APIs like i18n and data.
+extend(TARGET, (root, { i18n, data }) => {
+  console.log({ data });
+
+  const state = {
+    src: null,
+    document1: true,
+    document2: false,
+  };
+
+  // Function to update the state and handle side effects
+  function setState(newState) {
+    Object.assign(state, newState);
+    updateSrc();
+  }
+
+  const printActionComponent = root.createComponent(
+    /* The AdminPrintAction component provides an API for setting the src of the Print Action extension wrapper. */
+    AdminPrintAction,
+    {
+    /* 
+      The `src` prop can be a...
+        - Full URL: https://cdn.shopify.com/static/extensibility/print-example/document1.html
+        - Relative path in your app: print-example/document1.html or /print-example/document1.html 
+        - Custom app: protocol: app:print (https://shopify.dev/docs/api/admin-extensions#custom-protocols)
+    */
+      src: state.src,
+    },
+    root.createComponent(
+      BlockStack,
+      { blockGap: "base" },
+      // Set the translation values for each supported language in the locales directory
+      root.createComponent(
+        Banner,
+        { title: i18n.translate("warningTitle"), tone: "warning" },
+        i18n.translate("warningBody"),
+      ),
+      root.createComponent(
+        Text,
+        { fontWeight: "bold" },
+        i18n.translate("documents"),
+      ),
+      root.createComponent(
+        Checkbox,
+        {
+          name: "document-1",
+          checked: state.document1,
+          onChange: (value) => setState({ document1: value }),
+        },
+        i18n.translate("document1"),
+      ),
+      root.createComponent(
+        Checkbox,
+        {
+          name: "document-2",
+          checked: state.document2,
+          onChange: (value) => setState({ document2: value }),
+        },
+        i18n.translate("document2"),
+      ),
+    ),
+  )
+
+  root.append(printActionComponent);
+
+  function updateSrc() {
+    if (state.document1 && state.document2) {
+      state.src = `${baseSrc}/document1-and-document2.html`;
+    } else if (state.document1) {
+      state.src = `${baseSrc}/document1.html`;
+    } else if (state.document2) {
+      state.src = `${baseSrc}/document2.html`;
+    } else {
+      state.src = null;
+    }
+    printActionComponent.updateProps({ src: state.src });
+  }
+
+  updateSrc();
+});
+{%- endif -%}

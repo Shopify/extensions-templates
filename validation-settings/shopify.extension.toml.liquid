@@ -10,6 +10,7 @@ name = "t:name"
 #   handle = "{{ handle }}"
 handle = "{{ handle }}"
 type = "ui_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 
 [[extensions.targeting]]
 module = "./src/ValidationSettings.{{ srcFileExtension }}"

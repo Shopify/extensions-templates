@@ -1,19 +1,36 @@
 # The version of APIs your extension will receive. Learn more:
 # https://shopify.dev/docs/api/usage/versioning
-api_version = "2023-07"
+api_version = "2024-04"
 
 [[extensions]]
 name = "{{ name }}"
-type = "payments_extension"
 handle = "{{ handle }}"
+type = "payments_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 
-redeemable_type = "gift_card"
 payment_session_url = "https://api.paymentprovider.com/endpoint"
+# List of ISO 3166 (alpha-2) country codes your app is available for installation by merchants. Learn more:
+# https://www.iso.org/iso-3166-country-codes.html
 supported_countries = ["US"]
-supported_payment_methods = ["visa"]
+# List payment method names that your payment extension will support. Learn more:
+# https://github.com/activemerchant/payment_icons/blob/master/db/payment_icons.yml
+supported_payment_methods = ["gift-card"]
 test_mode_available = true
 merchant_label = "Redeemable Payments App Extension"
 balance_url = "https://api.paymentprovider.com/balance"
+
+# UI Extension
+# ui_extension_handle = "ui-ext-handle"
+
+# [[extensions.checkout_payment_method_fields]]
+# key = "field1"
+# type = "string"
+# required = true
+
+# [[extensions.checkout_payment_method_fields]]
+# key = "field2"
+# type = "string"
+# required = true
 
 [[extensions.targeting]]
 target = "payments.redeemable.render"
