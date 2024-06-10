@@ -24,9 +24,19 @@ function App() {
   // It's best practice to load a printable src when launching first the extension.
   const [document1, setDocument1] = useState(true);
   const [document2, setDocument2] = useState(false);
-
+  // data has information about the resource to be printed.
   console.log({ data });
 
+  /* 
+    This template fetches static documents from the CDN to demonstrate printing.
+    However, when building your extension, you should update the src document
+    to match the resource that the user is printing. You can do this by getting the 
+    resource id from the data API and using it to create a URL with a path to your app 
+    that shows the correct document. For example, you might use a URL parameter to 
+    render an invoice for a specific order.
+    
+    `/print/invoice&orderId=${data.selected[0].id}`
+  */
   useEffect(() => {
     if (document1 && document2) {
       setSrc(`${baseSrc}/document1-and-document2.html`);
@@ -42,6 +52,8 @@ function App() {
   return (
     /* 
       The AdminPrintAction component provides an API for setting the src of the Print Action extension wrapper.
+      The document you set as src will be displayed as a print preview.
+      When the user clicks the Print button, the browser will print that document.
   
       The `src` prop can be a...
         - Full URL: https://cdn.shopify.com/static/extensibility/print-example/document1.html
@@ -95,6 +107,7 @@ const baseSrc = "https://cdn.shopify.com/static/extensibility/print-example";
 
 // The second argument to the render callback provides access to several useful APIs like i18n and data.
 extend(TARGET, (root, { i18n, data }) => {
+  // data has information about the resource to be printed.
   console.log({ data });
 
   const state = {
@@ -110,7 +123,11 @@ extend(TARGET, (root, { i18n, data }) => {
   }
 
   const printActionComponent = root.createComponent(
-    /* The AdminPrintAction component provides an API for setting the src of the Print Action extension wrapper. */
+    /* 
+      The AdminPrintAction component provides an API for setting the src of the Print Action extension wrapper.
+      The document you set as src will be displayed as a print preview.
+      When the user clicks the Print button, the browser will print that document.
+    */
     AdminPrintAction,
     {
     /* 
@@ -158,6 +175,16 @@ extend(TARGET, (root, { i18n, data }) => {
 
   root.append(printActionComponent);
 
+  /* 
+    This template fetches static documents from the CDN to demonstrate printing.
+    However, when building your extension, you should update the src document
+    to match the resource that the user is printing. You can do this by getting the 
+    resource id from the data API and using it to create a URL with a path to your app 
+    that shows the correct document. For example, you might use a URL parameter to 
+    render an invoice for a specific order.
+    
+    `/print/invoice&orderId=${data.selected[0].id}`
+  */
   function updateSrc() {
     if (state.document1 && state.document2) {
       state.src = `${baseSrc}/document1-and-document2.html`;
