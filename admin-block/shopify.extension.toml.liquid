@@ -6,6 +6,8 @@ name = "t:name"
 handle = "{{ handle }}"
 type = "ui_extension"
 {% if uid %}uid = "{{ uid }}"{% endif %}
+
+# Only 1 target can be specified for each Admin block extension
 [[extensions.targeting]]
 module = "./src/BlockExtension.{{ srcFileExtension }}"
 # The target used here must match the target used in the module file (./src/BlockExtension.{{ srcFileExtension }})
