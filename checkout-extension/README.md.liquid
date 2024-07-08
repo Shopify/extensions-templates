@@ -19,18 +19,18 @@ By default, your extension is configured to target the `purchase.checkout.block.
 
 To build your extension, you will need to use APIs provided by Shopify that let you render content, and to read and write data in the checkout. The following resources will help you get started with checkout extensions:
 
-- [Available components and their properties](https://shopify.dev/docs/api/checkout-ui-extensions/unstable/components)
-- APIs for [reading](https://shopify.dev/docs/api/checkout-ui-extensions/unstable/apis/standardapi) and [writing checkout data](https://shopify.dev/docs/api/checkout-ui-extensions/unstable/apis/checkoutapi)
-- [APIs by extension target](https://shopify.dev/docs/api/checkout-ui-extensions/unstable/apis/extensiontargets)
+- [APIs by extension target](https://shopify.dev/docs/api/checkout-ui-extensions/targets)
+- [All APIs for reading and writing checkout data](https://shopify.dev/docs/api/checkout-ui-extensions/apis)
+- [Available components and their properties](https://shopify.dev/docs/api/checkout-ui-extensions/components)
 
 ## Useful Links
 
 - [Checkout app documentation](https://shopify.dev/apps/checkout)
 - [Checkout UI extension documentation](https://shopify.dev/api/checkout-extensions)
   - [Configuration](https://shopify.dev/docs/api/checkout-ui-extensions/configuration)
+  - [Extension Targets](https://shopify.dev/docs/api/checkout-ui-extensions/targets)
   - [API Reference](https://shopify.dev/docs/api/checkout-ui-extensions/apis)
   - [UI Components](https://shopify.dev/docs/api/checkout-ui-extensions/components)
-  - [Available React Hooks](https://shopify.dev/docs/api/checkout-ui-extensions/react-hooks)
 - [Checkout UI extension tutorials](https://shopify.dev/docs/apps/checkout)
   - [Enable extended delivery instructions](https://shopify.dev/apps/checkout/delivery-instructions)
   - [Creating a custom banner](https://shopify.dev/apps/checkout/custom-banners)
