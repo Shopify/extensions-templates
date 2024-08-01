@@ -1,0 +1,27 @@
+[[extensions]]
+type = "marketing_activity"
+name = "{{ name }}"
+handle = "{{ handle }}"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+title = "Your title"
+description = "Your description"
+app_api_url = "https://url.com/api/execute"
+tactic = "ad"
+channel = "social"
+referring_domain = ""
+is_automation = false
+
+[[extensions.preview_data.types]]
+label = "Desktop"
+value = "desktop"
+
+[[extensions.preview_data.types]]
+label = "Mobile"
+value = "mobile"
+
+[[extensions.fields]]
+id = "ec92dd42-8aae-4198-a6c2-20f599c82494"
+heading = "Example Title"
+body = "Example body"
+ui_type = "paragraph"
+
