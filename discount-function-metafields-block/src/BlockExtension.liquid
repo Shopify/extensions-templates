@@ -1,0 +1,246 @@
+{% if flavor contains 'react' %}
+import {
+  reactExtension,
+  useApi,
+  BlockStack,
+  FunctionSettings,
+  Section,
+  Text,
+  Form,
+  NumberField,
+  Box,
+} from '@shopify/ui-extensions-react/admin';
+
+import { useState, useEffect } from 'react';
+const TARGET = 'admin.discount-details.function-metafields.render';
+
+export default reactExtension(TARGET, async (api) => {
+  return <App />;
+});
+
+function App() {
+  const { applyMetafieldChange, i18n, data } = useApi(TARGET);
+  const [percentage, setPercentage] = useState('');
+  const [error, setError] = useState('');
+  const initialMetafields = data?.metafields || [];
+  const [savedMetafields] = useState(initialMetafields);
+
+  useEffect(() => {
+    const transferPercentage = parsePercentageMetafield(
+      savedMetafields.find(
+        (metafield) => metafield.key === 'function-configuration',
+      )?.value,
+    );
+    setPercentage(transferPercentage);
+  }, [initialMetafields]);
+
+  const onPercentageValueChange = async (value) => {
+    setPercentage(value);
+    await applyExtensionMetafieldChange('percentage', value);
+  };
+
+  async function applyExtensionMetafieldChange(key, value) {
+    const commitFormValues = {
+      percentage,
+      [key]: value,
+    };
+    const results = await applyMetafieldChange({
+      type: 'updateMetafield',
+      namespace: '$app:discounts--ui-extension',
+      key: 'function-configuration',
+      value: JSON.stringify(commitFormValues),
+      valueType: 'json',
+    });
+
+    if (results.status === 'error') {
+      setError(results.message);
+    }
+  }
+
+  return (
+    <>
+      <Form>
+        <FunctionSettings>
+          <Section>
+            <Box paddingBlockEnd="300">
+              <BlockStack gap="base">
+                <Text variant="headingMd" as="h2">
+                  {i18n.translate('percentage')}
+                </Text>
+                <NumberField
+                  label={i18n.translate('discountPercentage')}
+                  name="percentage"
+                  autoComplete="on"
+                  value={percentage}
+                  onChange={onPercentageValueChange}
+                  suffix="%"
+                />
+              </BlockStack>
+            </Box>
+          </Section>
+        </FunctionSettings>
+      </Form>
+    </>
+  );
+}
+async function makeGraphQLQuery(query, variables) {
+  const graphQLQuery = {
+    query,
+    variables,
+  };
+
+  const res = await fetch('shopify:admin/api/graphql.json', {
+    method: 'POST',
+    body: JSON.stringify(graphQLQuery),
+  });
+
+  if (!res.ok) {
+    console.error('Network error');
+  }
+
+  return await res.json();
+}
+
+function parsePercentageMetafield(value) {
+  try {
+    return JSON.parse(value).percentage;
+  } catch {
+    return 0;
+  }
+}
+
+{% else %}
+
+
+import {
+  FunctionSettings,
+  Text,
+  Form,
+  Banner,
+  NumberField,
+  Box,
+  BlockStack,
+  Section,
+  extension,
+} from '@shopify/ui-extensions/admin';
+
+const TARGET = 'admin.discount-details.function-metafields.render';
+
+export default extension(TARGET, async (root, api) => {
+  const { applyMetafieldChange, i18n, data } = api;
+  const initialValues = data?.metafields || [];
+  const transferPercentage = parsePercentageMetafield(
+    initialValues.find(
+      (metafield) => metafield.key === 'function-configuration',
+    )?.value,
+  );
+
+  let percentage = Number(transferPercentage) || 0;
+
+  const functionSettingsComponent = root.createComponent(FunctionSettings, {});
+  const FormFragment = root.createComponent(
+    Form,
+    {},
+    functionSettingsComponent,
+  );
+  const setError = (message) => {
+    functionSettingsComponent.replaceChildren(
+      root.createComponent(Banner, { tone: 'critical' }, message),
+    );
+  };
+  const onPercentageValueChange = async (value) => {
+    percentage = value;
+
+    await applyExtensionMetafieldChange({
+      initialValues: { selectedCollections, percentage },
+      updates: { key: 'percentage', value },
+      applyMetafieldChange,
+      setError,
+    });
+  };
+
+  const numberFieldTextFragment = root.createComponent(
+    Text,
+    {
+      fontVariant: 'bold-200',
+    },
+    i18n.translate('percentage'),
+  );
+  const numberFieldFragment = root.createComponent(NumberField, {
+    onChange: onPercentageValueChange,
+    value: percentage,
+    suffix: '%',
+  });
+  const numberFieldBlockStack = root.createComponent(
+    BlockStack,
+    {
+      gap: 'base',
+    },
+    numberFieldTextFragment,
+    numberFieldFragment,
+  );
+  const numberFieldBox = root.createComponent(
+    Box,
+    { paddingBlockEnd: '300' },
+    numberFieldBlockStack,
+  );
+  const NumberFieldSection = root.createComponent(Section, {}, numberFieldBox);
+
+  functionSettingsComponent.appendChild(NumberFieldSection);
+
+  root.append(FormFragment);
+});
+
+async function applyExtensionMetafieldChange({
+  initialValues,
+  updates,
+  applyMetafieldChange,
+  setError,
+}) {
+  const { key, value } = updates;
+  const { percentage } = initialValues;
+  const commitFormValues = {
+    percentage: Number(percentage),
+    [key]: value,
+  };
+  const results = await applyMetafieldChange({
+    type: 'updateMetafield',
+    namespace: '$app:discounts--ui-extension',
+    key: 'function-configuration',
+    value: JSON.stringify(commitFormValues),
+    valueType: 'json',
+  });
+
+  if (results.status === 'error') {
+    setError(results.message);
+  }
+}
+
+// Utility functions
+async function makeGraphQLQuery(query) {
+  const graphQLQuery = {
+    query,
+  };
+
+  const res = await fetch('shopify:admin/api/graphql.json', {
+    method: 'POST',
+    body: JSON.stringify(graphQLQuery),
+  });
+
+  if (!res.ok) {
+    console.error('Network error');
+  }
+
+  return await res.json();
+}
+
+function parsePercentageMetafield(value) {
+  try {
+    return JSON.parse(value).percentage;
+  } catch {
+    return 0;
+  }
+}
+
+{% endif %}
+
