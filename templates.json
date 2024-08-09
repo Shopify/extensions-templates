@@ -697,13 +697,10 @@
     "name": "Discount Details - UI Extension",
     "defaultName": "discount-details-ui",
     "group": "Admin",
-    // TODO is this correct?
     "supportLinks": ["https://shopify.dev/docs/apps/discounts"],
-    // TODO is this correct? It is a private repo currently
-    "url": "https://github.com/Shopify/discount-extensions-examples",
+    "url": "https://github.com/Shopify/example-discounts--ui-extension",
     "type": "ui_extension",
     "extensionPoints": [],
-    // Double check these
     "supportedFlavors": [
       {
         "name": "JavaScript React",
@@ -716,8 +713,7 @@
         "path": "discount-details"
       }
     ],
-    // organization or app beta flags?
-    "organizationBetaFlags": ["extensions_only_discounts_app"]
+    "organizationBetaFlags": []
   },
   {
     "identifier": "order_routing_location_rule",
