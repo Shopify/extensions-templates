@@ -1,0 +1,16 @@
+api_version = "2024-07"
+
+[[extensions]]
+# Change the merchant-facing name of the extension in locales/en.default.json
+name = "t:name"
+handle = "{{ handle }}"
+type = "ui_extension"
+
+
+# Only 1 target can be specified for each Admin block extension
+[[extensions.targeting]]
+module = "./src/BlockExtension.{{ srcFileExtension }}"
+# The target used here must match the target used in the module file (./src/BlockExtension.{{ srcFileExtension }})
+target = "admin.discount-details.function-metafields.render"
+
+
