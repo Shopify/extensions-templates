@@ -1,105 +1,728 @@
 {%- if flavor contains 'react' -%}
+import { useState } from "react";
+
 import {
   reactExtension,
   useApi,
-  Text,
-  Box,
-  FunctionSettings,
   Section,
   NumberField,
+  Box,
+  InlineStack,
+  Text,
   BlockStack,
+  Banner,
+  Image,
+  FunctionSettings,
 } from "@shopify/ui-extensions-react/admin";
 
-// The target used here must match the target used in the extension's toml file (../shopify.extension.toml)
-const TARGET = "admin.settings.validation.render";
+const METAFIELD_DEFINITION = {
+  access: {
+    admin: "MERCHANT_READ_WRITE"
+  },
+  key: "product-limits-values",
+  name: "Validation Configuration",
+  namespace: "$app:product-limits",
+  ownerType: "VALIDATION",
+  type: "json",
+}
 
-export default reactExtension(TARGET, () => <ValidationSettings />);
+export default reactExtension(
+  "admin.settings.validation.render",
+  async (api) => {
+    const configuration = JSON.parse(
+      api.data.validation?.metafields?.[0]?.value ?? "{}"
+    );
 
-function ValidationSettings() {
-  // The useApi hook provides access to several useful APIs like i18n, data and saveMetafields.
-  const { applyMetafieldChange, i18n } = useApi(TARGET);
+    // only needed if the namespace used is app scoped
+    if (!api.data.validation?.metafields) {
+      const metafieldDefinition = await createMetafieldDefinition(METAFIELD_DEFINITION);
 
-  // Transform your state into metafields and send them back to the admin to batch the
-  // changes together with the rest of merchant updates to the validation
-  const handleOnChange = async () => {
-    const results = await applyMetafieldChange({
-      namespace: "my-namespace",
-      key: "my-key",
-      type: "updateMetafield",
-      value: `{"value": "test"}`,
-      valueType: "json",
-    });
-
-    if (results.type === "error") {
-      console.log(results.message);
+      if (!metafieldDefinition) {
+        throw new Error("Failed to create metafield definition");
+      }
     }
-  };
 
-  const handleOnErrors = (errors) => {
-    console.log(errors)
+    const products = await getProducts();
+
+    return (
+      <ValidationSettings
+        configuration={configuration}
+        products={products}
+      />
+    );
   }
+);
+
+function ValidationSettings({
+  configuration,
+  products,
+}) {
+  const [errors, setErrors] = useState([]);
+  const { applyMetafieldChange } = useApi("admin.settings.validation.render");
+  const settings = {};
+
+  products.forEach(({ variants }) => {
+    variants.forEach(({ id }) => {
+      const limit = configuration[id] ?? 5;
+      settings[id] = limit;
+    });
+  });
 
   return (
-    <FunctionSettings onError={handleOnErrors}>
-      <BlockStack gap="large">
-        <Section>
-          <Box padding="base">
-            <Text fontWeight="bold">{i18n.translate("helpText")}</Text>
-          </Box>
-        </Section>
-        <Section>
-          <Box padding="base">
-            {/* Create a UI to allow merchants to provide configuration values for your validation */}
-            <NumberField label="Set a number" onChange={handleOnChange} />
-          </Box>
-        </Section>
-      </BlockStack>
+    <FunctionSettings
+      onError={(errors) => {
+        setErrors(errors.map((e) => e.message));
+      }}
+    >
+      <Box paddingBlockEnd="large">
+        {errors.length
+          ? errors.map((error, i) => (
+            <Banner
+              key={i}
+              title="Errors were encountered"
+              dismissible
+              tone="critical"
+            >
+              <Box>{error}</Box>
+            </Banner>
+          ))
+          : ""}
+        <BlockStack gap="large">
+          {// display each product and variant's settings
+            products.map(({ title, variants }) => {
+              return (
+                <Section heading={title} key={title}>
+                  <BlockStack paddingBlock="large">
+                    <InlineStack>
+                      <Box minInlineSize="10%" />
+                      <Box minInlineSize="5%">
+                        <Text fontWeight="bold">Variant Name</Text>
+                      </Box>
+                      <Box minInlineSize="50%">
+                        {" "}
+                        <Text fontWeight="bold">Limit</Text>
+                      </Box>
+                    </InlineStack>
+                    {variants.map((variant) => {
+                      const limit = settings[variant.id];
+                      return (
+                        <InlineStack columnGap="none" key={variant.id}>
+                          <Box minInlineSize="5%">
+                            {variant.imageUrl && (
+                              <Image
+                                alt={variant.title}
+                                source={variant.imageUrl}
+                              />
+                            )}
+                          </Box>
+                          <Box minInlineSize="5%">
+                            <Text>{variant.title}</Text>
+                          </Box>
+                          <Box minInlineSize="50%">
+                            <NumberField
+                              value={limit}
+                              min={0}
+                              max={99}
+                              label="Set a limit"
+                              defaultValue={String(limit)}
+                              onChange={async (value) => {
+                                setErrors([]);
+                                const newSettings = {
+                                  ...settings,
+                                  [variant.id]: value,
+                                };
+
+                                const results = await applyMetafieldChange({
+                                  type: "updateMetafield",
+                                  namespace: "$app:product-limits",
+                                  key: "product-limits-values",
+                                  value: JSON.stringify(newSettings),
+                                });
+
+                                if (results.type === "error") {
+                                  setErrors([results.message]);
+                                }
+                              }}
+                            />
+                          </Box>
+                        </InlineStack>
+                      );
+                    })}
+                  </BlockStack>
+                </Section>
+              );
+            })}
+        </BlockStack>
+      </Box>
     </FunctionSettings>
   );
 }
-{%- else -%}
+{%- elsif flavor contains 'typescript-react' -%}
+import { useState } from "react";
+
+import {
+  reactExtension,
+  useApi,
+  Section,
+  NumberField,
+  Box,
+  InlineStack,
+  Text,
+  BlockStack,
+  Banner,
+  Image,
+  FunctionSettings,
+} from "@shopify/ui-extensions-react/admin";
+
+export default reactExtension(
+  "admin.settings.validation.render",
+  async (api) => {
+    const configuration = JSON.parse(
+      api.data.validation?.metafields?.[0]?.value ?? "{}"
+    );
+
+    // only needed if the namespace used is app scoped
+    if (!api.data.validation?.metafields) {
+      const metafieldDefinition = await createMetafieldDefinition();
+
+      if (!metafieldDefinition) {
+        throw new Error("Failed to create metafield definition");
+      }
+    }
+
+    const products = await getProducts();
+
+    return (
+      <ValidationSettings configuration={configuration} products={products} />
+    );
+  }
+);
+
+function ValidationSettings({ configuration, products }) {
+  const [errors, setErrors] = useState([]);
+  const { applyMetafieldChange } = useApi<"admin.settings.validation.render">();
+  const settings = {};
+
+  products.forEach(({ variants }) => {
+    variants.forEach(({ id }) => {
+      const limit = configuration[id] ?? 5;
+      settings[id] = limit;
+    });
+  });
+
+  return (
+    <FunctionSettings
+      onError={(errors) => {
+        setErrors(errors.map((e) => e.message));
+      }}
+    >
+      <Box paddingBlockEnd="large">
+        {errors.length
+          ? errors.map((error, i) => (
+              <Banner
+                key={i}
+                title="Errors were encountered"
+                dismissible
+                tone="critical"
+              >
+                <Box>{error}</Box>
+              </Banner>
+            ))
+          : ""}
+        <BlockStack gap="large">
+          {
+            // display each product and variant's settings
+            products.map(({ title, variants }) => {
+              return (
+                <Section heading={title} key={title}>
+                  <BlockStack paddingBlock="large">
+                    <InlineStack>
+                      <Box minInlineSize="10%" />
+                      <Box minInlineSize="5%">
+                        <Text fontWeight="bold">Variant Name</Text>
+                      </Box>
+                      <Box minInlineSize="50%">
+                        {" "}
+                        <Text fontWeight="bold">Limit</Text>
+                      </Box>
+                    </InlineStack>
+                    {variants.map((variant) => {
+                      const limit = settings[variant.id];
+                      return (
+                        <InlineStack columnGap="none" key={variant.id}>
+                          <Box minInlineSize="5%">
+                            {variant.imageUrl && (
+                              <Image
+                                alt={variant.title}
+                                source={variant.imageUrl}
+                              />
+                            )}
+                          </Box>
+                          <Box minInlineSize="5%">
+                            <Text>{variant.title}</Text>
+                          </Box>
+                          <Box minInlineSize="50%">
+                            <NumberField
+                              value={limit}
+                              min={0}
+                              max={99}
+                              label="Set a limit"
+                              defaultValue={String(limit)}
+                              onChange={async (value) => {
+                                setErrors([]);
+                                const newSettings = {
+                                  ...settings,
+                                  [variant.id]: value,
+                                };
+
+                                const results = await applyMetafieldChange({
+                                  type: "updateMetafield",
+                                  namespace: "$app:product-limits",
+                                  key: "product-limits-values",
+                                  value: JSON.stringify(newSettings),
+                                });
+
+                                if (results.type === "error") {
+                                  setErrors([results.message]);
+                                }
+                              }}
+                            />
+                          </Box>
+                        </InlineStack>
+                      );
+                    })}
+                  </BlockStack>
+                </Section>
+              );
+            })
+          }
+        </BlockStack>
+      </Box>
+    </FunctionSettings>
+  );
+}
+{%- elsif flavor contains 'typescript' -%}
 import {
   extend,
   Section,
+  NumberField,
+  Box,
+  InlineStack,
   Text,
+  BlockStack,
+  Banner,
+  Image,
   FunctionSettings,
 } from "@shopify/ui-extensions/admin";
 
-// The target used here must match the target used in the extension's toml file (../shopify.extension.toml)
 const TARGET = "admin.settings.validation.render";
 
-extend(TARGET, (root, { i18n, applyMetafieldChange }) => {
-  // Transform your state into metafields and send them back to the admin to batch the
-  // changes together with the rest of merchant updates to the routing strategy
-  const handleSubmit = async () => {
-    await applyMetafieldChange({
-      namespace: "my-namespace",
-      key: "my-key",
-      type: "updateMetafield",
-      value: `{"value": "test"}`,
-      valueType: "json",
-    });
-  };
+export default extend(TARGET, async (root, api) => {
+  const configuration = JSON.parse(
+    api.data.validation?.metafields?.[0]?.value ?? "{}"
+  );
 
-  const handleOnErrors = (errors) => {
-    console.log(errors)
+  if (!api.data.validation?.metafields) {
+    const metafieldDefinition = await createMetafieldDefinition();
+
+    if (!metafieldDefinition) {
+      throw new Error("Failed to create metafield definition");
+    }
   }
 
-  root.appendChild(
-    root.createComponent(
-      FunctionSettings,
-      { onError: handleOnErrors },
+  const products = await getProducts();
+
+  renderValidationSettings(root, configuration, products, api);
+});
+
+function renderValidationSettings(root, configuration, products, api) {
+  const settings = {};
+  let errors = [];
+
+  products.forEach(({ variants }) => {
+    variants.forEach(({ id }) => {
+      const limit = configuration[id] ?? 5;
+      settings[id] = limit;
+    });
+  });
+
+  const handleErrors = (newErrors) => {
+    errors = newErrors.map((e) => e.message);
+    renderContent();
+  };
+
+  const renderErrors = (errors, root) => {
+    if (!errors.length) {
+      return root.createComponent(Text, {}, "");
+    }
+
+    return errors.map((error, i) =>
       root.createComponent(
-        Section,
-        {},
+          Banner,
+          {
+            key: i,
+            title: "Errors were encountered",
+            dismissible: true,
+            tone: "critical",
+          },
+          root.createComponent(Box, {}, error)
+        )
+      )
+  };
+
+  const renderVariant = (variant, settings, root) => {
+    return root.createComponent(
+      InlineStack,
+      { columnGap: "none", key: variant.id },
+      root.createComponent(
+        Box,
+        { minInlineSize: "5%" },
+        variant.imageUrl
+          ? root.createComponent(Image, {
+            source: variant.imageUrl,
+            alt: variant.title
+          })
+          : null
+      ),
+      root.createComponent(
+        Box,
+        { minInlineSize: "5%" },
+        root.createComponent(Text, {}, variant.title)
+      ),
+      root.createComponent(
+        Box,
+        { minInlineSize: "50%" },
+        root.createComponent(NumberField, {
+          label: "Set a limit",
+          value: settings[variant.id],
+          min: 0,
+          max: 99,
+          defaultValue: String(settings[variant.id]),
+          onChange: async (value) => {
+            errors = [];
+            settings[variant.id] = value;
+            const results = await api.applyMetafieldChange({
+              type: "updateMetafield",
+              namespace: "$app:product-limits",
+              key: "product-limits-values",
+              value: JSON.stringify(settings),
+            });
+
+            if (results.type === "error") {
+              errors = [results.message];
+              renderContent();
+            }
+          },
+        })
+      )
+    )
+  };
+
+  const renderProduct = (product, settings, root) => {
+    return root.createComponent(
+      Section,
+      { heading: product.title, key: product.id },
+      root.createComponent(
+        BlockStack,
+        { paddingBlock: "large", key: `block-${product.id}` },
         root.createComponent(
-          Text,
-          { fontWeight: "bold" },
-          i18n.translate("helpText")
+          InlineStack,
+          {},
+          root.createComponent(Box, { minInlineSize: "10%" }),
+          root.createComponent(
+            Box,
+            { minInlineSize: "5%" },
+            root.createComponent(
+              Text,
+              { fontWeight: "bold" },
+              "Variant Name"
+            )
+          ),
+          root.createComponent(
+            Box,
+            { minInlineSize: "50%" },
+            root.createComponent(
+              Text,
+              { fontWeight: "bold" },
+              "Limit"
+            )
+          )
+        ),
+        ...product.variants.map((variant) =>
+          renderVariant(variant, settings, root)
         )
       )
     )
+  };
+
+  const renderContent = () => {
+    return root.appendChild(
+      root.createComponent(
+        FunctionSettings,
+        { onError: handleErrors },
+        root.createComponent(
+          Box,
+          { paddingBlockEnd: "large" },
+          renderErrors(errors, root),
+          root.createComponent(
+            BlockStack,
+            { gap: "large" },
+            products.map((product) =>
+              renderProduct(product, settings, root)
+            )
+          )
+        )
+      )
+    );
+  };
+
+  renderContent();
+}
+{%- elseif flavor contains 'vanilla-js' -%}
+import {
+  extend,
+  Section,
+  NumberField,
+  Box,
+  InlineStack,
+  Text,
+  BlockStack,
+  Banner,
+  Image,
+  FunctionSettings,
+} from "@shopify/ui-extensions/admin";
+
+const TARGET = "admin.settings.validation.render";
+
+export default extend(TARGET, async (root, api) => {
+  const configuration = JSON.parse(
+    api.data.validation?.metafields?.[0]?.value ?? "{}"
   );
+
+  if (!api.data.validation?.metafields) {
+    const metafieldDefinition = await createMetafieldDefinition();
+
+    if (!metafieldDefinition) {
+      throw new Error("Failed to create metafield definition");
+    }
+  }
+
+  const products = await getProducts();
+
+  renderValidationSettings(root, configuration, products, api);
 });
 
+function renderValidationSettings(root, configuration, products, api) {
+  const settings = {};
+  let errors = [];
+
+  products.forEach(({ variants }) => {
+    variants.forEach(({ id }) => {
+      const limit = configuration[id] ?? 5;
+      settings[id] = limit;
+    });
+  });
+
+  const handleErrors = (newErrors) => {
+    errors = newErrors.map((e) => e.message);
+    renderContent();
+  };
+
+  const renderErrors = (errors, root) => {
+    if (!errors.length) {
+      return root.createComponent(Text, {}, "");
+    }
+
+    return errors.map((error, i) =>
+      root.createComponent(
+          Banner,
+          {
+            key: i,
+            title: "Errors were encountered",
+            dismissible: true,
+            tone: "critical",
+          },
+          root.createComponent(Box, {}, error)
+        )
+      )
+  };
+
+  const renderVariant = (variant, settings, root) => {
+    return root.createComponent(
+      InlineStack,
+      { columnGap: "none", key: variant.id },
+      root.createComponent(
+        Box,
+        { minInlineSize: "5%" },
+        variant.imageUrl
+          ? root.createComponent(Image, {
+            source: variant.imageUrl,
+            alt: variant.title
+          })
+          : null
+      ),
+      root.createComponent(
+        Box,
+        { minInlineSize: "5%" },
+        root.createComponent(Text, {}, variant.title)
+      ),
+      root.createComponent(
+        Box,
+        { minInlineSize: "50%" },
+        root.createComponent(NumberField, {
+          label: "Set a limit",
+          value: settings[variant.id],
+          min: 0,
+          max: 99,
+          defaultValue: String(settings[variant.id]),
+          onChange: async (value) => {
+            errors = [];
+            settings[variant.id] = value;
+            const results = await api.applyMetafieldChange({
+              type: "updateMetafield",
+              namespace: "$app:product-limits",
+              key: "product-limits-values",
+              value: JSON.stringify(settings),
+            });
+
+            if (results.type === "error") {
+              errors = [results.message];
+              renderContent();
+            }
+          },
+        })
+      )
+    )
+  };
+
+  const renderProduct = (product, settings, root) => {
+    return root.createComponent(
+      Section,
+      { heading: product.title, key: product.id },
+      root.createComponent(
+        BlockStack,
+        { paddingBlock: "large", key: `block-${product.id}` },
+        root.createComponent(
+          InlineStack,
+          {},
+          root.createComponent(Box, { minInlineSize: "10%" }),
+          root.createComponent(
+            Box,
+            { minInlineSize: "5%" },
+            root.createComponent(
+              Text,
+              { fontWeight: "bold" },
+              "Variant Name"
+            )
+          ),
+          root.createComponent(
+            Box,
+            { minInlineSize: "50%" },
+            root.createComponent(
+              Text,
+              { fontWeight: "bold" },
+              "Limit"
+            )
+          )
+        ),
+        ...product.variants.map((variant) =>
+          renderVariant(variant, settings, root)
+        )
+      )
+    )
+  };
+
+  const renderContent = () => {
+    return root.appendChild(
+      root.createComponent(
+        FunctionSettings,
+        { onError: handleErrors },
+        root.createComponent(
+          Box,
+          { paddingBlockEnd: "large" },
+          renderErrors(errors, root),
+          root.createComponent(
+            BlockStack,
+            { gap: "large" },
+            products.map((product) =>
+              renderProduct(product, settings, root)
+            )
+          )
+        )
+      )
+    );
+  };
+
+  renderContent();
+}
 {%- endif -%}
+
+async function adminApiRequest(query, variables = null) {
+  const results = await fetch("shopify:admin/api/graphql.json", {
+    method: "POST",
+    body: JSON.stringify({ query, variables }),
+  }).then((res) => res.json());
+
+  return results;
+}
+
+async function getProducts() {
+  const query = `#graphql
+    query FetchProducts {
+      products(first: 5) {
+        nodes {
+          title
+          variants(first: 5) {
+            nodes {
+              id
+              title
+              image(maxHeight: 100) {
+                url
+              }
+            }
+          }
+        }
+      }
+    }`;
+
+  const results = await adminApiRequest(query);
+
+  return results?.data?.products?.nodes?.map(({ title, variants }) => {
+    return {
+      title,
+      variants: variants.nodes.map((variant) => ({
+        title: variant.title,
+        id: variant.id,
+        imageUrl: variant?.image?.url,
+      })),
+    };
+  });
+}
+
+async function createMetafieldDefinition() {
+  const definition = {
+    access: {
+      admin: "MERCHANT_READ_WRITE",
+    },
+    key: "product-limits-values",
+    name: "Validation Configuration",
+    namespace: "$app:product-limits",
+    ownerType: "VALIDATION",
+    type: "json",
+  };
+
+  const query = `#graphql
+    mutation CreateMetafieldDefinition($definition: MetafieldDefinitionInput!) {
+      metafieldDefinitionCreate(definition: $definition) {
+        createdDefinition {
+            id
+          }
+        }
+      }
+  `;
+
+  const variables = { definition };
+  const results = await adminApiRequest(query, variables);
+
+  return results.data?.metafieldDefinitionCreate?.createdDefinition;
+}
