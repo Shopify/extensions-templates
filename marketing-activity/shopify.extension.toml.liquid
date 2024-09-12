@@ -1,0 +1,27 @@
+[[extensions]]
+type = "marketing_activity"
+name = "{{ name }}"
+handle = "{{ handle }}"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+title = "Your title"
+description = "Your description"
+api_path = "/replace_me"
+tactic = ""
+marketing_channel = ""
+referring_domain = ""
+is_automation = false
+
+[[extensions.preview_data.types]]
+label = "Desktop"
+value = "desktop"
+
+[[extensions.preview_data.types]]
+label = "Mobile"
+value = "mobile"
+
+[[extensions.fields]]
+name = "example_field"
+heading = "Example Title"
+body = "Example body"
+ui_type = "paragraph"
+

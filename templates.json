@@ -64,6 +64,23 @@
     ]
   },
   {
+    "identifier": "marketing_activity",
+    "name": "Marketing Activity",
+    "defaultName": "Marketing Activity",
+    "group": "Admin",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "marketing_activity",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Config only",
+        "value": "config-only",
+        "path": "marketing-activity"
+      }
+    ]
+  },
+  {
     "identifier": "product_configuration",
     "name": "Product configuration",
     "defaultName": "product-configuration",
