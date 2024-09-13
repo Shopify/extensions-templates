@@ -18,75 +18,107 @@ export default reactExtension(TARGET, async (api) => {
   return <App />;
 });
 
+function PercentageField({ defaultValue, value, onChange, i18n }) {
+  return (
+    <Box paddingBlockEnd="300">
+      <BlockStack gap="base">
+        <Text variant="headingMd" as="h2">
+          {i18n.translate('percentage')}
+        </Text>
+        <NumberField
+          label={i18n.translate('discountPercentage')}
+          name="percentage"
+          autoComplete="on"
+          value={value}
+          defaultValue={defaultValue}
+          onChange={onChange}
+          suffix="%"
+        />
+      </BlockStack>
+    </Box>
+  );
+}
+
 function App() {
+  const {
+    loading,
+    applyExtensionMetafieldChange,
+    i18n,
+    initialPercentage,
+    onPercentageValueChange,
+    percentage,
+  } = useExtensionData();
+  return (
+    <Form>
+      <FunctionSettings onSave={applyExtensionMetafieldChange}>
+        <Section>
+          <PercentageField
+            value={percentage}
+            defaultValue={initialPercentage}
+            onChange={onPercentageValueChange}
+            i18n={i18n}
+          />
+        </Section>
+      </FunctionSettings>
+    </Form>
+  );
+}
+
+function useExtensionData() {
   const { applyMetafieldChange, i18n, data } = useApi(TARGET);
-  const [percentage, setPercentage] = useState('');
-  const [error, setError] = useState('');
   const initialMetafields = data?.metafields || [];
+  const [loading, setLoading] = useState(false);
+  const [percentage, setPercentage] = useState(0);
   const [savedMetafields] = useState(initialMetafields);
+  const [initialPercentage, setInitialPercentage] = useState(0);
 
   useEffect(() => {
-    const transferPercentage = parsePercentageMetafield(
-      savedMetafields.find(
-        (metafield) => metafield.key === 'function-configuration',
-      )?.value,
-    );
-    setPercentage(transferPercentage);
+    async function fetchInitialData() {
+      setLoading(true);
+      
+      const transferPercentage = parsePercentageMetafield(
+        savedMetafields.find(
+          (metafield) => metafield.key === 'function-configuration'
+        )?.value
+      );
+      setInitialPercentage(Number(transferPercentage));
+      setPercentage(Number(transferPercentage));
+
+      setLoading(false);
+    }
+    fetchInitialData();
   }, [initialMetafields]);
 
   const onPercentageValueChange = async (value) => {
-    setPercentage(value);
-    await applyExtensionMetafieldChange('percentage', value);
+    setPercentage(Number(value));
   };
 
-  async function applyExtensionMetafieldChange(key, value) {
+  async function applyExtensionMetafieldChange() {
     const commitFormValues = {
-      percentage,
-      [key]: value,
+      percentage: Number(percentage),
     };
-    const results = await applyMetafieldChange({
+    await applyMetafieldChange({
       type: 'updateMetafield',
-      namespace: '$app:discounts--ui-extension',
+      namespace: '$app:example-discounts--ui-extension',
       key: 'function-configuration',
       value: JSON.stringify(commitFormValues),
       valueType: 'json',
     });
-
-    if (results.status === 'error') {
-      setError(results.message);
-    }
   }
 
-  return (
-    <>
-      <Form>
-        <FunctionSettings>
-          <Section>
-            <Box paddingBlockEnd="300">
-              <BlockStack gap="base">
-                <Text variant="headingMd" as="h2">
-                  {i18n.translate('percentage')}
-                </Text>
-                <NumberField
-                  label={i18n.translate('discountPercentage')}
-                  name="percentage"
-                  autoComplete="on"
-                  value={percentage}
-                  onChange={onPercentageValueChange}
-                  suffix="%"
-                />
-              </BlockStack>
-            </Box>
-          </Section>
-        </FunctionSettings>
-      </Form>
-    </>
-  );
+  return {
+    loading,
+    applyExtensionMetafieldChange,
+    i18n,
+    initialPercentage,
+    onPercentageValueChange,
+    percentage,
+  };
 }
-async function makeGraphQLQuery(query, variables) {
+
+async function makeGraphQLQuery(query) {
   const graphQLQuery = {
     query,
-    variables,
   };
 
   const res = await fetch('shopify:admin/api/graphql.json', {
@@ -100,6 +132,8 @@ async function makeGraphQLQuery(query, variables) {
 
   return await res.json();
 }
+
+
 
 function parsePercentageMetafield(value) {
   try {
@@ -140,7 +174,7 @@ export default extension(TARGET, async (root, api) => {
   const functionSettingsComponent = root.createComponent(FunctionSettings, {});
   const FormFragment = root.createComponent(
     Form,
-    {},
+    {onSave: applyExtensionMetafieldChange},
     functionSettingsComponent,
   );
   const setError = (message) => {
@@ -152,7 +186,7 @@ export default extension(TARGET, async (root, api) => {
     percentage = value;
 
     await applyExtensionMetafieldChange({
-      initialValues: { selectedCollections, percentage },
+      initialValues: { percentage },
       updates: { key: 'percentage', value },
       applyMetafieldChange,
       setError,
@@ -197,6 +231,7 @@ async function applyExtensionMetafieldChange({
   applyMetafieldChange,
   setError,
 }) {
+
   const { key, value } = updates;
   const { percentage } = initialValues;
   const commitFormValues = {
@@ -205,7 +240,7 @@ async function applyExtensionMetafieldChange({
   };
   const results = await applyMetafieldChange({
     type: 'updateMetafield',
-    namespace: '$app:discounts--ui-extension',
+    namespace: '$app:example-discounts--ui-extension',
     key: 'function-configuration',
     value: JSON.stringify(commitFormValues),
     valueType: 'json',
@@ -216,7 +251,6 @@ async function applyExtensionMetafieldChange({
   }
 }
 
-// Utility functions
 async function makeGraphQLQuery(query) {
   const graphQLQuery = {
     query,
