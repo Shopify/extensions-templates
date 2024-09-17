@@ -49,8 +49,8 @@ function App() {
     percentage,
   } = useExtensionData();
   return (
-    <Form>
-      <FunctionSettings onSave={applyExtensionMetafieldChange}>
+    <FunctionSettings onSave={applyExtensionMetafieldChange}>
+      <Form>
         <Section>
           <PercentageField
             value={percentage}
@@ -59,8 +59,8 @@ function App() {
             i18n={i18n}
           />
         </Section>
-      </FunctionSettings>
-    </Form>
+      </Form>
+    </FunctionSettings>
   );
 }
 
@@ -75,7 +75,7 @@ function useExtensionData() {
   useEffect(() => {
     async function fetchInitialData() {
       setLoading(true);
-      
+
       const transferPercentage = parsePercentageMetafield(
         savedMetafields.find(
           (metafield) => metafield.key === 'function-configuration'
