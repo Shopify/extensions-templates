@@ -14,36 +14,37 @@ import {
   Image,
 } from "@shopify/ui-extensions-react/admin";
 
-export default reactExtension(
-  "admin.settings.validation.render",
-  async (api) => {
-    const configuration = JSON.parse(
-      api.data.validation?.metafields?.[0]?.value ?? "{}",
-    );
+const TARGET = "admin.settings.validation.render";
 
-    if (!api.data.validation?.metafields) {
-      const metafieldDefinition = await createMetafieldDefinition();
+export default reactExtension(TARGET, async (api) => {
+  const configuration = JSON.parse(
+    api.data.validation?.metafields?.[0]?.value ?? "{}",
+  );
 
-      if (!metafieldDefinition) {
-        throw new Error("Failed to create metafield definition");
-      }
+  if (!api.data.validation?.metafields) {
+    const metafieldDefinition = await createMetafieldDefinition();
+
+    if (!metafieldDefinition) {
+      throw new Error("Failed to create metafield definition");
     }
+  }
 
-    const products = await getProducts();
+  const products = await getProducts();
 
-    return (
-      <ValidationSettings configuration={configuration} products={products} />
-    );
-  },
-);
+  return (
+    <ValidationSettings configuration={configuration} products={products} />
+  );
+});
 
 function ValidationSettings({ configuration, products }) {
   const [errors, setErrors] = useState([]);
 
-  const { applyMetafieldChange } = useApi("admin.settings.validation.render");
-
   // Read existing product variant limits from metafield
-  const settings = createSettings(products, configuration);
+  const [settings, setSettings] = useState(
+    createSettings(products, configuration),
+  );
+
+  const { applyMetafieldChange } = useApi(TARGET);
 
   const onError = (error) => {
     setErrors(errors.map((e) => e.message));
@@ -51,17 +52,19 @@ function ValidationSettings({ configuration, products }) {
 
   const onChange = async (variant, value) => {
     setErrors([]);
-    const newSettings = {
-      ...settings,
+    setSettings((prev) => ({
+      ...prev,
       [variant.id]: Number(value),
-    };
+    }));
+  };
 
+  const onSave = async () => {
     // Write updated product variant limits to metafield
     const result = await applyMetafieldChange({
       type: "updateMetafield",
       namespace: "$app:product-limits",
       key: "product-limits-values",
-      value: JSON.stringify(newSettings),
+      value: JSON.stringify(settings),
     });
 
     if (result.type === "error") {
@@ -70,7 +73,7 @@ function ValidationSettings({ configuration, products }) {
   };
 
   return (
-    <FunctionSettings onError={onError}>
+    <FunctionSettings onSave={onSave} onError={onError}>
       <ErrorBanner errors={errors} />
       <BlockStack gap="large">
         <ProductQuantitySettings
@@ -243,7 +246,6 @@ function createSettings(products, configuration) {
 }
 {%- elsif flavor contains 'typescript-react' -%}
 import { useState } from "react";
-import type { FunctionSettingsError } from "@shopify/ui-extensions-react/admin";
 import {
   reactExtension,
   useApi,
@@ -256,16 +258,19 @@ import {
   Banner,
   InlineStack,
   Image,
+  type FunctionSettingsError,
 } from "@shopify/ui-extensions-react/admin";
+import { type ValidationSettingsApi } from "@shopify/ui-extensions/admin";
+
+const TARGET = "admin.settings.validation.render";
 
 export default reactExtension(
-  "admin.settings.validation.render",
-  async (api) => {
+  TARGET,
+  async (api: ValidationSettingsApi<typeof TARGET>) => {
     const configuration = JSON.parse(
       api.data.validation?.metafields?.[0]?.value ?? "{}",
     );
 
-    // Only needed if the namespace used is app scoped
     if (!api.data.validation?.metafields) {
       const metafieldDefinition = await createMetafieldDefinition();
 
@@ -291,10 +296,12 @@ function ValidationSettings({
 }) {
   const [errors, setErrors] = useState<string[]>([]);
 
-  const { applyMetafieldChange } = useApi("admin.settings.validation.render");
-
   // Read existing product variant limits from metafield
-  const settings = createSettings(products, configuration);
+  const [settings, setSettings] = useState<Record<string, number>>(
+    createSettings(products, configuration),
+  );
+
+  const { applyMetafieldChange } = useApi(TARGET);
 
   const onError = (errors: FunctionSettingsError[]) => {
     setErrors(errors.map((e) => e.message));
@@ -302,17 +309,16 @@ function ValidationSettings({
 
   const onChange = async (variant: ProductVariant, value: number) => {
     setErrors([]);
-    const newSettings = {
-      ...settings,
-      [variant.id]: Number(value),
-    };
+    setSettings((prev) => ({ ...prev, [variant.id]: Number(value) }));
+  };
 
+  const onSave = async () => {
     // Write updated product variant limits to metafield
     const result = await applyMetafieldChange({
       type: "updateMetafield",
       namespace: "$app:product-limits",
       key: "product-limits-values",
-      value: JSON.stringify(newSettings),
+      value: JSON.stringify(settings),
     });
 
     if (result.type === "error") {
@@ -321,7 +327,7 @@ function ValidationSettings({
   };
 
   return (
-    <FunctionSettings onError={onError}>
+    <FunctionSettings onSave={onSave} onError={onError}>
       <ErrorBanner errors={errors} />
       <BlockStack gap="large">
         <ProductQuantitySettings
@@ -383,7 +389,7 @@ function ProductQuantitySettings({
                   label="Set a limit"
                   defaultValue={String(limit)}
                   onChange={(value) => onChange(variant, value)}
-                />
+                ></NumberField>
               </Box>
             </InlineStack>
           );
@@ -563,7 +569,7 @@ function renderValidationSettings(
   let errors: string[] = [];
 
   // Read existing product variant limits from metafield
-  const settings = createSettings(products, configuration);
+  let settings = createSettings(products, configuration);
 
   const onError = (newErrors: FunctionSettingsError[]) => {
     errors = newErrors.map((e) => e.message);
@@ -572,18 +578,19 @@ function renderValidationSettings(
 
   const onChange = async (variant: ProductVariant, value: number) => {
     errors = [];
-
-    const newSettings = {
+    settings = {
       ...settings,
       [variant.id]: Number(value),
     };
+  };
 
+  const onSave = async () => {
     // Write updated product variant limits to metafield
     const results = await api.applyMetafieldChange({
       type: "updateMetafield",
       namespace: "$app:product-limits",
       key: "product-limits-values",
-      value: JSON.stringify(newSettings),
+      value: JSON.stringify(settings),
     });
 
     if (results.type === "error") {
@@ -614,7 +621,7 @@ function renderValidationSettings(
     return root.append(
       root.createComponent(
         FunctionSettings,
-        { onError },
+        { onSave, onError },
         ...renderErrors(errors, root),
         root.createComponent(
           BlockStack,
@@ -852,9 +859,9 @@ function renderValidationSettings(
   api,
 ) {
   let errors = [];
+    // Read existing product variant limits from metafield
+    let settings = createSettings(products, configuration);
 
-  // Read existing product variant limits from metafield
-  const settings = createSettings(products, configuration);
 
   const onError = (newErrors) => {
     errors = newErrors.map((e) => e.message);
@@ -863,18 +870,19 @@ function renderValidationSettings(
 
   const onChange = async (variant, value) => {
     errors = [];
-
-    const newSettings = {
+    settings = {
       ...settings,
       [variant.id]: Number(value),
     };
+  };
 
+  const onSave = async () => {
     // Write updated product variant limits to metafield
     const results = await api.applyMetafieldChange({
       type: "updateMetafield",
       namespace: "$app:product-limits",
       key: "product-limits-values",
-      value: JSON.stringify(newSettings),
+      value: JSON.stringify(settings),
     });
 
     if (results.type === "error") {
@@ -905,7 +913,7 @@ function renderValidationSettings(
     return root.append(
       root.createComponent(
         FunctionSettings,
-        { onError },
+        { onSave, onError },
         ...renderErrors(errors, root),
         root.createComponent(
           BlockStack,
