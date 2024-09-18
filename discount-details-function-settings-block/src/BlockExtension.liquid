@@ -12,7 +12,7 @@ import {
 } from '@shopify/ui-extensions-react/admin';
 
 import { useState, useEffect } from 'react';
-const TARGET = 'admin.discount-details.function-metafields.render';
+const TARGET = 'admin.discount-details.function-settings.render';
 
 export default reactExtension(TARGET, async (api) => {
   return <App />;
@@ -158,7 +158,7 @@ import {
   extension,
 } from '@shopify/ui-extensions/admin';
 
-const TARGET = 'admin.discount-details.function-metafields.render';
+const TARGET = 'admin.discount-details.function-settings.render';
 
 export default extension(TARGET, async (root, api) => {
   const { applyMetafieldChange, i18n, data } = api;

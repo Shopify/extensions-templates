@@ -595,9 +595,9 @@
     ]
   },
   {
-    "identifier": "discount_function_metafields",
-    "name": "Discount Function Metafields - UI Extension",
-    "defaultName": "Discount Function Metafields UI",
+    "identifier": "discount_details_function_settings",
+    "name": "Discount Function Settings - UI Extension",
+    "defaultName": "Discount Function Settings",
     "group": "Admin",
     "supportLinks": ["https://shopify.dev/docs/apps/discounts"],
     "url": "https://github.com/Shopify/extensions-templates",
@@ -607,22 +607,22 @@
       {
         "name": "JavaScript React",
         "value": "react",
-        "path": "discount-function-metafields-block"
+        "path": "discount-details-function-settings-block"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "discount-function-metafields-block"
+        "path": "discount-details-function-settings-block"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "discount-function-metafields-block"
+        "path": "discount-details-function-settings-block"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "discount-function-metafields-block"
+        "path": "discount-details-function-settings-block"
       }
     ],
     "appBetaFlags": ["extensions_only_discounts_app"]
