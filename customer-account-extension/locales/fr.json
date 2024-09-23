@@ -1,5 +1,3 @@
 {
-  "fullPageTitle": "Page",
-  "welcome": "Bienvenue à la cible {{target}} de l'extension d'interface utilisateur du compte client!",
-  "menuItemButton": "Page entière"
+  "earnPoints": "Vous avez gagné 1,000 points avec cette commande. Vous avez été promu au niveau Platine."
 }

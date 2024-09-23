@@ -16,12 +16,8 @@ type = "ui_extension"
 # https://shopify.dev/docs/api/customer-account-ui-extensions/unstable/extension-targets-overview
 
 [[extensions.targeting]]
-module = "./src/MenuActionExtension.{{ srcFileExtension }}"
-target = "customer-account.order.action.menu-item.render"
-
-[[extensions.targeting]]
-module = "./src/FullPageExtension.{{ srcFileExtension }}"
-target = "customer-account.page.render"
+module = "./src/OrderStatusBlock.{{ srcFileExtension }}"
+target = "customer-account.order-status.block.render"
 
 [extensions.capabilities]
 # Gives your extension access to directly query Shopify’s storefront API.
