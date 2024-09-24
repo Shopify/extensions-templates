@@ -17,17 +17,16 @@ import {
 const TARGET = "admin.settings.validation.render";
 
 export default reactExtension(TARGET, async (api) => {
-  const configuration = JSON.parse(
-    api.data.validation?.metafields?.[0]?.value ?? "{}",
-  );
-
-  if (!api.data.validation?.metafields) {
+  const metafields = api.data.validation?.metafields;
+  if (!metafields) {
     const metafieldDefinition = await createMetafieldDefinition(api.query);
 
     if (!metafieldDefinition) {
       throw new Error("Failed to create metafield definition");
     }
   }
+
+  const configuration = JSON.parse(metafields?.[0]?.value ?? "{}");
 
   const products = await getProducts(api.query);
 
@@ -227,6 +226,7 @@ function createSettings(products, configuration) {
 
   return settings;
 }
+
 {%- elsif flavor contains 'typescript-react' -%}
 import { useState } from "react";
 import {
@@ -250,17 +250,16 @@ const TARGET = "admin.settings.validation.render";
 export default reactExtension(
   TARGET,
   async (api: ValidationSettingsApi<typeof TARGET>) => {
-    const configuration = JSON.parse(
-      api.data.validation?.metafields?.[0]?.value ?? "{}",
-    );
-
-    if (!api.data.validation?.metafields) {
+    const metafields = api.data.validation?.metafields;
+    if (!metafields) {
       const metafieldDefinition = await createMetafieldDefinition(api.query);
 
       if (!metafieldDefinition) {
         throw new Error("Failed to create metafield definition");
       }
     }
+
+    const configuration = JSON.parse(metafields?.[0]?.value ?? "{}");
 
     const products = await getProducts(api.query);
 
@@ -519,6 +518,7 @@ function createSettings(
 
   return settings;
 }
+
 {%- elsif flavor contains 'typescript' -%}
 import { type RemoteRoot } from "@remote-ui/core";
 import {
@@ -541,17 +541,16 @@ const TARGET = "admin.settings.validation.render";
 export default extend(
   TARGET,
   async (root: RemoteRoot, api: ValidationSettingsApi<typeof TARGET>) => {
-    const configuration = JSON.parse(
-      api.data.validation?.metafields?.[0]?.value ?? "{}",
-    );
-
-    if (!api.data.validation?.metafields) {
+    const metafields = api.data.validation?.metafields;
+    if (!metafields) {
       const metafieldDefinition = await createMetafieldDefinition(api.query);
 
       if (!metafieldDefinition) {
         throw new Error("Failed to create metafield definition");
       }
     }
+
+    const configuration = JSON.parse(metafields?.[0]?.value ?? "{}");
 
     const products = await getProducts(api.query);
 
@@ -834,6 +833,7 @@ function createSettings(
 
   return settings;
 }
+
 {%- elseif flavor contains 'vanilla-js' -%}
 import {
   extend,
@@ -851,17 +851,16 @@ import {
 const TARGET = "admin.settings.validation.render";
 
 export default extend(TARGET, async (root, api) => {
-  const configuration = JSON.parse(
-    api.data.validation?.metafields?.[0]?.value ?? "{}",
-  );
-
-  if (!api.data.validation?.metafields) {
+  const metafields = api.data.validation?.metafields;
+  if (!metafields) {
     const metafieldDefinition = await createMetafieldDefinition(api.query);
 
     if (!metafieldDefinition) {
       throw new Error("Failed to create metafield definition");
     }
   }
+
+  const configuration = JSON.parse(metafields?.[0]?.value ?? "{}");
 
   const products = await getProducts(api.query);
 
@@ -1081,4 +1080,5 @@ function createSettings(products, configuration) {
 
   return settings;
 }
+
 {%- endif -%}
