@@ -1,0 +1,59 @@
+name: Update Template Versions
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'New version (e.g., 2024.10)'
+        required: true
+      directories:
+        description: 'Directories to update (comma-separated)'
+        required: true
+
+jobs:
+  update-versions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Update versions
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          DIRECTORIES="${{ github.event.inputs.directories }}"
+
+          # Convert version format for api_version
+          API_VERSION=$(echo $VERSION | sed 's/\./-/')
+
+          for dir in $(echo $DIRECTORIES | tr ',' ' '); do
+            if [ -d "$dir" ]; then
+              # Update package.json/liquid
+              if [ -f "$dir/package.json.liquid" ]; then
+                sed -i 's/"@shopify\/ui-extensions": "[^"]*"/"@shopify\/ui-extensions": "'$VERSION'.x"/' "$dir/package.json.liquid"
+                sed -i 's/"@shopify\/ui-extensions-react": "[^"]*"/"@shopify\/ui-extensions-react": "'$VERSION'.x"/' "$dir/package.json.liquid"
+              fi
+
+              # Update shopify.extension.toml.liquid
+              if [ -f "$dir/shopify.extension.toml.liquid" ]; then
+                sed -i 's/api_version = "[^"]*"/api_version = "'$API_VERSION'"/' "$dir/shopify.extension.toml.liquid"
+              fi
+            else
+              echo "Directory $dir not found, skipping..."
+            fi
+          done
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: Update template versions to ${{ github.event.inputs.version }}
+          title: Update template versions to ${{ github.event.inputs.version }}
+          body: |
+            This PR updates the versions of @shopify/ui-extensions and @shopify/ui-extensions-react in package.json/liquid files,
+            and api_version in shopify.extension.toml.liquid files to ${{ github.event.inputs.version }}.
+
+            Updated directories: ${{ github.event.inputs.directories }}
+          branch: update-template-versions-${{ github.event.inputs.version }}
