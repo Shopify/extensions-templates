@@ -1,0 +1,27 @@
+api_version = "unstable"
+
+[[extensions]]
+# Change the merchant-facing name of the extension in locales/en.default.json
+name = "t:name"
+handle = "{{ handle }}"
+type = "ui_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+
+# Both targets need to be specified for the extensions to work
+[[extensions.targeting]]
+module = "./src/PurchaseOptionsActionExtension.{{ srcFileExtension }}"
+# The target used here must match the target used in the module file (./src/PurchaseOptionsActionExtension.{{ srcFileExtension }})
+target = "admin.product-purchase-option.action.render"
+
+[[extensions.targeting]]
+module = "./src/PurchaseOptionsActionExtension.tsx"
+# The target used here must match the target used in the module file (./src/PurchaseOptionsActionExtension.{{ srcFileExtension }})
+target = "admin.product-variant-purchase-option.action.render"
+
+# Valid extension targets:
+
+# Product index and detail pages
+# - admin.product-purchase-option.action.render
+
+# Product variant detail pages
+# - admin.product-variant-purchase-option.action.render
