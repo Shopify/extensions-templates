@@ -1,7 +1,6 @@
 {%- if flavor contains "react" -%}
 import {useState} from 'react';
 import {
-  reactExtension,
   useApi,
   AdminAction,
   BlockStack,
@@ -14,20 +13,7 @@ import {
   Select,
 } from '@shopify/ui-extensions-react/admin';
 
-const PRODUCT_TARGET = 'admin.product-purchase-option.action.render';
-const PRODUCT_VARIANT_TARGET =
-  'admin.product-variant-purchase-option.action.render';
-
-// Using the same component to handle both extensions
-reactExtension(PRODUCT_TARGET, () => (
-  <AdminSubsAction extension={PRODUCT_TARGET} />
-));
-
-reactExtension(PRODUCT_VARIANT_TARGET, () => (
-  <AdminSubsAction extension={PRODUCT_VARIANT_TARGET} />
-));
-
-export function AdminSubsAction(extension) {
+export default function PurchaseOptionsActionExtension(extension) {
   // The useApi hook provides access to several useful APIs like i18n, close, and data.
   const {i18n, close, data} = useApi(extension);
   console.log({data});
@@ -144,39 +130,30 @@ export function AdminSubsAction(extension) {
 
 {%- else -%}
 import {
-  extend,
   AdminAction,
   BlockStack,
   Box,
   Button,
   InlineStack,
+  Text,
   TextField,
   NumberField,
   Select,
   ChoiceList,
 } from '@shopify/ui-extensions/admin';
 
-// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
-const PRODUCT_TARGET = 'admin.product-purchase-option.action.render';
-const PRODUCT_VARIANT_TARGET =
-  'admin.product-variant-purchase-option.action.render';
-
-// The second argument to the render callback provides access to several useful APIs like i18n, close, and data.
-extend(PRODUCT_TARGET, (root, {i18n, close, data}) => {
-  PurchaseOptionsAction(root, {i18n, close, data});
-});
-
-extend(PRODUCT_VARIANT_TARGET, (root, {i18n, close, data}) => {
-  PurchaseOptionsAction(root, {i18n, close, data});
-});
-
-function PurchaseOptionsAction(root, {i18n, close, data}) {
+export default function PurchaseOptionsAction(
+  extensions,
+  root,
+  {i18n, close, data},
+) {
   let title = '';
   let internalDescription = '';
   let deliveryFrequencyValue = 1;
   let deliveryDiscountValue = 0;
   let deliveryFrequencyUnit = 'week';
   let discountType = 'percentageOff';
+  console.log('Data', data);
 
   const handleSave = () => {
     console.log('Saving', {
@@ -207,7 +184,6 @@ function PurchaseOptionsAction(root, {i18n, close, data}) {
     }
   };
 
-  // Create components
   const titleField = root.createComponent(TextField, {
     label: 'Title',
     value: title,
@@ -291,7 +267,11 @@ function PurchaseOptionsAction(root, {i18n, close, data}) {
       root.createComponent(
         BlockStack,
         {gap: 'large'},
-        root.createComponent(Text, {fontWeight: 'bold'}, i18n.translate('welcome', {TARGET})),
+        root.createComponent(
+          Text,
+          {fontWeight: 'bold'},
+          i18n.translate('welcome', {extensions}),
+        ),
         titleField,
         internalDescriptionField,
         root.createComponent(Box, null, discountTypeChoiceList),
