@@ -29,7 +29,7 @@ function App() {
 
 {%- else -%}
 import {
-  extend,
+  extension,
   AdminBlock,
   BlockStack,
   Text
@@ -38,7 +38,7 @@ import {
 // The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
 const TARGET = 'admin.product-details.block.render';
 
-extend(TARGET, (root, { i18n, data }) => {
+export default extension(TARGET, (root, { i18n, data }) => {
   console.log({data});
 
   root.append(

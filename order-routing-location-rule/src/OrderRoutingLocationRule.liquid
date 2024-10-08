@@ -58,7 +58,7 @@ function App() {
 }
 
 {%- else -%}
-import { extend, Box, Form, Text } from "@shopify/ui-extensions/admin";
+import { extension, Box, Form, Text } from "@shopify/ui-extensions/admin";
 
 // Transform your state into metafields and send them back to the admin to batch the
 // changes together with the rest of merchant updates to the routing strategy
@@ -88,7 +88,7 @@ const handleOnReset = () => {
 };
 
 // The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
-extend("admin.settings.order-routing-rule.render", (root, { extension: {target}, i18n, data, applyMetafieldsChange }) => {
+export default extension("admin.settings.order-routing-rule.render", (root, { extension: {target}, i18n, data, applyMetafieldsChange }) => {
   console.log({data});
   root.appendChild(
     root.createComponent(

@@ -92,7 +92,7 @@ function App() {
 
 {%- else -%}
 import {
-  extend,
+  extension,
   AdminPrintAction,
   Banner,
   BlockStack,
@@ -107,7 +107,7 @@ const TARGET = "admin.order-details.print-action.render";
 const baseSrc = "https://cdn.shopify.com/static/extensibility/print-example";
 
 // The second argument to the render callback provides access to several useful APIs like i18n and data.
-extend(TARGET, (root, { i18n, data }) => {
+export default extension(TARGET, (root, { i18n, data }) => {
   // data has information about the resource to be printed.
   console.log({ data });
 
