@@ -79,13 +79,13 @@ function App() {
 }
 
 {%- else -%}
-import { extend, AdminAction, BlockStack, Button, Text } from "@shopify/ui-extensions/admin";
+import { extension, AdminAction, BlockStack, Button, Text } from "@shopify/ui-extensions/admin";
 
 // The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
 const TARGET = 'admin.product-details.action.render';
 
 // The second argument to the render callback provides access to several useful APIs like i18n, close, and data.
-extend(TARGET, (root, { i18n, close, data }) => {
+export default extension(TARGET, (root, { i18n, close, data }) => {
   const productTitle = root.createText('');
 
   getProductInfo(data).then((title) => {

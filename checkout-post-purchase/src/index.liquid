@@ -133,7 +133,7 @@ import {
  * optionally allows data to be stored on the client for use in the `Render`
  * extension point.
  */
- extend("Checkout::PostPurchase::ShouldRender", async ({ storage }) => {
+extend("Checkout::PostPurchase::ShouldRender", async ({ storage }) => {
   const initialState = await getRenderData();
   const render = true;
 
