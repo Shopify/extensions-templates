@@ -120,29 +120,29 @@
     "defaultName": "subscription-ui",
     "group": "Admin",
     "supportLinks": [],
-    "url": "https://github.com/Shopify/cli",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "product_subscription",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "JavaScript React",
         "value": "react",
-        "path": "templates/ui-extensions/projects/product_subscription"
+        "path": "product-subscription"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "templates/ui-extensions/projects/product_subscription"
+        "path": "product-subscription"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "templates/ui-extensions/projects/product_subscription"
+        "path": "product-subscription"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "templates/ui-extensions/projects/product_subscription"
+        "path": "product-subscription"
       }
     ]
   },
@@ -203,19 +203,19 @@
     "defaultName": "web-pixel",
     "group": "Analytics",
     "supportLinks": [],
-    "url": "https://github.com/Shopify/cli",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "web_pixel_extension",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "templates/ui-extensions/projects/web_pixel_extension"
+        "path": "web-pixel-extension"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "templates/ui-extensions/projects/web_pixel_extension"
+        "path": "web-pixel-extension"
       }
     ]
   },
@@ -852,14 +852,14 @@
     "defaultName": "theme-extension",
     "group": "Online store",
     "supportLinks": [],
-    "url": "https://github.com/Shopify/cli",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "theme",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Liquid",
         "value": "liquid",
-        "path": "templates/theme-extension"
+        "path": "theme-extension"
       }
     ]
   },
