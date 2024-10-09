@@ -1,0 +1,65 @@
+## Extension Configuration
+
+When configuring your Admin Link extensions, you can specify various targeting options. Below are the valid extension targets you can use to define where your link will appear within the Shopify Admin.
+
+### Example Configuration
+
+Here’s an example of how to configure your Admin Link extension in the configuration file:
+
+```toml
+api_version = "2024-10"
+
+[[extensions]]
+text = "t:name"
+handle = "{{ handle }}"
+type = "ui_extension"
+
+[[extensions.targeting]]
+target = "admin.product-details.action.render"
+
+### Valid Extension Targets
+
+- **Abandoned Checkout Details Page**
+  - `admin.abandoned-checkout-details.action.render`
+
+- **Catalog Detail Page**
+  - `admin.catalog-details.action.render`
+
+- **Collection Index and Detail Pages**
+  - `admin.collection-details.action.render`
+  - `admin.collection-index.action.render`
+
+- **Company Detail Page**
+  - `admin.company-details.action.render`
+
+- **Customer Index and Detail Pages**
+  - `admin.customer-index.action.render`
+  - `admin.customer-index.selection-action.render`
+  - `admin.customer-details.action.render`
+  - `admin.customer-segment-details.action.render`
+
+- **Discount Index and Detail Pages**
+  - `admin.discount-index.action.render`
+  - `admin.discount-details.action.render`
+
+- **Draft Order Index and Detail Pages**
+  - `admin.draft-order-details.action.render`
+  - `admin.draft-order-index.action.render`
+  - `admin.draft-order-index.selection-action.render`
+
+- **Gift Card Detail Page**
+  - `admin.gift-card-details.action.render`
+
+- **Order Index, Detail Pages, and Order Fulfilled Card**
+  - `admin.order-index.action.render`
+  - `admin.order-index.selection-action.render`
+  - `admin.order-details.action.render`
+  - `admin.order-fulfilled-card.action.render`
+
+- **Product Index and Detail Pages**
+  - `admin.product-index.action.render`
+  - `admin.product-index.selection-action.render`
+  - `admin.product-details.action.render`
+
+- **Product Variant Detail Pages**
+  - `admin.product-variant-details.action.render`
