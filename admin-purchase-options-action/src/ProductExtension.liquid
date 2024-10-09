@@ -2,7 +2,7 @@
 import {reactExtension} from '@shopify/ui-extensions-react/admin';
 import PurchaseOptionsActionExtension from './PurchaseOptionsActionExtension';
 
-reactExtension('admin.product-purchase-option.action.render', () => (
+export default reactExtension('admin.product-purchase-option.action.render', () => (
   <PurchaseOptionsActionExtension extension="admin.product-purchase-option.action.render" />
 ));  
 
@@ -10,7 +10,7 @@ reactExtension('admin.product-purchase-option.action.render', () => (
 import {extension} from '@shopify/ui-extensions/admin';
 import PurchaseOptionsActionExtension from './PurchaseOptionsActionExtension';
 
-extension(
+export default extension(
   'admin.product-purchase-option.action.render',
   (root, {i18n, close, data}) => {
     PurchaseOptionsActionExtension(
