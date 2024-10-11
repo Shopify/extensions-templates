@@ -47,10 +47,11 @@ function App() {
     initialPercentage,
     onPercentageValueChange,
     percentage,
+    resetForm
   } = useExtensionData();
   return (
     <FunctionSettings onSave={applyExtensionMetafieldChange}>
-      <Form>
+    <Form onReset={resetForm}>
         <Section>
           <PercentageField
             value={percentage}
@@ -113,6 +114,7 @@ function useExtensionData() {
     initialPercentage,
     onPercentageValueChange,
     percentage,
+    resetForm: () => setPercentage(initialPercentage)
   };
 }
 
@@ -174,7 +176,10 @@ export default extension(TARGET, async (root, api) => {
   const functionSettingsComponent = root.createComponent(FunctionSettings, {});
   const FormFragment = root.createComponent(
     Form,
-    {onSave: applyExtensionMetafieldChange},
+    {
+      onSave: applyExtensionMetafieldChange, 
+      onReset: () => { percentage = Number(transferPercentage) || 0; }
+    },
     functionSettingsComponent,
   );
   const setError = (message) => {
@@ -203,6 +208,7 @@ export default extension(TARGET, async (root, api) => {
   const numberFieldFragment = root.createComponent(NumberField, {
     onChange: onPercentageValueChange,
     value: percentage,
+    defaultValue: percentage,
     suffix: '%',
   });
   const numberFieldBlockStack = root.createComponent(
