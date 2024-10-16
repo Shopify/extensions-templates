@@ -19,6 +19,7 @@ const TARGET = "admin.settings.validation.render";
 export default reactExtension(TARGET, async (api) => {
   const existingDefinition = await getMetafieldDefinition(api.query);
   if (!existingDefinition) {
+    // Create a metafield definition for persistence if no pre-existing definition exists
     const metafieldDefinition = await createMetafieldDefinition(api.query);
 
     if (!metafieldDefinition) {
@@ -26,10 +27,12 @@ export default reactExtension(TARGET, async (api) => {
     }
   }
 
+  // Read existing persisted data about product limits from the associated metafield
   const configuration = JSON.parse(
     api.data.validation?.metafields?.[0]?.value ?? "{}",
   );
 
+  // Query product data needed to render the settings UI
   const products = await getProducts(api.query);
 
   return (
@@ -39,8 +42,7 @@ export default reactExtension(TARGET, async (api) => {
 
 function ValidationSettings({ configuration, products }) {
   const [errors, setErrors] = useState([]);
-
-  // Read existing product variant limits from metafield
+  // State to keep track of product limit settings, initialized to any persisted metafield value
   const [settings, setSettings] = useState(
     createSettings(products, configuration),
   );
@@ -59,7 +61,8 @@ function ValidationSettings({ configuration, products }) {
     };
     setSettings(newSettings);
 
-    // Commit updated product variant limits to memory. The changes are persisted on save.
+    // On input change, commit updated product variant limits to memory.
+    // Caution: the changes are only persisted on save!
     const result = await applyMetafieldChange({
       type: "updateMetafield",
       namespace: "$app:product-limits",
@@ -73,6 +76,7 @@ function ValidationSettings({ configuration, products }) {
   };
 
   return (
+    // Note: FunctionSettings must be rendered for the host to receive metafield updates
     <FunctionSettings onError={onError}>
       <ErrorBanner errors={errors} />
       <ProductQuantitySettings
@@ -99,6 +103,7 @@ function ProductQuantitySettings({ products, settings, onChange }) {
     );
   }
 
+  // Render table of product variants and inputs to assign limits
   return products.map(({ title, variants }) => (
     <Section heading={title} key={title}>
       <BlockStack paddingBlock="large">
@@ -234,6 +239,7 @@ function createSettings(products, configuration) {
 
   products.forEach(({ variants }) => {
     variants.forEach(({ id }) => {
+      // Read existing product limits from metafield
       const limit = configuration[id];
 
       if (limit) {
@@ -270,6 +276,7 @@ export default reactExtension(
   async (api: ValidationSettingsApi<typeof TARGET>) => {
     const existingDefinition = await getMetafieldDefinition(api.query);
     if (!existingDefinition) {
+      // Create a metafield definition for persistence if no pre-existing definition exists
       const metafieldDefinition = await createMetafieldDefinition(api.query);
 
       if (!metafieldDefinition) {
@@ -277,10 +284,12 @@ export default reactExtension(
       }
     }
 
+    // Read existing persisted data about product limits from the associated metafield
     const configuration = JSON.parse(
       api.data.validation?.metafields?.[0]?.value ?? "{}",
     );
 
+    // Query product data needed to render the settings UI
     const products = await getProducts(api.query);
 
     return (
@@ -297,8 +306,7 @@ function ValidationSettings({
   products: Product[];
 }) {
   const [errors, setErrors] = useState<string[]>([]);
-
-  // Read existing product variant limits from metafield
+  // State to keep track of product limit settings, initialized to any persisted metafield value
   const [settings, setSettings] = useState<Record<string, number>>(
     createSettings(products, configuration),
   );
@@ -317,7 +325,8 @@ function ValidationSettings({
     };
     setSettings(newSettings);
 
-    // Commit updated product variant limits to memory. The changes are persisted on save.
+    // On input change, commit updated product variant limits to memory.
+    // Caution: the changes are only persisted on save!
     const result = await applyMetafieldChange({
       type: "updateMetafield",
       namespace: "$app:product-limits",
@@ -331,6 +340,7 @@ function ValidationSettings({
   };
 
   return (
+    // Note: FunctionSettings must be rendered for the host to receive metafield updates
     <FunctionSettings onError={onError}>
       <ErrorBanner errors={errors} />
       <ProductQuantitySettings
@@ -365,6 +375,7 @@ function ProductQuantitySettings({
     );
   }
 
+  // Render table of product variants and inputs to assign limits
   return products.map(({ title, variants }) => (
     <Section heading={title} key={title}>
       <BlockStack paddingBlock="large">
@@ -557,6 +568,7 @@ function createSettings(
 
   products.forEach(({ variants }) => {
     variants.forEach(({ id }) => {
+      // Read existing product limits from metafield
       const limit = configuration[id];
 
       if (limit) {
@@ -592,6 +604,7 @@ export default extend(
   async (root: RemoteRoot, api: ValidationSettingsApi<typeof TARGET>) => {
     const existingDefinition = await getMetafieldDefinition(api.query);
     if (!existingDefinition) {
+      // Create a metafield definition for persistence if no pre-existing definition exists
       const metafieldDefinition = await createMetafieldDefinition(api.query);
 
       if (!metafieldDefinition) {
@@ -599,10 +612,12 @@ export default extend(
       }
     }
 
+    // Read existing persisted data about product limits from the associated metafield
     const configuration = JSON.parse(
       api.data.validation?.metafields?.[0]?.value ?? "{}",
     );
 
+    // Query product data needed to render the settings UI
     const products = await getProducts(api.query);
 
     renderValidationSettings(root, configuration, products, api);
@@ -616,8 +631,7 @@ function renderValidationSettings(
   api: ValidationSettingsApi<typeof TARGET>,
 ) {
   let errors: string[] = [];
-
-  // Read existing product variant limits from metafield
+  // State to keep track of product limit settings, initialized to any persisted metafield value
   let settings = createSettings(products, configuration);
 
   const onError = (newErrors: FunctionSettingsError[]) => {
@@ -633,7 +647,8 @@ function renderValidationSettings(
     };
     settings = newSettings;
 
-    // Commit updated product variant limits to memory. The changes are persisted on save.
+    // On input change, commit updated product variant limits to memory.
+    // Caution: the changes are only persisted on save!
     const result = await api.applyMetafieldChange({
       type: "updateMetafield",
       namespace: "$app:product-limits",
@@ -667,6 +682,7 @@ function renderValidationSettings(
   const renderContent = () => {
     return root.append(
       root.createComponent(
+        // Note: FunctionSettings must be rendered for the host to receive metafield updates
         FunctionSettings,
         { onError },
         ...renderErrors(errors, root),
@@ -742,6 +758,7 @@ function renderProductQuantitySettings(
     );
   };
 
+  // Render table of product variants and inputs to assign limits
   return root.createComponent(
     Section,
     { heading: product.title },
@@ -898,6 +915,7 @@ function createSettings(
 
   products.forEach(({ variants }) => {
     variants.forEach(({ id }) => {
+      // Read existing product limits from metafield
       const limit = configuration[id];
 
       if (limit) {
@@ -928,6 +946,7 @@ const TARGET = "admin.settings.validation.render";
 export default extend(TARGET, async (root, api) => {
   const existingDefinition = await getMetafieldDefinition(api.query);
   if (!existingDefinition) {
+    // Create a metafield definition for persistence if no pre-existing definition exists
     const metafieldDefinition = await createMetafieldDefinition(api.query);
 
     if (!metafieldDefinition) {
@@ -935,10 +954,12 @@ export default extend(TARGET, async (root, api) => {
     }
   }
 
+  // Read existing persisted data about product limits from the associated metafield
   const configuration = JSON.parse(
     api.data.validation?.metafields?.[0]?.value ?? "{}",
   );
 
+  // Query product data needed to render the settings UI
   const products = await getProducts(api.query);
 
   renderValidationSettings(root, configuration, products, api);
@@ -946,7 +967,7 @@ export default extend(TARGET, async (root, api) => {
 
 function renderValidationSettings(root, configuration, products, api) {
   let errors = [];
-  // Read existing product variant limits from metafield
+  // State to keep track of product limit settings, initialized to any persisted metafield value
   let settings = createSettings(products, configuration);
 
   const onError = (newErrors) => {
@@ -962,7 +983,8 @@ function renderValidationSettings(root, configuration, products, api) {
     };
     settings = newSettings;
 
-    // Commit updated product variant limits to memory. The changes are persisted on save.
+    // On input change, commit updated product variant limits to memory.
+    // Caution: the changes are only persisted on save!
     const result = await api.applyMetafieldChange({
       type: "updateMetafield",
       namespace: "$app:product-limits",
@@ -996,6 +1018,7 @@ function renderValidationSettings(root, configuration, products, api) {
   const renderContent = () => {
     return root.append(
       root.createComponent(
+        // Note: FunctionSettings must be rendered for the host to receive metafield updates
         FunctionSettings,
         { onError },
         ...renderErrors(errors, root),
@@ -1062,6 +1085,7 @@ function renderProductQuantitySettings(root, product, settings, onChange) {
     );
   };
 
+  // Render table of product variants and inputs to assign limits
   return root.createComponent(
     Section,
     { heading: product.title },
@@ -1161,6 +1185,7 @@ function createSettings(products, configuration) {
 
   products.forEach(({ variants }) => {
     variants.forEach(({ id }) => {
+      // Read existing product limits from metafield
       const limit = configuration[id];
 
       if (limit) {
