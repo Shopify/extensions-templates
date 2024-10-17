@@ -1,0 +1,60 @@
+api_version = "unstable"
+
+[[extensions]]
+name = "t:name"
+handle = "{{ handle }}"
+type = "data_extension"
+
+# Only 1 target can be specified for each Admin action condition extension
+[[extensions.targeting]]
+module = "./src/Condition.{{ srcFileExtension }}"
+# The target used here must match the target used in the module file (./src/Condition.{{ srcFileExtension }})
+target = "admin.product-details.action.condition"
+
+
+# Valid extension targets:
+
+# Abandoned checkout details page
+# - admin.abandoned-checkout-details.action.condition
+
+# Catalog detail page
+# - admin.catalog-details.action.condition
+
+# Collection index and detail pages
+# - admin.collection-details.action.condition
+# - admin.collection-index.action.condition
+
+# Company detail page
+# - admin.company-details.action.condition
+
+# Customer index and detail pages
+# - admin.customer-index.action.condition
+# - admin.customer-index.selection-action.condition
+# - admin.customer-details.action.condition
+# - admin.customer-segment-details.action.condition
+
+# Discount index and detail pages
+# - admin.discount-index.action.condition
+# - admin.discount-details.action.condition
+
+# Draft order index and detail pages
+# - admin.draft-order-details.action.condition
+# - admin.draft-order-index.action.condition
+# - admin.draft-order-index.selection-action.condition
+
+# Gift card detail page
+# - admin.gift-card-details.action.condition
+
+# Order index, detail pages and order fulfilled card
+# - admin.order-index.action.condition
+# - admin.order-index.selection-action.condition
+# - admin.order-details.action.condition
+# - admin.order-fulfilled-card.action.condition
+
+# Product index and detail pages
+# - admin.product-index.action.condition
+# - admin.product-index.selection-action.condition
+# - admin.product-details.action.condition
+
+# Product variant detail pages
+# - admin.product-variant-details.action.condition
