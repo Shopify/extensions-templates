@@ -177,7 +177,7 @@ export default extension(TARGET, async (root, api) => {
   const FormFragment = root.createComponent(
     Form,
     {
-      onSave: applyExtensionMetafieldChange, 
+      onSave: applyExtensionMetafieldChange,
       onReset: () => { percentage = Number(transferPercentage) || 0; }
     },
     functionSettingsComponent,
