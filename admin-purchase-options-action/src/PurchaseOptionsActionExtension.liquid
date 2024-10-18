@@ -1,0 +1,297 @@
+{%- if flavor contains "react" -%}
+import {useState} from 'react';
+import {
+  useApi,
+  AdminAction,
+  BlockStack,
+  Button,
+  TextField,
+  ChoiceList,
+  Box,
+  InlineStack,
+  NumberField,
+  Select,
+} from '@shopify/ui-extensions-react/admin';
+
+export default function PurchaseOptionsActionExtension(extension) {
+  // The useApi hook provides access to several useful APIs like i18n, close, and data.
+  const {i18n, close, data} = useApi(extension);
+  console.log({data});
+  const [merchantCode, setMerchantCode] = useState('');
+  const [planName, setPlanName] = useState('');
+  const [discountType, setDiscountType] = useState('percentageOff');
+  const [deliveryOptions, setDeliveryOptions] = useState({
+    frequency: 0,
+    timeType: 'day',
+    discount: 0,
+  });
+
+  const updateDeliveryOption = (field, value) => {
+    setDeliveryOptions((prevOptions) => ({
+      ...prevOptions,
+      [field]: value,
+    }));
+  };
+
+  function handleSave() {
+    // This is where you can use the sellingPlanGroupsCreate and sellingPlanGroupsUpdate mutations
+    console.log('saving');
+    close();
+  }
+
+  function getDiscountLabel(discountType) {
+    switch (discountType) {
+      case 'percentageOff':
+        return 'Percentage off';
+      case 'amountOff':
+        return 'Amount off';
+      case 'flatRate':
+        return 'Flat rate';
+    }
+  }
+
+  return (
+    <AdminAction
+      primaryAction={<Button onPress={handleSave}>Save</Button>}
+      secondaryAction={
+        <Button
+          onPress={() => {
+            console.log('closing');
+            close();
+          }}
+        >
+          Cancel
+        </Button>
+      }
+    >
+      <BlockStack gap="large">
+        {i18n.translate('welcome', {extension})}
+        <TextField
+          label="Title"
+          placeholder="Subscribe and save"
+          value={planName}
+          onChange={setPlanName}
+        />
+        <TextField
+          label="Internal description"
+          value={merchantCode}
+          onChange={setMerchantCode}
+        />
+        <Box>
+          <ChoiceList
+            name="discountType"
+            choices={[
+              {
+                label: 'Percentage off',
+                id: 'percentageOff',
+              },
+              {
+                label: 'Amount off',
+                id: 'amountOff',
+              },
+              {
+                label: 'Flat rate',
+                id: 'flatRate',
+              },
+            ]}
+            defaultValue={['percentageOff']}
+            value={[discountType]}
+            onChange={(e) => setDiscountType(typeof e === 'string' ? e : e[0])}
+          />
+        </Box>
+        <Box>
+          <InlineStack gap inlineAlignment="end" blockAlignment="end">
+            <NumberField
+              label="Delivery frequency"
+              value={deliveryOptions.frequency}
+              onChange={(value) => updateDeliveryOption('frequency', value)}
+            />
+            <Select
+              label="Delivery interval"
+              value={deliveryOptions.timeType}
+              onChange={(value) => updateDeliveryOption('timeType', value)}
+              options={[
+                {value: 'weeks', label: 'Weeks'},
+                {value: 'months', label: 'Months'},
+                {value: 'years', label: 'Years'},
+              ]}
+            />
+            <NumberField
+              label={getDiscountLabel(discountType)}
+              value={deliveryOptions.discount}
+              onChange={(value) => updateDeliveryOption('discount', value)}
+            />
+          </InlineStack>
+        </Box>
+      </BlockStack>
+    </AdminAction>
+  );
+}
+
+{%- else -%}
+import {
+  AdminAction,
+  BlockStack,
+  Box,
+  Button,
+  InlineStack,
+  Text,
+  TextField,
+  NumberField,
+  Select,
+  ChoiceList,
+} from '@shopify/ui-extensions/admin';
+
+export default function PurchaseOptionsAction(
+  extensions,
+  root,
+  {i18n, close, data},
+) {
+  let title = '';
+  let internalDescription = '';
+  let deliveryFrequencyValue = 1;
+  let deliveryDiscountValue = 0;
+  let deliveryFrequencyUnit = 'week';
+  let discountType = 'percentageOff';
+  console.log('Data', data);
+
+  const handleSave = () => {
+    console.log('Saving', {
+      title,
+      internalDescription,
+      deliveryFrequencyValue,
+      deliveryFrequencyUnit,
+      deliveryDiscountValue,
+    });
+    close();
+  };
+
+  const handleClose = () => {
+    console.log('Closing');
+    close();
+  };
+
+  const getDiscountLabel = (discountType) => {
+    switch (discountType) {
+      case 'percentageOff':
+        return 'Percentage off';
+      case 'amountOff':
+        return 'Amount off';
+      case 'flatRate':
+        return 'Flat rate';
+      default:
+        return 'Discount';
+    }
+  };
+
+  const titleField = root.createComponent(TextField, {
+    label: 'Title',
+    value: title,
+    placeholder: 'Subscribe and save',
+    helpText:
+      'Customers will see this on storefront product pages that have subscriptions',
+    onChange: (value) => {
+      title = value;
+    },
+  });
+
+  const internalDescriptionField = root.createComponent(TextField, {
+    label: 'Internal description',
+    value: internalDescription,
+    helpText: 'For your reference only',
+    onChange: (value) => {
+      internalDescription = value;
+    },
+  });
+
+  const discountField = root.createComponent(NumberField, {
+    label: getDiscountLabel(discountType),
+    value: deliveryDiscountValue,
+    onChange: (value) => {
+      deliveryDiscountValue = value;
+    },
+  });
+
+  const discountTypeChoiceList = root.createComponent(ChoiceList, {
+    title: 'Discount type',
+    selected: discountType,
+    value: discountType,
+    onChange: (value) => {
+      discountType = value;
+      discountField.updateProps({label: getDiscountLabel(discountType)});
+      root.update();
+    },
+    choices: [
+      {label: 'Percentage off', id: 'percentageOff'},
+      {label: 'Amount off', id: 'amountOff'},
+      {label: 'Flat rate', id: 'flatRate'},
+    ],
+  });
+
+  const deliveryFrequencyField = root.createComponent(NumberField, {
+    label: 'Delivery frequency',
+    value: deliveryFrequencyValue,
+    onChange: (value) => {
+      deliveryFrequencyValue = value;
+    },
+  });
+
+  const deliveryFrequencyUnitSelect = root.createComponent(Select, {
+    label: 'Delivery interval',
+    value: deliveryFrequencyUnit,
+    options: [
+      {label: 'Week', value: 'week'},
+      {label: 'Month', value: 'month'},
+      {label: 'Year', value: 'year'},
+    ],
+    onChange: (value) => {
+      deliveryFrequencyUnit = value;
+    },
+  });
+
+  root.append(
+    root.createComponent(
+      AdminAction,
+      {
+        primaryAction: root.createComponent(
+          Button,
+          {onPress: handleSave},
+          'Done',
+        ),
+        secondaryAction: root.createComponent(
+          Button,
+          {onPress: handleClose},
+          'Close',
+        ),
+      },
+      root.createComponent(
+        BlockStack,
+        {gap: 'large'},
+        root.createComponent(
+          Text,
+          {fontWeight: 'bold'},
+          i18n.translate('welcome', {extensions}),
+        ),
+        titleField,
+        internalDescriptionField,
+        root.createComponent(Box, null, discountTypeChoiceList),
+        root.createComponent(
+          Box,
+          null,
+          root.createComponent(
+            InlineStack,
+            {
+              gap: true,
+              inlineAlignment: 'end',
+              blockAlignment: 'end',
+            },
+            deliveryFrequencyField,
+            deliveryFrequencyUnitSelect,
+            discountField,
+          ),
+        ),
+      ),
+    ),
+  );
+}
+{%- endif -%}
