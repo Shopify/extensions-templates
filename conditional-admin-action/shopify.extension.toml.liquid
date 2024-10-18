@@ -1,0 +1,74 @@
+api_version = "unstable"
+
+[[extensions]]
+name = "t:name"
+handle = "action-extension"
+type = "ui_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+
+# Only 1 target can be specified for each Admin action condition extension
+[[extensions.targeting]]
+module = "./src/ActionExtension.tsx"
+# The target used here must match the target used in the module file (./src/ActionExtension.{{ srcFileExtension }})
+target = "admin.product-details.action.render" 
+
+[extensions.targeting.condition]
+# This is a reference to the handle of the data_extension below
+handle = "action-condition-extension"
+
+[[extensions]]
+handle = "action-condition-extension"
+type = "data_extension"
+
+[[extensions.targeting]]
+module = "./src/ShouldRender.ts"
+# The target used here must match the target used in the module file (./src/ShouldRender.{{ srcFileExtension }})
+target = "admin.product-details.action.should-render"
+
+
+# Valid admin data extension targets:
+
+# Abandoned checkout details page
+# - admin.abandoned-checkout-details.action.should-render
+
+# Catalog detail page
+# - admin.catalog-details.action.should-render
+
+# Collection index and detail pages
+# - admin.collection-details.action.should-render
+# - admin.collection-index.action.should-render
+
+# Company detail page
+# - admin.company-details.action.should-render
+
+# Customer index and detail pages
+# - admin.customer-index.action.should-render
+# - admin.customer-index.selection-action.should-render
+# - admin.customer-details.action.should-render
+# - admin.customer-segment-details.action.should-render
+
+# Discount index and detail pages
+# - admin.discount-index.action.should-render
+# - admin.discount-details.action.should-render
+
+# Draft order index and detail pages
+# - admin.draft-order-details.action.should-render
+# - admin.draft-order-index.action.should-render
+# - admin.draft-order-index.selection-action.should-render
+
+# Gift card detail page
+# - admin.gift-card-details.action.should-render
+
+# Order index, detail pages and order fulfilled card
+# - admin.order-index.action.should-render
+# - admin.order-index.selection-action.should-render
+# - admin.order-details.action.should-render
+# - admin.order-fulfilled-card.action.should-render
+
+# Product index and detail pages
+# - admin.product-index.action.should-render
+# - admin.product-index.selection-action.should-render
+# - admin.product-details.action.should-render
+
+# Product variant detail pages
+# - admin.product-variant-details.action.should-render
