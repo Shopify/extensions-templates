@@ -23,7 +23,7 @@ function PercentageField({ defaultValue, value, onChange, i18n }) {
     <Box paddingBlockEnd="300">
       <BlockStack gap="base">
         <Text variant="headingMd" as="h2">
-          {i18n.translate('percentage')}
+          {i18n.translate('description')}
         </Text>
         <NumberField
           label={i18n.translate('discountPercentage')}
@@ -203,7 +203,7 @@ export default extension(TARGET, async (root, api) => {
     {
       fontVariant: 'bold-200',
     },
-    i18n.translate('percentage'),
+    i18n.translate('description'),
   );
   const numberFieldFragment = root.createComponent(NumberField, {
     onChange: onPercentageValueChange,
