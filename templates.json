@@ -237,6 +237,23 @@
     ]
   },
   {
+    "identifier": "flow-trigger-lifecycle-callback",
+    "name": "Flow trigger lifecycle callback",
+    "defaultName": "Flow trigger lifecycle callback",
+    "group": "Automations",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "flow_trigger_lifecycle_callback",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Config only",
+        "value": "config-only",
+        "path": "flow-trigger-lifecycle-callback"
+      }
+    ]
+  },
+  {
     "identifier": "flow_template",
     "name": "Flow template",
     "defaultName": "Flow template",
