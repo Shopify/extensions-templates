@@ -983,5 +983,16 @@
         "path": "pos-ui-extension"
       }
     ]
+  },
+  {
+    "identifier": "admin_link",
+    "name": "Admin link",
+    "defaultName": "admin-link",
+    "group": "Admin",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": []
   }
 ]
