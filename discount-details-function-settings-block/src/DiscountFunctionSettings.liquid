@@ -15,6 +15,15 @@ import { useState, useEffect } from 'react';
 const TARGET = 'admin.discount-details.function-settings.render';
 
 export default reactExtension(TARGET, async (api) => {
+  const existingDefinition = await getMetafieldDefinition(api.query);
+  if (!existingDefinition) {
+    // Create a metafield definition for persistence if no pre-existing definition exists
+    const metafieldDefinition = await createMetafieldDefinition(api.query);
+
+    if (!metafieldDefinition) {
+      throw new Error('Failed to create metafield definition');
+    }
+  }
   return <App />;
 });
 
@@ -118,6 +127,51 @@ function useExtensionData() {
   };
 }
 
+const METAFIELD_NAMESPACE = '$app:example-discounts--ui-extension';
+const METAFIELD_KEY = 'function-configuration';
+async function getMetafieldDefinition(adminApiQuery) {
+  const query = `#graphql
+    query GetMetafieldDefinition {
+      metafieldDefinitions(first: 1, ownerType: DISCOUNT, namespace: "${METAFIELD_NAMESPACE}", key: "${METAFIELD_KEY}") {
+        nodes {
+          id
+        }
+      }
+    }
+  `;
+
+  const result = await adminApiQuery(query);
+
+  return result?.data?.metafieldDefinitions?.nodes[0];
+}
+async function createMetafieldDefinition(adminApiQuery) {
+  const definition = {
+    access: {
+      admin: 'MERCHANT_READ_WRITE',
+    },
+    key: METAFIELD_KEY,
+    name: 'Discount Configuration',
+    namespace: METAFIELD_NAMESPACE,
+    ownerType: 'DISCOUNT',
+    type: 'json',
+  };
+
+  const query = `#graphql
+    mutation CreateMetafieldDefinition($definition: MetafieldDefinitionInput!) {
+      metafieldDefinitionCreate(definition: $definition) {
+        createdDefinition {
+            id
+          }
+        }
+      }
+  `;
+
+  const variables = { definition };
+  const result = await adminApiQuery(query, { variables });
+
+  return result?.data?.metafieldDefinitionCreate?.createdDefinition;
+}
+
 async function makeGraphQLQuery(query) {
   const graphQLQuery = {
     query,
@@ -134,8 +188,6 @@ async function makeGraphQLQuery(query) {
 
   return await res.json();
 }
-
-
 
 function parsePercentageMetafield(value) {
   try {
@@ -163,6 +215,15 @@ import {
 const TARGET = 'admin.discount-details.function-settings.render';
 
 export default extension(TARGET, async (root, api) => {
+  const existingDefinition = await getMetafieldDefinition(api.query);
+  if (!existingDefinition) {
+    // Create a metafield definition for persistence if no pre-existing definition exists
+    const metafieldDefinition = await createMetafieldDefinition(api.query);
+
+    if (!metafieldDefinition) {
+      throw new Error('Failed to create metafield definition');
+    }
+  }
   const { applyMetafieldChange, i18n, data } = api;
   const initialValues = data?.metafields || [];
   const transferPercentage = parsePercentageMetafield(
@@ -255,6 +316,51 @@ async function applyExtensionMetafieldChange({
   if (results.status === 'error') {
     setError(results.message);
   }
+}
+
+const METAFIELD_NAMESPACE = '$app:example-discounts--ui-extension';
+const METAFIELD_KEY = 'function-configuration';
+async function getMetafieldDefinition(adminApiQuery) {
+  const query = `#graphql
+    query GetMetafieldDefinition {
+      metafieldDefinitions(first: 1, ownerType: DISCOUNT, namespace: "${METAFIELD_NAMESPACE}", key: "${METAFIELD_KEY}") {
+        nodes {
+          id
+        }
+      }
+    }
+  `;
+
+  const result = await adminApiQuery(query);
+
+  return result?.data?.metafieldDefinitions?.nodes[0];
+}
+async function createMetafieldDefinition(adminApiQuery) {
+  const definition = {
+    access: {
+      admin: 'MERCHANT_READ_WRITE',
+    },
+    key: METAFIELD_KEY,
+    name: 'Discount Configuration',
+    namespace: METAFIELD_NAMESPACE,
+    ownerType: 'DISCOUNT',
+    type: 'json',
+  };
+
+  const query = `#graphql
+    mutation CreateMetafieldDefinition($definition: MetafieldDefinitionInput!) {
+      metafieldDefinitionCreate(definition: $definition) {
+        createdDefinition {
+            id
+          }
+        }
+      }
+  `;
+
+  const variables = { definition };
+  const result = await adminApiQuery(query, { variables });
+
+  return result?.data?.metafieldDefinitionCreate?.createdDefinition;
 }
 
 async function makeGraphQLQuery(query) {
