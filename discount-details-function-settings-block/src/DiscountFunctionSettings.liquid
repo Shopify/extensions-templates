@@ -172,22 +172,6 @@ async function createMetafieldDefinition(adminApiQuery) {
   return result?.data?.metafieldDefinitionCreate?.createdDefinition;
 }
 
-async function makeGraphQLQuery(query) {
-  const graphQLQuery = {
-    query,
-  };
-
-  const res = await fetch('shopify:admin/api/graphql.json', {
-    method: 'POST',
-    body: JSON.stringify(graphQLQuery),
-  });
-
-  if (!res.ok) {
-    console.error('Network error');
-  }
-
-  return await res.json();
-}
 
 function parsePercentageMetafield(value) {
   try {
@@ -361,23 +345,6 @@ async function createMetafieldDefinition(adminApiQuery) {
   const result = await adminApiQuery(query, { variables });
 
   return result?.data?.metafieldDefinitionCreate?.createdDefinition;
-}
-
-async function makeGraphQLQuery(query) {
-  const graphQLQuery = {
-    query,
-  };
-
-  const res = await fetch('shopify:admin/api/graphql.json', {
-    method: 'POST',
-    body: JSON.stringify(graphQLQuery),
-  });
-
-  if (!res.ok) {
-    console.error('Network error');
-  }
-
-  return await res.json();
 }
 
 function parsePercentageMetafield(value) {
