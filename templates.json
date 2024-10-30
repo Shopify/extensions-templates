@@ -147,6 +147,23 @@
     ]
   },
   {
+    "identifier": "subscription_link_extension",
+    "name": "Subscription Link",
+    "defaultName": "subscription-link",
+    "group": "Admin",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "subscription_link_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Config only",
+        "value": "config-only",
+        "path": "subscription-link"
+      }
+    ]
+  },
+  {
     "identifier": "tax_calculation",
     "name": "Tax calculation",
     "defaultName": "tax-calculation",

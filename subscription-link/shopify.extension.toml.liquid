@@ -1,0 +1,6 @@
+[[extensions]]
+name = "{{ name }}"
+type = "subscription_link_extension"
+handle = "{{ handle }}"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+pattern = "/subscriptions{?customer_id,shop}&id={contract_id}"
