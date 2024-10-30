@@ -375,7 +375,9 @@
     "name": "Post-purchase UI",
     "defaultName": "post-purchase-ui",
     "group": "Discounts and checkout",
-    "supportLinks": ["https://shopify.dev/docs/apps/checkout/post-purchase"],
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/checkout/post-purchase"
+    ],
     "url": "https://github.com/Shopify/extensions-templates",
     "type": "checkout_post_purchase",
     "extensionPoints": [],
@@ -415,6 +417,11 @@
     "extensionPoints": [],
     "supportedFlavors": [
       {
+        "name": "Rust",
+        "value": "rust",
+        "path": "checkout/rust/cart-checkout-validation/default"
+      },
+      {
         "name": "JavaScript",
         "value": "vanilla-js",
         "path": "checkout/javascript/cart-checkout-validation/default"
@@ -423,11 +430,6 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "checkout/javascript/cart-checkout-validation/default"
-      },
-      {
-        "name": "Rust",
-        "value": "rust",
-        "path": "checkout/rust/cart-checkout-validation/default"
       },
       {
         "name": "Wasm",
@@ -447,6 +449,11 @@
     "extensionPoints": [],
     "supportedFlavors": [
       {
+        "name": "Rust",
+        "value": "rust",
+        "path": "checkout/rust/cart-transform/default"
+      },
+      {
         "name": "JavaScript",
         "value": "vanilla-js",
         "path": "checkout/javascript/cart-transform/default"
@@ -455,11 +462,6 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "checkout/javascript/cart-transform/default"
-      },
-      {
-        "name": "Rust",
-        "value": "rust",
-        "path": "checkout/rust/cart-transform/default"
       },
       {
         "name": "Wasm",
@@ -479,6 +481,11 @@
     "extensionPoints": [],
     "supportedFlavors": [
       {
+        "name": "Rust",
+        "value": "rust",
+        "path": "checkout/rust/delivery-customization/default"
+      },
+      {
         "name": "JavaScript",
         "value": "vanilla-js",
         "path": "checkout/javascript/delivery-customization/default"
@@ -487,11 +494,6 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "checkout/javascript/delivery-customization/default"
-      },
-      {
-        "name": "Rust",
-        "value": "rust",
-        "path": "checkout/rust/delivery-customization/default"
       },
       {
         "name": "Wasm",
@@ -505,11 +507,18 @@
     "name": "Discount orders - Function",
     "defaultName": "order-discount",
     "group": "Discounts and checkout",
-    "supportLinks": ["https://shopify.dev/docs/apps/discounts"],
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
     "url": "https://github.com/Shopify/function-examples",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
+      {
+        "name": "Rust",
+        "value": "rust",
+        "path": "discounts/rust/order-discounts/default"
+      },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
@@ -519,11 +528,6 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "discounts/javascript/order-discounts/default"
-      },
-      {
-        "name": "Rust",
-        "value": "rust",
-        "path": "discounts/rust/order-discounts/default"
       },
       {
         "name": "Wasm",
@@ -537,11 +541,18 @@
     "name": "Discount products - Function",
     "defaultName": "product-discount",
     "group": "Discounts and checkout",
-    "supportLinks": ["https://shopify.dev/docs/apps/discounts"],
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
     "url": "https://github.com/Shopify/function-examples",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
+      {
+        "name": "Rust",
+        "value": "rust",
+        "path": "discounts/rust/product-discounts/default"
+      },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
@@ -551,11 +562,6 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "discounts/javascript/product-discounts/default"
-      },
-      {
-        "name": "Rust",
-        "value": "rust",
-        "path": "discounts/rust/product-discounts/default"
       },
       {
         "name": "Wasm",
@@ -569,11 +575,18 @@
     "name": "Discount shipping - Function",
     "defaultName": "shipping-discount",
     "group": "Discounts and checkout",
-    "supportLinks": ["https://shopify.dev/docs/apps/discounts"],
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
     "url": "https://github.com/Shopify/function-examples",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
+      {
+        "name": "Rust",
+        "value": "rust",
+        "path": "discounts/rust/shipping-discounts/default"
+      },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
@@ -583,11 +596,6 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "discounts/javascript/shipping-discounts/default"
-      },
-      {
-        "name": "Rust",
-        "value": "rust",
-        "path": "discounts/rust/shipping-discounts/default"
       },
       {
         "name": "Wasm",
@@ -601,11 +609,18 @@
     "name": "Discounts allocator — Function",
     "defaultName": "discounts-allocator",
     "group": "Discounts and checkout",
-    "supportLinks": ["https://shopify.dev/docs/apps/discounts"],
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
     "url": "https://github.com/Shopify/function-examples",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
+      {
+        "name": "Rust",
+        "value": "rust",
+        "path": "discounts/rust/discounts-allocator/default"
+      },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
@@ -615,11 +630,6 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "discounts/javascript/discounts-allocator/default"
-      },
-      {
-        "name": "Rust",
-        "value": "rust",
-        "path": "discounts/rust/discounts-allocator/default"
       },
       {
         "name": "Wasm",
@@ -633,7 +643,9 @@
     "name": "Discount Function Settings - UI Extension",
     "defaultName": "Discount Function Settings",
     "group": "Admin",
-    "supportLinks": ["https://shopify.dev/docs/apps/discounts"],
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
     "url": "https://github.com/Shopify/extensions-templates",
     "type": "ui_extension",
     "extensionPoints": [],
@@ -659,9 +671,10 @@
         "path": "discount-details-function-settings-block"
       }
     ],
-    "appBetaFlags": ["extensions_only_discounts_app"]
+    "appBetaFlags": [
+      "extensions_only_discounts_app"
+    ]
   },
-
   {
     "identifier": "fulfillment_constraints",
     "name": "Fulfillment constraints - Function",
@@ -673,6 +686,11 @@
     "extensionPoints": [],
     "supportedFlavors": [
       {
+        "name": "Rust",
+        "value": "rust",
+        "path": "order-routing/rust/fulfillment-constraints/default"
+      },
+      {
         "name": "JavaScript",
         "value": "vanilla-js",
         "path": "order-routing/javascript/fulfillment-constraints/default"
@@ -681,11 +699,6 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "order-routing/javascript/fulfillment-constraints/default"
-      },
-      {
-        "name": "Rust",
-        "value": "rust",
-        "path": "order-routing/rust/fulfillment-constraints/default"
       },
       {
         "name": "Wasm",
@@ -705,6 +718,11 @@
     "extensionPoints": [],
     "supportedFlavors": [
       {
+        "name": "Rust",
+        "value": "rust",
+        "path": "order-routing/rust/local-pickup-delivery-option-generators/default"
+      },
+      {
         "name": "JavaScript",
         "value": "vanilla-js",
         "path": "order-routing/javascript/local-pickup-delivery-option-generators/default"
@@ -713,11 +731,6 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "order-routing/javascript/local-pickup-delivery-option-generators/default"
-      },
-      {
-        "name": "Rust",
-        "value": "rust",
-        "path": "order-routing/rust/local-pickup-delivery-option-generators/default"
       },
       {
         "name": "Wasm",
@@ -757,7 +770,9 @@
         "path": "customer-segment-template-extension"
       }
     ],
-    "organizationBetaFlags": ["enable_cli_customer_segment_template_extension"]
+    "organizationBetaFlags": [
+      "enable_cli_customer_segment_template_extension"
+    ]
   },
   {
     "identifier": "editor_extension_collection",
@@ -788,6 +803,11 @@
     "extensionPoints": [],
     "supportedFlavors": [
       {
+        "name": "Rust",
+        "value": "rust",
+        "path": "order-routing/rust/location-rules/default"
+      },
+      {
         "name": "JavaScript",
         "value": "vanilla-js",
         "path": "order-routing/javascript/location-rules/default"
@@ -798,17 +818,14 @@
         "path": "order-routing/javascript/location-rules/default"
       },
       {
-        "name": "Rust",
-        "value": "rust",
-        "path": "order-routing/rust/location-rules/default"
-      },
-      {
         "name": "Wasm",
         "value": "wasm",
         "path": "order-routing/wasm/location-rules/default"
       }
     ],
-    "organizationBetaFlags": ["order_routing_extensibility_partner"]
+    "organizationBetaFlags": [
+      "order_routing_extensibility_partner"
+    ]
   },
   {
     "identifier": "order_routing_location_rule_ui",
@@ -843,7 +860,9 @@
         "path": "order-routing-location-rule"
       }
     ],
-    "organizationBetaFlags": ["order_routing_extensibility_partner"]
+    "organizationBetaFlags": [
+      "order_routing_extensibility_partner"
+    ]
   },
   {
     "identifier": "order_submission_rule",
@@ -857,6 +876,11 @@
     "extensionPoints": [],
     "supportedFlavors": [
       {
+        "name": "Rust",
+        "value": "rust",
+        "path": "checkout/rust/order-submission-rule/default"
+      },
+      {
         "name": "JavaScript",
         "value": "vanilla-js",
         "path": "checkout/javascript/order-submission-rule/default"
@@ -867,17 +891,14 @@
         "path": "checkout/javascript/order-submission-rule/default"
       },
       {
-        "name": "Rust",
-        "value": "rust",
-        "path": "checkout/rust/order-submission-rule/default"
-      },
-      {
         "name": "Wasm",
         "value": "wasm",
         "path": "checkout/wasm/order-submission-rule/default"
       }
     ],
-    "organizationBetaFlags": ["enable_cli_checkout_completion_target_function"]
+    "organizationBetaFlags": [
+      "enable_cli_checkout_completion_target_function"
+    ]
   },
   {
     "identifier": "theme_app_extension",
@@ -912,7 +933,9 @@
         "path": "payments-app-extension-credit-card"
       }
     ],
-    "organizationBetaFlags": ["cli_payment_extensions"]
+    "organizationBetaFlags": [
+      "cli_payment_extensions"
+    ]
   },
   {
     "identifier": "custom_credit_card_payments",
@@ -930,7 +953,9 @@
         "path": "payments-app-extension-custom-credit-card"
       }
     ],
-    "organizationBetaFlags": ["cli_payment_extensions"]
+    "organizationBetaFlags": [
+      "cli_payment_extensions"
+    ]
   },
   {
     "identifier": "custom_onsite_payments",
@@ -948,7 +973,9 @@
         "path": "payments-app-extension-custom-onsite"
       }
     ],
-    "organizationBetaFlags": ["cli_payment_extensions"]
+    "organizationBetaFlags": [
+      "cli_payment_extensions"
+    ]
   },
   {
     "identifier": "offsite_payments",
@@ -966,7 +993,9 @@
         "path": "payments-app-extension-offsite"
       }
     ],
-    "organizationBetaFlags": ["cli_payment_extensions"]
+    "organizationBetaFlags": [
+      "cli_payment_extensions"
+    ]
   },
   {
     "identifier": "redeemable_payments",
@@ -984,7 +1013,9 @@
         "path": "payments-app-extension-redeemable"
       }
     ],
-    "organizationBetaFlags": ["cli_payment_extensions"]
+    "organizationBetaFlags": [
+      "cli_payment_extensions"
+    ]
   },
   {
     "identifier": "pos_ui",
