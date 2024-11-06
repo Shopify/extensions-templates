@@ -1046,6 +1046,38 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "pos-ui-extension"
+      },
+      {
+        "identifier": "flow_action",
+        "name": "Flow action",
+        "defaultName": "flow-action",
+        "group": "Flow",
+        "supportLinks": [],
+        "url": "https://github.com/Shopify/extensions-templates",
+        "type": "flow_action",
+        "extensionPoints": [],
+        "supportedFlavors": [
+          {
+            "name": "Config only",
+            "value": "config-only",
+            "path": "flow-action"
+          },
+          {
+            "identifier": "flow_trigger",
+            "name": "Flow trigger",
+            "defaultName": "flow-trigger",
+            "group": "Flow",
+            "supportLinks": [],
+            "url": "https://github.com/Shopify/extensions-templates",
+            "type": "flow_trigger",
+            "extensionPoints": [],
+            "supportedFlavors": [
+              {
+                "name": "Config only",
+                "value": "config-only",
+                "path": "flow-trigger"
+              }
+        ]
       }
     ]
   }
