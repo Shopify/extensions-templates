@@ -12,63 +12,54 @@ module = "./src/ActionExtension.tsx"
 # The target used here must match the target used in the module file (./src/ActionExtension.{{ srcFileExtension }})
 target = "admin.product-details.action.render" 
 
-[extensions.targeting.condition]
-# This is a reference to the handle of the data_extension below
-handle = "action-should-render-extension"
-
-[[extensions]]
-handle = "action-should-render-extension"
-type = "data_extension"
-
-[[extensions.targeting]]
+# This is the relative path to the module that contains the logic to determine if the action trigger should be visible.
+[extensions.targeting.should_render]
 module = "./src/ShouldRender.ts"
-# The target used here must match the target used in the module file (./src/ShouldRender.{{ srcFileExtension }})
-target = "admin.product-details.action.should-render"
 
 
-# Valid admin data extension targets:
+# Valid extension targets:
 
 # Abandoned checkout details page
-# - admin.abandoned-checkout-details.action.should-render
+# - admin.abandoned-checkout-details.action.render
 
 # Catalog detail page
-# - admin.catalog-details.action.should-render
+# - admin.catalog-details.action.render
 
 # Collection index and detail pages
-# - admin.collection-details.action.should-render
-# - admin.collection-index.action.should-render
+# - admin.collection-details.action.render
+# - admin.collection-index.action.render
 
 # Company detail page
-# - admin.company-details.action.should-render
+# - admin.company-details.action.render
 
 # Customer index and detail pages
-# - admin.customer-index.action.should-render
-# - admin.customer-index.selection-action.should-render
-# - admin.customer-details.action.should-render
-# - admin.customer-segment-details.action.should-render
+# - admin.customer-index.action.render
+# - admin.customer-index.selection-action.render
+# - admin.customer-details.action.render
+# - admin.customer-segment-details.action.render
 
 # Discount index and detail pages
-# - admin.discount-index.action.should-render
-# - admin.discount-details.action.should-render
+# - admin.discount-index.action.render
+# - admin.discount-details.action.render
 
 # Draft order index and detail pages
-# - admin.draft-order-details.action.should-render
-# - admin.draft-order-index.action.should-render
-# - admin.draft-order-index.selection-action.should-render
+# - admin.draft-order-details.action.render
+# - admin.draft-order-index.action.render
+# - admin.draft-order-index.selection-action.render
 
 # Gift card detail page
-# - admin.gift-card-details.action.should-render
+# - admin.gift-card-details.action.render
 
 # Order index, detail pages and order fulfilled card
-# - admin.order-index.action.should-render
-# - admin.order-index.selection-action.should-render
-# - admin.order-details.action.should-render
-# - admin.order-fulfilled-card.action.should-render
+# - admin.order-index.action.render
+# - admin.order-index.selection-action.render
+# - admin.order-details.action.render
+# - admin.order-fulfilled-card.action.render
 
 # Product index and detail pages
-# - admin.product-index.action.should-render
-# - admin.product-index.selection-action.should-render
-# - admin.product-details.action.should-render
+# - admin.product-index.action.render
+# - admin.product-index.selection-action.render
+# - admin.product-details.action.render
 
 # Product variant detail pages
-# - admin.product-variant-details.action.should-render
+# - admin.product-variant-details.action.render
