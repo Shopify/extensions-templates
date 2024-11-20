@@ -1062,5 +1062,22 @@
         "path": "admin-link"
       }
     ]
+  },
+  {
+    "identifier": "channel_config_template",
+    "name": "Channel config template",
+    "defaultName": "channel-config-template",
+    "group": "Sales channels",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "channel_config",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Config only",
+        "value": "config-only",
+        "path": "channel-config"
+      }
+    ]
   }
 ]
