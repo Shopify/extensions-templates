@@ -1,10 +1,11 @@
+/// <reference types="@shopify/ui-extensions/admin" />
 
 // The target used here must match the target used in the extension's toml file (./shopify.extension.toml), 
 // except for the "should-render" suffix
 const TARGET = 'admin.product-details.action.should-render';
 
 // The second argument to the render callback provides access to the resource ID.
-export default globalThis.shopify.extension(TARGET, async ({ data }) => {
+export default shopify.extension(TARGET, async ({ data }) => {
   const variantCount = await getVariantsCount(data.selected[0].id);
 
   return {display: variantCount > 1 }
