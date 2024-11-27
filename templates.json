@@ -115,6 +115,23 @@
     ]
   },
   {
+    "identifier": "product_configuration_link_extension",
+    "name": "Product configuration link",
+    "defaultName": "product-configuration-link",
+    "group": "Admin",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "product_configuration_link",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Config only",
+        "value": "config-only",
+        "path": "product-configuration-link"
+      }
+    ]
+  },
+  {
     "identifier": "subscription_ui",
     "name": "Subscription UI",
     "defaultName": "subscription-ui",
