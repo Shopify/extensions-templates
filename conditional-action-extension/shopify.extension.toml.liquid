@@ -8,13 +8,13 @@ type = "ui_extension"
 
 # Only 1 target can be specified for each Admin action condition extension
 [[extensions.targeting]]
-module = "./src/ActionExtension.tsx"
+module = "./src/ActionExtension.{{ srcFileExtension }}"
 # The target used here must match the target used in the module file (./src/ActionExtension.{{ srcFileExtension }})
 target = "admin.product-details.action.render" 
 
 # This is the relative path to the module that contains the logic to determine if the action trigger should be visible.
 [extensions.targeting.should_render]
-module = "./src/ShouldRender.ts"
+module = "./src/ShouldRender.{{ srcFileExtension }}"
 
 
 # Valid extension targets:
