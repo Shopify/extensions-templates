@@ -1,3 +1,4 @@
+/// <reference types="@shopify/ui-extensions/admin" />
 
 // The target used here must match the target used in the extension's toml file (./shopify.extension.toml), 
 // except for the "should-render" suffix
