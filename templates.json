@@ -670,9 +670,6 @@
         "value": "typescript",
         "path": "discount-details-function-settings-block"
       }
-    ],
-    "appBetaFlags": [
-      "extensions_only_discounts_app"
     ]
   },
   {
