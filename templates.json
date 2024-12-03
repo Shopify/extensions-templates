@@ -116,18 +116,18 @@
   },
   {
     "identifier": "product_configuration_link_extension",
-    "name": "Product configuration link",
+    "name": "Product Configuration Link",
     "defaultName": "product-configuration-link",
     "group": "Admin",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
-    "type": "product_configuration_link",
+    "type": "product_configuration_link_extension",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Config only",
         "value": "config-only",
-        "path": "product-configuration-link"
+        "path": "product-configuration-link-extension"
       }
     ]
   },
