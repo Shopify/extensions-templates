@@ -3,18 +3,13 @@ name = "Link Extension"
 handle = "{{ handle }}"
 type = "admin_link"
 
-# Embedded apps: Relative URI to your embedded app home page
+# For embedded apps URIs are defined relative to your embedded app's home page
 #   url = "app://path"
-#   OR
-#   url = "/path"
-# Non embedded apps: Link to an external source
+# For non embedded apps URIs an absolute path to your app
 #   url = "https://yourappdomain.com/path"
-#
-
-# Only 1 target can be specified for each Admin Link extension
 [[extensions.targeting]]
 target = "admin.product.item.link"
-# Change the text of the link in locales/en.default.json
+# The link text is defined in locales/en.default.json and other locale files
 text = "t:text"
 url = "/"
 

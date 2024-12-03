@@ -2,21 +2,6 @@
 
 When configuring your Admin Link extensions, you can specify various targeting options. Below are the valid extension targets you can use to define where your link will appear within the Shopify Admin.
 
-### Example Configuration
-
-Here’s an example of how to configure your Admin Link extension in the configuration file:
-
-```toml
-[[extensions]]
-name = "Link Extension"
-handle = "{{ handle }}"
-type = "admin_link"
-
-[[extensions.targeting]]
-target = "admin.product.item.link"
-url = "app://product"
-text = "t:text"
-
 ### Valid Extension Targets
 
 - **Abandoned Checkout Details Page**
