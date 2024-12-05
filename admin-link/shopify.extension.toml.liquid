@@ -1,5 +1,7 @@
 [[extensions]]
-name = "Link Extension"
+# Name will be used for your link text and is defined in locales/en.default.json and other locale files
+name = "t:name"
+
 handle = "{{ handle }}"
 type = "admin_link"
 
@@ -9,8 +11,6 @@ type = "admin_link"
 #   url = "https://yourappdomain.com/path"
 [[extensions.targeting]]
 target = "admin.product-details.action.link"
-# The link text is defined in locales/en.default.json and other locale files
-text = "t:text"
 url = "/"
 
 # Valid Extension Targets
