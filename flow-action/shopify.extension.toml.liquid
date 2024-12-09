@@ -1,20 +1,12 @@
-[[extensions]]
-name = "{{ name }}"
-handle = "{{ handle }}"
-type = "flow_action"
+[[extensions]] name = "{{ name }}" handle = "{{ handle }}" type = "flow_action"
 {% if uid %}uid = "{{ uid }}"{% endif %}
-description = "Your description"
-runtime_url = "https://url.com/api/execute"
+description = "Your description" runtime_url = "https://url.com/api/execute"
 
 [settings]
 
-  [[settings.fields]]
-  type = "customer_reference"
-  required = true
+[[settings.fields]] type = "customer_reference" required = true
 
-  [[settings.fields]]
-  type = "single_line_text_field"
-  key = "your-field-key"
-  name = "Display name"
-  description = "A description of my field"
-  required = true
+[[settings.fields]] type = "single_line_text_field" key = "your-field-key" name = "Display name" description = "A
+description of my field" required = true
+
+required = true
