@@ -8,20 +8,27 @@ type = "channel_config"
 handle = "channel-config-template"
 uid = "020b85f6-c955-454d-8ec5-629d232db97d"
 
-[[extensions.channel_configs]]
+[[extensions.channel_requirements]]
 handle = "eBay"
 channel_definition_handle = "ebay"
 max_listing_variants = 1000
 publication_status_level = "listing"
 
-[[extensions.channel_configs.markets]]
+[extensions.channel_requirements.display_domains]
+listing_details = 1
+product_attributes = 2
+product_identifier = 3
+offer_information = 4
+product_taxonomy_attributes = 5
+
+[[extensions.channel_requirements.markets]]
 handle = "US"
 taxonomy_name = "ebay-us"
 taxonomy_id = 3
 product_schema = "ebay-us"
 languages = ["EN"]
 
-[[extensions.channel_configs.markets]]
+[[extensions.channel_requirements.markets]]
 handle = "CAN"
 taxonomy_name = "ebay-ca"
 taxonomy_id = 4
