@@ -127,7 +127,7 @@
       {
         "name": "Config only",
         "value": "config-only",
-        "path": "product-configuration-link-extension"
+        "path": "product-configuration-link"
       }
     ]
   },
