@@ -1,0 +1,111 @@
+[[extensions]]
+type = "channel_config"
+handle = "{{ handle }}"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+
+[[extensions.channel_requirements]]
+handle = "eBay"
+channel_definition_handle = "ebay"
+max_listing_variants = 1000
+publication_status_level = "listing"
+
+[extensions.channel_requirements.display_domains]
+listing_details = 1
+product_attributes = 2
+product_identifier = 3
+offer_information = 4
+product_taxonomy_attributes = 5
+
+[[extensions.channel_requirements.markets]]
+handle = "US"
+taxonomy_name = "ebay-us"
+taxonomy_id = 3
+product_schema = "ebay-us"
+languages = ["EN"]
+
+[[extensions.channel_requirements.markets]]
+handle = "CAN"
+taxonomy_name = "ebay-ca"
+taxonomy_id = 4
+product_schema = "ebay-ca"
+languages = ["EN", "FR"]
+
+[[extensions.product_schema]]
+handle = "ebay-us"
+
+[[extensions.product_schema.schema_fields]]
+handle = "sku"
+resource_type = "ProductVariant"
+required_data_type = "string"
+enforcement = "recommended"
+can_overwrite = true
+
+[extensions.product_schema.schema_fields.display]
+display_name = "SKU"
+display_domain = "item_details"
+display_order = 1
+
+[[extensions.product_schema.schema_fields]]
+handle = "title"
+resource_type = "Product"
+default_source_path = "product.title"
+required_data_type = "string"
+enforcement = "required"
+can_overwrite = true
+
+[extensions.product_schema.schema_fields.display]
+display_name = "Title"
+display_domain = "listing_details"
+display_order = 2
+
+[[extensions.product_schema.schema_fields]]
+handle = "subtitle"
+resource_type = "Product"
+required_data_type = "string"
+enforcement = "optional"
+can_overwrite = true
+
+[extensions.product_schema.schema_fields.display]
+display_name = "Subtitle"
+display_domain = "listing_details"
+display_order = 3
+
+[[extensions.product_schema]]
+handle = "ebay-ca"
+
+[[extensions.product_schema.schema_fields]]
+handle = "sku"
+resource_type = "ProductVariant"
+required_data_type = "string"
+enforcement = "recommended"
+can_overwrite = true
+
+[extensions.product_schema.schema_fields.display]
+display_name = "SKU"
+display_domain = "item_details"
+display_order = 1
+
+[[extensions.product_schema.schema_fields]]
+handle = "title"
+resource_type = "Product"
+default_source_path = "product.title"
+required_data_type = "string"
+enforcement = "required"
+can_overwrite = true
+
+[extensions.product_schema.schema_fields.display]
+display_name = "Title"
+display_domain = "listing_details"
+display_order = 2
+
+[[extensions.product_schema.schema_fields]]
+handle = "subtitle"
+resource_type = "Product"
+required_data_type = "string"
+enforcement = "required"
+can_overwrite = true
+
+[extensions.product_schema.schema_fields.display]
+display_name = "Subtitle"
+display_domain = "listing_details"
+display_order = 3
