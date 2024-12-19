@@ -64,19 +64,202 @@
     ]
   },
   {
-    "identifier": "marketing_activity",
-    "name": "Marketing Activity",
-    "defaultName": "Marketing Activity",
+    "identifier": "admin_print",
+    "name": "Admin print action",
+    "defaultName": "admin-print",
     "group": "Admin",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
-    "type": "marketing_activity",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "admin-print-action"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "admin-print-action"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "admin-print-action"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "admin-print-action"
+      }
+    ]
+  },
+  {
+    "identifier": "admin_purchase_option",
+    "name": "Admin purchase options action",
+    "defaultName": "admin-purchase-option",
+    "group": "Admin",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "admin-purchase-options-action"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "admin-purchase-options-action"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "admin-purchase-options-action"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "admin-purchase-options-action"
+      }
+    ]
+  },
+  {
+    "identifier": "support_link",
+    "name": "App Support link",
+    "defaultName": "support-link",
+    "group": "Admin",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "admin_link",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Config only",
         "value": "config-only",
-        "path": "marketing-activity"
+        "path": "support-link"
+      }
+    ]
+  },
+  {
+    "identifier": "conditional_admin_action",
+    "name": "Conditional admin action",
+    "defaultName": "conditional-admin-action",
+    "group": "Admin",
+    "sortPriority": null,
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "conditional-action-extension-js"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "conditional-action-extension-js"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "conditional-action-extension-ts"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "conditional-action-extension-ts"
+      }
+    ]
+  },
+  {
+    "identifier": "customer_segment_template",
+    "name": "Customer segment template",
+    "defaultName": "customer-segment-template",
+    "group": "Admin",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "customer-segment-template-extension"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "customer-segment-template-extension"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "customer-segment-template-extension"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "customer-segment-template-extension"
+      }
+    ],
+    "organizationBetaFlags": [
+      "enable_cli_customer_segment_template_extension"
+    ]
+  },
+  {
+    "identifier": "discount_details_function_settings",
+    "name": "Discount Function Settings",
+    "defaultName": "Discount Function Settings",
+    "group": "Admin",
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "discount-details-function-settings-block"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "discount-details-function-settings-block"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "discount-details-function-settings-block"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "discount-details-function-settings-block"
+      }
+    ]
+  },
+  {
+    "identifier": "editor_extension_collection",
+    "name": "Editor extension collection",
+    "defaultName": "Editor extension collection",
+    "group": "Admin",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "editor_extension_collection",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Config only",
+        "value": "config-only",
+        "path": "editor-extension-collection"
       }
     ]
   },
@@ -115,6 +298,23 @@
     ]
   },
   {
+    "identifier": "subscription_link_extension",
+    "name": "Subscription Link",
+    "defaultName": "subscription-link",
+    "group": "Admin",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "subscription_link_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Config only",
+        "value": "config-only",
+        "path": "subscription-link"
+      }
+    ]
+  },
+  {
     "identifier": "subscription_ui",
     "name": "Subscription UI",
     "defaultName": "subscription-ui",
@@ -147,23 +347,6 @@
     ]
   },
   {
-    "identifier": "subscription_link_extension",
-    "name": "Subscription Link",
-    "defaultName": "subscription-link",
-    "group": "Admin",
-    "supportLinks": [],
-    "url": "https://github.com/Shopify/extensions-templates",
-    "type": "subscription_link_extension",
-    "extensionPoints": [],
-    "supportedFlavors": [
-      {
-        "name": "Config only",
-        "value": "config-only",
-        "path": "subscription-link"
-      }
-    ]
-  },
-  {
     "identifier": "tax_calculation",
     "name": "Tax calculation",
     "defaultName": "tax-calculation",
@@ -182,7 +365,7 @@
   },
   {
     "identifier": "validation_settings_ui",
-    "name": "Validation Settings - UI Extension",
+    "name": "Validation Settings",
     "defaultName": "validation-settings-ui",
     "group": "Admin",
     "supportLinks": [
@@ -254,23 +437,6 @@
     ]
   },
   {
-    "identifier": "flow-trigger-lifecycle-callback",
-    "name": "Flow trigger lifecycle callback",
-    "defaultName": "Flow trigger lifecycle callback",
-    "group": "Automations",
-    "supportLinks": [],
-    "url": "https://github.com/Shopify/extensions-templates",
-    "type": "flow_trigger_lifecycle_callback",
-    "extensionPoints": [],
-    "supportedFlavors": [
-      {
-        "name": "Config only",
-        "value": "config-only",
-        "path": "flow-trigger-lifecycle-callback"
-      }
-    ]
-  },
-  {
     "identifier": "flow_template",
     "name": "Flow template",
     "defaultName": "Flow template",
@@ -305,8 +471,25 @@
     ]
   },
   {
+    "identifier": "flow_trigger_lifecycle_callback",
+    "name": "Flow trigger lifecycle callback",
+    "defaultName": "Flow trigger lifecycle callback",
+    "group": "Automations",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "flow_trigger_lifecycle_callback",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Config only",
+        "value": "config-only",
+        "path": "flow-trigger-lifecycle-callback"
+      }
+    ]
+  },
+  {
     "identifier": "customer_account_ui",
-    "name": "Customer account UI (preview for dev stores only)",
+    "name": "Customer account UI",
     "defaultName": "customer-account-ui",
     "group": "Customer account",
     "supportLinks": [],
@@ -639,40 +822,6 @@
     ]
   },
   {
-    "identifier": "discount_details_function_settings",
-    "name": "Discount Function Settings - UI Extension",
-    "defaultName": "Discount Function Settings",
-    "group": "Admin",
-    "supportLinks": [
-      "https://shopify.dev/docs/apps/discounts"
-    ],
-    "url": "https://github.com/Shopify/extensions-templates",
-    "type": "ui_extension",
-    "extensionPoints": [],
-    "supportedFlavors": [
-      {
-        "name": "JavaScript React",
-        "value": "react",
-        "path": "discount-details-function-settings-block"
-      },
-      {
-        "name": "JavaScript",
-        "value": "vanilla-js",
-        "path": "discount-details-function-settings-block"
-      },
-      {
-        "name": "TypeScript React",
-        "value": "typescript-react",
-        "path": "discount-details-function-settings-block"
-      },
-      {
-        "name": "TypeScript",
-        "value": "typescript",
-        "path": "discount-details-function-settings-block"
-      }
-    ]
-  },
-  {
     "identifier": "fulfillment_constraints",
     "name": "Fulfillment constraints - Function",
     "defaultName": "fulfillment-constraints",
@@ -737,54 +886,34 @@
     ]
   },
   {
-    "identifier": "customer_segment_template",
-    "name": "Customer segment template",
-    "defaultName": "customer-segment-template",
-    "group": "Admin",
+    "identifier": "payment_customization",
+    "name": "Payment customization - Function",
+    "defaultName": "payment-customization",
+    "group": "Discounts and checkout",
     "supportLinks": [],
-    "url": "https://github.com/Shopify/extensions-templates",
-    "type": "ui_extension",
+    "url": "https://github.com/Shopify/function-examples",
+    "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
       {
-        "name": "JavaScript React",
-        "value": "react",
-        "path": "customer-segment-template-extension"
+        "name": "Rust",
+        "value": "rust",
+        "path": "checkout/rust/payment-customization/default"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "customer-segment-template-extension"
-      },
-      {
-        "name": "TypeScript React",
-        "value": "typescript-react",
-        "path": "customer-segment-template-extension"
+        "path": "checkout/javascript/payment-customization/default"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "customer-segment-template-extension"
-      }
-    ],
-    "organizationBetaFlags": [
-      "enable_cli_customer_segment_template_extension"
-    ]
-  },
-  {
-    "identifier": "editor_extension_collection",
-    "name": "Editor extension collection",
-    "defaultName": "Editor extension collection",
-    "group": "Admin",
-    "supportLinks": [],
-    "url": "https://github.com/Shopify/extensions-templates",
-    "type": "editor_extension_collection",
-    "extensionPoints": [],
-    "supportedFlavors": [
+        "path": "checkout/javascript/payment-customization/default"
+      },
       {
-        "name": "Config only",
-        "value": "config-only",
-        "path": "editor-extension-collection"
+        "name": "Wasm",
+        "value": "wasm",
+        "path": "checkout/wasm/payment-customization/default"
       }
     ]
   },
@@ -895,6 +1024,39 @@
     ],
     "organizationBetaFlags": [
       "enable_cli_checkout_completion_target_function"
+    ]
+  },
+  {
+    "identifier": "pickup_point_delivery_option_generator",
+    "name": "Pickup point delivery option generators — Function",
+    "defaultName": "pickup-point-delivery-option-generators",
+    "group": "Discounts and checkout",
+    "sortPriority": null,
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/function-examples",
+    "type": "function",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Rust",
+        "value": "rust",
+        "path": "order-routing/rust/pickup-point-delivery-option-generators/default"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "order-routing/javascript/pickup-point-delivery-option-generators/default"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "order-routing/typescript/pickup-point-delivery-option-generators/default"
+      },
+      {
+        "name": "Wasm",
+        "value": "wasm",
+        "path": "order-routing/wasm/pickup-point-delivery-option-generators/default"
+      }
     ]
   },
   {
