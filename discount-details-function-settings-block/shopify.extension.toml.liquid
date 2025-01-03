@@ -5,6 +5,7 @@ api_version = "2024-10"
 name = "t:name"
 handle = "{{ handle }}"
 type = "ui_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
 
 # Only 1 target can be specified for each Admin block extension
 [[extensions.targeting]]
