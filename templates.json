@@ -315,38 +315,6 @@
     ]
   },
   {
-    "identifier": "subscription_ui",
-    "name": "Subscription UI",
-    "defaultName": "subscription-ui",
-    "group": "Admin",
-    "supportLinks": [],
-    "url": "https://github.com/Shopify/extensions-templates",
-    "type": "product_subscription",
-    "extensionPoints": [],
-    "supportedFlavors": [
-      {
-        "name": "JavaScript React",
-        "value": "react",
-        "path": "product-subscription"
-      },
-      {
-        "name": "JavaScript",
-        "value": "vanilla-js",
-        "path": "product-subscription"
-      },
-      {
-        "name": "TypeScript React",
-        "value": "typescript-react",
-        "path": "product-subscription"
-      },
-      {
-        "name": "TypeScript",
-        "value": "typescript",
-        "path": "product-subscription"
-      }
-    ]
-  },
-  {
     "identifier": "tax_calculation",
     "name": "Tax calculation",
     "defaultName": "tax-calculation",
