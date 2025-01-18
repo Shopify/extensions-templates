@@ -1,0 +1,154 @@
+name = "{{ name }}"
+type = "marketing_activity_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+
+title = ""
+description = ""
+app_api_url = ""
+tactic = "Post"
+
+# Should only be Facebook, Instagram, Pinterest
+platform = ""
+
+#default
+is_automation = false
+is_automation_step = false
+use_external_editor = false
+enable_pricing_confirmation = false
+pricing_information = null
+version_updated_at = ""
+
+#Preview data: Maximum of 3 allowed
+[[preview_data.types]]
+label = "Desktop"
+value = "desktop"
+
+[[preview_data.types]]
+label = "Mobile"
+value = "mobile"
+
+#All of the following fields are required
+
+#Scheduling field: Scheduling options will appear in a modal, not the form, before a user can publish their activity.
+[[fields]]
+ui_type = "schedule"
+name = ""
+label = ""
+help_text = ""
+use_end_date = false
+required = true
+
+#All of the following fields are optional
+
+#Budget field: Get budget currency, amount, and frequency from users. Only 1 budget field allowed.
+[[fields]]
+ui_type = "budget-schedule"
+name = "budget"
+label = ""
+help_text = ""
+use_scheduling = false
+use_end_date = false
+required = false
+use_daily_budget = false
+use_lifetime_budget = false
+
+#Discount selection field: Allow 1 or more existing discounts to be selected by users. Only 1 discount field allowed.
+[[fields]]
+ui_type = "discount-picker"
+label = ""
+help_text = ""
+required = false
+name = "shopify_products"
+min_resources = null
+max_resources = null
+
+# Product Selection field: Allow 1 or more existing discounts to be selected by users.
+[[fields]]
+ui_type = "product-picker"
+label = ""
+help_text = ""
+allow_product_image_selection = false
+allow_uploaded_image_as_product_image = false
+allow_free_image_as_product_image = false
+name = ""
+min_resources = null
+max_resources = null
+min_image_select_per_product = null
+max_image_select_per_product = null
+required = false
+
+# Multiple lines of text field: Freeform text
+[[fields]]
+ui_type = "text-multi-line"
+name = "multi_text"
+label = ""
+placeholder = ""
+help_text = ""
+min_length = 0
+max_length = 0
+required = false
+
+#Choice options field: Allow merchants to select from choice list
+[[fields]]
+ui_type = "select-single"
+name = ""
+label = ""
+required = false
+  [[fields.choices]]
+  label = ""
+  value = ""
+
+  [[fields.choices]]
+  label = ""
+  value = ""
+
+# Title and body display text field: Display some information to merchants
+[[fields]]
+ui_type = "paragraph"
+heading = ""
+body = ""
+
+# Typeahead field: The typeahead component is populated by the dynamic standalone endpoint.
+# View the API documentation to learn more about the dynamic standalone endpoint.
+[[fields]]
+ui_type = "type-ahead"
+name = ""
+label = ""
+placeholder = ""
+help_text = ""
+required = false
+
+#Number float:
+[[fields]]
+ui_type = "number-float"
+name = ""
+label = ""
+help_text = ""
+min = 0
+max = 0
+step = 1
+required = false
+
+#Number integer:
+[[fields]]
+ui_type = "number-integer"
+name = ""
+label = ""
+help_text = ""
+min = 0
+max = 0
+step = 1
+required = false
+
+[[fields]]
+ui_type = "image-picker"
+name = ""
+label = ""
+help_text = ""
+min_resources = 0
+max_resources = 0
+allow_free_images = false
+required = false
+alt_text_required = false
+
+#Suggestion: Fields we won't propogate: single line of text(seems similiar to multi line)
