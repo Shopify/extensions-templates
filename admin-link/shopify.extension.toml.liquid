@@ -6,10 +6,14 @@ handle = "{{ handle }}"
 type = "admin_link"
 {% if uid %}uid = "{{ uid }}"{% endif %}
 
-# For embedded apps URIs are defined relative to your embedded app's home page
-#   url = "app://path"
-# For non embedded apps URIs are an absolute path to your app
-#   url = "https://yourappdomain.com/path"
+# For embedded apps URIs are defined relative to the domain of the configured application_url in your shopify.app.toml
+# If you enter an empty path the link will resolve to the configured application_url in your shopify.app.toml
+# For example, app:// or / will resolve to the application_url https://my-app-domain.com/home
+# All other paths will be resolved relative to the domain of the application_url
+# For example, app://path or /path with configured application_url https://my-app-domain.com/home will resolve to https://my-app-domain.com/path
+# url = "app://path"
+# For non-embedded apps URIs are an absolute path to your app
+# url = "https://yourappdomain.com/path"
 [[extensions.targeting]]
 target = "admin.product-details.action.link"
 url = "/"
