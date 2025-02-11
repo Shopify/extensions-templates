@@ -11,7 +11,7 @@ type = "ui_extension"
 module = "./src/ProductDetailsConfigurationExtension.{{ srcFileExtension }}"
 # The target used here must match the target used in the module file (./src/ProductDetailsConfigurationExtension.{{ srcFileExtension }})
 target = "admin.product-details.configuration.render"
-[[extensions.targeting.urls]]
+[extensions.targeting.urls]
 edit = "/bundles/products/{product_id}"
 
 
@@ -19,5 +19,5 @@ edit = "/bundles/products/{product_id}"
 module = "./src/ProductVariantDetailsConfigurationExtension.{{ srcFileExtension }}"
 # The target used here must match the target used in the module file (./src/ProductVariantDetailsConfigurationExtension.{{ srcFileExtension }})
 target = "admin.product-variant-details.configuration.render"
-[[extensions.targeting.urls]]
+[extensions.targeting.urls]
 edit = "/bundles/products/{product_id}"
