@@ -71,23 +71,32 @@ function useProduct() {
         console.error(errors);
       } else {
         {% if flavor contains "typescript" %}
-        const {bundleComponents, ...product} = (data as any).product;
+        const {bundleComponents, ...product} = (data as {
+          product: {
+            id: string;
+            title: string;
+            bundleComponents: {
+              nodes: {
+                componentProduct: {
+                  id: string;
+                  title: string;
+                }
+              }[]
+            }
+          }
+        }).product;
         {% else %}
         const {bundleComponents, ...product} = data.product;
         {% endif %}
         setProduct({
           ...product,
-          {% if flavor contains "typescript" %}
-          bundleComponents: bundleComponents.nodes.map(({componentProduct}: any) => ({
-          {% else %}
           bundleComponents: bundleComponents.nodes.map(({componentProduct}) => ({
-          {% endif %}
             ...componentProduct
           }))
         })
       }
     })
-  }, [productId]);
+  }, [productId, query]);
 
   return product;
 }
@@ -169,17 +178,26 @@ async function fetchProduct(productId, query) {
   }
 
   {% if flavor contains "typescript" %}
-  const {bundleComponents, ...product} = (data as any).product;
+  const {bundleComponents, ...product} = (data as {
+    product: {
+      id: string;
+      title: string;
+      bundleComponents: {
+        nodes: {
+          componentProduct: {
+            id: string;
+            title: string;
+          }
+        }[]
+      }
+    }
+  }).product;
   {% else %}
   const {bundleComponents, ...product} = data.product;
   {% endif %}
   return {
     ...product,
-    {% if flavor contains "typescript" %}
-    bundleComponents: bundleComponents.nodes.map(({componentProduct}: any) => ({
-    {% else %}
     bundleComponents: bundleComponents.nodes.map(({componentProduct}) => ({
-    {% endif %}
       ...componentProduct
     }))
   };

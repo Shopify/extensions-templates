@@ -71,23 +71,32 @@ function useProductVariant() {
         console.error(errors);
       } else {
         {% if flavor contains "typescript" %}
-        const {productVariantComponents, ...productVariant} = (data as any).productVariant;
+        const {productVariantComponents, ...productVariant} = (data as {
+          productVariant: {
+            id: string;
+            title: string;
+            productVariantComponents: {
+              nodes: {
+                productVariant: {
+                  id: string;
+                  title: string;
+                }
+              }[]
+            }
+          }
+        }).productVariant;
         {% else %}
         const {productVariantComponents, ...productVariant} = data.productVariant;
         {% endif %}
         setProductVariant({
           ...productVariant,
-          {% if flavor contains "typescript" %}
-          productVariantComponents: productVariantComponents.nodes.map(({productVariant}: any) => ({
-          {% else %}
           productVariantComponents: productVariantComponents.nodes.map(({productVariant}) => ({
-          {% endif %}
             ...productVariant
           }))
         })
       }
     })
-  }, [productVariantId])
+  }, [productVariantId, query])
 
   return productVariant;
 }
@@ -169,17 +178,26 @@ async function fetchProductVariant(productVariantId, query) {
   }
 
   {% if flavor contains "typescript" %}
-  const {productVariantComponents, ...productVariant} = (data as any).productVariant;
+  const {productVariantComponents, ...productVariant} = (data as {
+    productVariant: {
+      id: string;
+      title: string;
+      productVariantComponents: {
+        nodes: {
+          productVariant: {
+            id: string;
+            title: string;
+          }
+        }[]
+      }
+    }
+  }).productVariant;
   {% else %}
   const {productVariantComponents, ...productVariant} = data.productVariant;
   {% endif %}
   return {
     ...productVariant,
-    {% if flavor contains "typescript" %}
-    productVariantComponents: productVariantComponents.nodes.map(({productVariant}: any) => ({
-    {% else %}
     productVariantComponents: productVariantComponents.nodes.map(({productVariant}) => ({
-    {% endif %}
       ...productVariant
     }))
   };
