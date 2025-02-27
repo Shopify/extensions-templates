@@ -2,38 +2,186 @@
 import {
   reactExtension,
   useApi,
+  BlockStack,
   Text,
 } from '@shopify/ui-extensions-react/admin';
+import {useState, useEffect} from 'react';
 
 // The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
-{% if flavor contains "typescript" %}
-export default reactExtension<any>('admin.product-details.configuration.render', () => <App />);
-{% else %}
 export default reactExtension('admin.product-details.configuration.render', () => <App />);
-{% endif %}
+
 function App() {
   {% if flavor contains "typescript" %}
   const {extension: {target}, i18n} = useApi<'admin.product-details.configuration.render'>();
   {% else %}
   const {extension: {target}, i18n} = useApi();
   {% endif %}
+  const product = useProduct();
   return (
-    <Text>
-      {i18n.translate('welcome', {target})}
-    </Text>
+    <BlockStack>
+      <Text>
+        {i18n.translate('welcome', {target})}
+      </Text>
+      {product?.bundleComponents.map((component) =>
+        <Text key={component.id}>{component.title}</Text>
+      )}
+    </BlockStack>
   );
 }
 
-{%- else -%}
-import { extension, Banner } from "@shopify/ui-extensions/admin";
+function useProduct() {
+  {% if flavor contains "typescript" %}
+  const {data, query} = useApi<'admin.product-details.configuration.render'>();
+  const productId = (data as any)?.selected[0].id;
+  const [product, setProduct] = useState<{
+    id: string;
+    title: string;
+    bundleComponents: {
+      id: string;
+      title: string;
+    }[];
+  }>(null);
+  {% else %}
+  const {data, query} = useApi();
+  const productId = data?.selected[0].id;
+  const [product, setProduct] = useState(null);
+  {% endif %}
 
-export default extension("admin.product-details.configuration.render", (root, { extension: {target}, i18n }) => {
-  root.appendChild(
+  useEffect(() => {
+    query(
+      `#graphql
+      query GetProduct($id: ID!) {
+        product(id: $id) {
+          id
+          title
+          bundleComponents(first: 100) {
+            nodes {
+              componentProduct {
+                id
+                title
+              }
+            }
+          }
+        }
+      }
+      `,
+      {variables: {id: productId}}
+    ).then(({data, errors}) => {
+      if (errors) {
+        console.error(errors);
+      } else {
+        {% if flavor contains "typescript" %}
+        const {bundleComponents, ...product} = (data as any).product;
+        {% else %}
+        const {bundleComponents, ...product} = data.product;
+        {% endif %}
+        setProduct({
+          ...product,
+          {% if flavor contains "typescript" %}
+          bundleComponents: bundleComponents.nodes.map(({componentProduct}: any) => ({
+          {% else %}
+          bundleComponents: bundleComponents.nodes.map(({componentProduct}) => ({
+          {% endif %}
+            ...componentProduct
+          }))
+        })
+      }
+    })
+  }, [productId]);
+
+  return product;
+}
+
+{%- else -%}
+import {
+  extension,
+  StandardApi,
+  BlockStack,
+  Text
+} from "@shopify/ui-extensions/admin";
+
+export default extension("admin.product-details.configuration.render", async (root, { extension: {target}, data, i18n, query }) => {
+  {% if flavor contains "typescript" %}
+  const productId = (data as any)?.selected[0].id;
+  {% else %}
+  const productId = data?.selected[0].id;
+  {% endif %}
+  const product = await fetchProduct(productId, query);
+
+  root.append(
     root.createComponent(
-      Text,
+      BlockStack,
       {},
-      i18n.translate('welcome', {target})
-    )
+      root.createComponent(
+        Text,
+        {},
+        i18n.translate('welcome', {target}),
+        ...product?.bundleComponents.map((component) =>
+          root.createComponent(
+            Text,
+            {},
+            component.title
+          ),
+        ),
+      ),
+    ),
   );
 });
+
+{% if flavor contains "typescript" %}
+async function fetchProduct(
+  productId: string,
+  query: StandardApi<any>['query'],
+): Promise<{
+  id: string;
+  title: string;
+  bundleComponents: {
+    id: string;
+    title: string;
+  }[];
+} | null> {
+{% else %}
+async function fetchProduct(productId, query) {
+{% endif %}
+  const {data, errors} = await query(
+    `#graphql
+    query GetProduct($id: ID!) {
+      product(id: $id) {
+        id
+        title
+        bundleComponents(first: 100) {
+          nodes {
+            componentProduct {
+              id
+              title
+            }
+          }
+        }
+      }
+    }
+    `,
+    {variables: {id: productId}}
+  );
+
+  if (errors) {
+    console.error(errors);
+    return null;
+  }
+
+  {% if flavor contains "typescript" %}
+  const {bundleComponents, ...product} = (data as any).product;
+  {% else %}
+  const {bundleComponents, ...product} = data.product;
+  {% endif %}
+  return {
+    ...product,
+    {% if flavor contains "typescript" %}
+    bundleComponents: bundleComponents.nodes.map(({componentProduct}: any) => ({
+    {% else %}
+    bundleComponents: bundleComponents.nodes.map(({componentProduct}) => ({
+    {% endif %}
+      ...componentProduct
+    }))
+  };
+}
 {%- endif -%}
