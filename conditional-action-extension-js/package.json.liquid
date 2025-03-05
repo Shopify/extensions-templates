@@ -1,27 +1,10 @@
-{%- if flavor contains "react" -%}
 {
   "name": "{{ handle }}",
   "private": true,
   "version": "1.0.0",
   "license": "UNLICENSED",
   "dependencies": {
-    "react": "^18.0.0",
-    "@shopify/ui-extensions": "2025.1.x",
-    "@shopify/ui-extensions-react": "2025.1.x",
-    "react-reconciler": "0.29.0"
-  },
-  "devDependencies": {
-    "@types/react": "^18.0.0"
+    "preact": "^10.10.x",
+    "@shopify/ui-extensions": "0.0.0-snapshot-20250306140308"
   }
 }
-{%- else -%}
-{
-  "name": "{{ handle }}",
-  "private": true,
-  "version": "1.0.0",
-  "license": "UNLICENSED",
-  "dependencies": {
-    "@shopify/ui-extensions": "2025.1.x"
-  }
-}
-{%- endif -%}

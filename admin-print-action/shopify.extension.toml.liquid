@@ -9,7 +9,6 @@ type = "ui_extension"
 # Only 1 target can be specified for each admin print action extension
 [[extensions.targeting]]
 module = "./src/PrintActionExtension.{{ srcFileExtension }}"
-# The target used here must match the target used in the module file (./src/PrintActionExtension.{{ srcFileExtension }})
 target = "admin.order-details.print-action.render"
 
 # Valid extension targets:
