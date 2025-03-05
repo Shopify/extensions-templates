@@ -1,4 +1,68 @@
-{%- if flavor contains "react" -%}
+{%- if flavor contains "preact" -%}
+import {render} from 'preact';
+import {useState, useEffect} from 'preact/hooks';
+
+export default function extension() {
+  render(<Extension />, document.body);
+}
+
+function Extension() {
+  const {extension: {target}, i18n} = shopify;
+  const product = useProduct();
+  return (
+    <s-stack direction="block">
+      <s-text>
+        {i18n.translate('welcome', {target})}
+      </s-text>
+      {product?.bundleComponents.map((component) =>
+        <Text key={component.id}>{component.title}</Text>
+      )}
+    </s-stack>
+  );
+}
+
+function useProduct() {
+  const {data, query} = shopify;
+  const productId = data?.selected[0].id;
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    query(
+      `#graphql
+      query GetProduct($id: ID!) {
+        product(id: $id) {
+          id
+          title
+          bundleComponents(first: 100) {
+            nodes {
+              componentProduct {
+                id
+                title
+              }
+            }
+          }
+        }
+      }
+      `,
+      {variables: {id: productId}}
+    ).then(({data, errors}) => {
+      if (errors) {
+        console.error(errors);
+      } else {
+        const {bundleComponents, ...product} = data.product;
+        setProduct({
+          ...product,
+          bundleComponents: bundleComponents.nodes.map(({componentProduct}) => ({
+            ...componentProduct
+          }))
+        })
+      }
+    })
+  }, [productId, query]);
+
+  return product;
+}
+{%- elsif flavor contains "react" -%}
 import {
   reactExtension,
   useApi,

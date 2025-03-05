@@ -1,4 +1,85 @@
-{%- if flavor contains "react" -%}
+{%- if flavor contains "preact" -%}
+import {render} from 'preact';
+import {useEffect, useState} from 'preact/hooks';
+
+const baseSrc = `https://cdn.shopify.com/static/extensibility/print-example`;
+
+export default function extension() {
+  render(<Extension />, document.body);
+}
+
+function Extension() {
+  const {i18n, data} = shopify;
+  const [src, setSrc] = useState(null);
+  // It's best practice to load a printable src when first launching the extension.
+  const [document1, setDocument1] = useState(true);
+  const [document2, setDocument2] = useState(false);
+  // data has information about the resource to be printed.
+  console.log({ data });
+
+  /* 
+    This template fetches static documents from the CDN to demonstrate printing.
+    However, when building your extension, you should update the src document
+    to match the resource that the user is printing. You can do this by getting the 
+    resource id from the data API and using it to create a URL with a path to your app 
+    that shows the correct document. For example, you might use a URL parameter to 
+    render an invoice for a specific order.
+    
+    `/print/invoice&orderId=${data.selected[0].id}`
+  */
+  useEffect(() => {
+    if (document1 && document2) {
+      setSrc(`${baseSrc}/document1-and-document2.html`);
+    } else if (document1) {
+      setSrc(`${baseSrc}/document1.html`);
+    } else if (document2) {
+      setSrc(`${baseSrc}/document2.html`);
+    } else {
+      setSrc(null);
+    }
+  }, [document1, document2]);
+
+  return (
+    /* 
+      The s-admin-print-action component provides an API for setting the src of the Print Action extension wrapper.
+      The document you set as src will be displayed as a print preview.
+      When the user clicks the Print button, the browser will print that document.
+      HTML, PDFs and images are supported.
+  
+      The `src` prop can be a...
+        - Full URL: https://cdn.shopify.com/static/extensibility/print-example/document1.html
+        - Relative path in your app: print-example/document1.html or /print-example/document1.html 
+        - Custom app: protocol: app:print (https://shopify.dev/docs/api/admin-extensions#custom-protocols)
+    */
+    <s-admin-print-action src={src}>
+      <s-stack direction="block">
+        <s-banner tone="warning" title={i18n.translate('warningTitle')}>
+          {i18n.translate('warningBody')}
+        </s-banner>
+        <s-text type="strong">{i18n.translate('documents')}</s-text>
+        <s-checkbox
+          name="document-1"
+          checked={document1}
+          onChange={(event) => {
+            setDocument1(event.target.checked);
+          }}
+          label={i18n.translate('document1')} 
+        >
+        </s-checkbox>
+        <s-checkbox
+          name="document-2"
+          checked={document2}
+          onChange={(event) => {
+            setDocument2(event.target.checked);
+          }}
+          label={i18n.translate('document2')} 
+        >
+        </s-checkbox>
+      </s-stack>
+    </s-admin-print-action>
+  );
+}
+{%- elsif flavor contains "react" -%}
 import {
   reactExtension,
   useApi,
