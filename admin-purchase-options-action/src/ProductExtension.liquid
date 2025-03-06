@@ -1,28 +1,25 @@
-{%- if flavor contains "react" -%}
-import {reactExtension} from '@shopify/ui-extensions-react/admin';
+{%- if flavor contains "typescript" -%}
+import {render} from 'preact';
+import type {ShopifyGlobal} from '@shopify/ui-extensions/admin';
 import PurchaseOptionsActionExtension from './PurchaseOptionsActionExtension';
 
-export default reactExtension('admin.product-purchase-option.action.render', () => (
-  <PurchaseOptionsActionExtension extension="admin.product-purchase-option.action.render" />
-));  
+// Temp hack for global
+const shopify: ShopifyGlobal = {...Reflect.get(globalThis, 'shopify')};
 
+export default shopify.extend('admin.product-purchase-option.action.render', (root, api) => {
+  // for now, we are grotesquely manually merging extension APIs into the global:
+  Object.defineProperties(shopify, Object.getOwnPropertyDescriptors(api));
+  render(<PurchaseOptionsActionExtension />, root);
+});
 {%- else -%}
-import {extension} from '@shopify/ui-extensions/admin';
+import {render} from 'preact';
 import PurchaseOptionsActionExtension from './PurchaseOptionsActionExtension';
 
-export default extension(
-  'admin.product-purchase-option.action.render',
-  (root, {i18n, close, data}) => {
-    PurchaseOptionsActionExtension(
-      'admin.product-purchase-option.action.render',
-      root,
-      {
-        i18n,
-        close,
-        data,
-      },
-    );
-  },
-);
+const shopify = {...Reflect.get(globalThis, 'shopify')};
 
+export default shopify.extend('admin.product-purchase-option.action.render', (root, api) => {
+  // for now, we are grotesquely manually merging extension APIs into the global:
+  Object.defineProperties(shopify, Object.getOwnPropertyDescriptors(api));
+  render(<PurchaseOptionsActionExtension />, root);
+});
 {%- endif -%}

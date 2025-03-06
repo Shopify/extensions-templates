@@ -1,11 +1,13 @@
-/// <reference types="@shopify/ui-extensions/admin" />
-
+import type {ShopifyGlobal} from '@shopify/ui-extensions/admin';
 // The target used here must match the target used in the extension's toml file (./shopify.extension.toml), 
 // except for the "should-render" suffix
 const TARGET = 'admin.product-details.action.should-render';
 
+// Temp hack for global
+const shopify: ShopifyGlobal = {...Reflect.get(globalThis, 'shopify')};
+
 // The second argument to the render callback provides access to the resource ID.
-export default shopify.extend(TARGET, async ({ data }) => {
+export default (shopify as any).extend(TARGET, async ({ data }) => {
   const variantCount = await getVariantsCount(data.selected[0].id);
 
   return {display: variantCount > 1 }

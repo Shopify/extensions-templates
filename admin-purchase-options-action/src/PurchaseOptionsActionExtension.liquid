@@ -1,21 +1,10 @@
-{%- if flavor contains "react" -%}
-import {useState} from 'react';
-import {
-  useApi,
-  AdminAction,
-  BlockStack,
-  Button,
-  TextField,
-  ChoiceList,
-  Box,
-  InlineStack,
-  NumberField,
-  Select,
-} from '@shopify/ui-extensions-react/admin';
+{%- if flavor contains "typescript" -%}
+import {useState} from 'preact/hooks';
+import type {PurchaseOptionsCardConfigurationApi} from '@shopify/ui-extensions/admin';
 
-export default function PurchaseOptionsActionExtension(extension) {
+export default function PurchaseOptionsActionExtension() {
   // The useApi hook provides access to several useful APIs like i18n, close, and data.
-  const {i18n, close, data} = useApi(extension);
+  const {i18n, extension, close, data} = shopify as unknown as PurchaseOptionsCardConfigurationApi<typeof extension.target>;
   console.log({data});
   const [merchantCode, setMerchantCode] = useState('');
   const [planName, setPlanName] = useState('');
@@ -51,127 +40,93 @@ export default function PurchaseOptionsActionExtension(extension) {
   }
 
   return (
-    <AdminAction
-      primaryAction={<Button onPress={handleSave}>Save</Button>}
-      secondaryAction={
-        <Button
-          onPress={() => {
-            console.log('closing');
-            close();
-          }}
-        >
-          Cancel
-        </Button>
-      }
-    >
-      <BlockStack gap="large">
-        {i18n.translate('welcome', {extension})}
-        <TextField
+    <s-admin-action>
+      <s-button slot="primaryAction" onClick={handleSave}>Save</s-button>
+      <s-button slot="secondaryAction" onClick={() => {
+        console.log('closing');
+        close();
+        }}>Cancel</s-button>
+      <s-stack direction="block" gap="large">
+        {i18n.translate('welcome', {target})}
+        <s-text-field
           label="Title"
           placeholder="Subscribe and save"
           value={planName}
-          onChange={setPlanName}
+          onChange={(event) => setPlanName(event.target.value)}
         />
-        <TextField
+        <s-text-field
           label="Internal description"
           value={merchantCode}
-          onChange={setMerchantCode}
+          onChange={(event) => setMerchantCode(event.target.value)}
         />
-        <Box>
-          <ChoiceList
+        <s-box>
+          <s-choice-list
             name="discountType"
-            choices={[
-              {
-                label: 'Percentage off',
-                id: 'percentageOff',
-              },
-              {
-                label: 'Amount off',
-                id: 'amountOff',
-              },
-              {
-                label: 'Flat rate',
-                id: 'flatRate',
-              },
-            ]}
-            defaultValue={['percentageOff']}
             value={[discountType]}
-            onChange={(e) => setDiscountType(typeof e === 'string' ? e : e[0])}
-          />
-        </Box>
-        <Box>
-          <InlineStack gap inlineAlignment="end" blockAlignment="end">
-            <NumberField
+            onChange={(e) => setDiscountType(e.target.values[0])}
+          >
+            <s-choice value="percentageOff">Percentage off</s-choice>
+            <s-choice value="amountOff">Amount off</s-choice>
+            <s-choice value="flatRate">Flat rate</s-choice>
+          </s-choice-list>
+        </s-box>
+        <s-box>
+          <s-stack gap="base" alignitems="end" aligncontent="end">
+            <s-number-field
               label="Delivery frequency"
               value={deliveryOptions.frequency}
-              onChange={(value) => updateDeliveryOption('frequency', value)}
+              onChange={(event) => updateDeliveryOption('frequency', event.target.value)}
             />
-            <Select
+            <s-select
               label="Delivery interval"
               value={deliveryOptions.timeType}
-              onChange={(value) => updateDeliveryOption('timeType', value)}
-              options={[
-                {value: 'weeks', label: 'Weeks'},
-                {value: 'months', label: 'Months'},
-                {value: 'years', label: 'Years'},
-              ]}
-            />
-            <NumberField
+              onChange={(event) => updateDeliveryOption('timeType', event.target.value)}
+            >
+              <s-option value='weeks'>Weeks</s-option>
+              <s-option value='months'>Months</s-option>
+              <s-option value='years'>Years</s-option>
+            </s-select>
+            <s-number-field
               label={getDiscountLabel(discountType)}
               value={deliveryOptions.discount}
-              onChange={(value) => updateDeliveryOption('discount', value)}
+              onChange={(event) => updateDeliveryOption('discount', event.target.value)}
             />
-          </InlineStack>
-        </Box>
-      </BlockStack>
-    </AdminAction>
+          </s-stack>
+        </s-box>
+      </s-stack>
+    </s-admin-action>
   );
 }
-
 {%- else -%}
-import {
-  AdminAction,
-  BlockStack,
-  Box,
-  Button,
-  InlineStack,
-  Text,
-  TextField,
-  NumberField,
-  Select,
-  ChoiceList,
-} from '@shopify/ui-extensions/admin';
+import {useState} from 'preact/hooks';
 
-export default function PurchaseOptionsAction(
-  extensions,
-  root,
-  {i18n, close, data},
-) {
-  let title = '';
-  let internalDescription = '';
-  let deliveryFrequencyValue = 1;
-  let deliveryDiscountValue = 0;
-  let deliveryFrequencyUnit = 'week';
-  let discountType = 'percentageOff';
-  console.log('Data', data);
+export default function PurchaseOptionsActionExtension() {
+  // The useApi hook provides access to several useful APIs like i18n, close, and data.
+  const {i18n, extension, close, data} = shopify;
+  console.log({data});
+  const [merchantCode, setMerchantCode] = useState('');
+  const [planName, setPlanName] = useState('');
+  const [discountType, setDiscountType] = useState('percentageOff');
+  const [deliveryOptions, setDeliveryOptions] = useState({
+    frequency: 0,
+    timeType: 'day',
+    discount: 0,
+  });
 
-  const handleSave = () => {
-    console.log('Saving', {
-      title,
-      internalDescription,
-      deliveryFrequencyValue,
-      deliveryFrequencyUnit,
-      deliveryDiscountValue,
-    });
-    close();
+  const updateDeliveryOption = (field, value) => {
+    setDeliveryOptions((prevOptions) => ({
+      ...prevOptions,
+      [field]: value,
+    }));
   };
 
-  const handleClose = () => {
-    console.log('Closing');
+  function handleSave() {
+    // This is where you can use the sellingPlanGroupsCreate and sellingPlanGroupsUpdate mutations
+    console.log('saving');
     close();
-  };
+  }
 
-  const getDiscountLabel = (discountType) => {
+  function getDiscountLabel(discountType) {
     switch (discountType) {
       case 'percentageOff':
         return 'Percentage off';
@@ -179,119 +134,65 @@ export default function PurchaseOptionsAction(
         return 'Amount off';
       case 'flatRate':
         return 'Flat rate';
-      default:
-        return 'Discount';
     }
-  };
+  }
 
-  const titleField = root.createComponent(TextField, {
-    label: 'Title',
-    value: title,
-    placeholder: 'Subscribe and save',
-    helpText:
-      'Customers will see this on storefront product pages that have subscriptions',
-    onChange: (value) => {
-      title = value;
-    },
-  });
-
-  const internalDescriptionField = root.createComponent(TextField, {
-    label: 'Internal description',
-    value: internalDescription,
-    helpText: 'For your reference only',
-    onChange: (value) => {
-      internalDescription = value;
-    },
-  });
-
-  const discountField = root.createComponent(NumberField, {
-    label: getDiscountLabel(discountType),
-    value: deliveryDiscountValue,
-    onChange: (value) => {
-      deliveryDiscountValue = value;
-    },
-  });
-
-  const discountTypeChoiceList = root.createComponent(ChoiceList, {
-    title: 'Discount type',
-    selected: discountType,
-    value: discountType,
-    onChange: (value) => {
-      discountType = value;
-      discountField.updateProps({label: getDiscountLabel(discountType)});
-      root.update();
-    },
-    choices: [
-      {label: 'Percentage off', id: 'percentageOff'},
-      {label: 'Amount off', id: 'amountOff'},
-      {label: 'Flat rate', id: 'flatRate'},
-    ],
-  });
-
-  const deliveryFrequencyField = root.createComponent(NumberField, {
-    label: 'Delivery frequency',
-    value: deliveryFrequencyValue,
-    onChange: (value) => {
-      deliveryFrequencyValue = value;
-    },
-  });
-
-  const deliveryFrequencyUnitSelect = root.createComponent(Select, {
-    label: 'Delivery interval',
-    value: deliveryFrequencyUnit,
-    options: [
-      {label: 'Week', value: 'week'},
-      {label: 'Month', value: 'month'},
-      {label: 'Year', value: 'year'},
-    ],
-    onChange: (value) => {
-      deliveryFrequencyUnit = value;
-    },
-  });
-
-  root.append(
-    root.createComponent(
-      AdminAction,
-      {
-        primaryAction: root.createComponent(
-          Button,
-          {onPress: handleSave},
-          'Done',
-        ),
-        secondaryAction: root.createComponent(
-          Button,
-          {onPress: handleClose},
-          'Close',
-        ),
-      },
-      root.createComponent(
-        BlockStack,
-        {gap: 'large'},
-        root.createComponent(
-          Text,
-          {fontWeight: 'bold'},
-          i18n.translate('welcome', {extensions}),
-        ),
-        titleField,
-        internalDescriptionField,
-        root.createComponent(Box, null, discountTypeChoiceList),
-        root.createComponent(
-          Box,
-          null,
-          root.createComponent(
-            InlineStack,
-            {
-              gap: true,
-              inlineAlignment: 'end',
-              blockAlignment: 'end',
-            },
-            deliveryFrequencyField,
-            deliveryFrequencyUnitSelect,
-            discountField,
-          ),
-        ),
-      ),
-    ),
+  return (
+    <s-admin-action>
+      <s-button slot="primaryAction" onClick={handleSave}>Save</s-button>
+      <s-button slot="secondaryAction" onClick={() => {
+        console.log('closing');
+        close();
+        }}>Cancel</s-button>
+      <s-stack direction="block" gap="large">
+        {i18n.translate('welcome', {target})}
+        <s-text-field
+          label="Title"
+          placeholder="Subscribe and save"
+          value={planName}
+          onChange={(event) => setPlanName(event.target.value)}
+        />
+        <s-text-field
+          label="Internal description"
+          value={merchantCode}
+          onChange={(event) => setMerchantCode(event.target.value)}
+        />
+        <s-box>
+          <s-choice-list
+            name="discountType"
+            value={[discountType]}
+            onChange={(e) => setDiscountType(e.target.values[0])}
+          >
+            <s-choice value="percentageOff">Percentage off</s-choice>
+            <s-choice value="amountOff">Amount off</s-choice>
+            <s-choice value="flatRate">Flat rate</s-choice>
+          </s-choice-list>
+        </s-box>
+        <s-box>
+          <s-stack gap="base" alignitems="end" aligncontent="end">
+            <s-number-field
+              label="Delivery frequency"
+              value={deliveryOptions.frequency}
+              onChange={(event) => updateDeliveryOption('frequency', event.target.value)}
+            />
+            <s-select
+              label="Delivery interval"
+              value={deliveryOptions.timeType}
+              onChange={(event) => updateDeliveryOption('timeType', event.target.value)}
+            >
+              <s-option value='weeks'>Weeks</s-option>
+              <s-option value='months'>Months</s-option>
+              <s-option value='years'>Years</s-option>
+            </s-select>
+            <s-number-field
+              label={getDiscountLabel(discountType)}
+              value={deliveryOptions.discount}
+              onChange={(event) => updateDeliveryOption('discount', event.target.value)}
+            />
+          </s-stack>
+        </s-box>
+      </s-stack>
+    </s-admin-action>
   );
 }
 {%- endif -%}

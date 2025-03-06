@@ -1,39 +1,46 @@
-{%- if flavor contains "react" -%}
-import {
-  reactExtension,
-  useApi,
-  Text,
-} from '@shopify/ui-extensions-react/admin';
+{%- if flavor contains "typescript" -%}
+import {render} from 'preact';
+import type {ShopifyGlobal, ProductDetailsConfigurationApi} from '@shopify/ui-extensions/admin';
 
-// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
-{% if flavor contains "typescript" %}
-export default reactExtension<any>('admin.product-details.configuration.render', () => <App />);
-{% else %}
-export default reactExtension('admin.product-details.configuration.render', () => <App />);
-{% endif %}
-function App() {
-  {% if flavor contains "typescript" %}
-  const {extension: {target}, i18n} = useApi<'admin.product-details.configuration.render'>();
-  {% else %}
-  const {extension: {target}, i18n} = useApi();
-  {% endif %}
+// Temp hack for global
+const shopify: ShopifyGlobal = {...Reflect.get(globalThis, 'shopify')};
+
+const TARGET = 'admin.product-details.configuration.render';
+
+export default shopify.extend(TARGET, (root, api) => {
+  // for now, we are grotesquely manually merging extension APIs into the global:
+  Object.defineProperties(shopify, Object.getOwnPropertyDescriptors(api));
+  render(<Extension />, root);
+});
+
+function Extension() {
+  const {extension: {target}, i18n} = shopify as unknown as ProductDetailsConfigurationApi<typeof target>;
   return (
-    <Text>
+    <s-text>
       {i18n.translate('welcome', {target})}
-    </Text>
+    </s-text>
   );
 }
-
 {%- else -%}
-import { extension, Banner } from "@shopify/ui-extensions/admin";
+import {render} from 'preact';
 
-export default extension("admin.product-details.configuration.render", (root, { extension: {target}, i18n }) => {
-  root.appendChild(
-    root.createComponent(
-      Text,
-      {},
-      i18n.translate('welcome', {target})
-    )
-  );
+// Temp hack for global
+const shopify = {...Reflect.get(globalThis, 'shopify')};
+
+const TARGET = 'admin.product-details.configuration.render';
+
+export default shopify.extend(TARGET, (root, api) => {
+  // for now, we are grotesquely manually merging extension APIs into the global:
+  Object.defineProperties(shopify, Object.getOwnPropertyDescriptors(api));
+  render(<Extension />, root);
 });
+
+function Extension() {
+  const {extension: {target}, i18n} = shopify;
+  return (
+    <s-text>
+      {i18n.translate('welcome', {target})}
+    </s-text>
+  );
+}
 {%- endif -%}

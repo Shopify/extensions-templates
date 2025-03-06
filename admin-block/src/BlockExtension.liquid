@@ -1,55 +1,59 @@
-{%- if flavor contains "react" -%}
-import {
-  reactExtension,
-  useApi,
-  AdminBlock,
-  BlockStack,
-  Text,
-} from '@shopify/ui-extensions-react/admin';
+{%- if flavor contains "typescript" -%}
+import {render} from 'preact';
+import type {ShopifyGlobal, BlockExtensionApi} from '@shopify/ui-extensions/admin';
 
-// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
+// Temp hack for global
+const shopify: ShopifyGlobal = {...Reflect.get(globalThis, 'shopify')};
+
 const TARGET = 'admin.product-details.block.render';
 
-export default reactExtension(TARGET, () => <App />);
+shopify.extend(TARGET, (root, api) => {
+  // for now, we are grotesquely manually merging extension APIs into the global:
+  Object.defineProperties(shopify, Object.getOwnPropertyDescriptors(api));
+  render(<Extension />, root);
+});
 
-function App() {
-  // The useApi hook provides access to several useful APIs like i18n and data.
-  const {i18n, data} = useApi(TARGET);
+function Extension() {
+  const {i18n, data, extension: {target}} = shopify as unknown as BlockExtensionApi<typeof TARGET>;
+
   console.log({data});
 
   return (
-    // The AdminBlock component provides an API for setting the title of the Block extension wrapper.
-    <AdminBlock title="My Block Extension">
-      <BlockStack>
-        <Text fontWeight="bold">{i18n.translate('welcome', {TARGET})}</Text>
-      </BlockStack>
-    </AdminBlock>
+    <s-admin-block title="My Block Extension">
+      <s-stack direction="block">
+        <s-text type="strong">{i18n.translate('welcome', {target})}</s-text>
+      </s-stack>
+    </s-admin-block>
   );
 }
-
 {%- else -%}
-import {
-  extension,
-  AdminBlock,
-  BlockStack,
-  Text
-} from "@shopify/ui-extensions/admin";
+import {render} from 'preact';
 
-// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
+// Temp hack for global
+const shopify = {...Reflect.get(globalThis, 'shopify')};
+
 const TARGET = 'admin.product-details.block.render';
 
-export default extension(TARGET, (root, { i18n, data }) => {
+shopify.extend(TARGET, (root, api) => {
+  // for now, we are grotesquely manually merging extension APIs into the global:
+  Object.defineProperties(shopify, Object.getOwnPropertyDescriptors(api));
+
+  // log out the API to play around with:
+  // console.log(shopify);
+  render(<Extension />, root);
+});
+
+function Extension() {
+  const {i18n, data, extension: {target}} = shopify;
+
   console.log({data});
 
-  root.append(
-    // The AdminBlock component provides an API for setting the title of the Block extension wrapper.
-    root.createComponent(
-      AdminBlock,
-      { title: "My Block Extension" },
-      root.createComponent(BlockStack, null,
-        root.createComponent(Text, { fontWeight: "bold" }, i18n.translate('welcome', {TARGET}))
-      )
-    )
+  return (
+    <s-admin-block title="My Block Extension">
+      <s-stack direction="block">
+        <s-text type="strong">{i18n.translate('welcome', {target})}</s-text>
+      </s-stack>
+    </s-admin-block>
   );
-});
+}
 {%- endif -%}
