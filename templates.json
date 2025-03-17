@@ -688,6 +688,43 @@
     ]
   },
   {
+    "identifier": "discount",
+    "name": "Discount - Function",
+    "defaultName": "discount-function",
+    "group": "Discounts and checkout",
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
+    "url": "https://github.com/Shopify/function-examples",
+    "type": "function",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Rust",
+        "value": "rust",
+        "path": "discounts/rust/discount/default"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "discounts/javascript/discount/default"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "discounts/javascript/discount/default"
+      },
+      {
+        "name": "Wasm",
+        "value": "wasm",
+        "path": "discounts/wasm/discount/default"
+      }
+    ],
+    "organizationBetaFlags": [
+      "multi_class_discounts"
+    ]
+  },
+  {
     "identifier": "product_discounts",
     "name": "Discount products - Function",
     "defaultName": "product-discount",
