@@ -688,9 +688,9 @@
     ]
   },
   {
-    "identifier": "discounts",
+    "identifier": "discount",
     "name": "Discount - Function",
-    "defaultName": "discount",
+    "defaultName": "discount-function",
     "group": "Discounts and checkout",
     "supportLinks": [
       "https://shopify.dev/docs/apps/discounts"
