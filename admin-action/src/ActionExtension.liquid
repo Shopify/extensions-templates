@@ -41,7 +41,7 @@ function Extension() {
     <s-admin-action>
       <s-stack direction="block">
         {/* Set the translation values for each supported language in the locales directory */}
-        <s-text type="bold">{i18n.translate('welcome', {target})}</s-text>
+        <s-text type="strong">{i18n.translate('welcome', {target})}</s-text>
         <s-text>Current product: {productTitle}</s-text>
         <s-button slot="primaryAction" onClick={() => {
             console.log('saving');

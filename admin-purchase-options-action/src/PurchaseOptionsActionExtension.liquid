@@ -1,9 +1,9 @@
-/// <reference types="@shopify/ui-extensions/admin.product-details.action.render" />
+import type {Api as PurchaseOptionsActionExtension} from '@shopify/ui-extensions/admin.product-details.action.render';
 import {useState} from 'preact/hooks';
 
 export default function PurchaseOptionsActionExtension() {
   // The useApi hook provides access to several useful APIs like i18n, close, and data.
-  const {i18n, extension: {target}, close, data} = shopify;
+  const {i18n, extension: {target}, close, data} = shopify as PurchaseOptionsActionExtension;
   console.log({data});
   const [merchantCode, setMerchantCode] = useState('');
   const [planName, setPlanName] = useState('');
@@ -49,7 +49,7 @@ export default function PurchaseOptionsActionExtension() {
         {i18n.translate('welcome', {target})}
         <s-text-field
           label="Title"
-          placeholder="Subscribe and save"
+          placeHolder="Subscribe and save"
           value={planName}
           onChange={(event) => setPlanName(event.target.value)}
         />
@@ -70,7 +70,7 @@ export default function PurchaseOptionsActionExtension() {
           </s-choice-list>
         </s-box>
         <s-box>
-          <s-stack gap="base" alignitems="end" aligncontent="end">
+          <s-stack gap="base" alignItems="end" alignContent="end">
             <s-number-field
               label="Delivery frequency"
               value={deliveryOptions.frequency}
