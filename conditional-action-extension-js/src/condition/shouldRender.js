@@ -1,4 +1,3 @@
-/// <reference types="@shopify/ui-extensions/admin.product-details.action.should-render" />
 // The second argument to the render callback provides access to the resource ID.
 export default async function extension() {
   const {data} = shopify;
