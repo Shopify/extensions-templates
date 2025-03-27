@@ -19,8 +19,8 @@ async function getVariantsCount(id) {
     }`,
     variables: { id },
   };
-
-  const res = await fetch("shopify:admin/api/graphql.json", {
+  // Temporary until 2025-07 is available
+  const res = await fetch("shopify:admin/api/2025-04/graphql.json", {
     method: "POST",
     body: JSON.stringify(getProductQuery),
   });
