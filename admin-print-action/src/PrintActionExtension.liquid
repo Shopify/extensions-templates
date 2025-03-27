@@ -55,15 +55,15 @@ function Extension() {
         <s-banner tone="warning" title={i18n.translate('warningTitle')}>
           {i18n.translate('warningBody')}
         </s-banner>
-        <s-text type="bold">{i18n.translate('documents')}</s-text>
+        <s-text type="strong">{i18n.translate('documents')}</s-text>
         <s-checkbox
           name="document-1"
           checked={document1}
           onChange={(event) => {
             setDocument1(event.target.value);
           }}
+          label={i18n.translate('document1')} 
         >
-         {i18n.translate('document1')} 
         </s-checkbox>
         <s-checkbox
           name="document-2"
@@ -71,8 +71,8 @@ function Extension() {
           onChange={(event) => {
             setDocument1(event.target.value);
           }}
+          label={i18n.translate('document2')} 
         >
-         {i18n.translate('document2')}  
         </s-checkbox>
       </s-stack>
     </s-admin-print-action>
