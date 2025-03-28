@@ -60,7 +60,7 @@ function Extension() {
           name="document-1"
           checked={document1}
           onChange={(event) => {
-            setDocument1(event.target.value);
+            setDocument1(event.target.checked);
           }}
           label={i18n.translate('document1')} 
         >
@@ -69,7 +69,7 @@ function Extension() {
           name="document-2"
           checked={document2}
           onChange={(event) => {
-            setDocument1(event.target.value);
+            setDocument2(event.target.checked);
           }}
           label={i18n.translate('document2')} 
         >
