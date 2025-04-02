@@ -6,7 +6,7 @@ export default function extension() {
 }
 
 function Extension() {
-  const {i18n, data, extension: {target}} = shopify;
+  const {i18n, close, data, extension: {target}} = shopify;
   console.log({data});
   const [productTitle, setProductTitle] = useState('');
   // Use direct API calls to fetch data from Shopify.
