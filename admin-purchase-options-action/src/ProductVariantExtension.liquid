@@ -3,7 +3,6 @@ import {render} from 'preact';
 import PurchaseOptionsActionExtension from './PurchaseOptionsActionExtension';
 
 export default function extension() {
-  console.log(shopify.extension.target);
   render(<PurchaseOptionsActionExtension />, document.body);
 }
 {%- elsif flavor contains "react" -%}
