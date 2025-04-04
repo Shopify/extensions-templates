@@ -129,7 +129,7 @@ function App() {
     >
       <BlockStack>
         {/* Set the translation values for each supported language in the locales directory */}
-        <Text fontWeight="bold">{i18n.translate('welcome', {TARGET})}</Text>
+        <Text fontWeight="bold">{i18n.translate('welcome', {target: TARGET})}</Text>
         <Text>Current product: {productTitle}</Text>
       </BlockStack>
     </AdminAction>
@@ -170,7 +170,7 @@ export default extension(TARGET, (root, { i18n, close, data }) => {
       },
       root.createComponent(BlockStack, null,
         // Set the translation values for each supported language in the locales directory
-        root.createComponent(Text, {fontWeight: 'bold'}, i18n.translate('welcome', {TARGET})),
+        root.createComponent(Text, {fontWeight: 'bold'}, i18n.translate('welcome', {target: TARGET})),
         root.createComponent(Text, null, 'Current product: ', productTitle)
       )
     )
