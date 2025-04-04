@@ -1,4 +1,68 @@
-{%- if flavor contains "react" -%}
+{%- if flavor contains "preact" -%}
+import {render} from 'preact';
+import {useState, useEffect} from 'preact/hooks';
+
+export default function extension() {
+  render(<Extension />, document.body);
+}
+
+function Extension() {
+  const {extension: {target}, i18n} = shopify;
+  const product = useProductVariant();
+  return (
+    <s-stack direction="block">
+      <s-text>
+        {i18n.translate('welcome', {target})}
+      </s-text>
+      {product?.bundleComponents.map((component) =>
+        <Text key={component.id}>{component.title}</Text>
+      )}
+    </s-stack>
+  );
+}
+
+function useProductVariant() {
+  const {data, query} = useApi();
+  const productId = data?.selected[0].id;
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    query(
+      `#graphql
+      query GetProductVariant($id: ID!) {
+        productVariant(id: $id) {
+          id
+          title
+          productVariantComponents(first: 100) {
+            nodes {
+              productVariant {
+                id
+                title
+              }
+            }
+          }
+        }
+      }
+      `,
+      {variables: {id: productVariantId}}
+    ).then(({data, errors}) => {
+      if (errors) {
+        console.error(errors);
+      } else {
+        const {productVariantComponents, ...productVariant} = data.productVariant;
+        setProductVariant({
+          ...productVariant,
+          productVariantComponents: productVariantComponents.nodes.map(({productVariant}) => ({
+            ...productVariant
+          }))
+        })
+      }
+    })
+  }, [productVariantId, query])
+
+  return productVariant;
+}
+{%- elsif flavor contains "react" -%}
 import {
   reactExtension,
   useApi,

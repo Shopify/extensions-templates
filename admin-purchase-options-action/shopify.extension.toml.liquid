@@ -1,4 +1,8 @@
-api_version = "unstable"
+{%- if flavor contains "preact" -%}
+api_version = "2025-07"
+{%- else %}
+api_version = "2025-04"
+{% endif -%}
 
 [[extensions]]
 # Change the merchant-facing name of the extension in locales/en.default.json
@@ -10,12 +14,10 @@ type = "ui_extension"
 # Both targets need to be specified for the extensions to work
 [[extensions.targeting]]
 module = "./src/ProductExtension.{{ srcFileExtension }}"
-# The target used here must match the target used in the module file (./src/PurchaseOptionsActionExtension.{{ srcFileExtension }})
 target = "admin.product-purchase-option.action.render"
 
 [[extensions.targeting]]
 module = "./src/ProductVariantExtension.{{ srcFileExtension }}"
-# The target used here must match the target used in the module file (./src/PurchaseOptionsActionExtension.{{ srcFileExtension }})
 target = "admin.product-variant-purchase-option.action.render"
 
 # Valid extension targets:

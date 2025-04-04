@@ -1,27 +1,26 @@
-{%- if flavor contains "react" -%}
 {
   "name": "{{ handle }}",
   "private": true,
   "version": "1.0.0",
   "license": "UNLICENSED",
+{%- if flavor contains "preact" -%}
+  "dependencies": {
+    "preact": "^10.10.x",
+    "@shopify/ui-extensions": "0.0.0-snapshot-20250327235714"
+  }
+{%- elsif flavor contains "react" -%}
   "dependencies": {
     "react": "^18.0.0",
-    "@shopify/ui-extensions": "unstable",
-    "@shopify/ui-extensions-react": "unstable",
+    "@shopify/ui-extensions": "2025.4.x",
+    "@shopify/ui-extensions-react": "2025.4.x",
     "react-reconciler": "0.29.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.0"
   }
-}
 {%- else -%}
-{
-  "name": "{{ handle }}",
-  "private": true,
-  "version": "1.0.0",
-  "license": "UNLICENSED",
   "dependencies": {
-    "@shopify/ui-extensions": "unstable"
+    "@shopify/ui-extensions": "2025.4.x"
   }
-}
 {%- endif -%}
+}

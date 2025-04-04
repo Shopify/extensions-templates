@@ -1,4 +1,8 @@
-api_version = "2025-01"
+{%- if flavor contains "preact" -%}
+api_version = "2025-07"
+{%- else %}
+api_version = "2025-04"
+{% endif -%}
 
 [[extensions]]
 name = "{{ handle }}"
@@ -9,7 +13,6 @@ type = "ui_extension"
 # Only 1 target can be specified for each admin print action extension
 [[extensions.targeting]]
 module = "./src/PrintActionExtension.{{ srcFileExtension }}"
-# The target used here must match the target used in the module file (./src/PrintActionExtension.{{ srcFileExtension }})
 target = "admin.order-details.print-action.render"
 
 # Valid extension targets:
