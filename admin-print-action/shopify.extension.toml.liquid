@@ -1,8 +1,9 @@
 {%- if flavor contains "preact" -%}
 api_version = "2025-07"
-{%- else %}
+
+{%- else -%}
 api_version = "2025-04"
-{% endif -%}
+{% endif %}
 
 [[extensions]]
 name = "{{ handle }}"
