@@ -3,12 +3,12 @@
   "private": true,
   "version": "1.0.0",
   "license": "UNLICENSED",
-{%- if flavor contains "preact" -%}
+{%- if flavor contains "preact" %}
   "dependencies": {
     "preact": "^10.10.x",
     "@shopify/ui-extensions": "2025-07-rc"
   }
-{%- elsif flavor contains "react" -%}
+{%- elsif flavor contains "react" %}
   "dependencies": {
     "react": "^18.0.0",
     "@shopify/ui-extensions": "2025.4.x",
@@ -18,9 +18,9 @@
   "devDependencies": {
     "@types/react": "^18.0.0"
   }
-{%- else -%}
+{%- else %}
   "dependencies": {
     "@shopify/ui-extensions": "2025.4.x"
   }
-{%- endif -%}
+{%- endif %}
 }
