@@ -15,7 +15,7 @@ function Extension() {
         {i18n.translate('welcome', {target})}
       </s-text>
       {product?.bundleComponents.map((component) =>
-        <Text key={component.id}>{component.title}</Text>
+        <s-text key={component.id}>{component.title}</s-text>
       )}
     </s-stack>
   );

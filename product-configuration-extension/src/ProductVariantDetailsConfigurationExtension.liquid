@@ -15,16 +15,16 @@ function Extension() {
         {i18n.translate('welcome', {target})}
       </s-text>
       {product?.bundleComponents.map((component) =>
-        <Text key={component.id}>{component.title}</Text>
+        <s-text key={component.id}>{component.title}</s-text>
       )}
     </s-stack>
   );
 }
 
 function useProductVariant() {
-  const {data, query} = useApi();
-  const productId = data?.selected[0].id;
-  const [product, setProduct] = useState(null);
+  const {data, query} = shopify;
+  const productVariantId = data?.selected[0].id;
+  const [productVariant, setProductVariant] = useState(null);
 
   useEffect(() => {
     query(

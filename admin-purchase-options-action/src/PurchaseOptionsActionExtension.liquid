@@ -1,10 +1,9 @@
 {%- if flavor contains "preact" -%}
-import type {Api as PurchaseOptionsActionExtension} from '@shopify/ui-extensions/admin.product-details.action.render';
 import {useState} from 'preact/hooks';
 
 export default function PurchaseOptionsActionExtension() {
   // The useApi hook provides access to several useful APIs like i18n, close, and data.
-  const {i18n, extension: {target}, close, data} = shopify as PurchaseOptionsActionExtension;
+  const {i18n, extension: {target}, close, data} = shopify;
   console.log({data});
   const [merchantCode, setMerchantCode] = useState('');
   const [planName, setPlanName] = useState('');
@@ -50,7 +49,7 @@ export default function PurchaseOptionsActionExtension() {
         {i18n.translate('welcome', {target})}
         <s-text-field
           label="Title"
-          placeHolder="Subscribe and save"
+          placeholder="Subscribe and save"
           value={planName}
           onChange={(event) => setPlanName(event.target.value)}
         />
@@ -62,7 +61,7 @@ export default function PurchaseOptionsActionExtension() {
         <s-box>
           <s-choice-list
             name="discountType"
-            value={[discountType]}
+            values={[discountType]}
             onChange={(e) => setDiscountType(e.target.values[0])}
           >
             <s-choice value="percentageOff">Percentage off</s-choice>

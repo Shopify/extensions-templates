@@ -42,15 +42,15 @@ function Extension() {
         {/* Set the translation values for each supported language in the locales directory */}
         <s-text type="strong">{i18n.translate('welcome', {target})}</s-text>
         <s-text>Current product: {productTitle}</s-text>
-        <s-button slot="primaryAction" onClick={() => {
-            console.log('saving');
-            close();
-          }}>Done</s-button>
-        <s-button slot="secondaryAction" onClick={() => {
-            console.log('closing');
-            close();
-          }}>Close</s-button>
       </s-stack>
+      <s-button slot="primaryAction" onClick={() => {
+          console.log('saving');
+          close();
+        }}>Done</s-button>
+      <s-button slot="secondaryAction" onClick={() => {
+          console.log('closing');
+          close();
+      }}>Close</s-button>
     </s-admin-action>
   );
 }
