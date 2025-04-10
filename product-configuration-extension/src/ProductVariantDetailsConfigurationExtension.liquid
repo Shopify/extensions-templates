@@ -23,15 +23,8 @@ function Extension() {
 
 function useProductVariant() {
   const {data, query} = shopify;
-  const productId = data?.selected[0].id;
-  const [productVariant, setProductVariant] = useState<{
-    id: string;
-    title: string;
-    productVariantComponents: {
-      id: string;
-      title: string;
-    }[];
-  }>(null);
+  const productVariantId = data?.selected[0].id;
+  const [productVariant, setProductVariant] = useState(null);
 
   useEffect(() => {
     query(
