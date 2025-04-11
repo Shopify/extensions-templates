@@ -15,7 +15,7 @@ function Extension() {
     // For checkouts such as draft order invoices, cart attributes may not be allowed
     // Consider rendering a fallback UI or nothing at all, if the feature is unavailable
     return (
-      <s-banner title="{{ name }}" tone="warning">
+      <s-banner heading="{{ name }}" tone="warning">
         {shopify.i18n.translate("attributeChangesAreNotSupported")}
       </s-banner>
     );
@@ -23,7 +23,7 @@ function Extension() {
 
   // 3. Render a UI
   return (
-    <s-banner title="{{ name }}">
+    <s-banner heading="{{ name }}">
       <s-stack gap="base">
         <s-text>
           {shopify.i18n.translate("welcome", {
