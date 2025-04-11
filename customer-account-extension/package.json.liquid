@@ -1,4 +1,15 @@
-{%- if flavor contains "react" -%}
+{%- if flavor contains "preact" -%}
+{
+  "name": "{{ handle }}",
+  "private": true,
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "preact": "^10.10.x",
+    "@shopify/ui-extensions": "2025-07-rc"
+  }
+}
+{%- elsif flavor contains "react" -%}
 {
   "name": "{{ handle }}",
   "private": true,
@@ -6,8 +17,8 @@
   "license": "UNLICENSED",
   "dependencies": {
     "react": "^18.0.0",
-    "@shopify/ui-extensions": "2025.04.x",
-    "@shopify/ui-extensions-react": "2025.04.x",
+    "@shopify/ui-extensions": "2025.4.x",
+    "@shopify/ui-extensions-react": "2025.4.x",
     "react-reconciler": "0.29.0"
   },
   "devDependencies": {
@@ -21,7 +32,7 @@
   "version": "1.0.0",
   "license": "UNLICENSED",
   "dependencies": {
-    "@shopify/ui-extensions": "2025.04.x"
+    "@shopify/ui-extensions": "2025.4.x"
   }
 }
 {%- endif -%}
