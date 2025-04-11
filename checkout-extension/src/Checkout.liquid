@@ -1,4 +1,66 @@
-{%- if flavor contains "react" -%}
+{%- if flavor contains "preact" -%}
+import {render} from "preact";
+import {useState, useEffect} from "preact/hooks";
+
+// 1. Export the extension
+export default function() {
+  render(<Extension />, document.body)
+}
+
+function Extension() {
+  const instructions = useSubscription(shopify.instructions);
+
+  // 2. Check instructions for feature availability, see https://shopify.dev/docs/api/checkout-ui-extensions/apis/cart-instructions for details
+  if (!instructions.attributes.canUpdateAttributes) {
+    // For checkouts such as draft order invoices, cart attributes may not be allowed
+    // Consider rendering a fallback UI or nothing at all, if the feature is unavailable
+    return (
+      <s-banner title="{{ name }}" tone="warning">
+        {shopify.i18n.translate("attributeChangesAreNotSupported")}
+      </s-banner>
+    );
+  }
+
+  // 3. Render a UI
+  return (
+    <s-banner title="{{ name }}">
+      <s-stack gap="base">
+        <s-text>
+          {shopify.i18n.translate("welcome", {
+            target: <s-text type="emphasis">{shopify.extension.target}</s-text>,
+          })}
+        </s-text>
+        <s-button onClick={handleClick}>
+          {shopify.i18n.translate("addAFreeGiftToMyOrder")}
+        </s-button>
+      </s-stack>
+    </s-banner>
+  );
+
+  async function handleClick() {
+    // 4. Call the API to modify checkout
+    const result = await shopify.applyAttributeChange({
+      key: "requestedFreeGift",
+      type: "updateAttribute",
+      value: "yes",
+    });
+    console.log("applyAttributeChange result", result);
+  }
+}
+
+function useSubscription(subscribable) {
+  const [value, setValue] = useState(subscribable.current);
+
+  useEffect(() => {
+    const subscription = subscribable.subscribe(
+      () => setValue(subscribable.current)
+    );
+    return () => subscription.destroy();
+  }, [subscribable]);
+
+  return value;
+}
+{%- elsif flavor contains "react" -%}
 import {
   reactExtension,
   Banner,
