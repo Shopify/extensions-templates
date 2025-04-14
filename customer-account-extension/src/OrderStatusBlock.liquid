@@ -1,4 +1,23 @@
-{%- if flavor contains "react" -%}
+{%- if flavor contains "preact" -%}
+
+import {render} from "preact";
+
+export default function() {
+  render(<Extension />, document.body)
+}
+
+function Extension() {
+  return (
+    <s-banner>
+      <s-stack gap="base" alignment="center">
+        <s-text>
+          {shopify.i18n.translate("earnPoints")}
+        </s-text>
+      </s-stack>
+    </s-banner>
+  );
+}
+{%- elsif flavor contains "react" -%}
 import {
   BlockStack,
   reactExtension,
@@ -25,7 +44,6 @@ function PromotionBanner() {
     </Banner>
   );
 }
-
 
 {%- else -%}
 import { extension, Banner, BlockStack, TextBlock } from '@shopify/ui-extensions/customer-account';
