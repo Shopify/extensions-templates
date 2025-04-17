@@ -1,359 +1,787 @@
 {% if flavor contains 'react' %}
-import {
-  reactExtension,
-  useApi,
-  BlockStack,
-  FunctionSettings,
-  Section,
-  Text,
-  Form,
-  NumberField,
-  Box,
-} from '@shopify/ui-extensions-react/admin';
+  import {
+    reactExtension,
+    useApi,
+    BlockStack,
+    FunctionSettings,
+    Section,
+    Text,
+    Form,
+    NumberField,
+    Box,
+    InlineStack,
+    Heading,
+    TextField,
+    Button,
+    Icon,
+    Link,
+    Divider,
+    Select,
+  } from "@shopify/ui-extensions-react/admin";
+  import { useState, useMemo, useEffect } from "react";
 
-import { useState, useEffect } from 'react';
-const TARGET = 'admin.discount-details.function-settings.render';
+  const TARGET = "admin.discount-details.function-settings.render";
 
-export default reactExtension(TARGET, async (api) => {
-  const existingDefinition = await getMetafieldDefinition(api.query);
-  if (!existingDefinition) {
-    // Create a metafield definition for persistence if no pre-existing definition exists
-    const metafieldDefinition = await createMetafieldDefinition(api.query);
+  export default reactExtension(TARGET, async (api) => {
+    const existingDefinition = await getMetafieldDefinition(api.query);
+    if (!existingDefinition) {
+      // Create a metafield definition for persistence if no pre-existing definition exists
+      const metafieldDefinition = await createMetafieldDefinition(api.query);
 
-    if (!metafieldDefinition) {
-      throw new Error('Failed to create metafield definition');
-    }
-  }
-  return <App />;
-});
-
-function PercentageField({ defaultValue, value, onChange, i18n }) {
-  return (
-    <Box paddingBlockEnd="300">
-      <BlockStack gap="base">
-        <Text variant="headingMd" as="h2">
-          {i18n.translate('description')}
-        </Text>
-        <NumberField
-          label={i18n.translate('discountPercentage')}
-          name="percentage"
-          autoComplete="on"
-          value={value}
-          defaultValue={defaultValue}
-          onChange={onChange}
-          suffix="%"
-        />
-      </BlockStack>
-    </Box>
-  );
-}
-
-function App() {
-  const {
-    loading,
-    applyExtensionMetafieldChange,
-    i18n,
-    initialPercentage,
-    onPercentageValueChange,
-    percentage,
-    resetForm
-  } = useExtensionData();
-  return (
-    <FunctionSettings onSave={applyExtensionMetafieldChange}>
-    <Form onReset={resetForm}>
-        <Section>
-          <PercentageField
-            value={percentage}
-            defaultValue={initialPercentage}
-            onChange={onPercentageValueChange}
-            i18n={i18n}
-          />
-        </Section>
-      </Form>
-    </FunctionSettings>
-  );
-}
-
-function useExtensionData() {
-  const { applyMetafieldChange, i18n, data } = useApi(TARGET);
-  const initialMetafields = data?.metafields || [];
-  const [loading, setLoading] = useState(false);
-  const [percentage, setPercentage] = useState(0);
-  const [savedMetafields] = useState(initialMetafields);
-  const [initialPercentage, setInitialPercentage] = useState(0);
-
-  useEffect(() => {
-    async function fetchInitialData() {
-      setLoading(true);
-
-      const transferPercentage = parsePercentageMetafield(
-        savedMetafields.find(
-          (metafield) => metafield.key === 'function-configuration'
-        )?.value
-      );
-      setInitialPercentage(Number(transferPercentage));
-      setPercentage(Number(transferPercentage));
-
-      setLoading(false);
-    }
-    fetchInitialData();
-  }, [initialMetafields]);
-
-  const onPercentageValueChange = async (value) => {
-    setPercentage(Number(value));
-  };
-
-  async function applyExtensionMetafieldChange() {
-    const commitFormValues = {
-      percentage: Number(percentage),
-    };
-    await applyMetafieldChange({
-      type: 'updateMetafield',
-      namespace: '$app:example-discounts--ui-extension',
-      key: 'function-configuration',
-      value: JSON.stringify(commitFormValues),
-      valueType: 'json',
-    });
-  }
-
-  return {
-    loading,
-    applyExtensionMetafieldChange,
-    i18n,
-    initialPercentage,
-    onPercentageValueChange,
-    percentage,
-    resetForm: () => setPercentage(initialPercentage)
-  };
-}
-
-const METAFIELD_NAMESPACE = '$app:example-discounts--ui-extension';
-const METAFIELD_KEY = 'function-configuration';
-async function getMetafieldDefinition(adminApiQuery) {
-  const query = `#graphql
-    query GetMetafieldDefinition {
-      metafieldDefinitions(first: 1, ownerType: DISCOUNT, namespace: "${METAFIELD_NAMESPACE}", key: "${METAFIELD_KEY}") {
-        nodes {
-          id
-        }
+      if (!metafieldDefinition) {
+        throw new Error("Failed to create metafield definition");
       }
     }
-  `;
+    return <App />;
+  });
 
-  const result = await adminApiQuery(query);
+  function PercentageField({ label, defaultValue, value, onChange, name }) {
+    return (
+      <Box>
+        <BlockStack gap="base">
+          <NumberField
+            label={label}
+            name={name}
+            value={Number(value)}
+            defaultValue={String(defaultValue)}
+            onChange={(value) => onChange(String(value))}
+            suffix="%"
+          />
+        </BlockStack>
+      </Box>
+    );
+  }
+  function AppliesToCollections({
+    onClickAdd,
+    onClickRemove,
+    value,
+    defaultValue,
+    i18n,
+    appliesTo,
+    onAppliesToChange,
+  }) {
+    return (
+      <Section>
+        {/* [START discount-ui-extension.hidden-box] */}
+        <Box display="none">
+          <TextField
+            value={value.map(({ id }) => id).join(",")}
+            label=""
+            name="collectionsIds"
+            defaultValue={defaultValue.map(({ id }) => id).join(",")}
+          />
+        </Box>
+        {/* [END discount-ui-extension.hidden-box] */}
+        <BlockStack gap="base">
+          <InlineStack blockAlignment="end" gap="base">
+            <Select
+              label={i18n.translate("collections.appliesTo")}
+              name="appliesTo"
+              value={appliesTo}
+              onChange={onAppliesToChange}
+              options={[
+                {
+                  label: i18n.translate("collections.allProducts"),
+                  value: "all",
+                },
+                {
+                  label: i18n.translate("collections.collections"),
+                  value: "collections",
+                },
+              ]}
+            />
 
-  return result?.data?.metafieldDefinitions?.nodes[0];
-}
-async function createMetafieldDefinition(adminApiQuery) {
-  const definition = {
-    access: {
-      admin: 'MERCHANT_READ_WRITE',
-    },
-    key: METAFIELD_KEY,
-    name: 'Discount Configuration',
-    namespace: METAFIELD_NAMESPACE,
-    ownerType: 'DISCOUNT',
-    type: 'json',
-  };
+            {appliesTo === "all" ? null : (
+              <Box inlineSize={180}>
+                <Button onClick={onClickAdd}>
+                  {i18n.translate("collections.buttonLabel")}
+                </Button>
+              </Box>
+            )}
+          </InlineStack>
+          <CollectionsSection collections={value} onClickRemove={onClickRemove} />
+        </BlockStack>
+      </Section>
+    );
+  }
 
-  const query = `#graphql
-    mutation CreateMetafieldDefinition($definition: MetafieldDefinitionInput!) {
-      metafieldDefinitionCreate(definition: $definition) {
-        createdDefinition {
+  function CollectionsSection({ collections, onClickRemove }) {
+    if (collections.length === 0) {
+      return null;
+    }
+
+    return collections.map((collection) => (
+      <BlockStack gap="base" key={collection.id}>
+        <InlineStack blockAlignment="center" inlineAlignment="space-between">
+          <Link
+            href={`shopify://admin/collections/${collection.id.split("/").pop()}`}
+            tone="inherit"
+            target="_blank"
+          >
+            {collection.title}
+          </Link>
+          <Button variant="tertiary" onClick={() => onClickRemove(collection.id)}>
+            <Icon name="CircleCancelMajor" />
+          </Button>
+        </InlineStack>
+        <Divider />
+      </BlockStack>
+    ));
+  }
+
+  function App() {
+    const {
+      applyExtensionMetafieldChange,
+      i18n,
+      initialPercentages,
+      onPercentageValueChange,
+      percentages,
+      resetForm,
+      initialCollections,
+      collections,
+      appliesTo,
+      onAppliesToChange,
+      removeCollection,
+      onSelectedCollections,
+      loading,
+    } = useExtensionData();
+
+    if (loading) {
+      return <Text>{i18n.translate("loading")}</Text>;
+    }
+
+    return (
+      <FunctionSettings onSave={applyExtensionMetafieldChange}>
+        <Heading size={6}>{i18n.translate("title")}</Heading>
+        <Form onReset={resetForm} onSubmit={applyExtensionMetafieldChange}>
+          <Section>
+            <BlockStack gap="base">
+              <BlockStack gap="base">
+                <PercentageField
+                  value={String(percentages.product)}
+                  defaultValue={String(initialPercentages.product)}
+                  onChange={(value) => onPercentageValueChange("product", value)}
+                  label={i18n.translate("percentage.Product")}
+                  name="product"
+                />
+
+                <AppliesToCollections
+                  onClickAdd={onSelectedCollections}
+                  onClickRemove={removeCollection}
+                  value={collections}
+                  defaultValue={initialCollections}
+                  i18n={i18n}
+                  appliesTo={appliesTo}
+                  onAppliesToChange={onAppliesToChange}
+                />
+              </BlockStack>
+              {collections.length === 0 ? <Divider /> : null}
+              <PercentageField
+                value={String(percentages.order)}
+                defaultValue={String(initialPercentages.order)}
+                onChange={(value) => onPercentageValueChange("order", value)}
+                label={i18n.translate("percentage.Order")}
+                name="order"
+              />
+
+              <PercentageField
+                value={String(percentages.shipping)}
+                defaultValue={String(initialPercentages.shipping)}
+                onChange={(value) => onPercentageValueChange("shipping", value)}
+                label={i18n.translate("percentage.Shipping")}
+                name="shipping"
+              />
+            </BlockStack>
+          </Section>
+        </Form>
+      </FunctionSettings>
+    );
+  }
+
+  function useExtensionData() {
+    const { applyMetafieldChange, i18n, data, resourcePicker, query } =
+      useApi(TARGET);
+    const metafieldConfig = useMemo(
+      () =>
+        parseMetafield(
+          data?.metafields.find(
+            (metafield) => metafield.key === "function-configuration"
+          )?.value
+        ),
+      [data?.metafields]
+    );
+    const [percentages, setPercentages] = useState(metafieldConfig.percentages);
+    const [initialCollections, setInitialCollections] = useState([]);
+    const [collections, setCollections] = useState([]);
+    const [appliesTo, setAppliesTo] = useState("all");
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+      const fetchCollections = async () => {
+        setLoading(true);
+        const selectedCollections = await getCollections(
+          metafieldConfig.collectionIds,
+          query
+        );
+        setInitialCollections(selectedCollections);
+        setCollections(selectedCollections);
+        setLoading(false);
+        setAppliesTo(selectedCollections.length > 0 ? "collections" : "all");
+      };
+      fetchCollections();
+    }, [metafieldConfig.collectionIds, query]);
+
+    const onPercentageValueChange = async (type, value) => {
+      setPercentages((prev) => ({
+        ...prev,
+        [type]: Number(value),
+      }));
+    };
+
+    const onAppliesToChange = (value) => {
+      setAppliesTo(value);
+      if (value === "all") {
+        setCollections([]);
+      }
+    };
+
+    async function applyExtensionMetafieldChange() {
+      await applyMetafieldChange({
+        type: "updateMetafield",
+        namespace: "$app:example-discounts--ui-extension",
+        key: "function-configuration",
+        value: JSON.stringify({
+          cartLinePercentage: percentages.product,
+          orderPercentage: percentages.order,
+          deliveryPercentage: percentages.shipping,
+          collectionIds: collections.map(({ id }) => id),
+        }),
+        valueType: "json",
+      });
+      setInitialCollections(collections);
+    }
+
+    const resetForm = () => {
+      setPercentages(metafieldConfig.percentages);
+      setCollections(initialCollections);
+      setAppliesTo(initialCollections.length > 0 ? "collections" : "all");
+    };
+
+    const onSelectedCollections = async () => {
+      const selection = await resourcePicker({
+        type: "collection",
+        selectionIds: collections.map(({ id }) => ({ id })),
+        action: "select",
+        filter: {
+          archived: true,
+          variants: true,
+        },
+      });
+      setCollections(selection ?? []);
+    };
+
+    const removeCollection = (id) => {
+      setCollections((prev) => prev.filter((collection) => collection.id !== id));
+    };
+
+    return {
+      applyExtensionMetafieldChange,
+      i18n,
+      initialPercentages: metafieldConfig.percentages,
+      onPercentageValueChange,
+      percentages,
+      resetForm,
+      collections,
+      initialCollections,
+      removeCollection,
+      onSelectedCollections,
+      loading,
+      appliesTo,
+      onAppliesToChange,
+    };
+  }
+
+  const METAFIELD_NAMESPACE = "$app:example-discounts--ui-extension";
+  const METAFIELD_KEY = "function-configuration";
+
+  async function getMetafieldDefinition(adminApiQuery) {
+    const query = `#graphql
+      query GetMetafieldDefinition {
+        metafieldDefinitions(first: 1, ownerType: DISCOUNT, namespace: "${METAFIELD_NAMESPACE}", key: "${METAFIELD_KEY}") {
+          nodes {
             id
           }
         }
       }
-  `;
+    `;
 
-  const variables = { definition };
-  const result = await adminApiQuery(query, { variables });
+    const result = await adminApiQuery(query);
 
-  return result?.data?.metafieldDefinitionCreate?.createdDefinition;
-}
-
-
-function parsePercentageMetafield(value) {
-  try {
-    return JSON.parse(value).percentage;
-  } catch {
-    return 0;
+    return result?.data?.metafieldDefinitions?.nodes[0];
   }
-}
+  async function createMetafieldDefinition(adminApiQuery) {
+    const definition = {
+      access: {
+        admin: "MERCHANT_READ_WRITE",
+      },
+      key: METAFIELD_KEY,
+      name: "Discount Configuration",
+      namespace: METAFIELD_NAMESPACE,
+      ownerType: "DISCOUNT",
+      type: "json",
+    };
+
+    const query = `#graphql
+      mutation CreateMetafieldDefinition($definition: MetafieldDefinitionInput!) {
+        metafieldDefinitionCreate(definition: $definition) {
+          createdDefinition {
+              id
+            }
+          }
+        }
+    `;
+
+    const variables = { definition };
+    const result = await adminApiQuery(query, { variables });
+
+    return result?.data?.metafieldDefinitionCreate?.createdDefinition;
+  }
+
+  function parseMetafield(value) {
+    try {
+      const parsed = JSON.parse(value || "{}");
+      return {
+        percentages: {
+          product: Number(parsed.cartLinePercentage ?? 0),
+          order: Number(parsed.orderPercentage ?? 0),
+          shipping: Number(parsed.deliveryPercentage ?? 0),
+        },
+        collectionIds: parsed.collectionIds ?? [],
+      };
+    } catch {
+      return {
+        percentages: { product: 0, order: 0, shipping: 0 },
+        collectionIds: [],
+      };
+    }
+  }
+
+  async function getCollections(collectionGids, adminApiQuery) {
+    const query = `#graphql
+      query GetCollections($ids: [ID!]!) {
+        collections: nodes(ids: $ids) {
+          ... on Collection {
+            id
+            title
+          }
+        }
+      }
+    `;
+    const result = await adminApiQuery(query, {
+      variables: { ids: collectionGids },
+    });
+    return result?.data?.collections ?? [];
+  }
+
 
 {% else %}
-
-
 import {
   FunctionSettings,
   Text,
   Form,
-  Banner,
   NumberField,
   Box,
   BlockStack,
   Section,
+  Button,
+  InlineStack,
+  Select,
+  Link,
+  Divider,
   extension,
 } from '@shopify/ui-extensions/admin';
 
 const TARGET = 'admin.discount-details.function-settings.render';
-
-export default extension(TARGET, async (root, api) => {
-  const existingDefinition = await getMetafieldDefinition(api.query);
-  if (!existingDefinition) {
-    // Create a metafield definition for persistence if no pre-existing definition exists
-    const metafieldDefinition = await createMetafieldDefinition(api.query);
-
-    if (!metafieldDefinition) {
-      throw new Error('Failed to create metafield definition');
-    }
-  }
-  const { applyMetafieldChange, i18n, data } = api;
-  const initialValues = data?.metafields || [];
-  const transferPercentage = parsePercentageMetafield(
-    initialValues.find(
-      (metafield) => metafield.key === 'function-configuration',
-    )?.value,
-  );
-
-  let percentage = Number(transferPercentage) || 0;
-
-  const functionSettingsComponent = root.createComponent(FunctionSettings, {});
-  const FormFragment = root.createComponent(
-    Form,
-    {
-      onSave: applyExtensionMetafieldChange,
-      onReset: () => { percentage = Number(transferPercentage) || 0; }
-    },
-    functionSettingsComponent,
-  );
-  const setError = (message) => {
-    functionSettingsComponent.replaceChildren(
-      root.createComponent(Banner, { tone: 'critical' }, message),
-    );
-  };
-  const onPercentageValueChange = async (value) => {
-    percentage = value;
-
-    await applyExtensionMetafieldChange({
-      initialValues: { percentage },
-      updates: { key: 'percentage', value },
-      applyMetafieldChange,
-      setError,
-    });
-  };
-
-  const numberFieldTextFragment = root.createComponent(
-    Text,
-    {
-      fontVariant: 'bold-200',
-    },
-    i18n.translate('description'),
-  );
-  const numberFieldFragment = root.createComponent(NumberField, {
-    onChange: onPercentageValueChange,
-    value: percentage,
-    defaultValue: percentage,
-    suffix: '%',
-  });
-  const numberFieldBlockStack = root.createComponent(
-    BlockStack,
-    {
-      gap: 'base',
-    },
-    numberFieldTextFragment,
-    numberFieldFragment,
-  );
-  const numberFieldBox = root.createComponent(
-    Box,
-    { paddingBlockEnd: '300' },
-    numberFieldBlockStack,
-  );
-  const NumberFieldSection = root.createComponent(Section, {}, numberFieldBox);
-
-  functionSettingsComponent.appendChild(NumberFieldSection);
-
-  root.append(FormFragment);
-});
-
-async function applyExtensionMetafieldChange({
-  initialValues,
-  updates,
-  applyMetafieldChange,
-  setError,
-}) {
-
-  const { key, value } = updates;
-  const { percentage } = initialValues;
-  const commitFormValues = {
-    percentage: Number(percentage),
-    [key]: value,
-  };
-  const results = await applyMetafieldChange({
-    type: 'updateMetafield',
-    namespace: '$app:example-discounts--ui-extension',
-    key: 'function-configuration',
-    value: JSON.stringify(commitFormValues),
-    valueType: 'json',
-  });
-
-  if (results.status === 'error') {
-    setError(results.message);
-  }
-}
-
 const METAFIELD_NAMESPACE = '$app:example-discounts--ui-extension';
 const METAFIELD_KEY = 'function-configuration';
-async function getMetafieldDefinition(adminApiQuery) {
-  const query = `#graphql
-    query GetMetafieldDefinition {
-      metafieldDefinitions(first: 1, ownerType: DISCOUNT, namespace: "${METAFIELD_NAMESPACE}", key: "${METAFIELD_KEY}") {
-        nodes {
-          id
+
+function parseMetafield(value) {
+  try {
+    const parsed = JSON.parse(value || '{}');
+    return {
+      cartLinePercentage: Number(parsed.cartLinePercentage ?? 0),
+      orderPercentage: Number(parsed.orderPercentage ?? 0),
+      deliveryPercentage: Number(parsed.deliveryPercentage ?? 0),
+      collectionIds: parsed.collectionIds ?? [],
+    };
+  } catch (error) {
+    console.error('Error parsing metafield', error);
+    return {
+      cartLinePercentage: 0,
+      orderPercentage: 0,
+      deliveryPercentage: 0,
+      collectionIds: [],
+    };
+  }
+}
+
+export default extension(TARGET, async (root, api) => {
+  let initialized = false;
+
+  const { applyMetafieldChange, i18n, data, resourcePicker } = api;
+
+  const initialValues = data?.metafields || [];
+  const metafieldValue = initialValues.find(
+    metafield => metafield.key === 'function-configuration'
+  )?.value || '{}';
+
+  let config = parseMetafield(metafieldValue);
+
+  let collectionData = [];
+
+  let targetingType = config.collectionIds?.length > 0 ? 'collections' : 'all';
+
+  let loadingCollections = false;
+
+  const functionSettingsComponent = root.createComponent(FunctionSettings, {
+    onSave: saveSettings
+  });
+
+  const formComponent = root.createComponent(Form, {
+    onSave: saveSettings,
+    onReset: resetSettings
+  });
+
+  const mainSection = root.createComponent(Section, {});
+  const loadingIndicator = root.createComponent(Text, {}, 'Loading...');
+
+  const title = root.createComponent(
+    Text,
+    { size: 'medium', emphasis: 'bold' },
+    i18n.translate('title') || 'Discount Configuration'
+  );
+
+  functionSettingsComponent.append(title);
+  functionSettingsComponent.append(formComponent);
+  formComponent.append(mainSection);
+  root.append(functionSettingsComponent);
+
+  initialize();
+
+  async function initialize() {
+    mainSection.append(loadingIndicator);
+
+    try {
+      if (config.collectionIds?.length > 0) {
+        await fetchCollections();
+      }
+    } catch (error) {
+      console.error('Error initializing', error);
+    } finally {
+      if (mainSection.children.includes(loadingIndicator)) {
+        mainSection.removeChild(loadingIndicator);
+      }
+
+      buildUI();
+      initialized = true;
+    }
+  }
+
+  async function fetchCollections() {
+    if (loadingCollections || !config.collectionIds?.length) return;
+
+    loadingCollections = true;
+
+    try {
+      const query = `#graphql
+        query GetCollections($ids: [ID!]!) {
+          collections: nodes(ids: $ids) {
+            ... on Collection {
+              id
+              title
+            }
+          }
+        }
+      `;
+
+      const result = await api.query(query, {
+        variables: { ids: config.collectionIds }
+      });
+
+      if (result?.data?.collections) {
+        collectionData = result.data.collections
+          .filter(collection => collection && collection.id)
+          .map(collection => ({
+            id: collection.id,
+            title: collection.title || 'Unnamed Collection'
+          }));
+      }
+    } catch (error) {
+      console.error('Error fetching collections', error);
+      collectionData = [];
+    } finally {
+      loadingCollections = false;
+    }
+  }
+
+  function buildUI() {
+    while (mainSection.children.length > 0) {
+      mainSection.removeChild(mainSection.children[0]);
+    }
+
+    const content = root.createComponent(BlockStack, { gap: 'base' });
+
+    const productField = root.createComponent(NumberField, {
+      label: i18n.translate('percentage.Product') || 'Product Discount',
+      value: config.cartLinePercentage,
+      onChange: value => {
+        config.cartLinePercentage = Number(value);
+      },
+      suffix: '%'
+    });
+    content.append(productField);
+
+    const collectionsBox = root.createComponent(Box, {});
+    const collectionsStack = root.createComponent(BlockStack, { gap: 'base' });
+
+    const header = root.createComponent(InlineStack, {
+      blockAlignment: 'end',
+      gap: 'base'
+    });
+
+    const selector = root.createComponent(Select, {
+      label: i18n.translate('collections.appliesTo') || 'Applies to',
+      value: targetingType,
+      onChange: value => {
+        targetingType = value;
+
+        if (value === 'all') {
+          collectionData = [];
+          config.collectionIds = [];
+        }
+
+        if (initialized) {
+          buildUI();
+        }
+      },
+      options: [
+        {
+          label: i18n.translate('collections.allProducts') || 'All products',
+          value: 'all'
+        },
+        {
+          label: i18n.translate('collections.collections') || 'Specific collections',
+          value: 'collections'
+        }
+      ]
+    });
+    header.append(selector);
+
+    if (targetingType === 'collections') {
+      const addButton = root.createComponent(
+        Box,
+        { inlineSize: 180 },
+        root.createComponent(Button, {
+          onPress: openCollectionPicker
+        }, i18n.translate('collections.buttonLabel') || 'Add collections')
+      );
+      header.append(addButton);
+    }
+
+    collectionsStack.append(header);
+
+    if (targetingType === 'collections' && collectionData.length > 0) {
+      collectionData.forEach(collection => {
+        const row = root.createComponent(InlineStack, {
+          blockAlignment: 'center',
+          inlineAlignment: 'space-between'
+        });
+
+        let collectionId = '';
+        try {
+          const parts = collection.id.split('/');
+          collectionId = parts[parts.length - 1] || '';
+        } catch (err) {
+          console.error('Error extracting collection ID', err);
+        }
+
+        const link = root.createComponent(
+          Link,
+          {
+            url: `shopify://admin/collections/${collectionId}`,
+            external: true
+          },
+          collection.title
+        );
+
+
+        const removeBtn = root.createComponent(
+          Button,
+          {
+            kind: 'tertiary',
+            onPress: () => removeCollection(collection.id)
+          },
+          "✕"
+        );
+
+        row.append(link);
+        row.append(removeBtn);
+        collectionsStack.append(row);
+        collectionsStack.append(root.createComponent(Divider, {}));
+      });
+    }
+
+    collectionsBox.append(collectionsStack);
+    content.append(collectionsBox);
+
+    if (targetingType === 'all' || collectionData.length === 0) {
+      content.append(root.createComponent(Divider, {}));
+    }
+
+    const orderField = root.createComponent(NumberField, {
+      label: i18n.translate('percentage.Order') || 'Order Discount',
+      value: config.orderPercentage,
+      onChange: value => {
+        config.orderPercentage = Number(value);
+      },
+      suffix: '%'
+    });
+    content.append(orderField);
+
+    const shippingField = root.createComponent(NumberField, {
+      label: i18n.translate('percentage.Shipping') || 'Shipping Discount',
+      value: config.deliveryPercentage,
+      onChange: value => {
+        config.deliveryPercentage = Number(value);
+      },
+      suffix: '%'
+    });
+    content.append(shippingField);
+
+    mainSection.append(content);
+  }
+
+  function removeCollection(collectionId) {
+    collectionData = collectionData.filter(c => c.id !== collectionId);
+    config.collectionIds = collectionData.map(c => c.id);
+
+    if (initialized) {
+      buildUI();
+    }
+  }
+
+  async function openCollectionPicker() {
+    try {
+      const selections = collectionData.map(c => ({ id: c.id }));
+
+      const result = await resourcePicker({
+        type: 'collection',
+        selectionIds: selections,
+        action: 'select',
+        filter: {
+          archived: true,
+          variants: true
+        }
+      });
+
+      if (result && Array.isArray(result)) {
+        config.collectionIds = result.map(item => item.id);
+
+        collectionData = result.map(item => ({
+          id: item.id,
+          title: item.title || 'Unnamed Collection'
+        }));
+
+        if (initialized) {
+          buildUI();
         }
       }
+    } catch (error) {
+      console.error('Error with collection picker', error);
     }
-  `;
+  }
 
-  const result = await adminApiQuery(query);
+  function resetSettings() {
+    config = parseMetafield(metafieldValue);
+    targetingType = config.collectionIds?.length > 0 ? 'collections' : 'all';
 
-  return result?.data?.metafieldDefinitions?.nodes[0];
-}
-async function createMetafieldDefinition(adminApiQuery) {
-  const definition = {
-    access: {
-      admin: 'MERCHANT_READ_WRITE',
-    },
-    key: METAFIELD_KEY,
-    name: 'Discount Configuration',
-    namespace: METAFIELD_NAMESPACE,
-    ownerType: 'DISCOUNT',
-    type: 'json',
-  };
+    if (config.collectionIds?.length > 0) {
+      fetchCollections().then(() => buildUI());
+    } else {
+      collectionData = [];
+      buildUI();
+    }
+  }
 
-  const query = `#graphql
-    mutation CreateMetafieldDefinition($definition: MetafieldDefinitionInput!) {
-      metafieldDefinitionCreate(definition: $definition) {
-        createdDefinition {
+  async function saveSettings() {
+    try {
+      await applyMetafieldChange({
+        type: 'updateMetafield',
+        namespace: METAFIELD_NAMESPACE,
+        key: METAFIELD_KEY,
+        value: JSON.stringify({
+          cartLinePercentage: config.cartLinePercentage,
+          orderPercentage: config.orderPercentage,
+          deliveryPercentage: config.deliveryPercentage,
+          collectionIds: config.collectionIds,
+        }),
+        valueType: 'json',
+      });
+    } catch (error) {
+      console.error('Error saving settings', error);
+    }
+  }
+
+  checkMetafieldDefinition();
+
+  async function checkMetafieldDefinition() {
+    const existingDefinition = await getMetafieldDefinition();
+    if (!existingDefinition) {
+      await createMetafieldDefinition();
+    }
+  }
+
+  async function getMetafieldDefinition() {
+    const query = `#graphql
+      query GetMetafieldDefinition {
+        metafieldDefinitions(first: 1, ownerType: DISCOUNT, namespace: "${METAFIELD_NAMESPACE}", key: "${METAFIELD_KEY}") {
+          nodes {
             id
           }
         }
       }
-  `;
+    `;
 
-  const variables = { definition };
-  const result = await adminApiQuery(query, { variables });
-
-  return result?.data?.metafieldDefinitionCreate?.createdDefinition;
-}
-
-function parsePercentageMetafield(value) {
-  try {
-    return JSON.parse(value).percentage;
-  } catch {
-    return 0;
+    const result = await api.query(query);
+    return result?.data?.metafieldDefinitions?.nodes[0];
   }
-}
 
+  async function createMetafieldDefinition() {
+    const query = `#graphql
+      mutation CreateMetafieldDefinition($definition: MetafieldDefinitionInput!) {
+        metafieldDefinitionCreate(definition: $definition) {
+          createdDefinition {
+            id
+          }
+        }
+      }
+    `;
+
+    const variables = {
+      definition: {
+        access: {
+          admin: 'MERCHANT_READ_WRITE',
+        },
+        key: METAFIELD_KEY,
+        name: 'Discount Configuration',
+        namespace: METAFIELD_NAMESPACE,
+        ownerType: 'DISCOUNT',
+        type: 'json',
+      }
+    };
+
+    await api.query(query, { variables });
+  }
+});
 {% endif %}
 

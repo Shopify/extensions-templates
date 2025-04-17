@@ -1,15 +1,37 @@
 {%- if flavor contains "react" -%}
 {
-  "name": "Discount function settings",
-  "description": "Offer a discount on all collections except the ones selected",
-  "discountPercentage": "Discount percentage",
-  "addCollections": "Add collections"
+  "name": "[Example] Discount UI extension",
+  "description": "Discount UI extension",
+  "title": "Discount that applies to product, order and shipping",
+  "loading": "Loading...",
+  "percentage": {
+    "Product": "Product discount",
+    "Order": "Order discount",
+    "Shipping": "Shipping discount"
+  },
+  "collections": {
+    "buttonLabel": "Choose collections",
+    "allProducts": "All products",
+    "collections": "Collections",
+    "appliesTo": "Applies to"
+  }
 }
 {%- else -%}
 {
-  "name": "Discount function settings",
-  "description": "Offer a discount on all collections except the ones selected",
-  "discountPercentage": "Discount percentage",
-  "addCollections": "Add collections"
+  "name": "[Example] Discount UI extension",
+  "description": "Discount UI extension",
+  "title": "Discount that applies to product, order and shipping",
+  "loading": "Loading...",
+  "percentage": {
+    "Product": "Product discount",
+    "Order": "Order discount",
+    "Shipping": "Shipping discount"
+  },
+  "collections": {
+    "buttonLabel": "Choose collections",
+    "allProducts": "All products",
+    "collections": "Collections",
+    "appliesTo": "Applies to"
+  }
 }
 {%- endif -%}
