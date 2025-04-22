@@ -3,11 +3,11 @@
 
 # The version of APIs your extension will receive. Learn more:
 # https://shopify.dev/docs/api/usage/versioning
-{%- if flavor contains "preact" -%}
+{%- if flavor contains "preact" %}
 api_version = "2025-07"
-{% else %}
+{%- else %}
 api_version = "2025-04"
-{% endif %}
+{%- endif %}
 
 [[extensions]]
 name = "{{ name }}"
