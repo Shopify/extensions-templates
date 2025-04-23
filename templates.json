@@ -719,9 +719,6 @@
         "value": "wasm",
         "path": "discounts/wasm/discount/default"
       }
-    ],
-    "organizationBetaFlags": [
-      "multi_class_discounts"
     ]
   },
   {
