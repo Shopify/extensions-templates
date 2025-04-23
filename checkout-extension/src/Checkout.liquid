@@ -1,6 +1,6 @@
 {%- if flavor contains "preact" -%}
 import {render} from "preact";
-import {useState, useEffect} from "preact/hooks";
+import {useSubscription} from "@shopify/ui-extensions/checkout/preact"
 
 // 1. Export the extension
 export default function() {
@@ -46,19 +46,6 @@ function Extension() {
     });
     console.log("applyAttributeChange result", result);
   }
-}
-
-function useSubscription(subscribable) {
-  const [value, setValue] = useState(subscribable.current);
-
-  useEffect(() => {
-    const subscription = subscribable.subscribe(
-      () => setValue(subscribable.current)
-    );
-    return () => subscription.destroy();
-  }, [subscribable]);
-
-  return value;
 }
 {%- elsif flavor contains "react" -%}
 import {
