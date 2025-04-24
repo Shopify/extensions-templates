@@ -28,6 +28,12 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "admin-action"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "admin-action",
+        "minimumCliVersion": "3.78.1"
       }
     ]
   },
@@ -60,6 +66,12 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "admin-block"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "admin-block",
+        "minimumCliVersion": "3.78.1"
       }
     ]
   },
@@ -92,6 +104,12 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "admin-print-action"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "admin-print-action",
+        "minimumCliVersion": "3.78.1"
       }
     ]
   },
@@ -124,6 +142,12 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "admin-purchase-options-action"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "admin-purchase-options-action",
+        "minimumCliVersion": "3.78.1"
       }
     ]
   },
@@ -294,6 +318,12 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "product-configuration-extension"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "product-configuration-extension",
+        "minimumCliVersion": "3.78.1"
       }
     ]
   },
@@ -484,6 +514,12 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "customer-account-extension"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "customer-account-extension",
+        "minimumCliVersion": "3.78.1"
       }
     ]
   },
@@ -518,6 +554,12 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "checkout-extension"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "checkout-extension",
+        "minimumCliVersion": "3.78.1"
       }
     ]
   },
