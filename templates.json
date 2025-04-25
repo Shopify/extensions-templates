@@ -29,7 +29,8 @@
         "value": "typescript",
         "path": "admin-action"
       }
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "admin_action_preact",
@@ -67,7 +68,7 @@
         "path": "admin-action"
       }
     ],
-    "minimumCliVersion": "3.78.1"
+    "minimumCliVersion": "3.78.2"
   },
   {
     "identifier": "admin_block",
@@ -99,7 +100,8 @@
         "value": "typescript",
         "path": "admin-block"
       }
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "admin_block_preact",
@@ -137,7 +139,7 @@
         "path": "admin-block"
       }
     ],
-    "minimumCliVersion": "3.78.1"
+    "minimumCliVersion": "3.78.2"
   },
   {
     "identifier": "admin_print",
@@ -169,7 +171,8 @@
         "value": "typescript",
         "path": "admin-print-action"
       }
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "admin_print_preact",
@@ -207,7 +210,7 @@
         "path": "admin-print-action"
       }
     ],
-    "minimumCliVersion": "3.78.1"
+    "minimumCliVersion": "3.78.2"
   },
   {
     "identifier": "admin_purchase_option",
@@ -239,7 +242,8 @@
         "value": "typescript",
         "path": "admin-purchase-options-action"
       }
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "admin_purchase_option_preact",
@@ -277,7 +281,7 @@
         "path": "admin-purchase-options-action"
       }
     ],
-    "minimumCliVersion": "3.78.1"
+    "minimumCliVersion": "3.78.2"
   },
   {
     "identifier": "support_link",
@@ -327,7 +331,8 @@
         "value": "typescript",
         "path": "conditional-action-extension-ts"
       }
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "conditional_admin_action_preact",
@@ -365,7 +370,7 @@
         "path": "conditional-action-extension-js"
       }
     ],
-    "minimumCliVersion": "3.78.1"
+    "minimumCliVersion": "3.78.2"
   },
   {
     "identifier": "customer_segment_template",
@@ -485,7 +490,8 @@
         "value": "typescript",
         "path": "product-configuration-extension"
       }
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "product_configuration_preact",
@@ -525,7 +531,7 @@
         "path": "product-configuration-extension"
       }
     ],
-    "minimumCliVersion": "3.78.1"
+    "minimumCliVersion": "3.78.2"
   },
   {
     "identifier": "subscription_link_extension",
@@ -715,7 +721,8 @@
         "value": "typescript",
         "path": "customer-account-extension"
       }
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "customer_account_ui_preact",
@@ -753,7 +760,7 @@
         "path": "customer-account-extension"
       }
     ],
-    "minimumCliVersion": "3.78.1"
+    "minimumCliVersion": "3.78.2"
   },
   {
     "identifier": "checkout_ui",
@@ -787,7 +794,8 @@
         "value": "typescript",
         "path": "checkout-extension"
       }
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "checkout_ui_preact",
@@ -827,7 +835,7 @@
         "path": "checkout-extension"
       }
     ],
-    "minimumCliVersion": "3.78.1"
+    "minimumCliVersion": "3.78.2"
   },
   {
     "identifier": "post_purchase_ui",
