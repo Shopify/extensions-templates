@@ -30,7 +30,7 @@
         "path": "admin-action"
       }
     ],
-    "deprecatedFromCliVersion": "3.78.1"
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "admin_action_preact",
@@ -101,7 +101,7 @@
         "path": "admin-block"
       }
     ],
-    "deprecatedFromCliVersion": "3.78.1"
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "admin_block_preact",
@@ -172,7 +172,7 @@
         "path": "admin-print-action"
       }
     ],
-    "deprecatedFromCliVersion": "3.78.1"
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "admin_print_preact",
@@ -243,7 +243,7 @@
         "path": "admin-purchase-options-action"
       }
     ],
-    "deprecatedFromCliVersion": "3.78.1"
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "admin_purchase_option_preact",
@@ -332,7 +332,7 @@
         "path": "conditional-action-extension-ts"
       }
     ],
-    "deprecatedFromCliVersion": "3.78.1"
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "conditional_admin_action_preact",
@@ -491,7 +491,7 @@
         "path": "product-configuration-extension"
       }
     ],
-    "deprecatedFromCliVersion": "3.78.1"
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "product_configuration_preact",
@@ -722,7 +722,7 @@
         "path": "customer-account-extension"
       }
     ],
-    "deprecatedFromCliVersion": "3.78.1"
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "customer_account_ui_preact",
@@ -795,7 +795,7 @@
         "path": "checkout-extension"
       }
     ],
-    "deprecatedFromCliVersion": "3.78.1"
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "checkout_ui_preact",
