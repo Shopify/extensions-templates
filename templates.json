@@ -192,17 +192,17 @@
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "admin-action"
+        "path": "admin-print-action"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "admin-action"
+        "path": "admin-print-action"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "admin-action"
+        "path": "admin-print-action"
       },
       {
         "name": "Preact",
@@ -258,22 +258,22 @@
       {
         "name": "JavaScript React",
         "value": "react",
-        "path": "admin-action"
+        "path": "admin-purchase-options-action"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "admin-action"
+        "path": "admin-purchase-options-action"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "admin-action"
+        "path": "admin-purchase-options-action"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "admin-action"
+        "path": "admin-purchase-options-action"
       },
       {
         "name": "Preact",
@@ -347,22 +347,22 @@
       {
         "name": "JavaScript React",
         "value": "react",
-        "path": "admin-action"
+        "path": "conditional-action-extension-js"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "admin-action"
+        "path": "conditional-action-extension-js"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "admin-action"
+        "path": "conditional-action-extension-ts"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "admin-action"
+        "path": "conditional-action-extension-ts"
       },
       {
         "name": "Preact",
@@ -508,22 +508,22 @@
       {
         "name": "JavaScript React",
         "value": "react",
-        "path": "admin-action"
+        "path": "product-configuration-extension"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "admin-action"
+        "path": "product-configuration-extension"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "admin-action"
+        "path": "product-configuration-extension"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "admin-action"
+        "path": "product-configuration-extension"
       },
       {
         "name": "Preact",
@@ -737,22 +737,22 @@
       {
         "name": "JavaScript React",
         "value": "react",
-        "path": "admin-action"
+        "path": "customer-account-extension"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "admin-action"
+        "path": "customer-account-extension"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "admin-action"
+        "path": "customer-account-extension"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "admin-action"
+        "path": "customer-account-extension"
       },
       {
         "name": "Preact",
@@ -812,22 +812,22 @@
       {
         "name": "JavaScript React",
         "value": "react",
-        "path": "admin-action"
+        "path": "checkout-extension"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "admin-action"
+        "path": "checkout-extension"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "admin-action"
+        "path": "checkout-extension"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "admin-action"
+        "path": "checkout-extension"
       },
       {
         "name": "Preact",
