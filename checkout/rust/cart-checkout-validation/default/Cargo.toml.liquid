@@ -1,0 +1,12 @@
+[package]
+name = "{{handle | replace: " ", "-" | downcase}}"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+shopify_function = { git = "https://github.com/Shopify/shopify-function-rust", rev = "64a049532f8b3ace6bb2f477a869af8faec78461" }
+
+[profile.release]
+lto = true
+opt-level = 'z'
+strip = true
