@@ -51,18 +51,18 @@ export default function PurchaseOptionsActionExtension() {
           label="Title"
           placeholder="Subscribe and save"
           value={planName}
-          onChange={(event) => setPlanName(event.target.value)}
+          onChange={(event) => setPlanName(event.currentTarget.value)}
         />
         <s-text-field
           label="Internal description"
           value={merchantCode}
-          onChange={(event) => setMerchantCode(event.target.value)}
+          onChange={(event) => setMerchantCode(event.currentTarget.value)}
         />
         <s-box>
           <s-choice-list
             name="discountType"
             values={[discountType]}
-            onChange={(e) => setDiscountType(e.target.values[0])}
+            onChange={(e) => setDiscountType(e.currentTarget.values[0])}
           >
             <s-choice value="percentageOff">Percentage off</s-choice>
             <s-choice value="amountOff">Amount off</s-choice>
