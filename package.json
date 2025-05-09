@@ -1,0 +1,13 @@
+{
+    "name": "extension-examples",
+    "version": "1.0.0",
+    "type": "module",
+    "devDependencies": {
+        "fast-glob": "^3.3.3",
+        "liquidjs": "^10.21.0"
+    },
+    "scripts": {
+        "expand-liquid": "node .github/scripts/expand-liquid.js"
+    },
+    "private": true
+}

@@ -5,3 +5,22 @@ Thumbs.db
 # Ignore IDE specific files
 .idea/
 .vscode/
+**/.claude/settings.local.json
+node_modules
+
+# Ignore liquid-expanded Functions files
+functions*/**/en.default.json
+functions*/**/run.graphql
+functions*/**/fetch.graphql
+functions*/**/generate_cart_run.graphql
+functions*/**/generate_delivery_run.graphql
+functions*/**/Cargo.toml
+functions*/**/shopify.extension.toml
+functions*/**/package.json
+functions*/**/index.js
+functions*/**/index.ts
+functions*/**/run.js
+functions*/**/run.ts
+functions*/**/run.test.js
+functions*/**/run.test.ts
+yarn.lock

@@ -1,0 +1,26 @@
+api_version = "unstable"
+
+[[extensions]]
+name = "t:name"
+handle = "{{handle}}"
+type = "function"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+
+[[extensions.targeting]]
+target = "purchase.pickup-point-delivery-option-generator.fetch"
+input_query = "src/fetch.graphql"
+export = "fetch"
+
+[[extensions.targeting]]
+target = "purchase.pickup-point-delivery-option-generator.run"
+input_query = "src/run.graphql"
+export = "run"
+
+[extensions.build]
+command = "cargo build --target=wasm32-wasip1 --release"
+path = "target/wasm32-wasip1/release/{{handle | replace: " ", "_" | downcase}}.wasm"
+watch = ["src/**/*.rs"]
+
+[extensions.ui.paths]
+create = "/"
+details = "/"

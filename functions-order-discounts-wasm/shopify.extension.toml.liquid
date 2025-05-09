@@ -1,0 +1,22 @@
+api_version = "2025-01"
+
+[[extensions]]
+name = "t:name"
+handle = "{{handle}}"
+type = "function"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+description = "t:description"
+
+  [[extensions.targeting]]
+  target = "purchase.order-discount.run"
+  input_query = "run.graphql"
+  export = "run"
+
+  [extensions.build]
+  command = "echo 'build the wasm'"
+  path = ""
+  watch = []
+
+  [extensions.ui.paths]
+  create = "/"
+  details = "/"
