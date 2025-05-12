@@ -1359,6 +1359,27 @@
     ]
   },
   {
+    "identifier": "card_present_payments",
+    "name": "Card Present",
+    "defaultName": "Card Present",
+    "group": "Payments App Extension",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "payments_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Config only",
+        "value": "config-only",
+        "path": "payments-app-extension-card-present"
+      }
+    ],
+    "organizationBetaFlags": [
+      "cli_payment_extensions",
+      "card_present_payment_extensions"
+    ]
+  },
+  {
     "identifier": "credit_card_payments",
     "name": "Credit Card",
     "defaultName": "Credit Card",
