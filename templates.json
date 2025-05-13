@@ -1375,8 +1375,8 @@
       }
     ],
     "organizationBetaFlags": [
-      "cli_payment_extensions",
-      "card_present_payment_extensions"
+      "payments_extensions",
+      "payments_extensions_card_present"
     ]
   },
   {
