@@ -1396,7 +1396,7 @@
       }
     ],
     "organizationBetaFlags": [
-      "cli_payment_extensions"
+      "payments_extensions"
     ]
   },
   {
@@ -1416,7 +1416,7 @@
       }
     ],
     "organizationBetaFlags": [
-      "cli_payment_extensions"
+      "payments_extensions"
     ]
   },
   {
@@ -1436,7 +1436,7 @@
       }
     ],
     "organizationBetaFlags": [
-      "cli_payment_extensions"
+      "payments_extensions"
     ]
   },
   {
@@ -1456,7 +1456,7 @@
       }
     ],
     "organizationBetaFlags": [
-      "cli_payment_extensions"
+      "payments_extensions"
     ]
   },
   {
@@ -1476,7 +1476,7 @@
       }
     ],
     "organizationBetaFlags": [
-      "cli_payment_extensions"
+      "payments_extensions"
     ]
   },
   {
