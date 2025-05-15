@@ -1,0 +1,27 @@
+name: Validate JS Functions
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "functions-*-js/**"
+      - ".github/workflows/validate-js-functions.yml"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install node dependencies
+        run: yarn
+      - name: Expand liquid for JavaScript functions
+        run: CI=1 yarn expand-liquid vanilla-js
+      - name: Install workspace dependencies
+        run: yarn
+      - name: Generate types
+        run: yarn js-typegen
+      - name: Test
+        run: yarn js-test

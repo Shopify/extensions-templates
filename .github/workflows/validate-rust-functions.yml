@@ -1,0 +1,33 @@
+name: Validate Rust Functions
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "functions-*-rs/**"
+      - ".github/workflows/validate-rust-functions.yml"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Add rustfmt and clippy
+        run: rustup component add rustfmt clippy
+      - name: Install node dependencies
+        run: yarn
+      - name: Expand liquid
+        run: CI=1 yarn expand-liquid rust
+      - name: Run cargo fmt
+        run: cargo fmt --check
+      - name: Run clippy
+        run: cargo clippy -- -D warnings
+      - name: Run tests
+        run: cargo test
+      - name: Add wasm32-wasip1 target
+        run: rustup target add wasm32-wasip1
+      - name: Build with wasm32-wasip1 target
+        run: cargo build --release --target wasm32-wasip1

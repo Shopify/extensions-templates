@@ -1,0 +1,24 @@
+api_version = "unstable"
+
+[[extensions]]
+name = "t:name"
+handle = "{{handle}}"
+type = "function"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+
+  [[extensions.targeting]]
+  target = "purchase.pickup-point-delivery-option-generator.fetch"
+  input_query = "src/fetch.graphql"
+  export = "fetch"
+
+  [[extensions.targeting]]
+  target = "purchase.pickup-point-delivery-option-generator.run"
+  input_query = "src/run.graphql"
+  export = "run"
+
+  [extensions.build]
+  command = "echo 'build the wasm'"
+
+  [extensions.ui.paths]
+  create = "/"
+  details = "/"
