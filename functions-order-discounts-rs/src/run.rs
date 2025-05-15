@@ -3,7 +3,7 @@ use shopify_function::prelude::*;
 use shopify_function::Result;
 
 #[derive(Deserialize, Default)]
-#[shopify_function(rename_all= "camelCase" )]
+#[shopify_function(rename_all = "camelCase")]
 pub struct Configuration {}
 
 #[shopify_function]
