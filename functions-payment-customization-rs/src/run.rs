@@ -2,24 +2,16 @@ use super::schema;
 use shopify_function::prelude::*;
 use shopify_function::Result;
 
-use serde::{Deserialize, Serialize};
-
-#[derive(Serialize, Deserialize, Default, PartialEq)]
-#[serde(rename_all(deserialize = "camelCase"))]
-struct Configuration {}
-
-impl Configuration {
-    fn from_str(value: &str) -> Self {
-        serde_json::from_str(value).expect("Unable to parse configuration value from metafield")
-    }
-}
+#[derive(Deserialize, Default, PartialEq)]
+#[shopify_function(rename_all = "camelCase")]
+pub struct Configuration {}
 
 #[shopify_function]
 fn run(input: schema::run::Input) -> Result<schema::FunctionRunResult> {
     let no_changes = schema::FunctionRunResult { operations: vec![] };
 
     let _config = match input.payment_customization().metafield() {
-        Some(metafield) => Configuration::from_str(metafield.value()),
+        Some(metafield) => metafield.json_value(),
         None => return Ok(no_changes),
     };
 

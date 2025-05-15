@@ -5,7 +5,9 @@ pub mod run;
 
 #[typegen("schema.graphql")]
 pub mod schema {
-    #[query("src/run.graphql")]
+    #[query("src/run.graphql", custom_scalar_overrides = {
+        "Input.paymentCustomization.metafield.jsonValue" => super::run::Configuration,
+    })]
     pub mod run {}
 }
 
