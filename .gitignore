@@ -21,6 +21,24 @@ functions*/**/index.js
 functions*/**/index.ts
 functions*/**/run.js
 functions*/**/run.ts
+functions*/**/fetch.js
+functions*/**/fetch.ts
+functions*/**/generate_cart_run.js
+functions*/**/generate_cart_run.ts
+functions*/**/generate_delivery_run.js
+functions*/**/generate_delivery_run.ts
 functions*/**/run.test.js
 functions*/**/run.test.ts
+functions*/**/fetch.test.js
+functions*/**/fetch.test.ts
+functions*/**/generate_cart_run.test.js
+functions*/**/generate_cart_run.test.ts
+functions*/**/generate_delivery_run.test.js
+functions*/**/generate_delivery_run.test.ts
+
+# Ignore local build files
+functions*/generated
 yarn.lock
+package-lock.json
+Cargo.lock
+target/

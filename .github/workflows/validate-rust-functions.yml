@@ -13,42 +13,21 @@ env:
 jobs:
   checks:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        project:
-          - functions-local-pickup-delivery-option-generators
-          - functions-pickup-point-delivery-option-generators
-          - functions-location-rules
-          - functions-fulfillment-constraints
-          - functions-discount
-          - functions-shipping-discounts
-          - functions-product-discounts
-          - functions-order-discounts
-          - functions-discounts-allocator
-          - functions-payment-customization
-          - functions-delivery-customization
-          - functions-cart-transform
-          - functions-cart-checkout-validation
     steps:
       - uses: actions/checkout@v3
       - name: Add rustfmt and clippy
         run: rustup component add rustfmt clippy
       - name: Install node dependencies
         run: yarn
-      - name: Expand liquid for ${{ matrix.project }}
-        working-directory: .
-        run: CI=1 yarn expand-liquid rust ${{ matrix.project }}
-      - name: Run cargo fmt for ${{ matrix.project }}
-        working-directory: ./${{ matrix.project }}-rs
+      - name: Expand liquid
+        run: CI=1 yarn expand-liquid rust
+      - name: Run cargo fmt
         run: cargo fmt --check
-      - name: Run clippy for ${{ matrix.project }}
-        working-directory: ./${{ matrix.project }}-rs
+      - name: Run clippy
         run: cargo clippy -- -D warnings
-      - name: Run tests for ${{ matrix.project }}
-        working-directory: ./${{ matrix.project }}-rs
+      - name: Run tests
         run: cargo test
       - name: Add wasm32-wasip1 target
         run: rustup target add wasm32-wasip1
-      - name: Build ${{ matrix.project }} with wasm32-wasip1 target
-        working-directory: ./${{ matrix.project }}-rs
+      - name: Build with wasm32-wasip1 target
         run: cargo build --release --target wasm32-wasip1
