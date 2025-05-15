@@ -1,4 +1,4 @@
-name: Validate Rust Functions
+name: Validate TS Functions
 
 on:
   pull_request:
