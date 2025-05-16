@@ -1575,6 +1575,38 @@
     ]
   },
   {
+    "identifier": "pos_ui_order_details",
+    "name": "POS UI Order Details",
+    "defaultName": "pos-ui-order-details",
+    "group": "Point-of-Sale",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "pos_ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "pos-ui-extension-order-details"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "pos-ui-extension-order-details"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "pos-ui-extension-order-details"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "pos-ui-extension-order-details"
+      }
+    ]
+  },
+  {
     "identifier": "admin_link",
     "name": "Admin link",
     "defaultName": "admin-link",
