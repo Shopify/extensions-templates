@@ -1479,9 +1479,9 @@
     ]
   },
   {
-    "identifier": "pos_ui",
-    "name": "POS UI",
-    "defaultName": "pos-ui",
+    "identifier": "pos_ui_smart_grid",
+    "name": "POS UI Smart Grid",
+    "defaultName": "pos-ui-smart-grid",
     "group": "Point-of-Sale",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
@@ -1491,22 +1491,22 @@
       {
         "name": "JavaScript React",
         "value": "react",
-        "path": "pos-ui-extension"
+        "path": "pos-ui-extension-smart-grid"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "pos-ui-extension"
+        "path": "pos-ui-extension-smart-grid"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "pos-ui-extension"
+        "path": "pos-ui-extension-smart-grid"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "pos-ui-extension"
+        "path": "pos-ui-extension-smart-grid"
       }
     ]
   },
