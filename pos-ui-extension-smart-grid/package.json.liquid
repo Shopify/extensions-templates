@@ -9,10 +9,10 @@
     "@shopify/ui-extensions": "2025.4.x",
     "@shopify/ui-extensions-react": "2025.4.x",
     "react-reconciler": "0.29.0"
-  },
+  }{% if flavor contains "typescript" %},
   "devDependencies": {
     "@types/react": "^18.0.0"
-  }
+  }{% endif %}
 }
 {%- else -%}
 {
