@@ -40,8 +40,8 @@ export default function PurchaseOptionsActionExtension() {
 
   return (
     <s-admin-action>
-      <s-button slot="primaryAction" onClick={handleSave}>Save</s-button>
-      <s-button slot="secondaryAction" onClick={() => {
+      <s-button slot="primary-action" onClick={handleSave}>Save</s-button>
+      <s-button slot="secondary-actions" onClick={() => {
         console.log('closing');
         close();
         }}>Cancel</s-button>
