@@ -879,29 +879,29 @@
     "supportLinks": [
       "https://shopify.dev/docs/api/functions/reference/cart-checkout-validation"
     ],
-    "url": "https://github.com/Shopify/function-examples",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Rust",
         "value": "rust",
-        "path": "checkout/rust/cart-checkout-validation/default"
+        "path": "functions-cart-checkout-validation-rs"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "checkout/javascript/cart-checkout-validation/default"
+        "path": "functions-cart-checkout-validation-js"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "checkout/javascript/cart-checkout-validation/default"
+        "path": "functions-cart-checkout-validation-js"
       },
       {
         "name": "Wasm",
         "value": "wasm",
-        "path": "checkout/wasm/cart-checkout-validation/default"
+        "path": "functions-cart-checkout-validation-wasm"
       }
     ]
   },
@@ -911,29 +911,29 @@
     "defaultName": "cart-transformer",
     "group": "Discounts and checkout",
     "supportLinks": [],
-    "url": "https://github.com/Shopify/function-examples",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Rust",
         "value": "rust",
-        "path": "checkout/rust/cart-transform/default"
+        "path": "functions-cart-transform-rs"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "checkout/javascript/cart-transform/default"
+        "path": "functions-cart-transform-js"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "checkout/javascript/cart-transform/default"
+        "path": "functions-cart-transform-js"
       },
       {
         "name": "Wasm",
         "value": "wasm",
-        "path": "checkout/wasm/cart-transform/default"
+        "path": "functions-cart-transform-wasm"
       }
     ]
   },
@@ -943,29 +943,29 @@
     "defaultName": "delivery-customization",
     "group": "Discounts and checkout",
     "supportLinks": [],
-    "url": "https://github.com/Shopify/function-examples",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Rust",
         "value": "rust",
-        "path": "checkout/rust/delivery-customization/default"
+        "path": "functions-delivery-customization-rs"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "checkout/javascript/delivery-customization/default"
+        "path": "functions-delivery-customization-js"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "checkout/javascript/delivery-customization/default"
+        "path": "functions-delivery-customization-js"
       },
       {
         "name": "Wasm",
         "value": "wasm",
-        "path": "checkout/wasm/delivery-customization/default"
+        "path": "functions-delivery-customization-wasm"
       }
     ]
   },
@@ -977,29 +977,29 @@
     "supportLinks": [
       "https://shopify.dev/docs/apps/discounts"
     ],
-    "url": "https://github.com/Shopify/function-examples",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Rust",
         "value": "rust",
-        "path": "discounts/rust/order-discounts/default"
+        "path": "functions-order-discounts-rs"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "discounts/javascript/order-discounts/default"
+        "path": "functions-order-discounts-js"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "discounts/javascript/order-discounts/default"
+        "path": "functions-order-discounts-js"
       },
       {
         "name": "Wasm",
         "value": "wasm",
-        "path": "discounts/wasm/order-discounts/default"
+        "path": "functions-order-discounts-wasm"
       }
     ]
   },
@@ -1011,29 +1011,29 @@
     "supportLinks": [
       "https://shopify.dev/docs/apps/discounts"
     ],
-    "url": "https://github.com/Shopify/function-examples",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Rust",
         "value": "rust",
-        "path": "discounts/rust/discount/default"
+        "path": "functions-discount-rs"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "discounts/javascript/discount/default"
+        "path": "functions-discount-js"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "discounts/javascript/discount/default"
+        "path": "functions-discount-js"
       },
       {
         "name": "Wasm",
         "value": "wasm",
-        "path": "discounts/wasm/discount/default"
+        "path": "functions-discount-wasm"
       }
     ]
   },
@@ -1045,29 +1045,29 @@
     "supportLinks": [
       "https://shopify.dev/docs/apps/discounts"
     ],
-    "url": "https://github.com/Shopify/function-examples",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Rust",
         "value": "rust",
-        "path": "discounts/rust/product-discounts/default"
+        "path": "functions-product-discounts-rs"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "discounts/javascript/product-discounts/default"
+        "path": "functions-product-discounts-js"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "discounts/javascript/product-discounts/default"
+        "path": "functions-product-discounts-js"
       },
       {
         "name": "Wasm",
         "value": "wasm",
-        "path": "discounts/wasm/product-discounts/default"
+        "path": "functions-product-discounts-wasm"
       }
     ]
   },
@@ -1079,29 +1079,29 @@
     "supportLinks": [
       "https://shopify.dev/docs/apps/discounts"
     ],
-    "url": "https://github.com/Shopify/function-examples",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Rust",
         "value": "rust",
-        "path": "discounts/rust/shipping-discounts/default"
+        "path": "functions-shipping-discounts-rs"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "discounts/javascript/shipping-discounts/default"
+        "path": "functions-shipping-discounts-js"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "discounts/javascript/shipping-discounts/default"
+        "path": "functions-shipping-discounts-js"
       },
       {
         "name": "Wasm",
         "value": "wasm",
-        "path": "discounts/wasm/shipping-discounts/default"
+        "path": "functions-shipping-discounts-wasm"
       }
     ]
   },
@@ -1113,29 +1113,29 @@
     "supportLinks": [
       "https://shopify.dev/docs/apps/discounts"
     ],
-    "url": "https://github.com/Shopify/function-examples",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Rust",
         "value": "rust",
-        "path": "discounts/rust/discounts-allocator/default"
+        "path": "functions-discounts-allocator-rs"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "discounts/javascript/discounts-allocator/default"
+        "path": "functions-discounts-allocator-js"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "discounts/javascript/discounts-allocator/default"
+        "path": "functions-discounts-allocator-js"
       },
       {
         "name": "Wasm",
         "value": "wasm",
-        "path": "discounts/wasm/discounts-allocator/default"
+        "path": "functions-discounts-allocator-wasm"
       }
     ]
   },
@@ -1145,29 +1145,29 @@
     "defaultName": "fulfillment-constraints",
     "group": "Discounts and checkout",
     "supportLinks": [],
-    "url": "https://github.com/Shopify/function-examples",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Rust",
         "value": "rust",
-        "path": "order-routing/rust/fulfillment-constraints/default"
+        "path": "functions-fulfillment-constraints-rs"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "order-routing/javascript/fulfillment-constraints/default"
+        "path": "functions-fulfillment-constraints-js"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "order-routing/javascript/fulfillment-constraints/default"
+        "path": "functions-fulfillment-constraints-js"
       },
       {
         "name": "Wasm",
         "value": "wasm",
-        "path": "order-routing/wasm/fulfillment-constraints/default"
+        "path": "functions-fulfillment-constraints-wasm"
       }
     ]
   },
@@ -1177,29 +1177,29 @@
     "defaultName": "local-pickup-delivery-option-generators",
     "group": "Discounts and checkout",
     "supportLinks": [],
-    "url": "https://github.com/Shopify/function-examples",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Rust",
         "value": "rust",
-        "path": "order-routing/rust/local-pickup-delivery-option-generators/default"
+        "path": "functions-local-pickup-delivery-option-generators-rs"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "order-routing/javascript/local-pickup-delivery-option-generators/default"
+        "path": "functions-local-pickup-delivery-option-generators-js"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "order-routing/javascript/local-pickup-delivery-option-generators/default"
+        "path": "functions-local-pickup-delivery-option-generators-js"
       },
       {
         "name": "Wasm",
         "value": "wasm",
-        "path": "order-routing/wasm/local-pickup-delivery-option-generators/default"
+        "path": "functions-local-pickup-delivery-option-generators-wasm"
       }
     ]
   },
@@ -1209,29 +1209,29 @@
     "defaultName": "payment-customization",
     "group": "Discounts and checkout",
     "supportLinks": [],
-    "url": "https://github.com/Shopify/function-examples",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Rust",
         "value": "rust",
-        "path": "checkout/rust/payment-customization/default"
+        "path": "functions-payment-customization-rs"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "checkout/javascript/payment-customization/default"
+        "path": "functions-payment-customization-js"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "checkout/javascript/payment-customization/default"
+        "path": "functions-payment-customization-js"
       },
       {
         "name": "Wasm",
         "value": "wasm",
-        "path": "checkout/wasm/payment-customization/default"
+        "path": "functions-payment-customization-wasm"
       }
     ]
   },
@@ -1242,29 +1242,29 @@
     "group": "Discounts and checkout",
     "sortPriority": null,
     "supportLinks": [],
-    "url": "https://github.com/Shopify/function-examples",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Rust",
         "value": "rust",
-        "path": "order-routing/rust/location-rules/default"
+        "path": "functions-location-rules-rs"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "order-routing/javascript/location-rules/default"
+        "path": "functions-location-rules-js"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "order-routing/javascript/location-rules/default"
+        "path": "functions-location-rules-js"
       },
       {
         "name": "Wasm",
         "value": "wasm",
-        "path": "order-routing/wasm/location-rules/default"
+        "path": "functions-location-rules-wasm"
       }
     ],
     "organizationBetaFlags": [
@@ -1315,29 +1315,29 @@
     "group": "Discounts and checkout",
     "sortPriority": null,
     "supportLinks": [],
-    "url": "https://github.com/Shopify/function-examples",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Rust",
         "value": "rust",
-        "path": "order-routing/rust/pickup-point-delivery-option-generators/default"
+        "path": "functions-pickup-point-delivery-option-generators-rs"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "order-routing/javascript/pickup-point-delivery-option-generators/default"
+        "path": "functions-pickup-point-delivery-option-generators-js"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "order-routing/typescript/pickup-point-delivery-option-generators/default"
+        "path": "functions-pickup-point-delivery-option-generators-js"
       },
       {
         "name": "Wasm",
         "value": "wasm",
-        "path": "order-routing/wasm/pickup-point-delivery-option-generators/default"
+        "path": "functions-pickup-point-delivery-option-generators-wasm"
       }
     ]
   },
