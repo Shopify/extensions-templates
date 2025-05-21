@@ -1397,7 +1397,7 @@
     ],
     "organizationBetaFlags": [
       "payments_extensions",
-      "payments_extensions_card_present"
+      "payments_extensions_credit_card"
     ]
   },
   {
