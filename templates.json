@@ -1375,7 +1375,6 @@
       }
     ],
     "organizationBetaFlags": [
-      "payments_extensions",
       "payments_extensions_card_present"
     ]
   },
@@ -1396,7 +1395,6 @@
       }
     ],
     "organizationBetaFlags": [
-      "payments_extensions",
       "payments_extensions_credit_card"
     ]
   },
@@ -1417,7 +1415,6 @@
       }
     ],
     "organizationBetaFlags": [
-      "payments_extensions",
       "payments_extensions_custom_credit_card"
     ]
   },
@@ -1438,7 +1435,6 @@
       }
     ],
     "organizationBetaFlags": [
-      "payments_extensions",
       "payments_extensions_custom_onsite"
     ]
   },
@@ -1459,7 +1455,7 @@
       }
     ],
     "organizationBetaFlags": [
-      "payments_extensions"
+      "payments_extensions_offsite"
     ]
   },
   {
@@ -1479,7 +1475,6 @@
       }
     ],
     "organizationBetaFlags": [
-      "payments_extensions",
       "payments_extensions_redeemable"
     ]
   },
