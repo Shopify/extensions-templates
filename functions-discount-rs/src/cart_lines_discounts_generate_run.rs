@@ -15,13 +15,13 @@ use crate::schema::ProductDiscountCandidateValue;
 use crate::schema::ProductDiscountSelectionStrategy;
 use crate::schema::ProductDiscountsAddOperation;
 
-use super::schema;
+use crate::schema;
 use shopify_function::prelude::*;
 use shopify_function::Result;
 
 #[shopify_function]
-fn generate_cart_run(
-    input: schema::generate_cart_run::Input,
+fn cart_lines_discounts_generate_run(
+    input: schema::cart_lines_discounts_generate_run::Input,
 ) -> Result<CartLinesDiscountsGenerateRunResult> {
     let max_cart_line = input
         .cart()

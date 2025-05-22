@@ -9,13 +9,13 @@ use crate::schema::DeliveryOperation;
 use crate::schema::DiscountClass;
 use crate::schema::Percentage;
 
-use super::schema;
+use crate::schema;
 use shopify_function::prelude::*;
 use shopify_function::Result;
 
 #[shopify_function]
-fn generate_delivery_run(
-    input: schema::generate_delivery_run::Input,
+fn cart_delivery_options_discounts_generate_run(
+    input: schema::cart_delivery_options_discounts_generate_run::Input,
 ) -> Result<CartDeliveryOptionsDiscountsGenerateRunResult> {
     let has_shipping_discount_class = input
         .discount()
