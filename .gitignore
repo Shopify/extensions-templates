@@ -14,6 +14,8 @@ functions*/**/run.graphql
 functions*/**/fetch.graphql
 functions*/**/generate_cart_run.graphql
 functions*/**/generate_delivery_run.graphql
+functions*/**/cart_delivery_options_discounts_generate_run.graphql
+functions*/**/cart_lines_discounts_generate_run.graphql
 functions*/**/Cargo.toml
 functions*/**/shopify.extension.toml
 functions*/**/package.json
@@ -27,6 +29,10 @@ functions*/**/generate_cart_run.js
 functions*/**/generate_cart_run.ts
 functions*/**/generate_delivery_run.js
 functions*/**/generate_delivery_run.ts
+functions*/**/cart_delivery_options_discounts_generate_run.js
+functions*/**/cart_delivery_options_discounts_generate_run.ts
+functions*/**/cart_lines_discounts_generate_run.js
+functions*/**/cart_lines_discounts_generate_run.ts
 functions*/**/run.test.js
 functions*/**/run.test.ts
 functions*/**/fetch.test.js
@@ -35,6 +41,10 @@ functions*/**/generate_cart_run.test.js
 functions*/**/generate_cart_run.test.ts
 functions*/**/generate_delivery_run.test.js
 functions*/**/generate_delivery_run.test.ts
+functions*/**/cart_delivery_options_discounts_generate_run.test.js
+functions*/**/cart_delivery_options_discounts_generate_run.test.ts
+functions*/**/cart_lines_discounts_generate_run.test.js
+functions*/**/cart_lines_discounts_generate_run.test.ts
 
 # Ignore local build files
 functions*/generated

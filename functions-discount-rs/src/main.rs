@@ -1,16 +1,16 @@
 use shopify_function::prelude::*;
 use std::process;
 
-pub mod generate_cart_run;
-pub mod generate_delivery_run;
+pub mod cart_delivery_options_discounts_generate_run;
+pub mod cart_lines_discounts_generate_run;
 
 #[typegen("schema.graphql")]
 pub mod schema {
-    #[query("src/generate_cart_run.graphql")]
-    pub mod generate_cart_run {}
+    #[query("src/cart_lines_discounts_generate_run.graphql")]
+    pub mod cart_lines_discounts_generate_run {}
 
-    #[query("src/generate_delivery_run.graphql")]
-    pub mod generate_delivery_run {}
+    #[query("src/cart_delivery_options_discounts_generate_run.graphql")]
+    pub mod cart_delivery_options_discounts_generate_run {}
 }
 
 fn main() {
