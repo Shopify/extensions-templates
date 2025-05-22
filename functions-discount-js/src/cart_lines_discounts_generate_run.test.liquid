@@ -1,7 +1,8 @@
-{%- if flavor contains "vanilla-js" -%}
-import { describe, it, expect } from "vitest";
 
-import { generateCartRun } from "./generate_cart_run";
+{%- if flavor contains "vanilla-js" -%}
+import {describe, it, expect} from "vitest";
+
+import {cartLinesDiscountsGenerateRun} from "./cart_lines_discounts_generate_run";
 import {
   OrderDiscountSelectionStrategy,
   ProductDiscountSelectionStrategy,
@@ -9,10 +10,10 @@ import {
 } from "../generated/api";
 
 /**
- * @typedef {import("../generated/api").CartLinesDiscountsGenerateRunResult} CartLinesDiscountsGenerateRunResult
- */
+  * @typedef {import("../generated/api").CartLinesDiscountsGenerateRunResult} CartLinesDiscountsGenerateRunResult
+  */
 
-describe("generateCartRun", () => {
+describe("cartLinesDiscountsGenerateRun", () => {
   const baseInput = {
     cart: {
       lines: [
@@ -20,7 +21,7 @@ describe("generateCartRun", () => {
           id: "gid://shopify/CartLine/0",
           cost: {
             subtotalAmount: {
-              amount: 100
+              amount: 100,
             },
           },
         },
@@ -28,7 +29,7 @@ describe("generateCartRun", () => {
     },
     discount: {
       discountClasses: [],
-    }
+    },
   };
 
   it("returns empty operations when no discount classes are present", () => {
@@ -39,7 +40,7 @@ describe("generateCartRun", () => {
       },
     };
 
-    const result = generateCartRun(input);
+    const result = cartLinesDiscountsGenerateRun(input);
     expect(result.operations).toHaveLength(0);
   });
 
@@ -51,7 +52,7 @@ describe("generateCartRun", () => {
       },
     };
 
-    const result = generateCartRun(input);
+    const result = cartLinesDiscountsGenerateRun(input);
     expect(result.operations).toHaveLength(1);
     expect(result.operations[0]).toMatchObject({
       orderDiscountsAdd: {
@@ -85,7 +86,7 @@ describe("generateCartRun", () => {
       },
     };
 
-    const result = generateCartRun(input);
+    const result = cartLinesDiscountsGenerateRun(input);
     expect(result.operations).toHaveLength(1);
     expect(result.operations[0]).toMatchObject({
       productDiscountsAdd: {
@@ -119,7 +120,7 @@ describe("generateCartRun", () => {
       },
     };
 
-    const result = generateCartRun(input);
+    const result = cartLinesDiscountsGenerateRun(input);
     expect(result.operations).toHaveLength(2);
     expect(result.operations[0]).toMatchObject({
       orderDiscountsAdd: {
@@ -169,18 +170,18 @@ describe("generateCartRun", () => {
   });
 });
 {%- elsif flavor contains "typescript" -%}
-import { describe, it, expect } from "vitest";
+import {describe, it, expect} from "vitest";
 
-import { generateCartRun } from "./generate_cart_run";
+import {cartLinesDiscountsGenerateRun} from "./cart_lines_discounts_generate_run";
 import {
   OrderDiscountSelectionStrategy,
   ProductDiscountSelectionStrategy,
   DiscountClass,
   CartInput,
-  CartLinesDiscountsGenerateRunResult
+  CartLinesDiscountsGenerateRunResult,
 } from "../generated/api";
 
-describe("generateCartRun", () => {
+describe("cartLinesDiscountsGenerateRun", () => {
   const baseInput: CartInput = {
     cart: {
       lines: [
@@ -188,7 +189,7 @@ describe("generateCartRun", () => {
           id: "gid://shopify/CartLine/0",
           cost: {
             subtotalAmount: {
-              amount: 100
+              amount: 100,
             },
           },
         },
@@ -196,7 +197,7 @@ describe("generateCartRun", () => {
     },
     discount: {
       discountClasses: [],
-    }
+    },
   };
 
   it("returns empty operations when no discount classes are present", () => {
@@ -207,7 +208,8 @@ describe("generateCartRun", () => {
       },
     };
 
-    const result = generateCartRun(input);
+    const result: CartLinesDiscountsGenerateRunResult =
+      cartLinesDiscountsGenerateRun(input);
     expect(result.operations).toHaveLength(0);
   });
 
@@ -219,7 +221,8 @@ describe("generateCartRun", () => {
       },
     };
 
-    const result = generateCartRun(input);
+    const result: CartLinesDiscountsGenerateRunResult =
+      cartLinesDiscountsGenerateRun(input);
     expect(result.operations).toHaveLength(1);
     expect(result.operations[0]).toMatchObject({
       orderDiscountsAdd: {
@@ -253,7 +256,8 @@ describe("generateCartRun", () => {
       },
     };
 
-    const result = generateCartRun(input);
+    const result: CartLinesDiscountsGenerateRunResult =
+      cartLinesDiscountsGenerateRun(input);
     expect(result.operations).toHaveLength(1);
     expect(result.operations[0]).toMatchObject({
       productDiscountsAdd: {
@@ -287,7 +291,8 @@ describe("generateCartRun", () => {
       },
     };
 
-    const result = generateCartRun(input);
+    const result: CartLinesDiscountsGenerateRunResult =
+      cartLinesDiscountsGenerateRun(input);
     expect(result.operations).toHaveLength(2);
     expect(result.operations[0]).toMatchObject({
       orderDiscountsAdd: {
