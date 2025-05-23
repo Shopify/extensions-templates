@@ -10,7 +10,7 @@ function Extension() {
   console.log({data});
 
   return (
-    <s-admin-block title="My Block Extension">
+    <s-admin-block heading="My Block Extension">
       <s-stack direction="block">
         <s-text type="strong">{i18n.translate('welcome', {target})}</s-text>
       </s-stack>
@@ -38,7 +38,7 @@ function App() {
 
   return (
     // The AdminBlock component provides an API for setting the title of the Block extension wrapper.
-    <AdminBlock heading="My Block Extension">
+    <AdminBlock title="My Block Extension">
       <BlockStack>
         <Text fontWeight="bold">{i18n.translate('welcome', {target: TARGET})}</Text>
       </BlockStack>
