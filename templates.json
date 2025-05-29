@@ -1705,19 +1705,19 @@
     ]
   },
   {
-    "identifier": "product_sync_query",
-    "name": "Product sync query",
-    "defaultName": "product-sync-query",
+    "identifier": "product_feed_query",
+    "name": "Product feed query",
+    "defaultName": "product-feed-query",
     "group": "Sales channels",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
-    "type": "product_sync_query",
+    "type": "product_feed_query",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "Config only",
         "value": "config-only",
-        "path": "product-sync-query"
+        "path": "product-feed-query"
       }
     ]
   }
