@@ -1,0 +1,147 @@
+[[extensions]]
+type = "product_sync_query"
+handle = "{{ handle }}"
+name = "{{ name }}"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+
+
+product_fragment_graphql = """
+fragment Product on Product {
+  id
+  title
+  description
+  descriptionHtml
+  onlineStoreUrl
+  updatedAt
+  isPublished
+  publishedOnOnlineStore
+  publishedAt
+  productType
+  vendor
+  handle
+  metafields(namespace: ["mm-google-shopping"]) {
+    id
+    namespace
+    key
+    value
+    type
+  }
+  metaobjects {
+    id
+    handle
+    type
+  }
+  images(first: 250) {
+    edges {
+      node {
+        ...Image
+      }
+    }
+  }
+  options {
+    name
+    values
+  }
+  seo {
+    title
+    description
+  }
+  productCategory {
+    productTaxonomyNode {
+      id
+      name
+      fullName
+      isLeaf
+      isRoot
+    }
+  }
+  variants(VARIANT_CONNECTION_ARGS) {
+    edges {
+      node {
+        ...ProductVariant
+      }
+    }
+    pageInfo { endCursor hasNextPage }
+  }
+}
+"""
+
+variant_fragment_graphql = """
+fragment ProductVariant on ProductVariant {
+  id
+  title
+  price {
+    amount
+    currencyCode
+  }
+  compareAtPrice {
+    amount
+    currencyCode
+  }
+  barcode
+  sku
+  quantityAvailable
+  availableForSale
+  weight
+  weightUnit
+  requiresShipping
+  image {
+    ...Image
+  }
+  selectedOptions {
+    name
+    value
+  }
+  storeAvailability {
+    available
+    pickUpTime
+    location {
+      id
+      name
+      address {
+        address1
+        address2
+        city
+        country
+        countryCode
+        formatted
+        latitude
+        longitude
+        phone
+        province
+        provinceCode
+        zip
+      }
+    }
+  }
+  inventoryDetails {
+    inventoryLevels {
+      isAvailable
+      locationId
+    }
+    unitCost {
+      amount
+      currencyCode
+    }
+  }
+  metafields(namespace: ["mm-google-shopping"]) {
+    id
+    namespace
+    key
+    value
+    type
+  }
+  showUnitPrice
+  unitPrice {
+    amount
+    currencyCode
+  }
+  unitPriceMeasurement {
+    measuredType
+    quantityUnit
+    quantityValue
+    referenceUnit
+    referenceValue
+  }
+}
+"""

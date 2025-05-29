@@ -1703,5 +1703,22 @@
         "path": "channel-config"
       }
     ]
+  },
+  {
+    "identifier": "product_sync_query",
+    "name": "Product sync query",
+    "defaultName": "product-sync-query",
+    "group": "Sales channels",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "product_sync_query",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Config only",
+        "value": "config-only",
+        "path": "product-sync-query"
+      }
+    ]
   }
 ]
