@@ -1276,7 +1276,7 @@
   },
   {
     "identifier": "pickup_point_delivery_option_generator",
-    "name": "Pickup point delivery option generatorsnction",
+    "name": "Pickup point delivery option generator",
     "defaultName": "pickup-point-delivery-option-generators",
     "group": "Functions",
     "sortPriority": null,
