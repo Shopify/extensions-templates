@@ -4,7 +4,7 @@ import {useEffect, useState} from 'preact/hooks';
 
 const baseSrc = `https://cdn.shopify.com/static/extensibility/print-example`;
 
-export default function extension() {
+export default async () => {
   render(<Extension />, document.body);
 }
 
