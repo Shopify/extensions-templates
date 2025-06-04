@@ -17,14 +17,14 @@ function Extension() {
   // data has information about the resource to be printed.
   console.log({ data });
 
-  /* 
+  /*
     This template fetches static documents from the CDN to demonstrate printing.
     However, when building your extension, you should update the src document
-    to match the resource that the user is printing. You can do this by getting the 
-    resource id from the data API and using it to create a URL with a path to your app 
-    that shows the correct document. For example, you might use a URL parameter to 
+    to match the resource that the user is printing. You can do this by getting the
+    resource id from the data API and using it to create a URL with a path to your app
+    that shows the correct document. For example, you might use a URL parameter to
     render an invoice for a specific order.
-    
+
     `/print/invoice&orderId=${data.selected[0].id}`
   */
   useEffect(() => {
@@ -40,15 +40,15 @@ function Extension() {
   }, [document1, document2]);
 
   return (
-    /* 
+    /*
       The s-admin-print-action component provides an API for setting the src of the Print Action extension wrapper.
       The document you set as src will be displayed as a print preview.
       When the user clicks the Print button, the browser will print that document.
       HTML, PDFs and images are supported.
-  
+
       The `src` prop can be a...
         - Full URL: https://cdn.shopify.com/static/extensibility/print-example/document1.html
-        - Relative path in your app: print-example/document1.html or /print-example/document1.html 
+        - Relative path in your app: print-example/document1.html or /print-example/document1.html
         - Custom app: protocol: app:print (https://shopify.dev/docs/api/admin-extensions#custom-protocols)
     */
     <s-admin-print-action src={src}>
@@ -63,7 +63,7 @@ function Extension() {
           onChange={(event) => {
             setDocument1(event.target.checked);
           }}
-          label={i18n.translate('document1')} 
+          label={i18n.translate('document1')}
         >
         </s-checkbox>
         <s-checkbox
@@ -72,7 +72,7 @@ function Extension() {
           onChange={(event) => {
             setDocument2(event.target.checked);
           }}
-          label={i18n.translate('document2')} 
+          label={i18n.translate('document2')}
         >
         </s-checkbox>
       </s-stack>
@@ -108,14 +108,14 @@ function App() {
   // data has information about the resource to be printed.
   console.log({ data });
 
-  /* 
+  /*
     This template fetches static documents from the CDN to demonstrate printing.
     However, when building your extension, you should update the src document
-    to match the resource that the user is printing. You can do this by getting the 
-    resource id from the data API and using it to create a URL with a path to your app 
-    that shows the correct document. For example, you might use a URL parameter to 
+    to match the resource that the user is printing. You can do this by getting the
+    resource id from the data API and using it to create a URL with a path to your app
+    that shows the correct document. For example, you might use a URL parameter to
     render an invoice for a specific order.
-    
+
     `/print/invoice&orderId=${data.selected[0].id}`
   */
   useEffect(() => {
@@ -131,15 +131,15 @@ function App() {
   }, [document1, document2]);
 
   return (
-    /* 
+    /*
       The AdminPrintAction component provides an API for setting the src of the Print Action extension wrapper.
       The document you set as src will be displayed as a print preview.
       When the user clicks the Print button, the browser will print that document.
       HTML, PDFs and images are supported.
-  
+
       The `src` prop can be a...
         - Full URL: https://cdn.shopify.com/static/extensibility/print-example/document1.html
-        - Relative path in your app: print-example/document1.html or /print-example/document1.html 
+        - Relative path in your app: print-example/document1.html or /print-example/document1.html
         - Custom app: protocol: app:print (https://shopify.dev/docs/api/admin-extensions#custom-protocols)
     */
     <AdminPrintAction src={src}>
@@ -155,7 +155,7 @@ function App() {
             setDocument1(value);
           }}
         >
-         {i18n.translate('document1')} 
+         {i18n.translate('document1')}
         </Checkbox>
         <Checkbox
           name="document-2"
@@ -164,7 +164,7 @@ function App() {
             setDocument2(value);
           }}
         >
-         {i18n.translate('document2')}  
+         {i18n.translate('document2')}
         </Checkbox>
       </BlockStack>
     </AdminPrintAction>
@@ -205,17 +205,17 @@ export default extension(TARGET, (root, { i18n, data }) => {
   }
 
   const printActionComponent = root.createComponent(
-    /* 
+    /*
       The AdminPrintAction component provides an API for setting the src of the Print Action extension wrapper.
       The document you set as src will be displayed as a print preview.
       When the user clicks the Print button, the browser will print that document.
     */
     AdminPrintAction,
     {
-    /* 
+    /*
       The `src` prop can be a...
         - Full URL: https://cdn.shopify.com/static/extensibility/print-example/document1.html
-        - Relative path in your app: print-example/document1.html or /print-example/document1.html 
+        - Relative path in your app: print-example/document1.html or /print-example/document1.html
         - Custom app: protocol: app:print (https://shopify.dev/docs/api/admin-extensions#custom-protocols)
     */
       src: state.src,
@@ -257,14 +257,14 @@ export default extension(TARGET, (root, { i18n, data }) => {
 
   root.append(printActionComponent);
 
-  /* 
+  /*
     This template fetches static documents from the CDN to demonstrate printing.
     However, when building your extension, you should update the src document
-    to match the resource that the user is printing. You can do this by getting the 
-    resource id from the data API and using it to create a URL with a path to your app 
-    that shows the correct document. For example, you might use a URL parameter to 
+    to match the resource that the user is printing. You can do this by getting the
+    resource id from the data API and using it to create a URL with a path to your app
+    that shows the correct document. For example, you might use a URL parameter to
     render an invoice for a specific order.
-    
+
     `/print/invoice&orderId=${data.selected[0].id}`
   */
   function updateSrc() {
