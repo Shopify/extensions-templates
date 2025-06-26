@@ -47,6 +47,10 @@ jobs:
         if: matrix.flavor == 'javascript' || matrix.flavor == 'typescript'
         run: yarn js-test
       
+      - name: Run Rust tests (Rust only)
+        if: matrix.flavor == 'rust'
+        run: cargo test
+      
       - name: Build Rust WASM target (Rust only)
         if: matrix.flavor == 'rust'
         run: cargo build --release --target wasm32-wasip1
