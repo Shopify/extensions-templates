@@ -2,16 +2,16 @@
 // @ts-check
 
 /**
- * @typedef {import("../generated/api").RunInput} RunInput
- * @typedef {import("../generated/api").FunctionRunResult} FunctionRunResult
+ * @typedef {import("../generated/api").CartValidationsGenerateRunInput} CartValidationsGenerateRunInput
+ * @typedef {import("../generated/api").CartValidationsGenerateRunResult} CartValidationsGenerateRunResult
  */
 
 /**
- * @param {RunInput} input
- * @returns {FunctionRunResult}
+ * @param {CartValidationsGenerateRunInput} input
+ * @returns {CartValidationsGenerateRunResult}
  */
-export function run(input) {
-  const errors = input.cart.lines
+export function cart_validations_generate_run(input) {
+  const operations = input.cart.lines
     .filter(({ quantity }) => quantity > 1)
     .map(() => ({
       localizedMessage: "Not possible to order more than one of each",
@@ -19,17 +19,17 @@ export function run(input) {
     }));
 
   return {
-    errors
+    operations
   }
 };
 {%- elsif flavor contains "typescript" -%}
 import type {
-  RunInput,
-  FunctionRunResult,
+  CartValidationsGenerateRunInput,
+  CartValidationsGenerateRunResult,
   FunctionError,
 } from "../generated/api";
 
-export function run(input: RunInput): FunctionRunResult {
+export function cart_validations_generate_run(input: CartValidationsGenerateRunInput): CartValidationsGenerateRunResult {
   const errors: FunctionError[] = input.cart.lines
     .filter(({ quantity }) => quantity > 1)
     .map(() => ({
