@@ -109,40 +109,6 @@
     ]
   },
   {
-    "identifier": "validation_settings_ui",
-    "name": "Validation settings",
-    "defaultName": "validation-settings-ui",
-    "group": "UI extensions",
-    "supportLinks": [
-      "https://shopify.dev/docs/apps/checkout/validation/server-side"
-    ],
-    "url": "https://github.com/Shopify/extensions-templates",
-    "type": "ui_extension",
-    "extensionPoints": [],
-    "supportedFlavors": [
-      {
-        "name": "JavaScript React",
-        "value": "react",
-        "path": "validation-settings"
-      },
-      {
-        "name": "JavaScript",
-        "value": "vanilla-js",
-        "path": "validation-settings"
-      },
-      {
-        "name": "TypeScript React",
-        "value": "typescript-react",
-        "path": "validation-settings"
-      },
-      {
-        "name": "TypeScript",
-        "value": "typescript",
-        "path": "validation-settings"
-      }
-    ]
-  },
-  {
     "identifier": "customer_account_ui",
     "name": "Customer account UI",
     "defaultName": "customer-account-ui",
@@ -605,40 +571,6 @@
     ]
   },
   {
-    "identifier": "discount_details_function_settings",
-    "name": "Discount Function settings",
-    "defaultName": "Discount Function Settings",
-    "group": "UI extensions",
-    "supportLinks": [
-      "https://shopify.dev/docs/apps/discounts"
-    ],
-    "url": "https://github.com/Shopify/extensions-templates",
-    "type": "ui_extension",
-    "extensionPoints": [],
-    "supportedFlavors": [
-      {
-        "name": "JavaScript React",
-        "value": "react",
-        "path": "discount-details-function-settings-block"
-      },
-      {
-        "name": "JavaScript",
-        "value": "vanilla-js",
-        "path": "discount-details-function-settings-block"
-      },
-      {
-        "name": "TypeScript React",
-        "value": "typescript-react",
-        "path": "discount-details-function-settings-block"
-      },
-      {
-        "name": "TypeScript",
-        "value": "typescript",
-        "path": "discount-details-function-settings-block"
-      }
-    ]
-  },
-  {
     "identifier": "product_configuration",
     "name": "Product configuration",
     "defaultName": "product-configuration",
@@ -714,8 +646,76 @@
     "minimumCliVersion": "3.78.2"
   },
   {
+    "identifier": "discount_details_function_settings",
+    "name": "Discount function settings",
+    "defaultName": "Discount function settings",
+    "group": "UI extensions",
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "discount-details-function-settings-block"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "discount-details-function-settings-block"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "discount-details-function-settings-block"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "discount-details-function-settings-block"
+      }
+    ]
+  },
+  {
+    "identifier": "validation_settings_ui",
+    "name": "Cart and checkout validation function settings",
+    "defaultName": "validation-settings-ui",
+    "group": "UI extensions",
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/checkout/validation/server-side"
+    ],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "validation-settings"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "validation-settings"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "validation-settings"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "validation-settings"
+      }
+    ]
+  },
+  {
     "identifier": "order_routing_location_rule_ui",
-    "name": "Order routing location rule",
+    "name": "Order routing location rule function settings",
     "defaultName": "order-routing-location-rule-ui",
     "group": "UI extensions",
     "supportLinks": [
@@ -1041,40 +1041,6 @@
     ]
   },
   {
-    "identifier": "order_discounts",
-    "name": "Discount orders",
-    "defaultName": "order-discount",
-    "group": "Functions",
-    "supportLinks": [
-      "https://shopify.dev/docs/apps/discounts"
-    ],
-    "url": "https://github.com/Shopify/extensions-templates",
-    "type": "function",
-    "extensionPoints": [],
-    "supportedFlavors": [
-      {
-        "name": "Rust",
-        "value": "rust",
-        "path": "functions-order-discounts-rs"
-      },
-      {
-        "name": "JavaScript",
-        "value": "vanilla-js",
-        "path": "functions-order-discounts-js"
-      },
-      {
-        "name": "TypeScript",
-        "value": "typescript",
-        "path": "functions-order-discounts-js"
-      },
-      {
-        "name": "Wasm",
-        "value": "wasm",
-        "path": "functions-order-discounts-wasm"
-      }
-    ]
-  },
-  {
     "identifier": "discount",
     "name": "Discount",
     "defaultName": "discount-function",
@@ -1109,8 +1075,42 @@
     ]
   },
   {
+    "identifier": "order_discounts",
+    "name": "Order discount",
+    "defaultName": "order-discount",
+    "group": "Functions",
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "function",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Rust",
+        "value": "rust",
+        "path": "functions-order-discounts-rs"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "functions-order-discounts-js"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "functions-order-discounts-js"
+      },
+      {
+        "name": "Wasm",
+        "value": "wasm",
+        "path": "functions-order-discounts-wasm"
+      }
+    ]
+  },
+  {
     "identifier": "product_discounts",
-    "name": "Product discounts",
+    "name": "Product discount",
     "defaultName": "product-discount",
     "group": "Functions",
     "supportLinks": [
@@ -1144,7 +1144,7 @@
   },
   {
     "identifier": "shipping_discounts",
-    "name": "Shipping discounts",
+    "name": "Shipping discount",
     "defaultName": "shipping-discount",
     "group": "Functions",
     "supportLinks": [
@@ -1212,7 +1212,7 @@
   },
   {
     "identifier": "fulfillment_constraints",
-    "name": "Fulfillment constraints",
+    "name": "Fulfillment constraint",
     "defaultName": "fulfillment-constraints",
     "group": "Functions",
     "supportLinks": [],
@@ -1244,7 +1244,7 @@
   },
   {
     "identifier": "local_pickup_delivery_option_generator",
-    "name": "Local pickup delivery option generators",
+    "name": "Local pickup delivery option generator",
     "defaultName": "local-pickup-delivery-option-generators",
     "group": "Functions",
     "supportLinks": [],
