@@ -1076,7 +1076,7 @@
   },
   {
     "identifier": "order_discounts",
-    "name": "Order discounts",
+    "name": "Order discount",
     "defaultName": "order-discount",
     "group": "Functions",
     "supportLinks": [
@@ -1110,7 +1110,7 @@
   },
   {
     "identifier": "product_discounts",
-    "name": "Product discounts",
+    "name": "Product discount",
     "defaultName": "product-discount",
     "group": "Functions",
     "supportLinks": [
@@ -1144,7 +1144,7 @@
   },
   {
     "identifier": "shipping_discounts",
-    "name": "Shipping discounts",
+    "name": "Shipping discount",
     "defaultName": "shipping-discount",
     "group": "Functions",
     "supportLinks": [
@@ -1212,7 +1212,7 @@
   },
   {
     "identifier": "fulfillment_constraints",
-    "name": "Fulfillment constraints",
+    "name": "Fulfillment constraint",
     "defaultName": "fulfillment-constraints",
     "group": "Functions",
     "supportLinks": [],
