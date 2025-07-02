@@ -1076,7 +1076,7 @@
   },
   {
     "identifier": "order_discounts",
-    "name": "Order discount",
+    "name": "Order discount (deprecated)",
     "defaultName": "order-discount",
     "group": "Functions",
     "supportLinks": [
@@ -1110,7 +1110,7 @@
   },
   {
     "identifier": "product_discounts",
-    "name": "Product discount",
+    "name": "Product discount (deprecated)",
     "defaultName": "product-discount",
     "group": "Functions",
     "supportLinks": [
@@ -1144,7 +1144,7 @@
   },
   {
     "identifier": "shipping_discounts",
-    "name": "Shipping discount",
+    "name": "Shipping discount (deprecated)",
     "defaultName": "shipping-discount",
     "group": "Functions",
     "supportLinks": [
