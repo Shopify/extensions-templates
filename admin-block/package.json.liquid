@@ -6,13 +6,13 @@
 {%- if flavor contains "preact" %}
   "dependencies": {
     "preact": "^10.10.x",
-    "@shopify/ui-extensions": "~2025.10.0-rc"
+    "@shopify/ui-extensions": "2024.07.x"
   }
 {%- elsif flavor contains "react" %}
   "dependencies": {
     "react": "^18.0.0",
-    "@shopify/ui-extensions": "2025.4.x",
-    "@shopify/ui-extensions-react": "2025.4.x",
+    "@shopify/ui-extensions": "2024.07.x",
+    "@shopify/ui-extensions-react": "2024.07.x",
     "react-reconciler": "0.29.0"
   },
   "devDependencies": {
@@ -20,7 +20,7 @@
   }
 {%- else %}
   "dependencies": {
-    "@shopify/ui-extensions": "2025.4.x"
+    "@shopify/ui-extensions": "2024.07.x"
   }
 {%- endif %}
 }
