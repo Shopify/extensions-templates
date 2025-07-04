@@ -35,7 +35,7 @@ mod tests {
     #[test]
     fn test_result_contains_single_error_when_quantity_exceeds_one() -> Result<()> {
         let result = run_function_with_input(
-            run,
+            cart_validations_generate_run,
             r#"
                 {
                     "cart": {
@@ -48,9 +48,9 @@ mod tests {
                 }
             "#,
         )?;
-        let expected = CartValidationsGenerateRunResult {
-            operations: vec![Operation::ValidationAdd(ValidationAddOperation {
-                errors: vec![ValidationError {
+        let expected = schema::CartValidationsGenerateRunResult {
+            operations: vec![schema::Operation::ValidationAdd(schema::ValidationAddOperation {
+                errors: vec![schema::ValidationError {
                     message: "Not possible to order more than one of each".to_owned(),
                     target: "$.cart".to_owned(),
                 }],
@@ -64,7 +64,7 @@ mod tests {
     #[test]
     fn test_result_contains_no_errors_when_quantity_is_one() -> Result<()> {
         let result = run_function_with_input(
-            run,
+            cart_validations_generate_run,
             r#"
                 {
                     "cart": {
@@ -77,8 +77,8 @@ mod tests {
                 }
             "#,
         )?;
-        let expected = CartValidationsGenerateRunResult {
-            operations: vec![Operation::ValidationAdd(ValidationAddOperation {
+        let expected = schema::CartValidationsGenerateRunResult {
+            operations: vec![schema::Operation::ValidationAdd(schema::ValidationAddOperation {
                 errors: vec![],
             })],
         };
