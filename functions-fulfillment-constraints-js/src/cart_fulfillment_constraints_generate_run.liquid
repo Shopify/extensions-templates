@@ -18,9 +18,7 @@ const NO_CHANGES = {
  * @returns {CartFulfillmentConstraintsGenerateRunResult}
  */
 export function cartFulfillmentConstraintsGenerateRun(input) {
-  const configuration = JSON.parse(
-    input?.fulfillmentConstraintRule?.metafield?.value ?? "{}"
-  );
+  const configuration = input?.fulfillmentConstraintRule?.metafield?.jsonValue ?? {};
 
   return NO_CHANGES;
 };
@@ -37,9 +35,7 @@ const NO_CHANGES: CartFulfillmentConstraintsGenerateRunResult = {
 type Configuration = {};
 
 export function cartFulfillmentConstraintsGenerateRun(input: CartFulfillmentConstraintsGenerateRunInput): CartFulfillmentConstraintsGenerateRunResult {
-  const configuration: Configuration = JSON.parse(
-    input?.fulfillmentConstraintRule?.metafield?.value ?? "{}"
-  );
+    const configuration: Configuration = input?.fulfillmentConstraintRule?.metafield?.jsonValue ?? {};
   return NO_CHANGES;
 };
 {%- endif -%}

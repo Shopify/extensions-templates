@@ -18,9 +18,7 @@ const NO_CHANGES = {
  * @returns {CartDeliveryOptionsTransformRunResult}
  */
 export function cartDeliveryOptionsTransformRun(input) {
-  const configuration = JSON.parse(
-    input?.deliveryCustomization?.metafield?.value ?? "{}"
-  );
+  const configuration = input?.deliveryCustomization?.metafield?.jsonValue ?? {};
 
   return NO_CHANGES;
 };
@@ -37,9 +35,7 @@ const NO_CHANGES: CartDeliveryOptionsTransformRunResult = {
 type Configuration = {};
 
 export function cartDeliveryOptionsTransformRun(input: CartDeliveryOptionsTransformRunInput): CartDeliveryOptionsTransformRunResult {
-  const configuration: Configuration = JSON.parse(
-    input?.deliveryCustomization?.metafield?.value ?? "{}"
-  );
+  const configuration: Configuration = input?.deliveryCustomization?.metafield?.jsonValue ?? {};
   return NO_CHANGES;
 };
 {%- endif -%}
