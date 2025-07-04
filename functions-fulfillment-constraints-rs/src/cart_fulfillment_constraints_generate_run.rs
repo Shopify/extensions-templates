@@ -3,12 +3,14 @@ use shopify_function::prelude::*;
 use shopify_function::Result;
 
 #[shopify_function]
-fn run(_input: schema::run::Input) -> Result<schema::FunctionRunResult> {
+fn cart_fulfillment_constraints_generate_run(
+    _input: schema::cart_fulfillment_constraints_generate_run::CartFulfillmentConstraintsGenerateRunInput,
+) -> Result<schema::CartFulfillmentConstraintsGenerateRunResult> {
     let operations = vec![];
 
     // Build operations based on the input query response here.
 
-    Ok(schema::FunctionRunResult { operations })
+    Ok(schema::CartFulfillmentConstraintsGenerateRunResult { operations })
 }
 
 #[cfg(test)]
@@ -19,7 +21,7 @@ mod tests {
     #[test]
     fn test_result_contains_no_operations() -> Result<()> {
         let result = run_function_with_input(
-            run,
+            cart_fulfillment_constraints_generate_run,
             r#"
               {
                 "cart": {
@@ -39,7 +41,7 @@ mod tests {
             "#,
         )?;
 
-        let expected = schema::FunctionRunResult { operations: vec![] };
+        let expected = schema::CartFulfillmentConstraintsGenerateRunResult { operations: vec![] };
 
         assert_eq!(result, expected);
         Ok(())

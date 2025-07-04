@@ -45,6 +45,11 @@ functions*/**/cart_delivery_options_discounts_generate_run.test.js
 functions*/**/cart_delivery_options_discounts_generate_run.test.ts
 functions*/**/cart_lines_discounts_generate_run.test.js
 functions*/**/cart_lines_discounts_generate_run.test.ts
+functions*/**/cart_fulfillment_constraints_generate_run.graphql
+functions*/**/cart_fulfillment_constraints_generate_run.js
+functions*/**/cart_fulfillment_constraints_generate_run.ts
+functions*/**/cart_fulfillment_constraints_generate_run.test.js
+functions*/**/cart_fulfillment_constraints_generate_run.test.ts
 
 # Ignore local build files
 functions*/generated
