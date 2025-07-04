@@ -2,15 +2,15 @@
 // @ts-check
 
 /**
- * @typedef {import("../generated/api").RunInput} RunInput
- * @typedef {import("../generated/api").FunctionRunResult} FunctionRunResult
+ * @typedef {import("../generated/api").CartFulfillmentGroupsLocationRankingsGenerateRunInput} CartFulfillmentGroupsLocationRankingsGenerateRunInput
+ * @typedef {import("../generated/api").CartFulfillmentGroupsLocationRankingsGenerateRunResult} CartFulfillmentGroupsLocationRankingsGenerateRunResult
  */
 
 /**
- * @param {RunInput} input
- * @returns {FunctionRunResult}
+ * @param {CartFulfillmentGroupsLocationRankingsGenerateRunInput} input
+ * @returns {CartFulfillmentGroupsLocationRankingsGenerateRunResult}
  */
-export function run(input) {
+export function cartFulfillmentGroupsLocationRankingsGenerateRun(input) {
   const operations = input.fulfillmentGroups.map((group) => {
     const rankings = group.inventoryLocationHandles?.map((inventoryLocationHandle) => ({
       locationHandle: inventoryLocationHandle,
@@ -18,7 +18,7 @@ export function run(input) {
     })) || [];
 
     return {
-      rank: {
+      fulfillmentGroupLocationRankingAdd: {
         fulfillmentGroupHandle: group.handle,
         rankings,
       },
@@ -29,13 +29,13 @@ export function run(input) {
 };
 {%- elsif flavor contains "typescript" -%}
 import type {
-  RunInput,
-  FunctionRunResult,
+  CartFulfillmentGroupsLocationRankingsGenerateRunInput,
+  CartFulfillmentGroupsLocationRankingsGenerateRunResult,
   Operation,
   RankedLocation,
 } from "../generated/api";
 
-export function run(input: RunInput): FunctionRunResult {
+export function cartFulfillmentGroupsLocationRankingsGenerateRun(input: CartFulfillmentGroupsLocationRankingsGenerateRunInput): CartFulfillmentGroupsLocationRankingsGenerateRunResult {
   const operations: Operation[] = input.fulfillmentGroups.map((group) => {
     const rankings: RankedLocation[] = group.inventoryLocationHandles?.map(
       (inventoryLocationHandle) => ({
@@ -45,7 +45,7 @@ export function run(input: RunInput): FunctionRunResult {
     ) || [];
 
     return {
-      rank: {
+      fulfillmentGroupLocationRankingAdd: {
         fulfillmentGroupHandle: group.handle,
         rankings,
       },
