@@ -32,13 +32,26 @@ async function directoryNames(parentPath) {
 
 async function expandExtensionLiquidTemplates(projectName, flavor) {
   console.log(`Expanding liquid templates for ${projectName}`);
-  const pathSuffix =
-    flavor === "typescript" || flavor === "vanilla-js" ? "js" : "rs";
-  const projectPath = path.join(process.cwd(), projectName + "-" + pathSuffix);
-  const langName =
-    flavor === "typescript" || flavor === "vanilla-js" ? "javascript" : "rust";
 
-  if (langName === "javascript") {
+  let pathSuffix;
+  switch (flavor) {
+    case "typescript":
+    case "vanilla-js":
+      pathSuffix = "js";
+      break;
+    case "rust":
+      pathSuffix = "rs";
+      break;
+    case "wasm":
+      pathSuffix = "wasm";
+      break;
+    default:
+      throw(`Unrecognized language ${flavor}.`);
+  }
+
+  const projectPath = path.join(process.cwd(), projectName + "-" + pathSuffix);
+
+  if (flavor === "typescript" || flavor === "vanilla-js") {
     await (
       await glob(path.join(projectPath, "src", "!(*.liquid|*.graphql)"))
     ).forEach(async (path) => await fs.rm(path));
@@ -52,7 +65,7 @@ async function expandExtensionLiquidTemplates(projectName, flavor) {
 
   await expandLiquidTemplates(projectPath, liquidData);
 
-  if (langName === "javascript") {
+  if (flavor === "typescript" || flavor === "vanilla-js") {
     const srcFilePaths = await glob(
       path.join(projectPath, "src", "!(*.liquid|*.graphql)")
     );
