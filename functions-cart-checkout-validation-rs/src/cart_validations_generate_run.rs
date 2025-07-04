@@ -49,12 +49,14 @@ mod tests {
             "#,
         )?;
         let expected = schema::CartValidationsGenerateRunResult {
-            operations: vec![schema::Operation::ValidationAdd(schema::ValidationAddOperation {
-                errors: vec![schema::ValidationError {
-                    message: "Not possible to order more than one of each".to_owned(),
-                    target: "$.cart".to_owned(),
-                }],
-            })],
+            operations: vec![schema::Operation::ValidationAdd(
+                schema::ValidationAddOperation {
+                    errors: vec![schema::ValidationError {
+                        message: "Not possible to order more than one of each".to_owned(),
+                        target: "$.cart".to_owned(),
+                    }],
+                },
+            )],
         };
 
         assert_eq!(result, expected);
@@ -78,9 +80,9 @@ mod tests {
             "#,
         )?;
         let expected = schema::CartValidationsGenerateRunResult {
-            operations: vec![schema::Operation::ValidationAdd(schema::ValidationAddOperation {
-                errors: vec![],
-            })],
+            operations: vec![schema::Operation::ValidationAdd(
+                schema::ValidationAddOperation { errors: vec![] },
+            )],
         };
 
         assert_eq!(result, expected);
