@@ -1,4 +1,4 @@
-api_version = "2025-01"
+api_version = "2025-07"
 
 [[extensions]]
 name = "t:name"
@@ -8,9 +8,9 @@ type = "function"
 description = "t:description"
 
   [[extensions.targeting]]
-  target = "purchase.fulfillment-constraint-rule.run"
-  input_query = "run.graphql"
-  export = "run"
+  target = "cart.fulfillment-constraints.generate.run"
+  input_query = "cart_fulfillment_constraints_generate_run.graphql"
+  export = "cart-fulfillment-constraints-generate-run"
 
   [extensions.build]
   command = "echo 'build the wasm'"
