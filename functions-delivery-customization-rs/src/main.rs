@@ -1,14 +1,14 @@
 use shopify_function::prelude::*;
 use std::process;
 
-pub mod run;
+pub mod cart_delivery_options_transform_run;
 
 #[typegen("schema.graphql")]
 pub mod schema {
-    #[query("src/run.graphql", custom_scalar_overrides = {
-        "Input.deliveryCustomization.metafield.jsonValue" => super::run::Configuration,
+    #[query("src/cart_delivery_options_transform_run.graphql", custom_scalar_overrides = {
+        "CartDeliveryOptionsTransformRunInput.deliveryCustomization.metafield.jsonValue" => super::cart_delivery_options_transform_run::Configuration,
     })]
-    pub mod run {}
+    pub mod cart_delivery_options_transform_run {}
 }
 
 fn main() {

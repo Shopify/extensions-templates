@@ -7,15 +7,17 @@ use shopify_function::Result;
 pub struct Configuration {}
 
 #[shopify_function]
-fn run(input: schema::run::Input) -> Result<schema::FunctionRunResult> {
-    let no_changes = schema::FunctionRunResult { operations: vec![] };
+fn cart_delivery_options_transform_run(
+    input: schema::cart_delivery_options_transform_run::CartDeliveryOptionsTransformRunInput,
+) -> Result<schema::CartDeliveryOptionsTransformRunResult> {
+    let no_changes = schema::CartDeliveryOptionsTransformRunResult { operations: vec![] };
 
     let _config = match input.delivery_customization().metafield() {
         Some(metafield) => metafield.json_value(),
         None => return Ok(no_changes),
     };
 
-    Ok(schema::FunctionRunResult { operations: vec![] })
+    Ok(schema::CartDeliveryOptionsTransformRunResult { operations: vec![] })
 }
 
 #[cfg(test)]
@@ -25,10 +27,10 @@ mod tests {
 
     #[test]
     fn test_result_contains_no_operations() -> Result<()> {
-        use schema::FunctionRunResult;
+        use schema::CartDeliveryOptionsTransformRunResult;
 
         let result = run_function_with_input(
-            run,
+            cart_delivery_options_transform_run,
             r#"
                 {
                     "deliveryCustomization": {
@@ -37,7 +39,7 @@ mod tests {
                 }
             "#,
         )?;
-        let expected = FunctionRunResult { operations: vec![] };
+        let expected = CartDeliveryOptionsTransformRunResult { operations: vec![] };
 
         assert_eq!(result, expected);
         Ok(())
