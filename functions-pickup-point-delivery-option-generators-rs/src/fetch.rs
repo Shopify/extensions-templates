@@ -23,8 +23,7 @@ fn fetch(input: schema::fetch::Input) -> Result<schema::FunctionFetchResult> {
 fn build_external_api_request(latitude: &f64, longitude: &f64) -> schema::HttpRequest {
     // The latitude and longitude parameters are included in the URL for demonstration purposes only. They do not influence the result.
     let url = format!(
-        "https://cdn.shopify.com/s/files/1/0628/3830/9033/files/pickup-points-external-api-v2.json?v=1714588690&lat={}&lon={}",
-        latitude, longitude
+        "https://cdn.shopify.com/s/files/1/0628/3830/9033/files/pickup-points-external-api-v2.json?v=1714588690&lat={latitude}&lon={longitude}",
     );
 
     schema::HttpRequest {
