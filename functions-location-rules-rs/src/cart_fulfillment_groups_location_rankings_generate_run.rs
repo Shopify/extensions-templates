@@ -3,7 +3,9 @@ use shopify_function::prelude::*;
 use shopify_function::Result;
 
 #[shopify_function]
-fn run(input: schema::run::Input) -> Result<schema::FunctionRunResult> {
+fn cart_fulfillment_groups_location_rankings_generate_run(
+    input: schema::cart_fulfillment_groups_location_rankings_generate_run::CartFulfillmentGroupsLocationRankingsGenerateRunInput,
+) -> Result<schema::CartFulfillmentGroupsLocationRankingsGenerateRunResult> {
     let operations = input
         .fulfillment_groups()
         .iter()
@@ -17,28 +19,28 @@ fn run(input: schema::run::Input) -> Result<schema::FunctionRunResult> {
                 })
                 .collect::<Vec<schema::RankedLocation>>();
 
-            schema::Operation {
-                rank: schema::FulfillmentGroupRankedLocations {
+            schema::Operation::FulfillmentGroupLocationRankingAdd(
+                schema::FulfillmentGroupLocationRankingAddOperation {
                     fulfillment_group_handle: group.handle().clone(),
                     rankings,
                 },
-            }
+            )
         })
         .collect();
 
-    Ok(schema::FunctionRunResult { operations })
+    Ok(schema::CartFulfillmentGroupsLocationRankingsGenerateRunResult { operations })
 }
 
 #[cfg(test)]
 mod tests {
     use super::schema;
-    use crate::run::run;
+    use crate::cart_fulfillment_groups_location_rankings_generate_run::cart_fulfillment_groups_location_rankings_generate_run;
     use shopify_function::{run_function_with_input, Result};
 
     #[test]
     fn test_result_ranks_all_locations_zero() -> Result<()> {
         let result = run_function_with_input(
-            run,
+            cart_fulfillment_groups_location_rankings_generate_run,
             r#"
                 {
                     "fulfillmentGroups": [{
@@ -48,16 +50,16 @@ mod tests {
                 }
             "#,
         )?;
-        let expected = schema::FunctionRunResult {
-            operations: vec![schema::Operation {
-                rank: schema::FulfillmentGroupRankedLocations {
+        let expected = schema::CartFulfillmentGroupsLocationRankingsGenerateRunResult {
+            operations: vec![schema::Operation::FulfillmentGroupLocationRankingAdd(
+                schema::FulfillmentGroupLocationRankingAddOperation {
                     fulfillment_group_handle: "123".to_string(),
                     rankings: vec![schema::RankedLocation {
                         location_handle: "456".to_string(),
                         rank: 0,
                     }],
                 },
-            }],
+            )],
         };
 
         assert_eq!(result, expected);
