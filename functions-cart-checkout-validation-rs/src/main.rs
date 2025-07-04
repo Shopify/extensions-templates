@@ -1,11 +1,11 @@
 use shopify_function::prelude::*;
 use std::process;
 
-pub mod run;
+pub mod cart_validations_generate_run;
 
 #[typegen("schema.graphql")]
 pub mod schema {
-    #[query("src/run.graphql")]
+    #[query("src/cart_validations_generate_run.graphql")]
     pub mod run {}
 }
 
