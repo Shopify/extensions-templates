@@ -10,35 +10,47 @@
  * @param {CartValidationsGenerateRunInput} input
  * @returns {CartValidationsGenerateRunResult}
  */
-export function cart_validations_generate_run(input) {
-  const operations = input.cart.lines
+export function cartValidationsGenerateRun(input) {
+  const errors = input.cart.lines
     .filter(({ quantity }) => quantity > 1)
     .map(() => ({
-      localizedMessage: "Not possible to order more than one of each",
+      message: "Not possible to order more than one of each",
       target: "$.cart",
     }));
 
-  return {
-    operations
-  }
+  const operations = [
+    {
+      validationAdd: {
+        errors
+      },
+    },
+  ];
+
+  return { operations };
 };
 {%- elsif flavor contains "typescript" -%}
 import type {
   CartValidationsGenerateRunInput,
   CartValidationsGenerateRunResult,
-  FunctionError,
+  ValidationError,
 } from "../generated/api";
 
-export function cart_validations_generate_run(input: CartValidationsGenerateRunInput): CartValidationsGenerateRunResult {
-  const errors: FunctionError[] = input.cart.lines
+export function cartValidationsGenerateRun(input: CartValidationsGenerateRunInput): CartValidationsGenerateRunResult {
+  const errors: ValidationError[] = input.cart.lines
     .filter(({ quantity }) => quantity > 1)
     .map(() => ({
-      localizedMessage: "Not possible to order more than one of each",
+      message: "Not possible to order more than one of each",
       target: "$.cart",
     }));
 
-  return {
-    errors
-  }
+  const operations = [
+    {
+      validationAdd: {
+        errors
+      },
+    },
+  ];
+
+  return { operations };
 };
 {%- endif -%}

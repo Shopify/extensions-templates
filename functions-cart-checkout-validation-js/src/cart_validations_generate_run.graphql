@@ -1,7 +1,0 @@
-query CartValidationsGenerateRunInput {
-  cart {
-    lines {
-      quantity
-    }
-  }
-}

@@ -1,6 +1,6 @@
 {%- if flavor contains "vanilla-js" -%}
 import { describe, it, expect } from 'vitest';
-import { cart_validations_generate_run } from './cart_validations_generate_run';
+import { cartValidationsGenerateRun } from './cart_validations_generate_run';
 
 /**
  * @typedef {import("../generated/api").CartValidationsGenerateRunResult} CartValidationsGenerateRunResult
@@ -8,7 +8,7 @@ import { cart_validations_generate_run } from './cart_validations_generate_run';
 
 describe('cart checkout validation function', () => {
   it('returns an error when quantity exceeds one', () => {
-    const result = cart_validations_generate_run({
+    const result = cartValidationsGenerateRun({
       cart: {
         lines: [
           {
@@ -17,18 +17,26 @@ describe('cart checkout validation function', () => {
         ]
       }
     });
-    const expected = /** @type {CartValidationsGenerateRunResult} */ ({ errors: [
-      {
-        localizedMessage: "Not possible to order more than one of each",
-        target: "$.cart"
-      }
-    ] });
+    const expected = /** @type {CartValidationsGenerateRunResult} */ ({
+      operations: [
+        {
+          validationAdd: {
+            errors: [
+              {
+                message: "Not possible to order more than one of each",
+                target: "$.cart"
+              }
+            ]
+          }
+        }
+      ]
+    });
 
     expect(result).toEqual(expected);
   });
 
   it('returns no errors when quantity is one', () => {
-    const result = cart_validations_generate_run({
+    const result = cartValidationsGenerateRun({
       cart: {
         lines: [
           {
@@ -37,19 +45,27 @@ describe('cart checkout validation function', () => {
         ]
       }
     });
-    const expected = /** @type {CartValidationsGenerateRunResult} */ ({ errors: [] });
+    const expected = /** @type {CartValidationsGenerateRunResult} */ ({
+      operations: [
+        {
+          validationAdd: {
+            errors: []
+          }
+        }
+      ]
+    });
 
     expect(result).toEqual(expected);
   });
 });
 {%- elsif flavor contains "typescript" -%}
 import { describe, it, expect } from 'vitest';
-import { cart_validations_generate_run } from './cart_validations_generate_run';
+import { cartValidationsGenerateRun } from './cart_validations_generate_run';
 import { CartValidationsGenerateRunResult } from "../generated/api";
 
 describe('cart checkout validation function', () => {
   it('returns an error when quantity exceeds one', () => {
-    const result = cart_validations_generate_run({
+    const result = cartValidationsGenerateRun({
       cart: {
         lines: [
           {
@@ -58,18 +74,26 @@ describe('cart checkout validation function', () => {
         ]
       }
     });
-    const expected: CartValidationsGenerateRunResult = { errors: [
-      {
-        localizedMessage: "Not possible to order more than one of each",
-        target: "$.cart"
-      }
-    ] };
+    const expected: CartValidationsGenerateRunResult = {
+      operations: [
+        {
+          validationAdd: {
+            errors: [
+              {
+                message: "Not possible to order more than one of each",
+                target: "$.cart"
+              }
+            ]
+          }
+        }
+      ]
+    };
 
     expect(result).toEqual(expected);
   });
 
   it('returns no errors when quantity is one', () => {
-    const result = cart_validations_generate_run({
+    const result = cartValidationsGenerateRun({
       cart: {
         lines: [
           {
@@ -78,7 +102,15 @@ describe('cart checkout validation function', () => {
         ]
       }
     });
-    const expected: CartValidationsGenerateRunResult = { errors: [] };
+    const expected: CartValidationsGenerateRunResult = {
+      operations: [
+        {
+          validationAdd: {
+            errors: []
+          }
+        }
+      ]
+    };
 
     expect(result).toEqual(expected);
   });
