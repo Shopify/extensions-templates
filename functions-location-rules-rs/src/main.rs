@@ -1,12 +1,12 @@
 use shopify_function::prelude::*;
 use std::process;
 
-pub mod run;
+pub mod cart_fulfillment_groups_location_rankings_generate_run;
 
 #[typegen("schema.graphql")]
 pub mod schema {
-    #[query("src/run.graphql")]
-    pub mod run {}
+    #[query("src/cart_fulfillment_groups_location_rankings_generate_run.graphql")]
+    pub mod cart_fulfillment_groups_location_rankings_generate_run {}
 }
 
 fn main() {

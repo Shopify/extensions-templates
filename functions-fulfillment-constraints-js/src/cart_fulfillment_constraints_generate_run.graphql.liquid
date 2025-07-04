@@ -1,4 +1,4 @@
-query Input {
+query CartFulfillmentConstraintsGenerateRunInput {
   cart {
     deliverableLines {
       id
@@ -6,7 +6,7 @@ query Input {
   }
   fulfillmentConstraintRule {
     metafield(namespace: "$app:fulfillment-constraints", key: "function-configuration") {
-      value
+      jsonValue
     }
   }
 }

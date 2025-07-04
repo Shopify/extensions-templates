@@ -1,14 +1,14 @@
 {%- if flavor contains "vanilla-js" -%}
 import { describe, it, expect } from 'vitest';
-import { run } from './run';
+import { cartFulfillmentConstraintsGenerateRun } from './cart_fulfillment_constraints_generate_run';
 
 /**
- * @typedef {import("../generated/api").FunctionRunResult} FunctionRunResult
+ * @typedef {import("../generated/api").CartFulfillmentConstraintsGenerateRunResult} CartFulfillmentConstraintsGenerateRunResult
  */
 
 describe('fulfillment constraint rule function', () => {
   it('returns no operations without configuration', () => {
-    const result = run({
+    const result = cartFulfillmentConstraintsGenerateRun({
       cart: {
         deliverableLines: [
           {
@@ -23,19 +23,19 @@ describe('fulfillment constraint rule function', () => {
         metafield: null
       }
     });
-    const expected = /** @type {FunctionRunResult} */ ({ operations: [] });
+    const expected = /** @type {CartFulfillmentConstraintsGenerateRunResult} */ ({ operations: [] });
 
     expect(result).toEqual(expected);
   });
 });
 {%- elsif flavor contains "typescript" -%}
 import { describe, it, expect } from 'vitest';
-import { run } from './run';
-import { FunctionRunResult } from '../generated/api';
+import { cartFulfillmentConstraintsGenerateRun } from './cart_fulfillment_constraints_generate_run';
+import { CartFulfillmentConstraintsGenerateRunResult } from '../generated/api';
 
 describe('fulfillment constraint rule function', () => {
   it('returns no operations without configuration', () => {
-    const result = run({
+    const result = cartFulfillmentConstraintsGenerateRun({
       cart: {
         deliverableLines: [
           {
@@ -50,7 +50,7 @@ describe('fulfillment constraint rule function', () => {
         metafield: null
       }
     });
-    const expected: FunctionRunResult = { operations: [] };
+    const expected: CartFulfillmentConstraintsGenerateRunResult = { operations: [] };
 
     expect(result).toEqual(expected);
   });

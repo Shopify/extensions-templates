@@ -1,0 +1,41 @@
+{%- if flavor contains "vanilla-js" -%}
+// @ts-check
+
+/**
+ * @typedef {import("../generated/api").CartDeliveryOptionsTransformRunInput} CartDeliveryOptionsTransformRunInput
+ * @typedef {import("../generated/api").CartDeliveryOptionsTransformRunResult} CartDeliveryOptionsTransformRunResult
+ */
+
+/**
+ * @type {CartDeliveryOptionsTransformRunResult}
+ */
+const NO_CHANGES = {
+  operations: [],
+};
+
+/**
+ * @param {CartDeliveryOptionsTransformRunInput} input
+ * @returns {CartDeliveryOptionsTransformRunResult}
+ */
+export function cartDeliveryOptionsTransformRun(input) {
+  const configuration = input?.deliveryCustomization?.metafield?.jsonValue ?? {};
+
+  return NO_CHANGES;
+};
+{%- elsif flavor contains "typescript" -%}
+import type {
+  CartDeliveryOptionsTransformRunInput,
+  CartDeliveryOptionsTransformRunResult,
+} from "../generated/api";
+
+const NO_CHANGES: CartDeliveryOptionsTransformRunResult = {
+  operations: [],
+};
+
+type Configuration = {};
+
+export function cartDeliveryOptionsTransformRun(input: CartDeliveryOptionsTransformRunInput): CartDeliveryOptionsTransformRunResult {
+  const configuration: Configuration = input?.deliveryCustomization?.metafield?.jsonValue ?? {};
+  return NO_CHANGES;
+};
+{%- endif -%}
