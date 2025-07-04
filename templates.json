@@ -1298,7 +1298,7 @@
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "functions-pickup-point-delivery-option-generators-ts"
+        "path": "functions-pickup-point-delivery-option-generators-js"
       },
       {
         "name": "Wasm",
