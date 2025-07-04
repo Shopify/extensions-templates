@@ -21,10 +21,10 @@ fn cart_validations_generate_run(
             target: "$.cart".to_owned(),
         })
     }
-    let operation = output::ValidationAddOperation { errors };
-    operations.push(output::Operation::ValidationAdd(operation));
+    let operation = schema::ValidationAddOperation { errors };
+    operations.push(schema::Operation::ValidationAdd(operation));
 
-    Ok(output::CartValidationsGenerateRunResult { operations })
+    Ok(schema::CartValidationsGenerateRunResult { operations })
 }
 
 #[cfg(test)]
