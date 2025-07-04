@@ -1,3 +1,4 @@
+{%- if flavor contains "preact" -%}
 import {render} from 'preact';
 
 export default async () => {
@@ -12,11 +13,7 @@ function Extension() {
   const handleSubmit = () => {
     console.log('submit');
 
-    {% if flavor contains "typescript" %}
-    // const metafields: Parameters<typeof applyMetafieldsChange>[0] = [
-    {% else %}
     // const metafields = [
-    {% endif %}
     //   {
     //     namespace: 'ns',
     //     key: 'config-1',
@@ -47,3 +44,107 @@ function Extension() {
     </s-form>
   );
 }
+
+{%- elseif flavor contains "react" -%}
+import {
+  reactExtension,
+  useApi,
+  Text,
+  Box,
+  Form,
+} from '@shopify/ui-extensions-react/admin';
+
+// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
+const TARGET = 'admin.settings.order-routing-rule.render';
+
+export default reactExtension(TARGET, () => <App />);
+
+function App() {
+  // The useApi hook provides access to several useful APIs like i18n, data and saveMetafields.
+  const {data, applyMetafieldsChange, i18n} = useApi(TARGET);
+
+  // Transform your state into metafields and send them back to the admin to batch the
+  // changes together with the rest of merchant updates to the routing strategy
+  const handleSubmit = () => {
+    console.log('submit');
+
+    {% if flavor contains "typescript" %}
+    // const metafields: Parameters<typeof applyMetafieldsChange>[0] = [
+    {% else %}
+    // const metafields = [
+    {% endif %}
+    //   {
+    //     namespace: 'ns',
+    //     key: 'config-1',
+    //     type: 'updateMetafield',
+    //     value: '{value: test}',
+    //     valueType: 'json',
+    //   }
+    // ];
+
+    // applyMetafieldsChange(metafields);
+  };
+
+  // Reset your state to the default values
+  const handleOnReset = () => {
+    console.log('reset');
+  };
+
+  return (
+    <Form onSubmit={handleSubmit} onReset={handleOnReset}>
+      <Box padding="base">
+        <Text fontWeight="bold">
+          {i18n.translate('helpText')}
+        </Text>
+      </Box>
+      <Box padding="base">
+        {/* Create a UI to allow merchants to provide configuration values for your location rule function */}
+      </Box>
+    </Form>
+  );
+}
+
+{%- else -%}
+import { extension, Box, Form, Text } from "@shopify/ui-extensions/admin";
+
+// Transform your state into metafields and send them back to the admin to batch the
+// changes together with the rest of merchant updates to the routing strategy
+const handleSubmit = () => {
+  console.log('submit');
+
+    {% if flavor contains "typescript" %}
+    // const metafields: Parameters<typeof applyMetafieldsChange>[0] = [
+    {% else %}
+    // const metafields = [
+    {% endif %}
+    //   {
+    //     namespace: 'ns',
+    //     key: 'config-1',
+    //     type: 'updateMetafield',
+    //     value: '{value: test}',
+    //     valueType: 'json',
+    //   }
+    // ];
+
+    // applyMetafieldsChange(metafields);
+};
+
+// Reset your state to the default values
+const handleOnReset = () => {
+  console.log('reset');
+};
+
+// The target used here must match the target used in the extension's toml file (./shopify.extension.toml)
+export default extension("admin.settings.order-routing-rule.render", (root, { extension: {target}, i18n, data, applyMetafieldsChange }) => {
+  console.log({data});
+  root.appendChild(
+    root.createComponent(
+      Form,
+      { onSubmit: handleSubmit, onReset: handleOnReset },
+      root.createComponent(Box, {padding: 'base'},
+        root.createComponent(Text, { fontWeight: "bold" }, i18n.translate('helpText'))
+      )
+    )
+  );
+});
+{%- endif -%}
