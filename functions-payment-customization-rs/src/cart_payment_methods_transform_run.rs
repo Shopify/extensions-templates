@@ -7,7 +7,9 @@ use shopify_function::Result;
 pub struct Configuration {}
 
 #[shopify_function]
-fn cart_payment_methods_transform_run(input: schema::run::Input) -> Result<schema::CartPaymentMethodsTransformRunResult> {
+fn cart_payment_methods_transform_run(
+    input: schema::run::Input,
+) -> Result<schema::CartPaymentMethodsTransformRunResult> {
     let no_changes = schema::CartPaymentMethodsTransformRunResult { operations: vec![] };
 
     let _config = match input.payment_customization().metafield() {

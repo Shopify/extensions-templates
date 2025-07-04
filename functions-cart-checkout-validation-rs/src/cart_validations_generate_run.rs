@@ -3,7 +3,9 @@ use shopify_function::prelude::*;
 use shopify_function::Result;
 
 #[shopify_function]
-fn cart_validations_generate_run(input: schema::run::Input) -> Result<schema::CartValidationsGenerateRunResult> {
+fn cart_validations_generate_run(
+    input: schema::run::Input,
+) -> Result<schema::CartValidationsGenerateRunResult> {
     let mut operations = Vec::new();
     let mut errors = Vec::new();
 
