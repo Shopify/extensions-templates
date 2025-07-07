@@ -1,0 +1,36 @@
+{%- if flavor contains "vanilla-js" -%}
+// @ts-check
+
+/**
+ * @typedef {import("../generated/api").CartTransformRunInput} CartTransformRunInput
+ * @typedef {import("../generated/api").CartTransformRunResult} CartTransformRunResult
+ */
+
+/**
+ * @type {CartTransformRunResult}
+ */
+const NO_CHANGES = {
+  operations: [],
+};
+
+/**
+ * @param {CartTransformRunInput} input
+ * @returns {CartTransformRunResult}
+ */
+export function cartTransformRun(input) {
+  return NO_CHANGES;
+};
+{%- elsif flavor contains "typescript" -%}
+import type {
+  CartTransformRunInput,
+  CartTransformRunResult,
+} from "../generated/api";
+
+const NO_CHANGES: CartTransformRunResult = {
+  operations: [],
+};
+
+export function cartTransformRun(input: CartTransformRunInput): CartTransformRunResult {
+  return NO_CHANGES;
+};
+{%- endif -%}

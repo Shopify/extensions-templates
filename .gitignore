@@ -60,6 +60,11 @@ functions*/**/cart_fulfillment_groups_location_rankings_generate_run.js
 functions*/**/cart_fulfillment_groups_location_rankings_generate_run.ts
 functions*/**/cart_fulfillment_groups_location_rankings_generate_run.test.js
 functions*/**/cart_fulfillment_groups_location_rankings_generate_run.test.ts
+functions*/**/cart_transform_run.graphql
+functions*/**/cart_transform_run.js
+functions*/**/cart_transform_run.ts
+functions*/**/cart_transform_run.test.js
+functions*/**/cart_transform_run.test.ts
 
 # Ignore local build files
 functions*/generated
