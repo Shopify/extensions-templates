@@ -29,6 +29,9 @@ jobs:
             if [ -d "$func_dir" ]; then
               echo "Testing function execution for $func_dir"
               
+              # Create app structure with real client ID
+              echo 'client_id = "${{ secrets.SHOPIFY_APP_CLIENT_ID }}"' > shopify.app.toml
+              
               # Build function to wasm
               shopify app function build --path "$func_dir"
               

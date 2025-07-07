@@ -35,6 +35,20 @@ jobs:
             if [ -d "$func_dir" ]; then
               echo "Testing function execution for $func_dir"
               
+              # Create app structure with real client ID
+              cat > shopify.app.toml << EOF
+client_id = "${{ secrets.SHOPIFY_APP_CLIENT_ID }}"
+name = "ci-test-app"
+application_url = "https://example.com"
+embedded = true
+
+[auth]
+redirect_urls = ["https://example.com/auth/callback"]
+
+[webhooks]
+api_version = "2024-01"
+EOF
+              
               # Build function to wasm
               shopify app function build --path "$func_dir"
               
