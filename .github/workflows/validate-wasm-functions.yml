@@ -1,0 +1,21 @@
+name: Validate WASM Functions
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "functions-*-wasm/**"
+      - ".github/workflows/validate-wasm-functions.yml"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install node dependencies
+        run: yarn
+      - name: Expand liquid for TypeScript functions
+        run: CI=1 yarn expand-liquid wasm

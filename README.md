@@ -17,8 +17,9 @@ yarn expand-liquid [rust|vanilla-js|typescript] <project-name-without-suffix>
 
 # optionally specify only the language argument to expand all functions projects for that language
 yarn expand-liquid rust
-yarn expand-liquid vanilla-js
 yarn expand-liquid typescript
+yarn expand-liquid vanilla-js
+yarn expand-liquid wasm
 ```
 
 ### JavaScript / TypeScript
