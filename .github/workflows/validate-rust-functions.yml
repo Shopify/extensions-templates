@@ -31,3 +31,25 @@ jobs:
         run: rustup target add wasm32-wasip1
       - name: Build with wasm32-wasip1 target
         run: cargo build --release --target wasm32-wasip1
+      - name: Test function execution
+        run: |
+          # Install Shopify CLI
+          npm install -g @shopify/cli
+          
+          # Test each Rust function
+          for func_dir in functions-*-rs; do
+            if [ -d "$func_dir" ]; then
+              echo "Testing function execution for $func_dir"
+              
+              # Build function to wasm
+              shopify app function build --path "$func_dir"
+              
+              # Create empty input
+              echo '{}' > input.json
+              
+              # Run function with empty input
+              shopify app function run --input input.json --path "$func_dir" --json
+              
+              echo "Function $func_dir executed successfully"
+            fi
+          done
