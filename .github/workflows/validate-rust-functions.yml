@@ -18,8 +18,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Add rustfmt and clippy
-        run: rustup component add rustfmt clippy
       - name: Install node dependencies
         run: yarn
       - name: Expand liquid
@@ -30,7 +28,5 @@ jobs:
         run: cargo clippy -- -D warnings
       - name: Run tests
         run: cargo test
-      - name: Add wasm32-wasip1 target
-        run: rustup target add wasm32-wasip1
       - name: Build with wasm32-wasip1 target
         run: cargo build --release --target wasm32-wasip1
