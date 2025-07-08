@@ -5,6 +5,7 @@ on:
     branches: ["main"]
     paths:
       - "functions-*-js/**"
+      - "package.json"
       - ".github/workflows/validate-js-functions.yml"
 
 env:

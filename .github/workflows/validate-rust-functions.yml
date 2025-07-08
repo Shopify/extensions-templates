@@ -5,6 +5,9 @@ on:
     branches: ["main"]
     paths:
       - "functions-*-rs/**"
+      - "package.json"
+      - "Cargo.toml"
+      - "rust-toolchain.toml"
       - ".github/workflows/validate-rust-functions.yml"
 
 env:
