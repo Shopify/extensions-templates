@@ -8,7 +8,7 @@ pub mod schema {
     #[query("src/cart_payment_methods_transform_run.graphql", custom_scalar_overrides = {
         "Input.paymentCustomization.metafield.jsonValue" => super::cart_payment_methods_transform_run::Configuration,
     })]
-    pub mod run {}
+    pub mod cart_payment_methods_transform_run {}
 }
 
 fn main() {

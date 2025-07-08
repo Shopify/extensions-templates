@@ -6,7 +6,7 @@ pub mod cart_validations_generate_run;
 #[typegen("schema.graphql")]
 pub mod schema {
     #[query("src/cart_validations_generate_run.graphql")]
-    pub mod run {}
+    pub mod cart_validations_generate_run {}
 }
 
 fn main() {

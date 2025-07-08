@@ -8,7 +8,7 @@ pub struct Configuration {}
 
 #[shopify_function]
 fn cart_payment_methods_transform_run(
-    input: schema::run::Input,
+    input: schema::cart_payment_methods_transform_run::Input,
 ) -> Result<schema::CartPaymentMethodsTransformRunResult> {
     let no_changes = schema::CartPaymentMethodsTransformRunResult { operations: vec![] };
 
