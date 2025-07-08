@@ -192,7 +192,7 @@ fn format_time(time: &str) -> TimeWithoutTimezone {
         _ => hour,
     };
 
-    format!("{hour_in_24_format:02}:{min:02}:00")
+    format!("{:02}:{:02}:00", hour_in_24_format, min)
 }
 
 #[cfg(test)]
