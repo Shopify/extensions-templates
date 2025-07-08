@@ -7,15 +7,17 @@ use shopify_function::Result;
 pub struct Configuration {}
 
 #[shopify_function]
-fn run(input: schema::run::Input) -> Result<schema::FunctionRunResult> {
-    let no_changes = schema::FunctionRunResult { operations: vec![] };
+fn cart_payment_methods_transform_run(
+    input: schema::cart_payment_methods_transform_run::Input,
+) -> Result<schema::CartPaymentMethodsTransformRunResult> {
+    let no_changes = schema::CartPaymentMethodsTransformRunResult { operations: vec![] };
 
     let _config = match input.payment_customization().metafield() {
         Some(metafield) => metafield.json_value(),
         None => return Ok(no_changes),
     };
 
-    Ok(schema::FunctionRunResult { operations: vec![] })
+    Ok(schema::CartPaymentMethodsTransformRunResult { operations: vec![] })
 }
 
 #[cfg(test)]
@@ -26,7 +28,7 @@ mod tests {
     #[test]
     fn test_result_contains_no_operations() -> Result<()> {
         let result = run_function_with_input(
-            run,
+            cart_payment_methods_transform_run,
             r#"
                 {
                     "paymentCustomization": {
@@ -35,7 +37,7 @@ mod tests {
                 }
             "#,
         )?;
-        let expected = schema::FunctionRunResult { operations: vec![] };
+        let expected = schema::CartPaymentMethodsTransformRunResult { operations: vec![] };
 
         assert_eq!(result, expected);
         Ok(())

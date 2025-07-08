@@ -16,6 +16,16 @@ functions*/**/generate_cart_run.graphql
 functions*/**/generate_delivery_run.graphql
 functions*/**/cart_delivery_options_discounts_generate_run.graphql
 functions*/**/cart_lines_discounts_generate_run.graphql
+functions*/**/cart_payment_methods_transform_run.graphql
+functions*/**/cart_payment_methods_transform_run.js
+functions*/**/cart_payment_methods_transform_run.ts
+functions*/**/cart_payment_methods_transform_run.test.js
+functions*/**/cart_payment_methods_transform_run.test.ts
+functions*/**/cart_validations_generate_run.graphql
+functions*/**/cart_validations_generate_run.js
+functions*/**/cart_validations_generate_run.ts
+functions*/**/cart_validations_generate_run.test.js
+functions*/**/cart_validations_generate_run.test.ts
 functions*/**/Cargo.toml
 functions*/**/shopify.extension.toml
 functions*/**/package.json
