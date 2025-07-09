@@ -1,0 +1,24 @@
+{%- if flavor contains "preact" -%}
+api_version = "2025-10"
+{% else %}
+api_version = "2025-07"
+{% endif %}
+[[extensions]]
+type = "ui_extension"
+name = "{{ name }}"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+handle = "{{ handle }}"
+description = "A {{ flavor }} POS UI extension"
+
+# module: path to the file that contains your extension’s source code
+# target: string that describes where your extension appears in POS
+[[extensions.targeting]]
+module = "./src/Action.{{ srcFileExtension }}"
+target = "pos.product-details.action.render"
+
+# You can omit the menu-item target and POS will provide a default menu item for this extension.
+# The menu item will present the action target on click.
+# This template has the same behavior as the POS-provided default, but is included for completeness.
+[[extensions.targeting]]
+module = "./src/MenuItem.{{ srcFileExtension }}"
+target = "pos.product-details.action.menu-item.render"

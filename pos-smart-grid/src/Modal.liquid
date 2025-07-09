@@ -1,6 +1,23 @@
-{%- if flavor contains "react" -%}
-import React from 'react'
+{%- if flavor contains "preact" -%}
+import {render} from 'preact';
 
+export default async () => {
+  render(<Extension />, document.body);
+};
+
+function Extension() {
+  return (
+    <s-page heading='POS modal'>
+      <s-scroll-box>
+        <s-box padding="small">
+          <s-text>Welcome to the {{flavor}} extension</s-text>
+        </s-box>
+      </s-scroll-box>
+    </s-page>
+  );
+}
+
+{%- elsif flavor contains "react" -%}
 import { Text, Screen, ScrollView, Navigator, reactExtension } from '@shopify/ui-extensions-react/point-of-sale'
 
 const Modal = () => {

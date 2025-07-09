@@ -1,7 +1,8 @@
-# The version of APIs your extension will receive. Learn more:
-# https://shopify.dev/docs/api/usage/versioning
+{%- if flavor contains "preact" -%}
+api_version = "2025-10"
+{% else %}
 api_version = "2025-07"
-
+{% endif %}
 [[extensions]]
 type = "ui_extension"
 name = "{{ name }}"
@@ -9,8 +10,8 @@ name = "{{ name }}"
 handle = "{{ handle }}"
 description = "A {{ flavor }} POS UI extension"
 
-# Controls where in POS your extension will be injected,
-# and the file that contains your extension’s source code.
+# module: path to the file that contains your extension’s source code
+# target: string that describes where your extension appears in POS
 [[extensions.targeting]]
 module = "./src/Action.{{ srcFileExtension }}"
 target = "pos.product-details.action.render"
@@ -18,7 +19,3 @@ target = "pos.product-details.action.render"
 [[extensions.targeting]]
 module = "./src/Block.{{ srcFileExtension }}"
 target = "pos.product-details.block.render"
-
-[[extensions.targeting]]
-module = "./src/MenuItem.{{ srcFileExtension }}"
-target = "pos.product-details.action.menu-item.render"
