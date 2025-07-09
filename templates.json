@@ -761,6 +761,16 @@
     "extensionPoints": [],
     "supportedFlavors": [
       {
+        "name": "Preact",
+        "value": "preact",
+        "path": "pos-ui-extension-smart-grid"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "pos-ui-extension-smart-grid"
+      },
+      {
         "name": "JavaScript React",
         "value": "react",
         "path": "pos-ui-extension-smart-grid"
