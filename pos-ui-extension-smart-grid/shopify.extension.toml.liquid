@@ -1,10 +1,11 @@
-# The version of APIs your extension will receive. Learn more:
-# https://shopify.dev/docs/api/usage/versioning
+{%- if flavor contains "preact" -%}
+api_version = "2025-10"
+{% else %}
 api_version = "2025-07"
-
+{% endif %}
 [[extensions]]
 type = "ui_extension"
-name = "{{ name }}"
+name = "{%- if flavor contains "preact"-%}remote-dom-{%- endif %}{{ name }}"
 {% if uid %}uid = "{{ uid }}"{% endif %}
 handle = "{{ handle }}"
 description = "A {{ flavor }} POS UI extension"

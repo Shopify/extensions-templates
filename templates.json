@@ -757,7 +757,7 @@
     "group": "UI extensions",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
-    "type": "pos_ui_extension",
+    "type": "ui_extension",
     "extensionPoints": [],
     "supportedFlavors": [
       {
@@ -778,6 +778,11 @@
       {
         "name": "TypeScript",
         "value": "typescript",
+        "path": "pos-ui-extension-smart-grid"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
         "path": "pos-ui-extension-smart-grid"
       }
     ]
