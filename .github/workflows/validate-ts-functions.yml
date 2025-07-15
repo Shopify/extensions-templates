@@ -26,10 +26,12 @@ jobs:
         run: yarn js-typegen
       - name: Test
         run: yarn js-test
-      - name: Download function-runner
+      - name: Install function-runner
         run: |
-          curl -L -o function-runner https://github.com/Shopify/function-runner/releases/latest/download/function-runner-x86_64-unknown-linux-gnu
-          chmod +x function-runner
+          # Install from source since binary releases have naming issues
+          cargo install --git https://github.com/Shopify/function-runner.git --locked
+          # Move to current directory for easier access
+          cp ~/.cargo/bin/function-runner .
       - name: Run integration tests
         run: |
           # Create empty JSON input
