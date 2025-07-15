@@ -28,10 +28,10 @@ jobs:
         run: yarn js-test
       - name: Install Javy (JavaScript to WASM compiler)
         run: |
-          # Install Javy for compiling JavaScript to WebAssembly
-          curl -L -o javy.tar.gz https://github.com/bytecodealliance/javy/releases/latest/download/javy-x86_64-linux-v2.2.0.tar.gz
-          tar -xzf javy.tar.gz
-          chmod +x javy
+          # Install javy from source using cargo
+          cargo install --git https://github.com/bytecodealliance/javy.git --locked javy-cli
+          # Copy to current directory
+          cp ~/.cargo/bin/javy-cli ./javy
           
       - name: Build TypeScript functions to WASM
         run: |
