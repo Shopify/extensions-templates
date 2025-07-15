@@ -30,3 +30,59 @@ jobs:
         run: cargo test
       - name: Build with wasm32-wasip1 target
         run: cargo build --release --target wasm32-wasip1
+      - name: Download function-runner
+        run: |
+          curl -L -o function-runner https://github.com/Shopify/function-runner/releases/latest/download/function-runner-x86_64-unknown-linux-gnu
+          chmod +x function-runner
+      - name: Run integration tests
+        run: |
+          for function_dir in functions-*-rs; do
+            if [ -d "$function_dir" ]; then
+              echo "Testing $function_dir"
+              cd "$function_dir"
+              
+              # Find the built wasm file
+              wasm_file=$(find target/wasm32-wasip1/release -name "*.wasm" | head -1)
+              
+              if [ -f "$wasm_file" ]; then
+                # Run function with test input
+                if [ -f "../integration-tests/cart-checkout-validation-test-input.json" ]; then
+                  echo "Running integration test for $function_dir"
+                  ../function-runner -f "$wasm_file" -i "../integration-tests/cart-checkout-validation-test-input.json" > actual_output.json
+                  
+                  # Validate output against expected result
+                  if jq empty actual_output.json 2>/dev/null; then
+                    echo "Function output:"
+                    cat actual_output.json
+                    
+                    # Compare with expected output if available
+                    if [ -f "../integration-tests/cart-checkout-validation-expected-output.json" ]; then
+                      if jq --argjson actual "$(cat actual_output.json)" --argjson expected "$(cat ../integration-tests/cart-checkout-validation-expected-output.json)" -n '$actual == $expected'; then
+                        echo "✅ $function_dir output matches expected result"
+                      else
+                        echo "❌ $function_dir output doesn't match expected result"
+                        echo "Expected:"
+                        cat ../integration-tests/cart-checkout-validation-expected-output.json
+                        echo "Actual:"
+                        cat actual_output.json
+                        exit 1
+                      fi
+                    else
+                      echo "✅ $function_dir produced valid JSON output (no expected output to compare)"
+                    fi
+                  else
+                    echo "❌ $function_dir produced invalid JSON output"
+                    cat actual_output.json
+                    exit 1
+                  fi
+                else
+                  echo "⚠️ No test input found for $function_dir"
+                fi
+              else
+                echo "❌ No wasm file found for $function_dir"
+                exit 1
+              fi
+              
+              cd ..
+            fi
+          done
