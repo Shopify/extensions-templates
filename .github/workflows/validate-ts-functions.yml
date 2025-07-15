@@ -29,7 +29,7 @@ jobs:
       - name: Install function-runner
         run: |
           # Install from source since binary releases have naming issues
-          cargo install --git https://github.com/Shopify/function-runner.git --locked
+          cargo install --git https://github.com/Shopify/function-runner.git function-runner --locked
           # Move to current directory for easier access
           cp ~/.cargo/bin/function-runner .
       - name: Run integration tests
