@@ -44,8 +44,8 @@ jobs:
               echo "Testing $function_dir"
               cd "$function_dir"
               
-              # Find the built wasm file
-              wasm_file=$(find target/wasm32-wasip1/release -name "*.wasm" | head -1)
+              # Find the built wasm file (look in root target directory)
+              wasm_file=$(find ../target/wasm32-wasip1/release -name "*.wasm" | head -1)
               
               if [ -f "$wasm_file" ]; then
                 echo "Running integration test for $function_dir"
