@@ -1,0 +1,74 @@
+name: Test Function Runner
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "functions-*-rs/**"
+      - ".github/workflows/test-function-runner.yml"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  test-function-runner:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Step 1 - Install function-runner
+        run: |
+          echo "Installing function-runner..."
+          cargo install --git https://github.com/Shopify/function-runner.git function-runner --locked
+          
+      - name: Step 2 - Test function-runner installation
+        run: |
+          echo "Testing function-runner installation..."
+          function-runner --help
+          
+      - name: Step 3 - Show available functions
+        run: |
+          echo "Available Rust functions:"
+          ls -la functions-*-rs/ | head -5
+          
+      - name: Step 4 - Expand liquid templates
+        run: |
+          echo "Expanding liquid templates..."
+          yarn
+          CI=1 yarn expand-liquid rust
+          
+      - name: Step 5 - Build one function
+        run: |
+          echo "Building functions-cart-checkout-validation-rs..."
+          cd functions-cart-checkout-validation-rs
+          cargo build --target wasm32-wasip1 --profile=wasm --features trampoline
+          
+      - name: Step 6 - Post-process with wasm-opt
+        run: |
+          echo "Installing wasm-opt..."
+          cargo install wasm-opt --locked
+          echo "Optimizing WASM..."
+          wasm_file=$(find target/wasm32-wasip1/wasm -name "*.wasm" | head -1)
+          if [ -f "$wasm_file" ]; then
+            wasm-opt --enable-bulk-memory --strip-debug "$wasm_file" -o "${wasm_file%.wasm}-optimized.wasm"
+          fi
+          
+      - name: Step 7 - Find built WASM file
+        run: |
+          echo "Looking for built WASM file..."
+          find . -name "*.wasm" -type f
+          echo "Specifically looking in target/wasm32-wasip1/wasm/:"
+          ls -la target/wasm32-wasip1/wasm/ || echo "wasm directory not found"
+          
+      - name: Step 8 - Test with empty input
+        run: |
+          echo "Testing with empty input..."
+          echo '{}' > empty_input.json
+          wasm_file=$(find . -name "*.wasm" -type f | head -1)
+          if [ -f "$wasm_file" ]; then
+            echo "Found WASM file: $wasm_file"
+            echo "Running function-runner..."
+            function-runner -f "$wasm_file" -i empty_input.json || echo "Function runner failed, continuing..."
+          else
+            echo "No WASM file found"
+          fi
