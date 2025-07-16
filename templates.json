@@ -943,6 +943,38 @@
     ]
   },
   {
+    "identifier": "pos_ui_cart_line_item_details",
+    "name": "POS UI cart line item",
+    "defaultName": "pos-ui-cart-line-item-details",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "pos_ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "pos-ui-extension-cart-line-item-details"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "pos-ui-extension-cart-line-item-details"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "pos-ui-extension-cart-line-item-details"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "pos-ui-extension-cart-line-item-details"
+      }
+    ]
+  },
+  {
     "identifier": "cart_checkout_validation",
     "name": "Cart and checkout validation",
     "defaultName": "cart-checkout-validation",
