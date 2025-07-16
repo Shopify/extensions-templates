@@ -2,6 +2,10 @@
 
 This repo contains the templates used by `@shopify/app` CLI when generating extensions.
 
+## Create an extension template
+
+Follow this guide to [create an extension template](https://vault.shopify.io/page/Create-an-extension-template~cqQS.md)
+
 ## Local Functions Development
 
 The following instructions are for building and testing Function templates, which follow the pattern `functions-*-[rs|js]`.
