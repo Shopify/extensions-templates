@@ -1,21 +1,21 @@
 {%- if flavor contains "react" -%}
-import React from 'react'
+import { render } from '@shopify/ui-extensions/preact';
 
-import { Text, Screen, ScrollView, Navigator, reactExtension } from '@shopify/ui-extensions-react/point-of-sale'
-
-const Modal = () => {
+function Modal() {
   return (
-    <Navigator>
-      <Screen name="HelloWorld" title="Hello World!">
-        <ScrollView>
-          <Text>Welcome to the extension!</Text>
-        </ScrollView>
-      </Screen>
-    </Navigator>
-  )
+    <s-navigator>
+      <s-screen name="HelloWorld" title="Hello World!">
+        <s-scroll-view>
+          <s-text>Welcome to the extension!</s-text>
+        </s-scroll-view>
+      </s-screen>
+    </s-navigator>
+  );
 }
 
-export default reactExtension('pos.home.modal.render', () => <Modal />);
+export default async () => {
+  render(<Modal />, document.body);
+};
 {%- else -%}
 import { Navigator, Screen, ScrollView, Text, extension } from '@shopify/ui-extensions/point-of-sale'
 
