@@ -2,3 +2,10 @@
 members = [
     "functions-*-rs"
 ]
+
+[profile.wasm]
+inherits = "release"
+lto = true
+opt-level = 'z'
+strip = true
+panic = "abort"
