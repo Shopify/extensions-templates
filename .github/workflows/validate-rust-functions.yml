@@ -47,4 +47,9 @@ jobs:
         run: |
           echo "Testing function-runner installation..."
           function-runner --help
+      - name: Test trampolined functions with function-runner
+        run: |
+          echo "Testing trampolined functions with function-runner..."
+          find target/wasm32-wasip1/release -name "*.trampolined" -exec \
+            function-runner {} --input '{}' \;
           
