@@ -54,7 +54,7 @@ jobs:
           for wasm_file in target/wasm32-wasip1/release/*.trampolined; do
             if [ -f "$wasm_file" ]; then
               echo "Testing $wasm_file..."
-              function-runner -f "$wasm_file" -i empty-input.json
+              function-runner -f "$wasm_file" -i empty-input.json -e run
             fi
           done
           
