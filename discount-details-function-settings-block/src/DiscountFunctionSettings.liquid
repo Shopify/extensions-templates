@@ -1,4 +1,262 @@
-{% if flavor contains 'react' %}
+{%- if flavor contains "preact" -%}
+import {render} from 'preact';
+import {useState, useEffect} from 'preact/hooks';
+
+const TARGET = "admin.discount-details.function-settings.render";
+
+export default function() {
+  render(<App />, document.body);
+}
+
+function App() {
+  const [loading, setLoading] = useState(true);
+  const [percentages, setPercentages] = useState({ product: 0, order: 0, shipping: 0 });
+  const [collections, setCollections] = useState([]);
+  const [appliesTo, setAppliesTo] = useState("all");
+  const [initialized, setInitialized] = useState(false);
+
+  useEffect(() => {
+    const initialize = async () => {
+      const existingDefinition = await getMetafieldDefinition();
+      if (!existingDefinition) {
+        await createMetafieldDefinition();
+      }
+
+      const metafieldConfig = parseMetafield(
+        shopify.data?.metafields?.find(m => m.key === "function-configuration")?.value
+      );
+      
+      setPercentages(metafieldConfig.percentages);
+      
+      if (metafieldConfig.collectionIds.length > 0) {
+        const fetchedCollections = await getCollections(metafieldConfig.collectionIds);
+        setCollections(fetchedCollections);
+        setAppliesTo("collections");
+      }
+      
+      setLoading(false);
+      setInitialized(true);
+    };
+
+    initialize();
+  }, []);
+
+  const onPercentageChange = (type, value) => {
+    setPercentages(prev => ({
+      ...prev,
+      [type]: Number(value)
+    }));
+  };
+
+  const onAppliesToChange = (value) => {
+    setAppliesTo(value);
+    if (value === "all") {
+      setCollections([]);
+    }
+  };
+
+  const onAddCollections = async () => {
+    const selection = await shopify.resourcePicker({
+      type: "collection",
+      selectionIds: collections.map(c => ({ id: c.id })),
+      action: "select",
+      filter: {
+        archived: true,
+        variants: true,
+      },
+    });
+    if (selection) {
+      setCollections(selection);
+    }
+  };
+
+  const removeCollection = (id) => {
+    setCollections(prev => prev.filter(c => c.id !== id));
+  };
+
+  const saveSettings = async () => {
+    await shopify.applyMetafieldChange({
+      type: "updateMetafield",
+      namespace: "$app:example-discounts--ui-extension",
+      key: "function-configuration",
+      value: JSON.stringify({
+        cartLinePercentage: percentages.product,
+        orderPercentage: percentages.order,
+        deliveryPercentage: percentages.shipping,
+        collectionIds: collections.map(c => c.id),
+      }),
+      valueType: "json",
+    });
+  };
+
+  if (loading) {
+    return <s-text>{shopify.i18n.translate("loading") || "Loading..."}</s-text>;
+  }
+
+  return (
+    <s-function-settings onSave={saveSettings}>
+      <s-text size="medium" type="strong">{shopify.i18n.translate("title") || "Discount Configuration"}</s-text>
+      <s-form onSubmit={saveSettings}>
+        <s-section>
+          <s-stack direction="block" spacing="base">
+            <s-number-field
+              label={shopify.i18n.translate("percentage.Product") || "Product Discount"}
+              value={percentages.product}
+              onChange={(value) => onPercentageChange("product", value)}
+              suffix="%"
+            />
+            
+            <s-stack direction="block" spacing="base">
+              <s-inline-stack blockAlignment="end" spacing="base">
+                <s-select
+                  label={shopify.i18n.translate("collections.appliesTo") || "Applies to"}
+                  value={appliesTo}
+                  onChange={onAppliesToChange}
+                  options={[
+                    {
+                      label: shopify.i18n.translate("collections.allProducts") || "All products",
+                      value: "all",
+                    },
+                    {
+                      label: shopify.i18n.translate("collections.collections") || "Specific collections",
+                      value: "collections",
+                    },
+                  ]}
+                />
+                {appliesTo === "collections" && (
+                  <s-box inlineSize="180">
+                    <s-button onClick={onAddCollections}>
+                      {shopify.i18n.translate("collections.buttonLabel") || "Add collections"}
+                    </s-button>
+                  </s-box>
+                )}
+              </s-inline-stack>
+              
+              {appliesTo === "collections" && collections.length > 0 && (
+                <s-stack direction="block" spacing="base">
+                  {collections.map((collection) => (
+                    <s-stack key={collection.id} direction="block" spacing="base">
+                      <s-inline-stack blockAlignment="center" inlineAlignment="space-between">
+                        <s-link
+                          href={`shopify://admin/collections/${collection.id.split("/").pop()}`}
+                          target="_blank"
+                        >
+                          {collection.title}
+                        </s-link>
+                        <s-button variant="tertiary" onClick={() => removeCollection(collection.id)}>
+                          ✕
+                        </s-button>
+                      </s-inline-stack>
+                      <s-divider />
+                    </s-stack>
+                  ))}
+                </s-stack>
+              )}
+            </s-stack>
+            
+            {(appliesTo === "all" || collections.length === 0) && <s-divider />}
+            
+            <s-number-field
+              label={shopify.i18n.translate("percentage.Order") || "Order Discount"}
+              value={percentages.order}
+              onChange={(value) => onPercentageChange("order", value)}
+              suffix="%"
+            />
+            
+            <s-number-field
+              label={shopify.i18n.translate("percentage.Shipping") || "Shipping Discount"}
+              value={percentages.shipping}
+              onChange={(value) => onPercentageChange("shipping", value)}
+              suffix="%"
+            />
+          </s-stack>
+        </s-section>
+      </s-form>
+    </s-function-settings>
+  );
+}
+
+const METAFIELD_NAMESPACE = "$app:example-discounts--ui-extension";
+const METAFIELD_KEY = "function-configuration";
+
+async function getMetafieldDefinition() {
+  const query = `#graphql
+    query GetMetafieldDefinition {
+      metafieldDefinitions(first: 1, ownerType: DISCOUNT, namespace: "${METAFIELD_NAMESPACE}", key: "${METAFIELD_KEY}") {
+        nodes {
+          id
+        }
+      }
+    }
+  `;
+
+  const result = await shopify.query(query);
+  return result?.data?.metafieldDefinitions?.nodes[0];
+}
+
+async function createMetafieldDefinition() {
+  const definition = {
+    access: {
+      admin: "MERCHANT_READ_WRITE",
+    },
+    key: METAFIELD_KEY,
+    name: "Discount Configuration",
+    namespace: METAFIELD_NAMESPACE,
+    ownerType: "DISCOUNT",
+    type: "json",
+  };
+
+  const query = `#graphql
+    mutation CreateMetafieldDefinition($definition: MetafieldDefinitionInput!) {
+      metafieldDefinitionCreate(definition: $definition) {
+        createdDefinition {
+            id
+          }
+        }
+      }
+  `;
+
+  const variables = { definition };
+  await shopify.query(query, { variables });
+}
+
+function parseMetafield(value) {
+  try {
+    const parsed = JSON.parse(value || "{}");
+    return {
+      percentages: {
+        product: Number(parsed.cartLinePercentage ?? 0),
+        order: Number(parsed.orderPercentage ?? 0),
+        shipping: Number(parsed.deliveryPercentage ?? 0),
+      },
+      collectionIds: parsed.collectionIds ?? [],
+    };
+  } catch {
+    return {
+      percentages: { product: 0, order: 0, shipping: 0 },
+      collectionIds: [],
+    };
+  }
+}
+
+async function getCollections(collectionGids) {
+  const query = `#graphql
+    query GetCollections($ids: [ID!]!) {
+      collections: nodes(ids: $ids) {
+        ... on Collection {
+          id
+          title
+        }
+      }
+    }
+  `;
+  const result = await shopify.query(query, {
+    variables: { ids: collectionGids },
+  });
+  return result?.data?.collections ?? [];
+}
+
+{%- elsif flavor contains "react" -%}
   import {
     reactExtension,
     useApi,
@@ -384,7 +642,7 @@
   }
 
 
-{% else %}
+{%- else -%}
 import {
   FunctionSettings,
   Text,
@@ -783,5 +1041,4 @@ export default extension(TARGET, async (root, api) => {
     await api.query(query, { variables });
   }
 });
-{% endif %}
-
+{%- endif -%}

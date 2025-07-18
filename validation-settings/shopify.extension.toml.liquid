@@ -1,4 +1,8 @@
-api_version = "2024-10"
+{%- if flavor contains "preact" -%}
+api_version = "2025-10"
+{% else %}
+api_version = "2025-07"
+{% endif -%}
 
 [[extensions]]
 # change the merchant-facing name of the extension in locales/en.default.json
@@ -15,5 +19,3 @@ type = "ui_extension"
 [[extensions.targeting]]
 module = "./src/ValidationSettings.{{ srcFileExtension }}"
 target = "admin.settings.validation.render"
-
-
