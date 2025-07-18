@@ -2,13 +2,12 @@
 import { render } from '@shopify/ui-extensions/preact';
 
 function TileComponent() {
-  const api = (window as any).shopify.extension.api;
   return (
     <s-tile
       title="My app"
       subtitle="SmartGrid {{ flavor }} Extension"
       onPress={() => {
-        api.action.presentModal()
+        shopify.action.presentModal()
       }}
       enabled
     />

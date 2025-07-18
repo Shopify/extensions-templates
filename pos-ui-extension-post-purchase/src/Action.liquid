@@ -2,12 +2,11 @@
 import { render } from '@shopify/ui-extensions/preact';
 
 function Modal() {
-  const api = (window as any).shopify.extension.api;
   return (
     <s-navigator>
       <s-screen name="PostPurchaseAction" title="Post Purchase Action">
         <s-scroll-view>
-          <s-text>{`Order ID for complete checkout: ${api.order.id}`}</s-text>
+          <s-text>{`Order ID for complete checkout: ${shopify.order.id}`}</s-text>
         </s-scroll-view>
       </s-screen>
     </s-navigator>
