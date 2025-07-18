@@ -30,3 +30,12 @@ jobs:
         run: cargo test
       - name: Build with wasm32-wasip1 target
         run: cargo build --release --target wasm32-wasip1
+      - name: Install function-runner
+        run: |
+          echo "Installing function-runner..."
+          cargo install --git https://github.com/Shopify/function-runner.git function-runner --locked
+      - name: Step 2 - Test function-runner installation
+        run: |
+          echo "Testing function-runner installation..."
+          function-runner --help
+          
