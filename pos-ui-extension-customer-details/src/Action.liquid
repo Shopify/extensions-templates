@@ -1,33 +1,22 @@
 {%- if flavor contains "react" -%}
-import React from "react";
+import { render } from '@shopify/ui-extensions/preact';
 
-import {
-  Text,
-  Screen,
-  ScrollView,
-  Navigator,
-  reactExtension,
-  useApi,
-} from "@shopify/ui-extensions-react/point-of-sale";
-
-const Modal = () => {
-  {% if flavor contains "typescript" %}const api = useApi<"pos.customer-details.action.render">();
-  {% else %}const api = useApi();
-  {% endif %}
+function Modal() {
+  const api = (window as any).shopify.extension.api;
   return (
-    <Navigator>
-      <Screen name="CustomerDetails" title="Customer Details">
-        <ScrollView>
-          <Text>{`Customer ID: ${api.customer.id}`}</Text>
-        </ScrollView>
-      </Screen>
-    </Navigator>
+    <s-navigator>
+      <s-screen name="CustomerDetails" title="Customer Details">
+        <s-scroll-view>
+          <s-text>{`Customer ID: ${api.customer.id}`}</s-text>
+        </s-scroll-view>
+      </s-screen>
+    </s-navigator>
   );
-};
+}
 
-export default reactExtension("pos.customer-details.action.render", () => (
-  <Modal />
-));
+export default async () => {
+  render(<Modal />, document.body);
+};
 {%- else -%}
 import {
   Navigator,

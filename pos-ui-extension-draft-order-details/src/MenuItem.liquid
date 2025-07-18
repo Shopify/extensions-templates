@@ -1,22 +1,14 @@
 {%- if flavor contains "react" -%}
-import React from 'react';
-import {
-  reactExtension,
-  Button,
-  useApi,
-} from '@shopify/ui-extensions-react/point-of-sale';
+import { render } from '@shopify/ui-extensions/preact';
 
-const ButtonComponent = () => {
-  {% if flavor contains "typescript" %}const api = useApi<"pos.draft-order-details.action.menu-item.render">();
-  {% else %}const api = useApi();
-  {% endif %}
-  return <Button onPress={() => api.action.presentModal()} />;
+function ButtonComponent() {
+  const api = (window as any).shopify.extension.api;
+  return <s-button onPress={() => api.action.presentModal()} />;
+}
+
+export default async () => {
+  render(<ButtonComponent />, document.body);
 };
-
-export default reactExtension(
-  'pos.draft-order-details.action.menu-item.render',
-  () => <ButtonComponent />,
-);
 {%- else -%}
 import {Button, extension} from '@shopify/ui-extensions/point-of-sale';
 

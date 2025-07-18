@@ -1,31 +1,21 @@
 {%- if flavor contains "react" -%}
-import React from 'react';
+import { render } from '@shopify/ui-extensions/preact';
 
-import {
-  Text,
-  useApi,
-  reactExtension,
-  POSBlock,
-  POSBlockRow,
-} from '@shopify/ui-extensions-react/point-of-sale';
+function Block() {
+  const api = (window as any).shopify.extension.api;
+  return (
+    <s-pos-block action={{title: 'Open action', onPress: api.action.presentModal}}>
+      <s-pos-block-row>
+        <s-text>{'This is a block extension'}</s-text>
+        <s-text>{`Order ID: ${api.order.id}`}</s-text>
+      </s-pos-block-row>
+    </s-pos-block>
+  );
+}
 
-const Block = () => {
-  {% if flavor contains "typescript" %}const api = useApi<"pos.order-details.block.render">();
-  {% else %}const api = useApi();
-  {% endif %}
-  {% raw %}return (
-    <POSBlock action={{title: 'Open action', onPress: api.action.presentModal}}>
-      <POSBlockRow>
-        <Text>{'This is a block extension'}</Text>
-        <Text>{`Order ID: ${api.order.id}`}</Text>
-      </POSBlockRow>
-    </POSBlock>
-  );{% endraw %}
+export default async () => {
+  render(<Block />, document.body);
 };
-
-export default reactExtension('pos.order-details.block.render', () => (
-  <Block />
-));
 {%- else -%}
 import {
   POSBlock,
