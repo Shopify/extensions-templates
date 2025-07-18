@@ -50,6 +50,10 @@ jobs:
       - name: Test trampolined functions with function-runner
         run: |
           echo "Testing trampolined functions with function-runner..."
-          find target/wasm32-wasip1/release -name "*.trampolined" -exec \
-            function-runner {} --input '{}' \;
+          for wasm_file in target/wasm32-wasip1/release/*.trampolined; do
+            if [ -f "$wasm_file" ]; then
+              echo "Testing $wasm_file..."
+              function-runner --wasm "$wasm_file" --input '{}'
+            fi
+          done
           
