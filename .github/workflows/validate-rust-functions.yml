@@ -30,11 +30,20 @@ jobs:
         run: cargo test
       - name: Build with wasm32-wasip1 target
         run: cargo build --release --target wasm32-wasip1
+      - name: Install shopify-function-trampoline
+        run: |
+          echo "Installing shopify-function-trampoline..."
+          cargo install --git https://github.com/Shopify/shopify-function-wasm-api.git shopify_function_trampoline --locked
+      - name: Apply trampoline to Wasm modules
+        run: |
+          echo "Applying trampoline to Wasm modules..."
+          find target/wasm32-wasip1/release -name "*.wasm" -exec \
+            shopify_function_trampoline -i {} -o {}.trampolined \;
       - name: Install function-runner
         run: |
           echo "Installing function-runner..."
           cargo install --git https://github.com/Shopify/function-runner.git function-runner --locked
-      - name: Step 2 - Test function-runner installation
+      - name: Test function-runner installation
         run: |
           echo "Testing function-runner installation..."
           function-runner --help
