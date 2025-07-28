@@ -1,6 +1,6 @@
 [
   {
-    "identifier": "checkout_ui",
+    "identifier": "checkout_ui_legacy",
     "name": "Checkout UI",
     "defaultName": "checkout-ui",
     "group": "UI extensions",
@@ -35,7 +35,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "checkout_ui_preact",
+    "identifier": "checkout_ui",
     "name": "Checkout UI",
     "defaultName": "checkout-ui",
     "group": "UI extensions",
@@ -109,7 +109,7 @@
     ]
   },
   {
-    "identifier": "customer_account_ui",
+    "identifier": "customer_account_ui_legacy",
     "name": "Customer account UI",
     "defaultName": "customer-account-ui",
     "group": "UI extensions",
@@ -142,7 +142,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "customer_account_ui_preact",
+    "identifier": "customer_account_ui",
     "name": "Customer account UI",
     "defaultName": "customer-account-ui",
     "group": "UI extensions",
@@ -178,6 +178,39 @@
       }
     ],
     "minimumCliVersion": "3.78.2"
+  },
+  {
+    "identifier": "admin_action_legacy",
+    "name": "Admin action",
+    "defaultName": "admin-action",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "admin-action"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "admin-action"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "admin-action"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "admin-action"
+      }
+    ],
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "admin_action",
@@ -208,14 +241,19 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "admin-action"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "admin-action"
       }
     ],
-    "deprecatedFromCliVersion": "3.78.2"
+    "minimumCliVersion": "3.78.2"
   },
   {
-    "identifier": "admin_action_preact",
-    "name": "Admin action",
-    "defaultName": "admin-action",
+    "identifier": "admin_block_legacy",
+    "name": "Admin block",
+    "defaultName": "admin-block",
     "group": "UI extensions",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
@@ -225,30 +263,25 @@
       {
         "name": "JavaScript React",
         "value": "react",
-        "path": "admin-action"
+        "path": "admin-block"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "admin-action"
+        "path": "admin-block"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "admin-action"
+        "path": "admin-block"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "admin-action"
-      },
-      {
-        "name": "Preact",
-        "value": "preact",
-        "path": "admin-action"
+        "path": "admin-block"
       }
     ],
-    "minimumCliVersion": "3.78.2"
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "admin_block",
@@ -279,14 +312,19 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "admin-block"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "admin-block"
       }
     ],
-    "deprecatedFromCliVersion": "3.78.2"
+    "minimumCliVersion": "3.78.2"
   },
   {
-    "identifier": "admin_block_preact",
-    "name": "Admin block",
-    "defaultName": "admin-block",
+    "identifier": "admin_print_legacy",
+    "name": "Admin print action",
+    "defaultName": "admin-print",
     "group": "UI extensions",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
@@ -296,30 +334,25 @@
       {
         "name": "JavaScript React",
         "value": "react",
-        "path": "admin-block"
+        "path": "admin-print-action"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "admin-block"
+        "path": "admin-print-action"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "admin-block"
+        "path": "admin-print-action"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "admin-block"
-      },
-      {
-        "name": "Preact",
-        "value": "preact",
-        "path": "admin-block"
+        "path": "admin-print-action"
       }
     ],
-    "minimumCliVersion": "3.78.2"
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
     "identifier": "admin_print",
@@ -350,39 +383,6 @@
         "name": "TypeScript",
         "value": "typescript",
         "path": "admin-print-action"
-      }
-    ],
-    "deprecatedFromCliVersion": "3.78.2"
-  },
-  {
-    "identifier": "admin_print_preact",
-    "name": "Admin print action",
-    "defaultName": "admin-print",
-    "group": "UI extensions",
-    "supportLinks": [],
-    "url": "https://github.com/Shopify/extensions-templates",
-    "type": "ui_extension",
-    "extensionPoints": [],
-    "supportedFlavors": [
-      {
-        "name": "JavaScript React",
-        "value": "react",
-        "path": "admin-print-action"
-      },
-      {
-        "name": "JavaScript",
-        "value": "vanilla-js",
-        "path": "admin-print-action"
-      },
-      {
-        "name": "TypeScript React",
-        "value": "typescript-react",
-        "path": "admin-print-action"
-      },
-      {
-        "name": "TypeScript",
-        "value": "typescript",
-        "path": "admin-print-action"
       },
       {
         "name": "Preact",
@@ -393,7 +393,7 @@
     "minimumCliVersion": "3.78.2"
   },
   {
-    "identifier": "admin_purchase_option",
+    "identifier": "admin_purchase_option_legacy",
     "name": "Admin purchase options action",
     "defaultName": "admin-purchase-option",
     "group": "UI extensions",
@@ -426,7 +426,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "admin_purchase_option_preact",
+    "identifier": "admin_purchase_option",
     "name": "Admin purchase options action",
     "defaultName": "admin-purchase-options-action",
     "group": "UI extensions",
@@ -464,7 +464,7 @@
     "minimumCliVersion": "3.78.2"
   },
   {
-    "identifier": "conditional_admin_action",
+    "identifier": "conditional_admin_action_legacy",
     "name": "Conditional admin action",
     "defaultName": "conditional-admin-action",
     "group": "UI extensions",
@@ -498,7 +498,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "conditional_admin_action_preact",
+    "identifier": "conditional_admin_action",
     "name": "Conditional admin action",
     "defaultName": "conditional-admin-action",
     "group": "UI extensions",
@@ -571,7 +571,7 @@
     ]
   },
   {
-    "identifier": "product_configuration",
+    "identifier": "product_configuration_legacy",
     "name": "Product configuration",
     "defaultName": "product-configuration",
     "group": "UI extensions",
@@ -606,7 +606,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "product_configuration_preact",
+    "identifier": "product_configuration",
     "name": "Product configuration",
     "defaultName": "product-configuration",
     "group": "UI extensions",
