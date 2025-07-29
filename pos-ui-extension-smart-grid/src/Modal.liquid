@@ -1,13 +1,11 @@
 {%- if flavor contains "preact" -%}
 import {render} from 'preact';
-import {useState} from 'preact/hooks';
 
 export default async () => {
   render(<Extension />, document.body);
 };
 
 function Extension() {
-  const [test, setTest] = useState(0);
   return (
     <s-navigator>
       <s-screen name="HelloWorld" title="Hello World!">
