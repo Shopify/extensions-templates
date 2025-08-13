@@ -1720,6 +1720,23 @@
     ]
   },
   {
+    "identifier": "channel_specification",
+    "name": "Sales channel specification",
+    "defaultName": "channel-specification",
+    "group": "Sales channels",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "channel_specification",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Config only",
+        "value": "config-only",
+        "path": "channel-specification"
+      }
+    ]
+  },
+  {
     "identifier": "tax_calculation",
     "name": "Tax calculation",
     "defaultName": "tax-calculation",
