@@ -751,13 +751,13 @@
     ]
   },
   {
-    "identifier": "pos_ui_smart_grid",
+    "identifier": "pos_ui_smart_grid_legacy",
     "name": "POS UI smart grid",
     "defaultName": "pos-ui-smart-grid",
     "group": "UI extensions",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
-    "type": "pos_ui_extension",
+    "type": "ui_extension",
     "extensionPoints": [],
     "supportedFlavors": [
       {
@@ -780,7 +780,46 @@
         "value": "typescript",
         "path": "pos-ui-extension-smart-grid"
       }
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.78.2"
+  },
+  {
+    "identifier": "pos_ui_smart_grid",
+    "name": "POS UI smart grid",
+    "defaultName": "pos-ui-smart-grid",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "pos-ui-extension-smart-grid"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "pos-ui-extension-smart-grid"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "pos-ui-extension-smart-grid"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "pos-ui-extension-smart-grid"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "pos-ui-extension-smart-grid"
+      }
+    ],
+    "minimumCliVersion": "3.78.2"
   },
   {
     "identifier": "pos_ui_customer_details",

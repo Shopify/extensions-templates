@@ -1,4 +1,22 @@
-{%- if flavor contains "react" -%}
+{%- if flavor contains "preact" -%}
+import {render} from 'preact';
+
+export default async () => {
+  render(<Extension />, document.body);
+}
+
+function Extension() {
+  return (
+    <s-tile
+      title="My app"
+      subtitle="SmartGrid {{ flavor }} Extension"
+      onPress={() => shopify.action.presentModal()}
+      enabled
+    />
+  );
+}
+
+{%- elsif flavor contains "react" -%}
 import React from 'react'
 
 import { Tile, reactExtension, useApi } from '@shopify/ui-extensions-react/point-of-sale'
@@ -20,6 +38,7 @@ const TileComponent = () => {
 export default reactExtension('pos.home.tile.render', () => {
   return <TileComponent />
 })
+
 {%- else -%}
 import {extension, Tile} from '@shopify/ui-extensions/point-of-sale'
 
