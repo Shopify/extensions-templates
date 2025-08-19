@@ -1,0 +1,26 @@
+[[extensions]]
+type = "channel_specification"
+handle = "channel-specification"
+name = "Test Specification"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+taxonomy = "test-taxonomy.toml"
+productSchema = "test-product-schema.toml"
+
+[extensions.capabilities]
+bundles = true
+digitalProducts = false
+subscriptions = true
+variantModel = "groupedvariants"
+multiLocationInventory = false
+
+[extensions.requirements]
+webpresence = true
+priceparity = false
+orderInsertion = false
+
+[extensions.countries]
+code = "US"
+languages = [
+  "en-US"
+]
+currency = "USD"
