@@ -201,6 +201,7 @@
   function useExtensionData() {
     const { applyMetafieldChange, i18n, data, resourcePicker, query } =
       useApi(TARGET);
+    const metafields = data?.metafields ? JSON.stringify(data.metafields) : '';
     const metafieldConfig = useMemo(
       () =>
         parseMetafield(
@@ -208,7 +209,7 @@
             (metafield) => metafield.key === "function-configuration"
           )?.value
         ),
-      [data?.metafields]
+      [metafields]
     );
     const [percentages, setPercentages] = useState(metafieldConfig.percentages);
     const [initialCollections, setInitialCollections] = useState([]);
