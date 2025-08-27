@@ -1,4 +1,20 @@
-{%- if flavor contains 'react' -%}
+{%- if flavor contains "preact" -%}
+import {render} from "preact";
+
+export default async function() {
+  render(<Extension />, document.body);
+}
+
+function Extension() {
+  const {i18n, data, extension: {target}} = shopify;
+  console.log({data});
+
+  // a sanity check
+  return (
+    <s-text type="strong">test</s-text>
+  )
+}
+{%- elsif flavor contains 'react' -%}
 import React, { useState } from "react";
 import {
   reactExtension,
