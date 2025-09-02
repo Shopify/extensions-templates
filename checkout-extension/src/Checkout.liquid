@@ -1,7 +1,6 @@
 {%- if flavor contains "preact" -%}
 import '@shopify/ui-extensions/preact';
 import {render} from "preact";
-import {useSubscription} from "@shopify/ui-extensions/checkout/preact"
 
 // 1. Export the extension
 export default function() {
@@ -9,10 +8,8 @@ export default function() {
 }
 
 function Extension() {
-  const instructions = useSubscription(shopify.instructions);
-
   // 2. Check instructions for feature availability, see https://shopify.dev/docs/api/checkout-ui-extensions/apis/cart-instructions for details
-  if (!instructions.attributes.canUpdateAttributes) {
+  if (!shopify.instructions.value.attributes.canUpdateAttributes) {
     // For checkouts such as draft order invoices, cart attributes may not be allowed
     // Consider rendering a fallback UI or nothing at all, if the feature is unavailable
     return (
