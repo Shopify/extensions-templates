@@ -1705,7 +1705,7 @@
   {
     "identifier": "channel_config",
     "name": "Sales channel configuration",
-    "defaultName": "channel-specification",
+    "defaultName": "channel-config",
     "group": "Sales channels",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
@@ -1715,7 +1715,7 @@
       {
         "name": "Config only",
         "value": "config-only",
-        "path": "channel-specification"
+        "path": "channel-config"
       }
     ]
   },
