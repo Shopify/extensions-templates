@@ -1703,13 +1703,13 @@
     ]
   },
   {
-    "identifier": "channel_specification",
+    "identifier": "channel_config",
     "name": "Sales channel configuration",
     "defaultName": "channel-specification",
     "group": "Sales channels",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
-    "type": "channel_specification",
+    "type": "channel_config",
     "extensionPoints": [],
     "supportedFlavors": [
       {
