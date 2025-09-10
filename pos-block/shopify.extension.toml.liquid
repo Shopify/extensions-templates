@@ -13,9 +13,9 @@ description = "A {{ flavor }} POS UI extension"
 # module: path to the file that contains your extension’s source code
 # target: string that describes where your extension appears in POS
 [[extensions.targeting]]
-module = "./src/Block.{{ srcFileExtension }}"
-target = "pos.product-details.block.render"
+module = "./src/Action.{{ srcFileExtension }}"
+target = "pos.product-details.action.render"
 
 [[extensions.targeting]]
-module = "./src/MenuItem.{{ srcFileExtension }}"
-target = "pos.product-details.action.menu-item.render"
+module = "./src/Block.{{ srcFileExtension }}"
+target = "pos.product-details.block.render"

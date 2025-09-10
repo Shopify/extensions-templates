@@ -757,7 +757,7 @@
     "group": "UI extensions",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
-    "type": "pos_extension",
+    "type": "ui_extension",
     "extensionPoints": [],
     "supportedFlavors": [
       {
@@ -822,7 +822,7 @@
     "minimumCliVersion": "3.78.2"
   },
   {
-    "identifier": "pos_block",
+    "identifier": "pos_block_legacy",
     "name": "POS block",
     "defaultName": "pos-block",
     "group": "UI extensions",
@@ -851,7 +851,46 @@
         "value": "typescript",
         "path": "pos-block"
       }
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.78.2"
+  },
+  {
+    "identifier": "pos_block",
+    "name": "POS block",
+    "defaultName": "pos-block",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "pos-block"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "pos-block"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "pos-block"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "pos-block"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "pos-block"
+      }
+    ],
+    "minimumCliVersion": "3.78.2"
   },
   {
     "identifier": "pos_smart_grid_legacy",
