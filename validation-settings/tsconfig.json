@@ -1,3 +1,18 @@
+{%- if flavor contains "preact" -%
+}
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "target": "ES2020",
+    "checkJs": true,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+  }
+}
+{%- else -%
+}
 {
   // This tsconfig.json file is only needed to inform the IDE
   // About the `react-jsx` tsconfig option, so IDE doesn't complain about missing react import
@@ -5,5 +20,9 @@
   "compilerOptions": {
     "jsx": "react-jsx"
   },
-  "include": ["./src"]
+  "include": [
+    "./src"
+  ]
+}
+{%- endif -%
 }
