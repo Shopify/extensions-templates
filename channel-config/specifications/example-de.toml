@@ -10,7 +10,7 @@ variantModel = "products"
 multiLocationInventory = true
 
 [requirements]
-webpresence = false
+webPresence = false
 orderInsertion = true
 
 [[countries]]
