@@ -12,6 +12,7 @@ multiLocationInventory = true
 [requirements]
 webPresence = false
 orderInsertion = true
+automaticProductFeedManagement = true
 
 [[countries]]
 code = "US"

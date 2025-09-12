@@ -12,10 +12,11 @@ multiLocationInventory = true
 [requirements]
 webPresence = false
 orderInsertion = true
+automaticProductFeedManagement = true
 
 [[countries]]
 code = "DE"
-languages = [`
+languages = [
   "de"
 ]
 currency = "EUR"
