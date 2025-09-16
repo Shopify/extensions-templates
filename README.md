@@ -42,5 +42,5 @@ cargo clippy -- -D warnings
 # Run tests
 cargo test
 # Build .wasm packages
-cargo build --release --target wasm32-wasip1
+cargo build --release --target wasm32-unknown-unknown
 ```
