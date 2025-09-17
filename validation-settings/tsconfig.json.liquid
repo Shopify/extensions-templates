@@ -1,5 +1,4 @@
-{%- if flavor contains "preact" -%
-}
+{%- if flavor contains "preact" -%}
 {
   "compilerOptions": {
     "jsx": "react-jsx",
@@ -11,8 +10,7 @@
     "esModuleInterop": true,
   }
 }
-{%- else -%
-}
+{%- else -%}
 {
   // This tsconfig.json file is only needed to inform the IDE
   // About the `react-jsx` tsconfig option, so IDE doesn't complain about missing react import
@@ -24,5 +22,4 @@
     "./src"
   ]
 }
-{%- endif -%
-}
+{%- endif -%}
