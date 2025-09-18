@@ -42,8 +42,7 @@ are displayed to customers.
 """
 type BuyerIdentity {
   """
-  The customer that's interacting with the cart. A customer is a buyer who has an
-  [account](https://help.shopify.com/manual/customers/customer-accounts) with the store.
+  The [customer](https://help.shopify.com/manual/customers/manage-customers) that's interacting with the cart.
   """
   customer: Customer
 
@@ -55,8 +54,6 @@ type BuyerIdentity {
   """
   Whether the customer is authenticated through their
   [customer account](https://help.shopify.com/manual/customers/customer-accounts).
-  If the customer is authenticated, then the `customer` field returns the customer's information.
-  If the customer isn't authenticated, then the `customer` field returns `null`.
   """
   isAuthenticated: Boolean!
 
@@ -2620,8 +2617,7 @@ type CustomProduct {
 }
 
 """
-Represents a [customer](https://help.shopify.com/manual/customers/manage-customers)
-who has an [account](https://help.shopify.com/manual/customers/customer-accounts) with the store.
+Represents a [customer](https://help.shopify.com/manual/customers/manage-customers).
 `Customer` returns data including the customer's contact information and order history.
 """
 type Customer implements HasMetafields {
@@ -2661,8 +2657,7 @@ type Customer implements HasMetafields {
   ): Boolean!
 
   """
-  Whether the customer is associated with the specified tags. The customer must have all of the tags in the list
-  to return `true`.
+  Whether the customer is associated with the specified tags.
   """
   hasTags(
     """
@@ -4401,8 +4396,7 @@ type Product implements HasMetafields {
   ): Boolean!
 
   """
-  Whether the product is associated with the specified tags. The product must have all of the tags in the list
-  to return `true`.
+  Whether the product is associated with the specified tags.
   """
   hasTags(
     """
