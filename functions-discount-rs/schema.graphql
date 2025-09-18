@@ -57,8 +57,7 @@ are displayed to customers.
 """
 type BuyerIdentity {
   """
-  The customer that's interacting with the cart. A customer is a buyer who has an
-  [account](https://help.shopify.com/manual/customers/customer-accounts) with the store.
+  The [customer](https://help.shopify.com/manual/customers/manage-customers) that's interacting with the cart.
   """
   customer: Customer
 
@@ -70,8 +69,6 @@ type BuyerIdentity {
   """
   Whether the customer is authenticated through their
   [customer account](https://help.shopify.com/manual/customers/customer-accounts).
-  If the customer is authenticated, then the `customer` field returns the customer's information.
-  If the customer isn't authenticated, then the `customer` field returns `null`.
   """
   isAuthenticated: Boolean!
 
@@ -398,7 +395,7 @@ input CartLineMinimumSubtotal {
   ids: [ID!]!
 
   """
-  The minimum subtotal amount of the cart line to be eligible for a discount candidate.
+  The minimum subtotal amount of the cart line to be eligible for a discount candidate in the shop's currency.
   """
   minimumAmount: Decimal!
 }
@@ -2750,8 +2747,7 @@ type CustomProduct {
 }
 
 """
-Represents a [customer](https://help.shopify.com/manual/customers/manage-customers)
-who has an [account](https://help.shopify.com/manual/customers/customer-accounts) with the store.
+Represents a [customer](https://help.shopify.com/manual/customers/manage-customers).
 `Customer` returns data including the customer's contact information and order history.
 """
 type Customer implements HasMetafields {
@@ -2791,8 +2787,7 @@ type Customer implements HasMetafields {
   ): Boolean!
 
   """
-  Whether the customer is associated with the specified tags. The customer must have all of the tags in the list
-  to return `true`.
+  Whether the customer is associated with the specified tags.
   """
   hasTags(
     """
@@ -3335,9 +3330,9 @@ type HttpResponse {
   headers: [HttpResponseHeader!]! @deprecated(reason: "Use `header` instead.")
 
   """
-  The HTTP response body parsed as JSON. 
-  If the body is valid JSON, it will be parsed and returned as a JSON object. 
-  If parsing fails, then raw body is returned as a string. 
+  The HTTP response body parsed as JSON.
+  If the body is valid JSON, it will be parsed and returned as a JSON object.
+  If parsing fails, then raw body is returned as a string.
   Use this field when you expect the response to be JSON, or when you're dealing
   with mixed response types, meaning both JSON and non-JSON.
   Using this field reduces function instruction consumption and ensures that the data is formatted in logs.
@@ -3434,7 +3429,7 @@ type Input {
   shop: Shop!
 
   """
-  The discount code entered by a customer, which caused the [Discount Function](https://shopify.dev/docs/apps/build/discounts#build-with-shopify-functions)) to run.
+  The discount code entered by a customer, which caused the [Discount Function](https://shopify.dev/docs/apps/build/discounts#build-with-shopify-functions) to run.
   This input is only available in the `cart.lines.discounts.generate.run` and
   `cart.delivery-options.discounts.generate.run` extension targets.
   """
@@ -4851,7 +4846,7 @@ input OrderMinimumSubtotal {
   excludedCartLineIds: [ID!]!
 
   """
-  The minimum subtotal amount of the order to be eligible for the discount.
+  The minimum subtotal amount of the order to be eligible for the discount in the shop's currency.
   """
   minimumAmount: Decimal!
 }
@@ -4909,8 +4904,7 @@ type Product implements HasMetafields {
   ): Boolean!
 
   """
-  Whether the product is associated with the specified tags. The product must have all of the tags in the list
-  to return `true`.
+  Whether the product is associated with the specified tags.
   """
   hasTags(
     """
