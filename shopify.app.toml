@@ -1,0 +1,10 @@
+client_id = "cce73c955015bde64a40f32619843cad"
+name = "ci-test-app"
+application_url = "https://example.com"
+embedded = true
+
+[auth]
+redirect_urls = ["https://example.com/auth/callback"]
+
+[webhooks]
+api_version = "2024-01"
