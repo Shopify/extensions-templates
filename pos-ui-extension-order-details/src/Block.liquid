@@ -1,4 +1,23 @@
-{%- if flavor contains "react" -%}
+{%- if flavor contains "preact" -%}
+import {render} from 'preact';
+
+export default async () => {
+  render(<Block />, document.body);
+};
+
+const Block = () => {
+  const {order, action} = shopify;
+  return (
+    <s-pos-block action={{title: 'Open action', onPress: action.presentModal}}>
+      <s-pos-block-row>
+        <s-pos-text>This is a block extension</s-pos-text>
+        <s-pos-text>{`Order ID: ${order.id}`}</s-pos-text>
+      </s-pos-block-row>
+    </s-pos-block>
+  );
+};
+
+{%- elsif flavor contains "react" -%}
 import React from 'react';
 
 import {
