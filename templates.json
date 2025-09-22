@@ -35,7 +35,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "checkout_ui",
+    "identifier": "checkout_ui_pre_release",
     "name": "Checkout UI",
     "defaultName": "checkout-ui",
     "group": "UI extensions",
@@ -72,7 +72,28 @@
         "path": "checkout-extension"
       }
     ],
-    "minimumCliVersion": "3.78.2"
+    "minimumCliVersion": "3.78.2",
+    "deprecatedFromCliVersion": "3.85.0"
+  },
+  {
+    "identifier": "checkout_ui",
+    "name": "Checkout UI",
+    "defaultName": "checkout-ui",
+    "group": "UI extensions",
+    "supportLinks": [
+      "https://shopify.dev/api/checkout-extensions/checkout/configuration"
+    ],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "checkout-extension"
+      }
+    ],
+    "minimumCliVersion": "3.85.0"
   },
   {
     "identifier": "post_purchase_ui",
@@ -142,7 +163,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "customer_account_ui",
+    "identifier": "customer_account_ui_pre_release",
     "name": "Customer account UI",
     "defaultName": "customer-account-ui",
     "group": "UI extensions",
@@ -177,7 +198,26 @@
         "path": "customer-account-extension"
       }
     ],
-    "minimumCliVersion": "3.78.2"
+    "minimumCliVersion": "3.78.2",
+    "deprecatedFromCliVersion": "3.85.0"
+  },
+  {
+    "identifier": "customer_account_ui",
+    "name": "Customer account UI",
+    "defaultName": "customer-account-ui",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "customer-account-extension"
+      }
+    ],
+    "minimumCliVersion": "3.85.0"
   },
   {
     "identifier": "admin_action_legacy",
@@ -213,7 +253,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "admin_action",
+    "identifier": "admin_action_pre_release",
     "name": "Admin action",
     "defaultName": "admin-action",
     "group": "UI extensions",
@@ -248,7 +288,26 @@
         "path": "admin-action"
       }
     ],
-    "minimumCliVersion": "3.78.2"
+    "minimumCliVersion": "3.78.2",
+     "deprecatedFromCliVersion": "3.85.0"
+  },
+  {
+    "identifier": "admin_action",
+    "name": "Admin action",
+    "defaultName": "admin-action",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "admin-action"
+      }
+    ],
+    "minimumCliVersion": "3.85.0"
   },
   {
     "identifier": "admin_block_legacy",
@@ -284,7 +343,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "admin_block",
+    "identifier": "admin_block_pre_release",
     "name": "Admin block",
     "defaultName": "admin-block",
     "group": "UI extensions",
@@ -319,7 +378,26 @@
         "path": "admin-block"
       }
     ],
-    "minimumCliVersion": "3.78.2"
+    "minimumCliVersion": "3.78.2",
+    "deprecatedFromCliVersion": "3.85.0"
+  },
+  {
+    "identifier": "admin_block",
+    "name": "Admin block",
+    "defaultName": "admin-block",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "admin-block"
+      }
+    ],
+    "minimumCliVersion": "3.85.0"
   },
   {
     "identifier": "admin_print_legacy",
@@ -355,7 +433,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "admin_print",
+    "identifier": "admin_print_pre_release",
     "name": "Admin print action",
     "defaultName": "admin-print",
     "group": "UI extensions",
@@ -390,7 +468,26 @@
         "path": "admin-print-action"
       }
     ],
-    "minimumCliVersion": "3.78.2"
+    "minimumCliVersion": "3.78.2",
+    "deprecatedFromCliVersion": "3.85.0"
+  },
+  {
+    "identifier": "admin_print",
+    "name": "Admin print action",
+    "defaultName": "admin-print",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "admin-print-action"
+      }
+    ],
+    "minimumCliVersion": "3.85.0"
   },
   {
     "identifier": "admin_purchase_option_legacy",
@@ -426,7 +523,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "admin_purchase_option",
+    "identifier": "admin_purchase_option_pre_release",
     "name": "Admin purchase options action",
     "defaultName": "admin-purchase-options-action",
     "group": "UI extensions",
@@ -461,7 +558,26 @@
         "path": "admin-purchase-options-action"
       }
     ],
-    "minimumCliVersion": "3.78.2"
+    "minimumCliVersion": "3.78.2",
+    "deprecatedFromCliVersion": "3.85.0"
+  },
+  {
+    "identifier": "admin_purchase_option",
+    "name": "Admin purchase options action",
+    "defaultName": "admin-purchase-options-action",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "admin-purchase-options-action"
+      }
+    ],
+    "minimumCliVersion": "3.85.0"
   },
   {
     "identifier": "conditional_admin_action_legacy",
@@ -498,7 +614,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "conditional_admin_action",
+    "identifier": "conditional_admin_action_pre_release",
     "name": "Conditional admin action",
     "defaultName": "conditional-admin-action",
     "group": "UI extensions",
@@ -533,7 +649,26 @@
         "path": "conditional-action-extension-js"
       }
     ],
-    "minimumCliVersion": "3.78.2"
+    "minimumCliVersion": "3.78.2",
+    "deprecatedFromCliVersion": "3.85.0"
+  },
+  {
+    "identifier": "conditional_admin_action",
+    "name": "Conditional admin action",
+    "defaultName": "conditional-admin-action",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "conditional-action-extension-js"
+      }
+    ],
+    "minimumCliVersion": "3.85.0"
   },
   {
     "identifier": "customer_segment_template",
@@ -625,7 +760,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "product_configuration",
+    "identifier": "product_configuration_pre_release",
     "name": "Product configuration",
     "defaultName": "product-configuration",
     "group": "UI extensions",
@@ -662,7 +797,28 @@
         "path": "product-configuration-extension"
       }
     ],
-    "minimumCliVersion": "3.78.2"
+    "minimumCliVersion": "3.78.2",
+    "deprecatedFromCliVersion": "3.85.0"
+  },
+  {
+    "identifier": "product_configuration",
+    "name": "Product configuration",
+    "defaultName": "product-configuration",
+    "group": "UI extensions",
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/selling-strategies/bundles/product-config"
+    ],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "product-configuration-extension"
+      }
+    ],
+    "minimumCliVersion": "3.85.0"
   },
   {
     "identifier": "discount_details_function_settings",
