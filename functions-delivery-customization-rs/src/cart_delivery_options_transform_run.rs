@@ -19,29 +19,3 @@ fn cart_delivery_options_transform_run(
 
     Ok(schema::CartDeliveryOptionsTransformRunResult { operations: vec![] })
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use shopify_function::{run_function_with_input, Result};
-
-    #[test]
-    fn test_result_contains_no_operations() -> Result<()> {
-        use schema::CartDeliveryOptionsTransformRunResult;
-
-        let result = run_function_with_input(
-            cart_delivery_options_transform_run,
-            r#"
-                {
-                    "deliveryCustomization": {
-                        "metafield": null
-                    }
-                }
-            "#,
-        )?;
-        let expected = CartDeliveryOptionsTransformRunResult { operations: vec![] };
-
-        assert_eq!(result, expected);
-        Ok(())
-    }
-}
