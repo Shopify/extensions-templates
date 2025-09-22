@@ -1,0 +1,16 @@
+{
+  "payload": {
+    "export": "cart-payment-methods-transform-run",
+    "target": "cart.payment-methods.transform.run",
+    "input": {
+      "paymentCustomization": {
+        "metafield": {
+          "value": "{\"hidePaymentMethods\": [\"credit_card\"], \"showPaymentMethods\": [\"paypal\", \"apple_pay\"]}"
+        }
+      }
+    },
+    "output": {
+      "operations": []
+    }
+  }
+}
