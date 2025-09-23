@@ -8,7 +8,7 @@ handle = "{{ handle }}"
 type = "payments_extension"
 {% if uid %}uid = "{{ uid }}"{% endif %}
 
-payment_session_url = "https://api.paymentprovider.com/endpoint"
+payment_session_url = "https://example.com/payment"
 # List of ISO 3166 (alpha-2) country codes your app is available for installation by merchants. Learn more:
 # https://www.iso.org/iso-3166-country-codes.html
 supported_countries = ["US"]
@@ -17,7 +17,7 @@ supported_countries = ["US"]
 supported_payment_methods = ["gift-card"]
 test_mode_available = true
 merchant_label = "Redeemable Payments App Extension"
-balance_url = "https://api.paymentprovider.com/balance"
+balance_url = "https://example.com/balance"
 
 # buyer_label = ""
 # [[extensions.buyer_label_translations]]
