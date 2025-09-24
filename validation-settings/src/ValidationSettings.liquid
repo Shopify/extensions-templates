@@ -1,7 +1,7 @@
 {%- if flavor contains "preact" -%}
 import "@shopify/ui-extensions/preact";
 import { render } from "preact";
-import { useState, useEffect } from "preact/hooks";
+import { useState } from "preact/hooks";
 
 export default async () => {
   const existingDefinition = await getMetafieldDefinition();
@@ -41,12 +41,12 @@ function Extension({ configuration, products }) {
     );
   };
 
-  const applyMetafieldUpdate = async () => {
+  const applyMetafieldUpdate = async (limits) => {
     const result = await shopify.applyMetafieldChange({
       type: "updateMetafield",
       namespace: "$app:product-limits",
       key: "product-limits-values",
-      value: JSON.stringify(variantLimits),
+      value: JSON.stringify(limits),
     });
 
     if (result.type === "error") {
@@ -61,9 +61,10 @@ function Extension({ configuration, products }) {
       ...variantLimits,
       [variantId]: value,
     };
+
     setVariantLimits(newLimits);
 
-    await applyMetafieldUpdate();
+    await applyMetafieldUpdate(newLimits);
   };
 
   // Flatten products and variants for table display with better grouping
@@ -88,7 +89,7 @@ function Extension({ configuration, products }) {
   });
 
   return (
-    <s-function-settings onSave={applyMetafieldUpdate}>
+    <s-function-settings onSave={() => applyMetafieldUpdate(variantLimits)}>
       <ErrorBanner errors={errors} />
       <s-table variant="auto">
         <s-table-header-row>
