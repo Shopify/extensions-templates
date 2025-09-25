@@ -1,4 +1,24 @@
-{%- if flavor contains "react" -%}
+{%- if flavor contains "preact" -%}
+import {render} from 'preact';
+
+export default async () => {
+  render(<Modal />, document.body);
+};
+
+const Modal = () => {
+  const {product} = shopify;
+  return (
+    <s-pos-navigator>
+      <s-pos-screen name="ProductDetails" title="Product Details">
+        <s-pos-scroll-view>
+          <s-pos-text>{`Product ID: ${product.id}`}</s-pos-text>
+        </s-pos-scroll-view>
+      </s-pos-screen>
+    </s-pos-navigator>
+  );
+};
+
+{%- elsif flavor contains "react" -%}
 import React from 'react';
 
 import {
