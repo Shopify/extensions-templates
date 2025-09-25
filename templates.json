@@ -699,7 +699,7 @@
     ]
   },
   {
-    "identifier": "validation_settings_ui",
+    "identifier": "validation_settings_ui_legacy",
     "name": "Cart and checkout validation function settings",
     "defaultName": "validation-settings-ui",
     "group": "UI extensions",
@@ -730,7 +730,48 @@
         "value": "typescript",
         "path": "validation-settings"
       }
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.78.2"
+  },
+  {
+    "identifier": "validation_settings_ui",
+    "name": "Cart and checkout validation function settings",
+    "defaultName": "validation-settings-ui",
+    "group": "UI extensions",
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/checkout/validation/server-side"
+    ],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "validation-settings"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "validation-settings"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "validation-settings"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "validation-settings"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "validation-settings"
+      }
+    ],
+    "minimumCliVersion": "3.78.2"
   },
   {
     "identifier": "order_routing_location_rule_ui",
