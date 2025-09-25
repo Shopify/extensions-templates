@@ -1,8 +1,8 @@
 export default async function extension() {
   const {i18n} = shopify;
-  
-  const query = 'number_of_orders = 1 AND products_purchased(id: (product_id)) = true';
-  const queryToInsert = 'number_of_orders = 1 AND products_purchased(id: (';
+
+  const query = 'number_of_orders = 1 AND products_purchased MATCHES (id = product_id)';
+  const queryToInsert = 'number_of_orders = 1 AND products_purchased MATCHES (id = | )';
 
   return [{
     title: i18n.translate('title'),
