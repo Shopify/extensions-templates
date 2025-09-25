@@ -546,6 +546,24 @@
     "extensionPoints": [],
     "supportedFlavors": [
       {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "customer-segment-template-data-extension"
+      }
+    ],
+    "minimumCliVersion": "3.85.0"
+  },
+  {
+    "identifier": "customer_segment_template_legacy",
+    "name": "Customer segment template",
+    "defaultName": "customer-segment-template",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
         "name": "JavaScript React",
         "value": "react",
         "path": "customer-segment-template-extension"
@@ -568,7 +586,8 @@
     ],
     "organizationBetaFlags": [
       "enable_cli_customer_segment_template_extension"
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.85.0"
   },
   {
     "identifier": "product_configuration_legacy",
