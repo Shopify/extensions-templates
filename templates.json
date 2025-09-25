@@ -567,7 +567,7 @@
       }
     ],
     "organizationBetaFlags": [
-      "enable_cli_customer_segment_template_extension"
+      "d4cc3d8a"
     ]
   },
   {
@@ -747,7 +747,7 @@
       }
     ],
     "organizationBetaFlags": [
-      "order_routing_extensibility_partner"
+      "8070942f"
     ]
   },
   {
@@ -1404,7 +1404,7 @@
       }
     ],
     "organizationBetaFlags": [
-      "order_routing_extensibility_partner"
+      "8070942f"
     ]
   },
   {
@@ -1599,7 +1599,7 @@
       }
     ],
     "organizationBetaFlags": [
-      "payments_extensions_card_present"
+      "831a2cd7"
     ]
   },
   {
@@ -1619,7 +1619,7 @@
       }
     ],
     "organizationBetaFlags": [
-      "payments_extensions_credit_card"
+      "2657b019"
     ]
   },
   {
@@ -1639,7 +1639,7 @@
       }
     ],
     "organizationBetaFlags": [
-      "payments_extensions_custom_credit_card"
+      "35cb3351"
     ]
   },
   {
@@ -1659,7 +1659,7 @@
       }
     ],
     "organizationBetaFlags": [
-      "payments_extensions_custom_onsite"
+      "5fccf72e"
     ]
   },
   {
@@ -1679,7 +1679,7 @@
       }
     ],
     "organizationBetaFlags": [
-      "payments_extensions_offsite"
+      "8be26754"
     ]
   },
   {
@@ -1699,7 +1699,7 @@
       }
     ],
     "organizationBetaFlags": [
-      "payments_extensions_redeemable"
+      "3c697766"
     ]
   },
   {
