@@ -73,7 +73,7 @@
       }
     ],
     "minimumCliVersion": "3.78.2",
-    "deprecatedFromCliVersion": "3.85.0"
+    "deprecatedFromCliVersion": "3.85.1"
   },
   {
     "identifier": "checkout_ui",
@@ -93,7 +93,7 @@
         "path": "checkout-extension"
       }
     ],
-    "minimumCliVersion": "3.85.0"
+    "minimumCliVersion": "3.85.1"
   },
   {
     "identifier": "post_purchase_ui",
@@ -199,7 +199,7 @@
       }
     ],
     "minimumCliVersion": "3.78.2",
-    "deprecatedFromCliVersion": "3.85.0"
+    "deprecatedFromCliVersion": "3.85.1"
   },
   {
     "identifier": "customer_account_ui",
@@ -217,7 +217,7 @@
         "path": "customer-account-extension"
       }
     ],
-    "minimumCliVersion": "3.85.0"
+    "minimumCliVersion": "3.85.1"
   },
   {
     "identifier": "admin_action_legacy",
@@ -289,7 +289,7 @@
       }
     ],
     "minimumCliVersion": "3.78.2",
-     "deprecatedFromCliVersion": "3.85.0"
+     "deprecatedFromCliVersion": "3.85.1"
   },
   {
     "identifier": "admin_action",
@@ -307,7 +307,7 @@
         "path": "admin-action"
       }
     ],
-    "minimumCliVersion": "3.85.0"
+    "minimumCliVersion": "3.85.1"
   },
   {
     "identifier": "admin_block_legacy",
@@ -379,7 +379,7 @@
       }
     ],
     "minimumCliVersion": "3.78.2",
-    "deprecatedFromCliVersion": "3.85.0"
+    "deprecatedFromCliVersion": "3.85.1"
   },
   {
     "identifier": "admin_block",
@@ -397,7 +397,7 @@
         "path": "admin-block"
       }
     ],
-    "minimumCliVersion": "3.85.0"
+    "minimumCliVersion": "3.85.1"
   },
   {
     "identifier": "admin_print_legacy",
@@ -469,7 +469,7 @@
       }
     ],
     "minimumCliVersion": "3.78.2",
-    "deprecatedFromCliVersion": "3.85.0"
+    "deprecatedFromCliVersion": "3.85.1"
   },
   {
     "identifier": "admin_print",
@@ -487,7 +487,7 @@
         "path": "admin-print-action"
       }
     ],
-    "minimumCliVersion": "3.85.0"
+    "minimumCliVersion": "3.85.1"
   },
   {
     "identifier": "admin_purchase_option_legacy",
@@ -559,7 +559,7 @@
       }
     ],
     "minimumCliVersion": "3.78.2",
-    "deprecatedFromCliVersion": "3.85.0"
+    "deprecatedFromCliVersion": "3.85.1"
   },
   {
     "identifier": "admin_purchase_option",
@@ -577,7 +577,7 @@
         "path": "admin-purchase-options-action"
       }
     ],
-    "minimumCliVersion": "3.85.0"
+    "minimumCliVersion": "3.85.1"
   },
   {
     "identifier": "conditional_admin_action_legacy",
@@ -650,7 +650,7 @@
       }
     ],
     "minimumCliVersion": "3.78.2",
-    "deprecatedFromCliVersion": "3.85.0"
+    "deprecatedFromCliVersion": "3.85.1"
   },
   {
     "identifier": "conditional_admin_action",
@@ -668,7 +668,7 @@
         "path": "conditional-action-extension-js"
       }
     ],
-    "minimumCliVersion": "3.85.0"
+    "minimumCliVersion": "3.85.1"
   },
   {
     "identifier": "customer_segment_template",
@@ -798,7 +798,7 @@
       }
     ],
     "minimumCliVersion": "3.78.2",
-    "deprecatedFromCliVersion": "3.85.0"
+    "deprecatedFromCliVersion": "3.85.1"
   },
   {
     "identifier": "product_configuration",
@@ -818,7 +818,7 @@
         "path": "product-configuration-extension"
       }
     ],
-    "minimumCliVersion": "3.85.0"
+    "minimumCliVersion": "3.85.1"
   },
   {
     "identifier": "discount_details_function_settings",
