@@ -811,228 +811,217 @@
     ]
   },
   {
-    "identifier": "pos_ui_smart_grid",
-    "name": "POS UI smart grid",
-    "defaultName": "pos-ui-smart-grid",
+    "identifier": "pos_action_legacy",
+    "name": "POS action",
+    "defaultName": "pos-action",
     "group": "UI extensions",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
-    "type": "pos_ui_extension",
+    "type": "ui_extension",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "JavaScript React",
         "value": "react",
-        "path": "pos-ui-extension-smart-grid"
+        "path": "pos-action"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "pos-ui-extension-smart-grid"
+        "path": "pos-action"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "pos-ui-extension-smart-grid"
+        "path": "pos-action"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "pos-ui-extension-smart-grid"
+        "path": "pos-action"
       }
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "pos_ui_customer_details",
-    "name": "POS UI customer details",
-    "defaultName": "pos-ui-customer-details",
+    "identifier": "pos_action",
+    "name": "POS action",
+    "defaultName": "pos-action",
     "group": "UI extensions",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
-    "type": "pos_ui_extension",
+    "type": "ui_extension",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "JavaScript React",
         "value": "react",
-        "path": "pos-ui-extension-customer-details"
+        "path": "pos-action"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "pos-ui-extension-customer-details"
+        "path": "pos-action"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "pos-ui-extension-customer-details"
+        "path": "pos-action"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "pos-ui-extension-customer-details"
+        "path": "pos-action"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "pos-action"
       }
-    ]
+    ],
+    "minimumCliVersion": "3.78.2"
   },
   {
-    "identifier": "pos_ui_product_details",
-    "name": "POS UI product details",
-    "defaultName": "pos-ui-product-details",
+    "identifier": "pos_block_legacy",
+    "name": "POS block",
+    "defaultName": "pos-block",
     "group": "UI extensions",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
-    "type": "pos_ui_extension",
+    "type": "ui_extension",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "JavaScript React",
         "value": "react",
-        "path": "pos-ui-extension-product-details"
+        "path": "pos-block"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "pos-ui-extension-product-details"
+        "path": "pos-block"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "pos-ui-extension-product-details"
+        "path": "pos-block"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "pos-ui-extension-product-details"
+        "path": "pos-block"
       }
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "pos_ui_order_details",
-    "name": "POS UI order details",
-    "defaultName": "pos-ui-order-details",
+    "identifier": "pos_block",
+    "name": "POS block",
+    "defaultName": "pos-block",
     "group": "UI extensions",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
-    "type": "pos_ui_extension",
+    "type": "ui_extension",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "JavaScript React",
         "value": "react",
-        "path": "pos-ui-extension-order-details"
+        "path": "pos-block"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "pos-ui-extension-order-details"
+        "path": "pos-block"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "pos-ui-extension-order-details"
+        "path": "pos-block"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "pos-ui-extension-order-details"
+        "path": "pos-block"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "pos-block"
       }
-    ]
+    ],
+    "minimumCliVersion": "3.78.2"
   },
   {
-    "identifier": "pos_ui_draft_order_details",
-    "name": "POS UI draft order details",
-    "defaultName": "pos-ui-draft-order-details",
+    "identifier": "pos_smart_grid_legacy",
+    "name": "POS smart grid",
+    "defaultName": "pos-smart-grid",
     "group": "UI extensions",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
-    "type": "pos_ui_extension",
+    "type": "ui_extension",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "JavaScript React",
         "value": "react",
-        "path": "pos-ui-extension-draft-order-details"
+        "path": "pos-smart-grid"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "pos-ui-extension-draft-order-details"
+        "path": "pos-smart-grid"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "pos-ui-extension-draft-order-details"
+        "path": "pos-smart-grid"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "pos-ui-extension-draft-order-details"
+        "path": "pos-smart-grid"
       }
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "pos_ui_post_purchase",
-    "name": "POS UI post purchase",
-    "defaultName": "pos-ui-post-purchase",
+    "identifier": "pos_smart_grid",
+    "name": "POS smart grid",
+    "defaultName": "pos-smart-grid",
     "group": "UI extensions",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
-    "type": "pos_ui_extension",
+    "type": "ui_extension",
     "extensionPoints": [],
     "supportedFlavors": [
       {
         "name": "JavaScript React",
         "value": "react",
-        "path": "pos-ui-extension-post-purchase"
+        "path": "pos-smart-grid"
       },
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "pos-ui-extension-post-purchase"
+        "path": "pos-smart-grid"
       },
       {
         "name": "TypeScript React",
         "value": "typescript-react",
-        "path": "pos-ui-extension-post-purchase"
+        "path": "pos-smart-grid"
       },
       {
         "name": "TypeScript",
         "value": "typescript",
-        "path": "pos-ui-extension-post-purchase"
+        "path": "pos-smart-grid"
+      },
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "pos-smart-grid"
       }
-    ]
-  },
-  {
-    "identifier": "pos_ui_cart_line_item_details",
-    "name": "POS UI cart line item",
-    "defaultName": "pos-ui-cart-line-item-details",
-    "group": "UI extensions",
-    "supportLinks": [],
-    "url": "https://github.com/Shopify/extensions-templates",
-    "type": "pos_ui_extension",
-    "extensionPoints": [],
-    "supportedFlavors": [
-      {
-        "name": "JavaScript React",
-        "value": "react",
-        "path": "pos-ui-extension-cart-line-item-details"
-      },
-      {
-        "name": "JavaScript",
-        "value": "vanilla-js",
-        "path": "pos-ui-extension-cart-line-item-details"
-      },
-      {
-        "name": "TypeScript React",
-        "value": "typescript-react",
-        "path": "pos-ui-extension-cart-line-item-details"
-      },
-      {
-        "name": "TypeScript",
-        "value": "typescript",
-        "path": "pos-ui-extension-cart-line-item-details"
-      }
-    ]
+    ],
+    "minimumCliVersion": "3.78.2"
   },
   {
     "identifier": "cart_checkout_validation",

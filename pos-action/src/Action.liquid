@@ -1,6 +1,23 @@
-{%- if flavor contains "react" -%}
-import React from 'react';
+{%- if flavor contains "preact" -%}
+import {render} from 'preact';
 
+export default async () => {
+  render(<Extension />, document.body);
+};
+
+function Extension() {
+  return (
+    <s-page heading='POS action'>
+      <s-scroll-box>
+        <s-box padding="small">
+          <s-text>Welcome to the {{flavor}} action extension</s-text>
+        </s-box>
+      </s-scroll-box>
+    </s-page>
+  );
+}
+
+{%- elsif flavor contains "react" -%}
 import {
   Text,
   Screen,

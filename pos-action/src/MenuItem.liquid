@@ -1,5 +1,17 @@
-{%- if flavor contains "react" -%}
-import React from 'react';
+{%- if flavor contains "preact" -%}
+import {render} from 'preact';
+
+export default async () => {
+  render(<Extension />, document.body);
+}
+
+function Extension() {
+  return (
+    <s-button onClick={() => shopify.action.presentModal()} />
+  );
+}
+
+{%- elsif flavor contains "react" -%}
 import {
   reactExtension,
   Button,
