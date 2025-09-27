@@ -1,0 +1,27 @@
+{
+  "payload": {
+    "export": "cart_fulfillment_constraints_generate_run",
+    "target": "cart.fulfillment-constraints.generate.run",
+    "input": {
+      "cart": {
+        "deliverableLines": [
+          {
+            "id": "gid://shopify/CartLine/1"
+          }
+        ]
+      },
+      "fulfillmentConstraintRule": {
+        "metafield": {
+          "jsonValue": {
+            "constraintType": "shipping_method",
+            "restrictedMethods": ["standard"],
+            "allowedMethods": ["express", "overnight"]
+          }
+        }
+      }
+    },
+    "output": {
+      "operations": []
+    }
+  }
+}

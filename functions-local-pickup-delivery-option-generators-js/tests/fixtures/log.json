@@ -1,0 +1,57 @@
+{
+  "payload": {
+    "export": "run",
+    "target": "purchase.local-pickup-delivery-option-generator.run",
+    "input": {
+      "cart": {
+        "lines": [
+          {
+            "id": "gid://shopify/CartLine/1"
+          }
+        ]
+      },
+      "fulfillmentGroups": [
+        {
+          "handle": "group1",
+          "inventoryLocationHandles": ["location1"],
+          "lines": [
+            {
+              "id": "gid://shopify/CartLine/1"
+            }
+          ],
+          "deliveryGroup": {
+            "id": "gid://shopify/CartDeliveryGroup/1"
+          }
+        }
+      ],
+      "locations": [
+        {
+          "handle": "location1",
+          "name": "Main Store",
+          "address": {
+            "address1": "123 Main Street"
+          }
+        }
+      ],
+      "deliveryOptionGenerator": {
+        "metafield": {
+          "value": "[\"location1\", \"location2\"]"
+        }
+      }
+    },
+    "output": {
+      "operations": [
+        {
+          "add": {
+            "title": "Main St.",
+            "cost": 1.99,
+            "pickupLocation": {
+              "locationHandle": "2578303",
+              "pickupInstruction": "Usually ready in 24 hours."
+            }
+          }
+        }
+      ]
+    }
+  }
+}

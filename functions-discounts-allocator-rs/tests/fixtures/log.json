@@ -1,0 +1,17 @@
+{
+  "payload": {
+    "export": "run",
+    "target": "purchase.discounts-allocator.run",
+    "input": {
+      "shop": {
+        "metafield": {
+          "value": "{\"discountConfiguration\": {\"enabled\": true, \"allocationType\": \"proportional\"}}"
+        }
+      }
+    },
+    "output": {
+      "displayableErrors": [],
+      "lineDiscounts": []
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "payload": {
+    "export": "cart_fulfillment_groups_location_rankings_generate_run",
+    "target": "cart.fulfillment-groups.location-rankings.generate.run",
+    "input": {
+      "fulfillmentGroups": [
+        {
+          "handle": "123",
+          "inventoryLocationHandles": ["456", "789"]
+        },
+        {
+          "handle": "456",
+          "inventoryLocationHandles": ["101", "112", "131"]
+        }
+      ]
+    },
+    "output": {
+      "operations": [
+        {
+          "fulfillmentGroupLocationRankingAdd": {
+            "fulfillmentGroupHandle": "123",
+            "rankings": [
+              {
+                "locationHandle": "456",
+                "rank": 0
+              },
+              {
+                "locationHandle": "789",
+                "rank": 0
+              }
+            ]
+          }
+        },
+        {
+          "fulfillmentGroupLocationRankingAdd": {
+            "fulfillmentGroupHandle": "456",
+            "rankings": [
+              {
+                "locationHandle": "101",
+                "rank": 0
+              },
+              {
+                "locationHandle": "112",
+                "rank": 0
+              },
+              {
+                "locationHandle": "131",
+                "rank": 0
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
