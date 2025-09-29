@@ -89,7 +89,7 @@ function Extension({ configuration, products }) {
   });
 
   return (
-    <s-function-settings onSave={() => applyMetafieldUpdate(variantLimits)}>
+    <s-function-settings onSubmit={(event) => event.waitUntil(applyMetafieldUpdate(variantLimits))}>
       <ErrorBanner errors={errors} />
       <s-table variant="auto">
         <s-table-header-row>
@@ -161,7 +161,7 @@ function VariantNumberField({ labelValue, value, onChange, name }) {
       name={`${name}-number`}
       label={`Set a limit for ${labelValue}`}
       min={0}
-      onChange={(event) => onChange(event.target.value)}
+      onChange={(event) => onChange(event.currentTarget.value)}
     />
   );
 }

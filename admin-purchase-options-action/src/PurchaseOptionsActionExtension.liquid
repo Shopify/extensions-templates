@@ -9,9 +9,9 @@ export default function PurchaseOptionsActionExtension() {
   const [planName, setPlanName] = useState('');
   const [discountType, setDiscountType] = useState('percentageOff');
   const [deliveryOptions, setDeliveryOptions] = useState({
-    frequency: 0,
+    frequency: '0',
     timeType: 'day',
-    discount: 0,
+    discount: '0',
   });
 
   const updateDeliveryOption = (field, value) => {
@@ -74,12 +74,12 @@ export default function PurchaseOptionsActionExtension() {
             <s-number-field
               label="Delivery frequency"
               value={deliveryOptions.frequency}
-              onChange={(event) => updateDeliveryOption('frequency', event.target.value)}
+              onChange={(event) => updateDeliveryOption('frequency', event.currentTarget.value)}
             />
             <s-select
               label="Delivery interval"
               value={deliveryOptions.timeType}
-              onChange={(event) => updateDeliveryOption('timeType', event.target.value)}
+              onChange={(event) => updateDeliveryOption('timeType', event.currentTarget.value)}
             >
               <s-option value='weeks'>Weeks</s-option>
               <s-option value='months'>Months</s-option>
@@ -88,7 +88,7 @@ export default function PurchaseOptionsActionExtension() {
             <s-number-field
               label={getDiscountLabel(discountType)}
               value={deliveryOptions.discount}
-              onChange={(event) => updateDeliveryOption('discount', event.target.value)}
+              onChange={(event) => updateDeliveryOption('discount', event.currentTarget.value)}
             />
           </s-stack>
         </s-box>
