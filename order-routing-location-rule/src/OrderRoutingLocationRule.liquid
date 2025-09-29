@@ -10,7 +10,7 @@ function Extension() {
 
   // Transform your state into metafields and send them back to the admin to batch the
   // changes together with the rest of merchant updates to the routing strategy
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
     console.log('submit');
 
     // const metafields = [
@@ -23,7 +23,7 @@ function Extension() {
     //   }
     // ];
 
-    // applyMetafieldsChange(metafields);
+    // event.waitUntil(applyMetafieldsChange(metafields));
   };
 
   // Reset your state to the default values
@@ -32,7 +32,7 @@ function Extension() {
   };
 
   return (
-    <s-form onSubmit={handleSubmit} onReset={handleOnReset}>
+    <s-function-settings onSubmit={handleSubmit} onReset={handleOnReset}>
       <s-box padding="base">
         <s-text type="strong">
           {i18n.translate('helpText')}
@@ -41,7 +41,7 @@ function Extension() {
       <s-box padding="base">
         {/* Create a UI to allow merchants to provide configuration values for your location rule function */}
       </s-box>
-    </s-form>
+    </s-function-settings>
   );
 }
 
