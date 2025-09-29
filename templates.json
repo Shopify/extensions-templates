@@ -890,7 +890,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "validation_settings_ui",
+    "identifier": "validation_settings_ui_pre_release",
     "name": "Cart and checkout validation function settings",
     "defaultName": "validation-settings-ui",
     "group": "UI extensions",
@@ -927,7 +927,28 @@
         "path": "validation-settings"
       }
     ],
-    "minimumCliVersion": "3.78.2"
+    "minimumCliVersion": "3.78.2",
+    "deprecatedFromCliVersion": "3.85.1"
+  },
+  {
+    "identifier": "validation_settings_ui",
+    "name": "Cart and checkout validation function settings",
+    "defaultName": "validation-settings-ui",
+    "group": "UI extensions",
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/checkout/validation/server-side"
+    ],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "validation-settings"
+      }
+    ],
+    "minimumCliVersion": "3.85.1"
   },
   {
     "identifier": "order_routing_location_rule_ui",
@@ -1000,7 +1021,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "pos_action",
+    "identifier": "pos_action_pre_release",
     "name": "POS action",
     "defaultName": "pos-action",
     "group": "UI extensions",
@@ -1035,7 +1056,26 @@
         "path": "pos-action"
       }
     ],
-    "minimumCliVersion": "3.78.2"
+    "minimumCliVersion": "3.78.2",
+    "deprecatedFromCliVersion": "3.85.1"
+  },
+  {
+    "identifier": "pos_action",
+    "name": "POS action",
+    "defaultName": "pos-action",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "pos-action"
+      }
+    ],
+    "minimumCliVersion": "3.85.1"
   },
   {
     "identifier": "pos_block_legacy",
@@ -1071,7 +1111,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "pos_block",
+    "identifier": "pos_block_pre_release",
     "name": "POS block",
     "defaultName": "pos-block",
     "group": "UI extensions",
@@ -1106,7 +1146,26 @@
         "path": "pos-block"
       }
     ],
-    "minimumCliVersion": "3.78.2"
+    "minimumCliVersion": "3.78.2",
+    "deprecatedFromCliVersion": "3.85.1"
+  },
+  {
+    "identifier": "pos_block",
+    "name": "POS block",
+    "defaultName": "pos-block",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "pos-block"
+      }
+    ],
+    "minimumCliVersion": "3.85.1"
   },
   {
     "identifier": "pos_smart_grid_legacy",
@@ -1142,7 +1201,7 @@
     "deprecatedFromCliVersion": "3.78.2"
   },
   {
-    "identifier": "pos_smart_grid",
+    "identifier": "pos_smart_grid_pre_release",
     "name": "POS smart grid",
     "defaultName": "pos-smart-grid",
     "group": "UI extensions",
@@ -1177,7 +1236,26 @@
         "path": "pos-smart-grid"
       }
     ],
-    "minimumCliVersion": "3.78.2"
+    "minimumCliVersion": "3.78.2",
+    "deprecatedFromCliVersion": "3.85.1"
+  },
+  {
+    "identifier": "pos_smart_grid",
+    "name": "POS smart grid",
+    "defaultName": "pos-smart-grid",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "pos-smart-grid"
+      }
+    ],
+    "minimumCliVersion": "3.85.1"
   },
   {
     "identifier": "cart_checkout_validation",
