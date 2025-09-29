@@ -1,4 +1,8 @@
+{%- if flavor contains "preact" -%}
+api_version = "2025-10"
+{% else %}
 api_version = "2025-01"
+{% endif -%}
 
 [[extensions]]
 # Change the merchant-facing name of the extension in locales/en.default.json

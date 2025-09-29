@@ -677,6 +677,26 @@
     "extensionPoints": [],
     "supportedFlavors": [
       {
+        "name": "Preact",
+        "value": "preact",
+        "path": "discount-details-function-settings-block"
+      }
+    ],
+    "minimumCliVersion": "3.85.1"
+  },
+  {
+    "identifier": "discount_details_function_settings_legacy",
+    "name": "Discount function settings",
+    "defaultName": "Discount function settings",
+    "group": "UI extensions",
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
         "name": "JavaScript React",
         "value": "react",
         "path": "discount-details-function-settings-block"
@@ -696,7 +716,8 @@
         "value": "typescript",
         "path": "discount-details-function-settings-block"
       }
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.85.1"
   },
   {
     "identifier": "validation_settings_ui_legacy",
@@ -786,6 +807,29 @@
     "extensionPoints": [],
     "supportedFlavors": [
       {
+        "name": "Preact",
+        "value": "preact",
+        "path": "order-routing-location-rule"
+      }
+    ],
+    "organizationBetaFlags": [
+      "order_routing_extensibility_partner"
+    ],
+    "deprecatedFromCliVersion": "3.85.1"
+  },
+  {
+    "identifier": "order_routing_location_rule_ui_legacy",
+    "name": "Order routing location rule function settings",
+    "defaultName": "order-routing-location-rule-ui",
+    "group": "UI extensions",
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/fulfillment/order-routing-apps/location-rules"
+    ],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
         "name": "JavaScript React",
         "value": "react",
         "path": "order-routing-location-rule"
@@ -808,7 +852,8 @@
     ],
     "organizationBetaFlags": [
       "order_routing_extensibility_partner"
-    ]
+    ],
+    "deprecatedFromCliVersion": "3.85.1"
   },
   {
     "identifier": "pos_action_legacy",

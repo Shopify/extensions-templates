@@ -1,4 +1,15 @@
-{%- if flavor contains "react" -%}
+{%- if flavor contains "preact" -%}
+{
+  "name": "{{ handle }}",
+  "private": true,
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "preact": "^10.10.x",
+    "@shopify/ui-extensions": "~2025.10.0-rc"
+  }
+}
+{%- elsif flavor contains "react" -%}
 {
   "name": "{{ handle }}",
   "private": true,
