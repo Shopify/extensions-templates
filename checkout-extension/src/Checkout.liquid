@@ -3,9 +3,9 @@ import '@shopify/ui-extensions/preact';
 import {render} from "preact";
 
 // 1. Export the extension
-export default function() {
+export default async () => {
   render(<Extension />, document.body)
-}
+};
 
 function Extension() {
   // 2. Check instructions for feature availability, see https://shopify.dev/docs/api/checkout-ui-extensions/apis/cart-instructions for details
