@@ -1,6 +1,6 @@
 {% if flavor contains 'preact' %}
 import { render } from "preact";
-import { useState, useEffect } from "preact/hooks";
+import { useState, useEffect, useMemo } from "preact/hooks";
 
 export default async () => {
   const existingDefinition = await getMetafieldDefinition();
@@ -60,8 +60,8 @@ function AppliesToCollections({
             value={appliesTo}
             onChange={(event) => onAppliesToChange(event.currentTarget.value)}
           >
-            <option value="all">{i18n.translate("collections.allProducts")}</option>
-            <option value="collections">{i18n.translate("collections.collections")}</option>
+            <s-option value="all">{i18n.translate("collections.allProducts")}</s-option>
+            <s-option value="collections">{i18n.translate("collections.collections")}</s-option>
           </s-select>
 
           {appliesTo === "all" ? null : (
@@ -170,11 +170,14 @@ function App() {
 
 function useExtensionData() {
   const { applyMetafieldChange, i18n, data, resourcePicker, query } = shopify;
-  
-  const metafieldConfig = parseMetafield(
-    data?.metafields.find(
-      (metafield) => metafield.key === "function-configuration"
-    )?.value
+
+  const metafieldConfig = useMemo(() =>
+    parseMetafield(
+      data?.metafields?.find(
+        (metafield) => metafield.key === "function-configuration"
+      )?.value
+    ),
+    [data?.metafields]
   );
   
   const [percentages, setPercentages] = useState(metafieldConfig.percentages);
