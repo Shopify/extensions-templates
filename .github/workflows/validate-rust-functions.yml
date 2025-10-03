@@ -28,5 +28,5 @@ jobs:
         run: cargo clippy -- -D warnings
       - name: Run tests
         run: cargo test
-      - name: Build with wasm32-wasip1 target
-        run: cargo build --release --target wasm32-wasip1
+      - name: Build with wasm32-unknown-unknown target
+        run: cargo build --release --target wasm32-unknown-unknown
