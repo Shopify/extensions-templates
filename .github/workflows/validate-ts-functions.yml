@@ -26,3 +26,33 @@ jobs:
         run: yarn js-typegen
       - name: Test
         run: yarn js-test
+      - name: Test function execution
+        run: |
+          # Install Shopify CLI
+          npm install -g @shopify/cli
+          
+          # Test each JS function (includes TS functions)
+          for func_dir in functions-*-js; do
+            if [ -d "$func_dir" ]; then
+              echo "Testing function execution for $func_dir"
+              
+              # Copy app config to function directory and run from there
+              cp shopify.app.toml "$func_dir/"
+              cd "$func_dir"
+              
+              # Build function to wasm
+              shopify app function build
+              
+              # Create empty input
+              echo '{}' > input.json
+              
+              # Run function with empty input
+              shopify app function run --input input.json --json
+              
+              echo "Function $func_dir executed successfully"
+              
+              # Clean up and return to root
+              rm shopify.app.toml input.json
+              cd ..
+            fi
+          done
