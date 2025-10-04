@@ -1,0 +1,24 @@
+{
+  "payload": {
+    "export": "run",
+  "target": "purchase.validation.run",
+  "input": {
+    "cart": {
+      "lines": [
+        {
+          "quantity": 1
+        },
+        {
+          "quantity": 1
+        },
+        {
+          "quantity": 1
+        }
+      ]
+    }
+  },
+  "output": {
+    "errors": []
+  }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "payload": {
+    "export": "run",
+    "target": "purchase.pickup-point-delivery-option-generator.run",
+    "input": {
+      "fetchResult": {
+        "status": 200,
+        "body": "{\"deliveryPoints\": [{\"pointId\": \"pickup1\", \"pointName\": \"Pickup Location 1\", \"location\": {\"addressComponents\": {\"streetNumber\": \"123\", \"route\": \"Main St\", \"locality\": \"New York\", \"country\": \"United States\", \"countryCode\": \"US\", \"postalCode\": \"10001\", \"administrativeArea\": {\"name\": \"New York\", \"code\": \"NY\"}}, \"geometry\": {\"location\": {\"lat\": 40.7589, \"lng\": -73.9851}}}}, {\"pointId\": \"pickup2\", \"pointName\": \"Pickup Location 2\", \"location\": {\"addressComponents\": {\"streetNumber\": \"456\", \"route\": \"Oak Ave\", \"locality\": \"New York\", \"country\": \"United States\", \"countryCode\": \"US\", \"postalCode\": \"10002\", \"administrativeArea\": {\"name\": \"New York\", \"code\": \"NY\"}}, \"geometry\": {\"location\": {\"lat\": 40.7614, \"lng\": -73.9776}}}}]}"
+      }
+    },
+    "output": {
+      "operations": [
+        {
+          "add": {
+            "cost": null,
+            "pickupPoint": {
+              "externalId": "pickup1",
+              "name": "Pickup Location 1",
+              "provider": {
+                "name": "Shopify Javascript Demo",
+                "logoUrl": "https://cdn.shopify.com/s/files/1/0628/3830/9033/files/shopify_icon_146101.png?v=1706120545"
+              },
+              "address": {
+                "address1": "123 Main St",
+                "address2": null,
+                "city": "New York",
+                "country": "United States",
+                "countryCode": "US",
+                "latitude": 40.7589,
+                "longitude": -73.9851,
+                "phone": null,
+                "province": "New York",
+                "provinceCode": "NY",
+                "zip": "10001"
+              },
+              "businessHours": null
+            }
+          }
+        },
+        {
+          "add": {
+            "cost": null,
+            "pickupPoint": {
+              "externalId": "pickup2",
+              "name": "Pickup Location 2",
+              "provider": {
+                "name": "Shopify Javascript Demo",
+                "logoUrl": "https://cdn.shopify.com/s/files/1/0628/3830/9033/files/shopify_icon_146101.png?v=1706120545"
+              },
+              "address": {
+                "address1": "456 Oak Ave",
+                "address2": null,
+                "city": "New York",
+                "country": "United States",
+                "countryCode": "US",
+                "latitude": 40.7614,
+                "longitude": -73.9776,
+                "phone": null,
+                "province": "New York",
+                "provinceCode": "NY",
+                "zip": "10002"
+              },
+              "businessHours": null
+            }
+          }
+        }
+      ]
+    }
+  }
+}

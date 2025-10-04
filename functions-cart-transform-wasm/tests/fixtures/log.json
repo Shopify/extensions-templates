@@ -1,0 +1,24 @@
+{
+  "payload": {
+    "export": "cart_transform_run",
+    "target": "cart.transform.run",
+    "input": {
+      "cart": {
+        "buyerIdentity": null,
+        "cost": {
+          "subtotalAmount": {
+            "amount": "100.0"
+          }
+        },
+        "lines": [
+          {
+            "quantity": 1
+          }
+        ]
+      }
+    },
+    "output": {
+      "operations": []
+    }
+  }
+}
