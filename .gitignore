@@ -75,6 +75,7 @@ functions*/**/cart_transform_run.js
 functions*/**/cart_transform_run.ts
 functions*/**/cart_transform_run.test.js
 functions*/**/cart_transform_run.test.ts
+functions*/**/tests/fixtures/log.json
 
 # Ignore local build files
 functions*/generated
