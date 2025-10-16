@@ -1,0 +1,71 @@
+{
+  "payload": {
+    "export": "cart-lines-discounts-generate-run",
+    "target": "cart.lines.discounts.generate.run",
+    "input": {
+      "cart": {
+        "lines": [
+          {
+            "id": "gid://shopify/CartLine/1",
+            "cost": {
+              "subtotalAmount": {
+                "amount": "100.0"
+              }
+            }
+          }
+        ]
+      },
+      "discount": {
+        "discountClasses": ["ORDER", "PRODUCT"]
+      }
+    },
+    "output": {
+      "operations": [
+        {
+          "orderDiscountsAdd": {
+            "candidates": [
+              {
+                "message": "10% OFF ORDER",
+                "targets": [
+                  {
+                    "orderSubtotal": {
+                      "excludedCartLineIds": []
+                    }
+                  }
+                ],
+                "value": {
+                  "percentage": {
+                    "value": 10
+                  }
+                }
+              }
+            ],
+            "selectionStrategy": "FIRST"
+          }
+        },
+        {
+          "productDiscountsAdd": {
+            "candidates": [
+              {
+                "message": "20% OFF PRODUCT",
+                "targets": [
+                  {
+                    "cartLine": {
+                      "id": "gid://shopify/CartLine/1"
+                    }
+                  }
+                ],
+                "value": {
+                  "percentage": {
+                    "value": 20
+                  }
+                }
+              }
+            ],
+            "selectionStrategy": "FIRST"
+          }
+        }
+      ]
+    }
+  }
+}
