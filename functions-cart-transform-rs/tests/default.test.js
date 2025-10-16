@@ -39,9 +39,9 @@ describe("Default Integration Test", () => {
 
       // Assert that all validation steps pass
       expect(validationResult.inputQuery.valid).toBe(true);
-      expect(validationResult.inputFixture.valid).toBe(true);
-      expect(validationResult.inputQueryFixtureMatch.valid).toBe(true);
-      expect(validationResult.outputFixture.valid).toBe(true);
+      expect(validationResult.fixtureInputTypes.valid).toBe(true);
+      expect(validationResult.fixtureInputStructure.valid).toBe(true);
+      expect(validationResult.fixtureOutput.valid).toBe(true);
 
       // Run the actual function
       const runResult = await runFunction(

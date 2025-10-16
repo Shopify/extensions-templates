@@ -27,9 +27,9 @@ describe("Default Integration Test", () => {
       const fixture = await loadFixture(fixtureFile);
       const validationResult = await validateTestAssets({ schema, fixture, inputQueryAST });
       expect(validationResult.inputQuery.valid).toBe(true);
-      expect(validationResult.inputFixture.valid).toBe(true);
-      expect(validationResult.inputQueryFixtureMatch.valid).toBe(true);
-      expect(validationResult.outputFixture.valid).toBe(true);
+      expect(validationResult.fixtureInputTypes.valid).toBe(true);
+      expect(validationResult.fixtureInputStructure.valid).toBe(true);
+      expect(validationResult.fixtureOutput.valid).toBe(true);
       const runResult = await runFunction(fixture.export, fixture.input, functionDir);
       const { result, error } = runResult;
       expect(error).toBeNull();
