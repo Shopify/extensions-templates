@@ -1,6 +1,7 @@
 handle = "example-de"
 label = "example.de"
 icon = "example-channel-icon.svg"
+productFeedManagement = "manual"
 
 [capabilities]
 bundles = true
@@ -8,11 +9,12 @@ digitalProducts = true
 subscriptions = false
 variantModel = "products"
 multiLocationInventory = true
+combinedListings = true
+unlistedProducts = true
 
 [requirements]
 webPresence = false
 orderInsertion = true
-automaticProductFeedManagement = true
 
 [[countries]]
 code = "DE"

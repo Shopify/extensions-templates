@@ -2,17 +2,19 @@
   "handle": "example-au",
   "label": "example.au",
   "icon": "example-channel-icon.svg",
+  "productFeedManagement": "manual",
   "capabilities": {
     "bundles": true,
     "digitalProducts": true,
     "subscriptions": false,
     "variantModel": "products",
-    "multiLocationInventory": true
+    "multiLocationInventory": true,
+    "unlistedProducts": true,
+    "combinedListings": true
   },
   "requirements": {
     "webPresence": false,
-    "orderInsertion": true,
-    "automaticProductFeedManagement": true
+    "orderInsertion": true
   },
   "countries": [
     {
