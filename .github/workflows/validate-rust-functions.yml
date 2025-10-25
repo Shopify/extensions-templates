@@ -30,3 +30,40 @@ jobs:
         run: cargo test
       - name: Build with wasm32-wasip1 target
         run: cargo build --release --target wasm32-wasip1
+      - name: Install shopify-function-trampoline
+        run: |
+          echo "Installing shopify-function-trampoline..."
+          cargo install --git https://github.com/Shopify/shopify-function-wasm-api.git shopify_function_trampoline --locked
+      - name: Apply trampoline to Wasm modules
+        run: |
+          echo "Applying trampoline to Wasm modules..."
+          find target/wasm32-wasip1/release -name "*.wasm" -exec \
+            shopify_function_trampoline -i {} -o {}.trampolined \;
+      - name: Install function-runner
+        run: |
+          echo "Installing function-runner..."
+          cargo install --git https://github.com/Shopify/function-runner.git function-runner --locked
+      - name: Test function-runner installation
+        run: |
+          echo "Testing function-runner installation..."
+          function-runner --help
+      - name: Test trampolined functions with function-runner
+        run: |
+          echo "Testing trampolined functions with function-runner..."
+          echo '{}' > empty-input.json
+          for wasm_file in target/wasm32-wasip1/release/*.trampolined; do
+            if [ -f "$wasm_file" ]; then
+              echo "Testing $wasm_file..."
+              # Try common export names
+              for export_name in "run" "cart_validations_generate_run" "cart_lines_discounts_generate_run" "cart_delivery_options_discounts_generate_run"; do
+                echo "Trying export: $export_name"
+                if function-runner -f "$wasm_file" -i empty-input.json -e "$export_name" 2>/dev/null; then
+                  echo "SUCCESS with $export_name"
+                  break
+                else
+                  echo "Failed with $export_name"
+                fi
+              done
+            fi
+          done
+          
