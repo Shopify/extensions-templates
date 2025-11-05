@@ -992,7 +992,7 @@
     "organizationBetaFlags": [
       "order_routing_extensibility_partner"
     ],
-    "deprecatedFromCliVersion": "3.85.3"
+    "minimumCliVersion": "3.85.3"
   },
   {
     "identifier": "order_routing_location_rule_ui_legacy",
