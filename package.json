@@ -8,7 +8,8 @@
         "@graphql-codegen/cli": "^5.0.6",
         "@graphql-codegen/typescript": "^4.1.6",
         "@graphql-codegen/typescript-operations": "^4.6.1",
-        "graphql": "^16.11.0"
+        "graphql": "^16.11.0",
+        "patch-package": "^8.0.0"
     },
     "scripts": {
         "expand-liquid": "node .github/scripts/expand-liquid.js",
