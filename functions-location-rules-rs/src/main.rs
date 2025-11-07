@@ -10,6 +10,6 @@ pub mod schema {
 }
 
 fn main() {
-    eprintln!("Please invoke a named export.");
-    process::exit(1);
+    log!("Please invoke a named export.");
+    process::abort();
 }
