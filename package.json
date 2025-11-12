@@ -13,7 +13,8 @@
     "scripts": {
         "expand-liquid": "node .github/scripts/expand-liquid.js",
         "js-typegen": "yarn workspaces run graphql-code-generator --config package.json",
-        "js-test": "yarn workspaces run test run"
+        "js-test": "yarn workspaces run test run",
+        "js-test:unit": "yarn workspaces run test:unit"
     },
     "private": true,
     "workspaces": ["functions-*-js"]
