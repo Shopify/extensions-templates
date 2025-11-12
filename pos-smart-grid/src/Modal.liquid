@@ -6,11 +6,13 @@ export default async () => {
 };
 
 function Extension() {
+  const {i18n} = shopify;
+  
   return (
-    <s-page heading='POS modal'>
+    <s-page heading={i18n.translate('modal_heading')}>
       <s-scroll-box>
         <s-box padding="small">
-          <s-text>Welcome to the {{flavor}} extension</s-text>
+          <s-text>{i18n.translate('welcome', {flavor: '{{flavor}}'})}</s-text>
         </s-box>
       </s-scroll-box>
     </s-page>
