@@ -1,0 +1,17 @@
+{
+  "payload": {
+    "export": "run",
+    "target": "purchase.product-discount.run",
+    "input": {
+      "discountNode": {
+        "metafield": {
+          "jsonValue": {}
+        }
+      }
+    },
+    "output": {
+      "discountApplicationStrategy": "FIRST",
+      "discounts": []
+    }
+  }
+}

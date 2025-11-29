@@ -2,12 +2,14 @@
   "name": "{{handle}}",
   "version": "0.0.1",
   "license": "UNLICENSED",
+  "type": "module",
   "scripts": {
     "shopify": "npm exec -- shopify",
     "typegen": "npm exec -- shopify app function typegen",
     "build": "npm exec -- shopify app function build",
     "preview": "npm exec -- shopify app function run",
-    "test": "vitest"
+    "test": "vitest",
+    "test:unit": "vitest run src/"
   },
   "codegen": {
     "schema": "schema.graphql",
@@ -28,6 +30,7 @@
     "@shopify/shopify_function": "2.0.0"
   },
   "devDependencies": {
-   "vitest": "2.1.9"
+    "@shopify/shopify-function-test-helpers": "~0.0.0",
+    "vitest": "^3.2.4"
   }
 }
