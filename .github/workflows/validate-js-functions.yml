@@ -25,4 +25,4 @@ jobs:
       - name: Generate types
         run: yarn js-typegen
       - name: Test
-        run: yarn js-test
+        run: yarn js-test:unit
