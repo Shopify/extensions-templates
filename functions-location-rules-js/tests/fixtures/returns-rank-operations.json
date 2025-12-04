@@ -1,0 +1,29 @@
+{
+  "payload": {
+    "export": "cart-fulfillment-groups-location-rankings-generate-run",
+    "target": "cart.fulfillment-groups.location-rankings.generate.run",
+    "input": {
+      "fulfillmentGroups": [
+        {
+          "handle": "123",
+          "inventoryLocationHandles": ["456"]
+        }
+      ]
+    },
+    "output": {
+      "operations": [
+        {
+          "fulfillmentGroupLocationRankingAdd": {
+            "fulfillmentGroupHandle": "123",
+            "rankings": [
+              {
+                "locationHandle": "456",
+                "rank": 0
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
