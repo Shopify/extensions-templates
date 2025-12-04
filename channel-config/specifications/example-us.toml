@@ -7,8 +7,6 @@ productFeedManagement = "automatic"
 bundles = true
 digitalProducts = true
 subscriptions = false
-variantModel = "products"
-multiLocationInventory = true
 combinedListings = true
 unlistedProducts = true
 
