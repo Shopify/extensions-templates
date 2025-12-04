@@ -18,7 +18,7 @@ import {
 
 export function cartLinesDiscountsGenerateRun(input) {
   if (!input.cart.lines.length) {
-    throw new Error('No cart lines found');
+    return {operations: []};
   }
 
   const hasOrderDiscountClass = input.discount.discountClasses.includes(
@@ -110,7 +110,7 @@ export function cartLinesDiscountsGenerateRun(
   input: CartInput,
 ): CartLinesDiscountsGenerateRunResult {
   if (!input.cart.lines.length) {
-    throw new Error('No cart lines found');
+    return {operations: []};
   }
 
   const hasOrderDiscountClass = input.discount.discountClasses.includes(

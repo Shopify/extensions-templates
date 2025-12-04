@@ -17,7 +17,7 @@ import {
 export function cartDeliveryOptionsDiscountsGenerateRun(input) {
   const firstDeliveryGroup = input.cart.deliveryGroups[0];
   if (!firstDeliveryGroup) {
-    throw new Error("No delivery groups found");
+    return {operations: []};
   }
 
   const hasShippingDiscountClass = input.discount.discountClasses.includes(
@@ -68,7 +68,7 @@ export function cartDeliveryOptionsDiscountsGenerateRun(
 ): CartDeliveryOptionsDiscountsGenerateRunResult {
   const firstDeliveryGroup = input.cart.deliveryGroups[0];
   if (!firstDeliveryGroup) {
-    throw new Error("No delivery groups found");
+    return {operations: []};
   }
 
   const hasShippingDiscountClass = input.discount.discountClasses.includes(

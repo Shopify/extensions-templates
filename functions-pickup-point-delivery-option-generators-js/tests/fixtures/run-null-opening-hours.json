@@ -1,0 +1,43 @@
+{
+  "payload": {
+    "export": "run",
+    "target": "purchase.pickup-point-delivery-option-generator.run",
+    "input": {
+      "fetchResult": {
+        "status": 200,
+        "body": "{\"deliveryPoints\":[{\"location\":{\"addressComponents\":{\"country\":\"Canada\",\"countryCode\":\"CA\",\"streetNumber\":\"123\",\"route\":\"Main St\",\"locality\":\"Toronto\",\"administrativeArea\":{\"name\":\"Ontario\",\"code\":\"ON\"},\"postalCode\":\"M5V 2T6\"},\"geometry\":{\"location\":{\"lat\":43.70,\"lng\":-79.42}}},\"openingHours\":null,\"pointId\":\"1\",\"pointName\":\"Point 1\"}]}"
+      }
+    },
+    "output": {
+      "operations": [
+        {
+          "add": {
+            "cost": null,
+            "pickupPoint": {
+              "address": {
+                "address1": "123 Main St",
+                "address2": null,
+                "city": "Toronto",
+                "country": "Canada",
+                "countryCode": "CA",
+                "latitude": 43.70,
+                "longitude": -79.42,
+                "phone": null,
+                "province": "Ontario",
+                "provinceCode": "ON",
+                "zip": "M5V 2T6"
+              },
+              "businessHours": null,
+              "provider": {
+                "name": "Shopify Javascript Demo",
+                "logoUrl": "https://cdn.shopify.com/s/files/1/0628/3830/9033/files/shopify_icon_146101.png?v=1706120545"
+              },
+              "externalId": "1",
+              "name": "Point 1"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
