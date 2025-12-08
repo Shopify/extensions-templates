@@ -6,13 +6,7 @@
       "cart": {
         "lines": [
           {
-            "quantity": 1
-          },
-          {
-            "quantity": 1
-          },
-          {
-            "quantity": 1
+            "quantity": 3
           }
         ]
       }
@@ -21,7 +15,12 @@
       "operations": [
         {
           "validationAdd": {
-            "errors": []
+            "errors": [
+              {
+                "message": "Not possible to order more than one of each",
+                "target": "$.cart"
+              }
+            ]
           }
         }
       ]
