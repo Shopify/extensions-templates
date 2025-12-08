@@ -6,14 +6,15 @@
       "cart": {
         "deliverableLines": [
           {
-            "id": "gid://shopify/CartLine/1"
+            "id": "gid://shopify/DeliverableCartLine/1"
+          },
+          {
+            "id": "gid://shopify/DeliverableCartLine/2"
           }
         ]
       },
       "fulfillmentConstraintRule": {
-        "metafield": {
-          "jsonValue": {}
-        }
+        "metafield": null
       }
     },
     "output": {
