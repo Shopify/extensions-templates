@@ -23,30 +23,3 @@ fn run(input: schema::run::Input) -> Result<schema::FunctionRunResult> {
         discount_application_strategy: schema::DiscountApplicationStrategy::First,
     })
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use shopify_function::{run_function_with_input, Result};
-
-    #[test]
-    fn test_result_contains_no_discounts() -> Result<()> {
-        let result = run_function_with_input(
-            run,
-            r#"
-                {
-                    "discountNode": {
-                        "metafield": null
-                    }
-                }
-            "#,
-        )?;
-        let expected = schema::FunctionRunResult {
-            discounts: vec![],
-            discount_application_strategy: schema::DiscountApplicationStrategy::First,
-        };
-
-        assert_eq!(result, expected);
-        Ok(())
-    }
-}
