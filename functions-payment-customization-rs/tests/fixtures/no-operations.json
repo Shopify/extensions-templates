@@ -4,9 +4,7 @@
     "target": "cart.payment-methods.transform.run",
     "input": {
       "paymentCustomization": {
-        "metafield": {
-          "jsonValue": {}
-        }
+        "metafield": null
       }
     },
     "output": {
