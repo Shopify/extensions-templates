@@ -1,0 +1,30 @@
+{
+  "payload": {
+    "export": "fetch",
+    "target": "purchase.pickup-point-delivery-option-generator.fetch",
+    "input": {
+      "deliveryAddress": {
+        "countryCode": "CA",
+        "longitude": 43.70,
+        "latitude": -79.42
+      }
+    },
+    "output": {
+      "request": {
+        "method": "GET",
+        "url": "https://cdn.shopify.com/s/files/1/0628/3830/9033/files/pickup-points-external-api-v2.json?v=1714588690&lat=-79.42&lon=43.7",
+        "headers": [
+          {
+            "name": "Accept",
+            "value": "application/json; charset=utf-8"
+          }
+        ],
+        "body": null,
+        "jsonBody": null,
+        "policy": {
+          "readTimeoutMs": 500
+        }
+      }
+    }
+  }
+}
