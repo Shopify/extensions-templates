@@ -4,9 +4,7 @@
     "target": "cart.delivery-options.transform.run",
     "input": {
       "deliveryCustomization": {
-        "metafield": {
-          "jsonValue": {}
-        }
+        "metafield": null
       }
     },
     "output": {

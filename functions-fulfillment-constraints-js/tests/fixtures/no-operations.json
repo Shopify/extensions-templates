@@ -11,9 +11,7 @@
         ]
       },
       "fulfillmentConstraintRule": {
-        "metafield": {
-          "jsonValue": {}
-        }
+        "metafield": null
       }
     },
     "output": {

@@ -4,9 +4,7 @@
     "target": "purchase.discounts-allocator.run",
     "input": {
       "shop": {
-        "metafield": {
-          "value": "{}"
-        }
+        "metafield": null
       }
     },
     "output": {

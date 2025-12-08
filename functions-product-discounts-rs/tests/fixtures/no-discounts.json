@@ -4,9 +4,7 @@
     "target": "purchase.product-discount.run",
     "input": {
       "discountNode": {
-        "metafield": {
-          "jsonValue": {}
-        }
+        "metafield": null
       }
     },
     "output": {

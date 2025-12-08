@@ -4,9 +4,7 @@
     "target": "purchase.shipping-discount.run",
     "input": {
       "discountNode": {
-        "metafield": {
-          "value": "{}"
-        }
+        "metafield": null
       }
     },
     "output": {

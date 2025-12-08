@@ -34,9 +34,7 @@
         }
       ],
       "deliveryOptionGenerator": {
-        "metafield": {
-          "value": "[]"
-        }
+        "metafield": null
       }
     },
     "output": {
