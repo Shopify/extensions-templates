@@ -12,31 +12,29 @@
       },
       "fulfillmentGroups": [
         {
-          "handle": "group1",
-          "inventoryLocationHandles": ["location1"],
+          "handle": "1",
+          "inventoryLocationHandles": ["2578303"],
           "lines": [
             {
               "id": "gid://shopify/CartLine/1"
             }
           ],
           "deliveryGroup": {
-            "id": "gid://shopify/DeliveryGroup/1"
+            "id": "gid://shopify/CartDeliveryGroup/1"
           }
         }
       ],
       "locations": [
         {
-          "handle": "location1",
-          "name": "Store",
+          "handle": "2578303",
+          "name": "Main St.",
           "address": {
-            "address1": "123 Main St"
+            "address1": "123 Main St."
           }
         }
       ],
       "deliveryOptionGenerator": {
-        "metafield": {
-          "value": "[]"
-        }
+        "metafield": null
       }
     },
     "output": {
