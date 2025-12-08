@@ -4,8 +4,8 @@
     "target": "purchase.pickup-point-delivery-option-generator.run",
     "input": {
       "fetchResult": {
-        "status": 200,
-        "body": "{\"deliveryPoints\":[]}"
+        "status": 500,
+        "body": "Server Error"
       }
     },
     "output": {

@@ -1,0 +1,52 @@
+{
+  "payload": {
+    "export": "run",
+    "target": "purchase.pickup-point-delivery-option-generator.run",
+    "input": {
+      "fetchResult": {
+        "status": 200,
+        "body": "{\"deliveryPoints\":[{\"pointId\":\"001\",\"pointName\":\"Toronto Store\",\"location\":{\"addressComponents\":{\"streetNumber\":\"620\",\"route\":\"King St W\",\"locality\":\"Toronto\",\"administrativeArea\":{\"name\":\"Ontario\",\"code\":\"ON\"},\"postalCode\":\"M5V 1M6\",\"country\":\"Canada\",\"countryCode\":\"CA\"},\"geometry\":{\"location\":{\"lat\":43.644664618786685,\"lng\":-79.40066267417106}}},\"openingHours\":{\"weekdayText\":[\"Monday: 9:00 AM – 9:00 PM\",\"Tuesday: 9:00 AM – 9:00 PM\",\"Wednesday: 9:00 AM – 9:00 PM\",\"Thursday: 9:00 AM – 9:00 PM\",\"Friday: 9:00 AM – 9:00 PM\",\"Saturday: 10:00 AM – 6:00 PM\",\"Sunday: Closed\"]}}]}"
+      }
+    },
+    "output": {
+      "operations": [
+        {
+          "add": {
+            "cost": null,
+            "pickupPoint": {
+              "address": {
+                "address1": "620 King St W",
+                "address2": null,
+                "city": "Toronto",
+                "country": "Canada",
+                "countryCode": "CA",
+                "latitude": 43.644664618786685,
+                "longitude": -79.40066267417106,
+                "phone": null,
+                "province": "Ontario",
+                "provinceCode": "ON",
+                "zip": "M5V 1M6"
+              },
+              "businessHours": [
+                {"day": "MONDAY", "periods": [{"openingTime": "09:00:00", "closingTime": "21:00:00"}]},
+                {"day": "TUESDAY", "periods": [{"openingTime": "09:00:00", "closingTime": "21:00:00"}]},
+                {"day": "WEDNESDAY", "periods": [{"openingTime": "09:00:00", "closingTime": "21:00:00"}]},
+                {"day": "THURSDAY", "periods": [{"openingTime": "09:00:00", "closingTime": "21:00:00"}]},
+                {"day": "FRIDAY", "periods": [{"openingTime": "09:00:00", "closingTime": "21:00:00"}]},
+                {"day": "SATURDAY", "periods": [{"openingTime": "10:00:00", "closingTime": "18:00:00"}]},
+                {"day": "SUNDAY", "periods": []}
+              ],
+              "provider": {
+                "name": "Shopify Rust Demo",
+                "logoUrl": "https://cdn.shopify.com/s/files/1/0628/3830/9033/files/shopify_icon_146101.png?v=1706120545"
+              },
+              "externalId": "001",
+              "name": "Toronto Store"
+            },
+            "metafields": []
+          }
+        }
+      ]
+    }
+  }
+}
