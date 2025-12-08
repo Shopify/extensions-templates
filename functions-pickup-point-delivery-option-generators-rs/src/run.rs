@@ -194,4 +194,3 @@ fn format_time(time: &str) -> TimeWithoutTimezone {
 
     format!("{hour_in_24_format:02}:{min:02}:00")
 }
-
