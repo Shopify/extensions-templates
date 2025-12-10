@@ -1,0 +1,16 @@
+{
+  "payload": {
+    "export": "fetch",
+    "target": "purchase.pickup-point-delivery-option-generator.fetch",
+    "input": {
+      "deliveryAddress": {
+        "countryCode": "US",
+        "longitude": 40.71,
+        "latitude": -74.01
+      }
+    },
+    "output": {
+      "request": null
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "payload": {
+    "export": "cart_fulfillment_constraints_generate_run",
+    "target": "cart.fulfillment-constraints.generate.run",
+    "input": {
+      "cart": {
+        "deliverableLines": [
+          {
+            "id": "gid://shopify/DeliverableCartLine/1"
+          },
+          {
+            "id": "gid://shopify/DeliverableCartLine/2"
+          }
+        ]
+      },
+      "fulfillmentConstraintRule": {
+        "metafield": null
+      }
+    },
+    "output": {
+      "operations": []
+    }
+  }
+}

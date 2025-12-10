@@ -1,0 +1,15 @@
+{
+  "payload": {
+    "export": "run",
+    "target": "purchase.pickup-point-delivery-option-generator.run",
+    "input": {
+      "fetchResult": {
+        "status": 404,
+        "body": null
+      }
+    },
+    "output": {
+      "operations": []
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "payload": {
+    "export": "run",
+    "target": "purchase.discounts-allocator.run",
+    "input": {
+      "shop": {
+        "metafield": null
+      }
+    },
+    "output": {
+      "displayableErrors": [],
+      "lineDiscounts": []
+    }
+  }
+}

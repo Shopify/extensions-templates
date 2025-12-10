@@ -19,27 +19,3 @@ fn cart_payment_methods_transform_run(
 
     Ok(schema::CartPaymentMethodsTransformRunResult { operations: vec![] })
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use shopify_function::{run_function_with_input, Result};
-
-    #[test]
-    fn test_result_contains_no_operations() -> Result<()> {
-        let result = run_function_with_input(
-            cart_payment_methods_transform_run,
-            r#"
-                {
-                    "paymentCustomization": {
-                        "metafield": null
-                    }
-                }
-            "#,
-        )?;
-        let expected = schema::CartPaymentMethodsTransformRunResult { operations: vec![] };
-
-        assert_eq!(result, expected);
-        Ok(())
-    }
-}
