@@ -6,10 +6,12 @@ export default async () => {
 }
 
 function Extension() {
+  const {i18n} = shopify;
+  
   return (
     <s-tile
-      heading="POS smart grid"
-      subheading="{{ flavor }} Extension"
+      heading={i18n.translate('tile_heading')}
+      subheading={i18n.translate('tile_subheading', {flavor: '{{ flavor }}'})}
       onClick={() => shopify.action.presentModal()}
     />
   );
