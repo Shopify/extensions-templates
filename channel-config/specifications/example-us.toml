@@ -1,6 +1,5 @@
 handle = "example-us"
 label = "example.com"
-icon = "example-channel-icon.svg"
 productFeedManagement = "automatic"
 
 [capabilities]
