@@ -8,16 +8,21 @@ export default async () => {
 };
 
 function Extension() {
-  // 2. Check instructions for feature availability, see https://shopify.dev/docs/api/checkout-ui-extensions/apis/cart-instructions for details
-  if (!shopify.instructions.value.attributes.canUpdateAttributes) {
-    // For checkouts such as draft order invoices, cart attributes may not be allowed
-    // Consider rendering a fallback UI or nothing at all, if the feature is unavailable
+  // 2. Check instructions for feature availability
+  if (!shopify.instructions.value.metafields.canSetCartMetafields) {
     return (
       <s-banner heading="{{ name }}" tone="warning">
-        {shopify.i18n.translate("attributeChangesAreNotSupported")}
+        {shopify.i18n.translate("metafieldChangesAreNotSupported")}
       </s-banner>
     );
   }
+
+  const freeGiftRequested = shopify.appMetafields.value.find(
+    (appMetafield) =>
+      appMetafield.target.type === "cart" &&
+      appMetafield.metafield.namespace === "$app" &&
+      appMetafield.metafield.key === "requestedFreeGift",
+  );
 
   // 3. Render a UI
   return (
@@ -28,21 +33,28 @@ function Extension() {
             target: <s-text type="emphasis">{shopify.extension.target}</s-text>,
           })}
         </s-text>
-        <s-button onClick={handleClick}>
-          {shopify.i18n.translate("addAFreeGiftToMyOrder")}
-        </s-button>
+        <s-checkbox
+          checked={freeGiftRequested?.metafield?.value === "true"}
+          onChange={onCheckboxChange}
+          label={shopify.i18n.translate("iWouldLikeAFreeGiftWithMyOrder")}
+        />
       </s-stack>
     </s-banner>
   );
 
-  async function handleClick() {
+  async function onCheckboxChange(event) {
+    const isChecked = event.target.checked;
     // 4. Call the API to modify checkout
-    const result = await shopify.applyAttributeChange({
-      key: "requestedFreeGift",
-      type: "updateAttribute",
-      value: "yes",
+    const result = await shopify.applyMetafieldChange({
+      type: "updateCartMetafield",
+      metafield: {
+        namespace: "$app",
+        key: "requestedFreeGift",
+        value: isChecked ? "true" : "false",
+        type: "boolean",
+      },
     });
-    console.log("applyAttributeChange result", result);
+    console.log("applyMetafieldChange result", result);
   }
 }
 {%- elsif flavor contains "react" -%}
@@ -53,7 +65,8 @@ import {
   Checkbox,
   Text,
   useApi,
-  useApplyAttributeChange,
+  useAppMetafields,
+  useApplyMetafieldsChange,
   useInstructions,
   useTranslate,
 } from "@shopify/ui-extensions-react/checkout";
@@ -67,19 +80,23 @@ function Extension() {
   const translate = useTranslate();
   const { extension } = useApi();
   const instructions = useInstructions();
-  const applyAttributeChange = useApplyAttributeChange();
-
+  const applyMetafieldChange = useApplyMetafieldsChange();
 
   // 2. Check instructions for feature availability, see https://shopify.dev/docs/api/checkout-ui-extensions/apis/cart-instructions for details
-  if (!instructions.attributes.canUpdateAttributes) {
-    // For checkouts such as draft order invoices, cart attributes may not be allowed
-    // Consider rendering a fallback UI or nothing at all, if the feature is unavailable
+  if (!instructions.metafields.canSetCartMetafields) {
     return (
       <Banner title="{{ name }}" status="warning">
-        {translate("attributeChangesAreNotSupported")}
+        {translate("metafieldChangesAreNotSupported")}
       </Banner>
     );
   }
+
+  const freeGiftRequested = useAppMetafields().find(
+    (appMetafield) =>
+      appMetafield.target.type === "cart" &&
+      appMetafield.metafield.namespace === "$app" &&
+      appMetafield.metafield.key === "requestedFreeGift",
+  );
 
   // 3. Render a UI
   return (
@@ -89,7 +106,10 @@ function Extension() {
           target: <Text emphasis="italic">{extension.target}</Text>,
         })}
       </Banner>
-      <Checkbox onChange={onCheckboxChange}>
+      <Checkbox
+        checked={freeGiftRequested?.metafield?.value === "true"}
+        onChange={onCheckboxChange}
+      >
         {translate("iWouldLikeAFreeGiftWithMyOrder")}
       </Checkbox>
     </BlockStack>
@@ -97,12 +117,16 @@ function Extension() {
 
   async function onCheckboxChange(isChecked) {
     // 4. Call the API to modify checkout
-    const result = await applyAttributeChange({
-      key: "requestedFreeGift",
-      type: "updateAttribute",
-      value: isChecked ? "yes" : "no",
+    const result = await applyMetafieldChange({
+      type: "updateCartMetafield",
+      metafield: {
+        namespace: "$app",
+        key: "requestedFreeGift",
+        value: isChecked ? "true" : "false",
+        type: "boolean",
+      },
     });
-    console.log("applyAttributeChange result", result);
+    console.log("applyMetafieldChange result", result);
   }
 }
 
@@ -119,17 +143,22 @@ import {
 export default extension("purchase.checkout.block.render", (root, api) => {
   // 2. Check instructions for feature availability, see https://shopify.dev/docs/api/checkout-ui-extensions/apis/cart-instructions for details
   api.instructions.subscribe((instructions) => {
-    if (!instructions.attributes.canUpdateAttributes) {
-      // For checkouts such as draft order invoices, cart attributes may not be allowed
-      // Consider rendering a fallback UI or nothing at all, if the feature is unavailable
+    if (!instructions.metafields.canSetCartMetafields) {
       root.replaceChildren(
         root.createComponent(
           Banner,
           { title: "{{ name }}", status: "warning" },
-          api.i18n.translate("attributeChangesAreNotSupported")
+          api.i18n.translate("metafieldChangesAreNotSupported")
         )
       );
     } else {
+  const freeGiftRequested = api.appMetafields.current.find(
+    (appMetafield) =>
+      appMetafield.target.type === "cart" &&
+      appMetafield.metafield.namespace === "$app" &&
+      appMetafield.metafield.key === "requestedFreeGift",
+  );
+
       // 3. Render a UI
       root.replaceChildren(
         root.createComponent(
@@ -150,6 +179,7 @@ export default extension("purchase.checkout.block.render", (root, api) => {
             root.createComponent(
               Checkbox,
               {
+                checked: freeGiftRequested?.metafield?.value === "true",
                 onChange: onCheckboxChange,
               },
               api.i18n.translate("iWouldLikeAFreeGiftWithMyOrder")
@@ -161,12 +191,16 @@ export default extension("purchase.checkout.block.render", (root, api) => {
 
     async function onCheckboxChange(isChecked) {
       // 4. Call the API to modify checkout
-      const result = await api.applyAttributeChange({
-        key: "requestedFreeGift",
-        type: "updateAttribute",
-        value: isChecked ? "yes" : "no",
+      const result = await api.applyMetafieldChange({
+        type: "updateCartMetafield",
+        metafield: {
+          namespace: "$app",
+          key: "requestedFreeGift",
+          value: isChecked ? "true" : "false",
+          type: "boolean",
+        },
       });
-      console.log("applyAttributeChange result", result);
+      console.log("applyMetafieldChange result", result);
     }
   });
 });

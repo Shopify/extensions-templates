@@ -37,12 +37,9 @@ api_access = true
 # products, customers, and more. Learn more:
 # https://shopify.dev/docs/api/checkout-ui-extensions/latest/configuration#metafields
 
-# [[extensions.metafields]]
-# namespace = "my_namespace"
-# key = "my_key"
-# [[extensions.metafields]]
-# namespace = "my_namespace"
-# key = "my_other_key"
+[[extensions.metafields]]
+namespace = "$app"
+key = "requestedFreeGift"
 
 # Defines settings that will be collected from merchants installing
 # your extension. Learn more:
