@@ -1,0 +1,32 @@
+# {{ name }}
+
+{{ description }}
+
+---
+
+## Get started with this extension
+
+This extension provides search functionality for the Shopify Admin. After installation, your app's search results will appear in Admin search.
+
+### Key files
+
+- `src/SearchData.{{ srcFileExtension }}` - Main extension code that registers the search tool
+- `src/tools.json` - Schema definition for the search tool inputs and outputs
+
+### How it works
+
+1. The extension registers a `search` tool using `shopify.tools.register()`
+2. When a user searches in the Admin, your search function is called with the query
+3. Your function returns results matching the schema defined in `tools.json`
+
+### Customizing the search
+
+Edit `src/SearchData.{{ srcFileExtension }}` to implement your search logic:
+
+1. Fetch data from your app's backend or API
+2. Filter/search the data based on the `query` input
+3. Return results in the expected format with pagination info
+
+### Testing locally
+
+Run `shopify app dev` to test your extension in development mode.

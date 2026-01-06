@@ -1,0 +1,45 @@
+{%- if flavor contains 'typescript' -%}
+interface SearchInput {
+  query?: string;
+  after?: string;
+  first?: number;
+}
+
+interface SearchResult {
+  id: string;
+  type: string;
+  url: string;
+  title: string;
+}
+
+interface SearchOutput {
+  results: SearchResult[];
+  pageInfo: {
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+    startCursor: string | null;
+    endCursor: string | null;
+  };
+}
+{%- endif %}
+
+async function search(input{%- if flavor contains 'typescript' -%}: SearchInput{%- endif -%}){%- if flavor contains 'typescript' -%}: Promise<SearchOutput>{%- endif %} {
+  const {query = '', first = 10, after} = input;
+
+  // TODO: Implement your search logic here
+  // This is a placeholder that returns empty results
+
+  return {
+    results: [],
+    pageInfo: {
+      hasNextPage: false,
+      hasPreviousPage: false,
+      startCursor: null,
+      endCursor: null,
+    },
+  };
+}
+
+export default {%- if flavor contains 'typescript' -%} async (): Promise<void> =>{%- else -%} async () =>{%- endif %} {
+  shopify.tools.register('search', search);
+};

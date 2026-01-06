@@ -1,0 +1,14 @@
+api_version = "2025-10"
+
+[[extensions]]
+# Change the merchant-facing name of the extension in locales/en.default.json
+name = "t:name"
+handle = "{{ handle }}"
+type = "ui_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+description = "t:description"
+
+[[extensions.targeting]]
+module = "./src/SearchData.{{ srcFileExtension }}"
+target = "admin.app.search.data"
+tools = "src/tools.json"
