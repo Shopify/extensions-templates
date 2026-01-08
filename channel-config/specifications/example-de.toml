@@ -11,8 +11,8 @@ combinedListings = true
 unlistedProducts = true
 
 [requirements]
-webPresence = false
-orderInsertion = true
+webPresence = true
+orderInsertion = false
 
 [[countries]]
 code = "DE"

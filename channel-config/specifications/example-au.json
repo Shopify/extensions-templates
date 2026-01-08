@@ -1,0 +1,25 @@
+{
+  "handle": "example-au",
+  "label": "example.au",
+  "icon": "example-channel-icon.svg",
+  "capabilities": {
+    "bundles": true,
+    "digitalProducts": true,
+    "subscriptions": false,
+    "combinedListings": true,
+    "unlistedProducts": true
+  },
+  "requirements": {
+    "webPresence": true,
+    "orderInsertion": false
+  },
+  "countries": [
+    {
+      "code": "AU",
+      "languages": [
+        "en"
+      ],
+      "currency": "AUD"
+    }
+  ]
+}
