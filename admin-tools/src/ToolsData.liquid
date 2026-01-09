@@ -1,0 +1,20 @@
+async function search(input) {
+  const {query = '', first = 10, after} = input;
+
+  // TODO: Implement your search logic here
+  // This is a placeholder that returns empty results
+
+  return {
+    results: [],
+    pageInfo: {
+      hasNextPage: false,
+      hasPreviousPage: false,
+      startCursor: null,
+      endCursor: null,
+    },
+  };
+}
+
+export default async function extension() {
+  shopify.tools.register('search', search);
+}
