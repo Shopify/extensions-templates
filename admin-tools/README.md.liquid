@@ -10,8 +10,8 @@ This extension provides search functionality for the Shopify Admin. After instal
 
 ### Key files
 
-- `src/ToolsData.{{ srcFileExtension }}` - Main extension code that registers the search tool
-- `src/tools.json` - Schema definition for the search tool inputs and outputs
+- `src/index.{{ srcFileExtension }}` - Main extension code that registers the search tool
+- `tools.json` - Schema definition for the search tool inputs and outputs
 
 ### How it works
 
@@ -21,7 +21,7 @@ This extension provides search functionality for the Shopify Admin. After instal
 
 ### Customizing the search
 
-Edit `src/ToolsData.{{ srcFileExtension }}` to implement your search logic:
+Edit `src/index.{{ srcFileExtension }}` to implement your search logic:
 
 1. Fetch data from your app's backend or API
 2. Filter/search the data based on the `query` input
