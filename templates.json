@@ -400,6 +400,24 @@
     "minimumCliVersion": "3.85.3"
   },
   {
+    "identifier": "app_tools",
+    "name": "Admin app tools",
+    "defaultName": "app-tools",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates#bf/add-admin-tools-data-template",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "admin-tools"
+      }
+    ],
+    "minimumCliVersion": "3.85.3"
+  },
+  {
     "identifier": "admin_print_legacy",
     "name": "Admin print action",
     "defaultName": "admin-print",
