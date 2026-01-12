@@ -1,19 +1,19 @@
 {%- if flavor contains "preact" -%}
-api_version = "2025-10"
-{% else %}
-api_version = "2025-01"
-{% endif -%}
-
+api_version = "2026-01"
 [[extensions]]
 # Change the merchant-facing name of the extension in locales/en.default.json
 name = "t:name"
 description = "t:description"
 handle = "{{ handle }}"
-type = "ui_extension"
 {% if uid %}uid = "{{ uid }}"{% endif %}
-
+type = "ui_extension"
 # Only 1 target can be specified for each Admin block extension
 [[extensions.targeting]]
 module = "./src/DiscountFunctionSettings.{{ srcFileExtension }}"
-# The target used here must match the target used in the module file (./src/DiscountFunctionSettings.{{ srcFileExtension }})
 target = "admin.discount-details.function-settings.render"
+
+[[extensions.metafields]]
+namespace = "$app"
+key = "function-configuration"
+
+{% endif %}
