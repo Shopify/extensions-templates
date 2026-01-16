@@ -1,0 +1,77 @@
+[
+  {
+    "name": "search",
+    "description": "Search for resources",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Search query string"
+        },
+        "after": {
+          "type": "string",
+          "description": "Cursor for pagination - returns elements after this cursor"
+        },
+        "first": {
+          "type": "integer",
+          "description": "Number of results to return (default: 10)"
+        }
+      },
+      "required": []
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the result"
+              },
+              "type": {
+                "type": "string",
+                "description": "The type/category of the result"
+              },
+              "url": {
+                "type": "string",
+                "description": "URL to view or edit the resource"
+              },
+              "title": {
+                "type": "string",
+                "description": "Display title for the result"
+              }
+            },
+            "required": ["id", "type"]
+          }
+        },
+        "pageInfo": {
+          "type": "object",
+          "properties": {
+            "hasNextPage": {
+              "type": "boolean",
+              "description": "Whether there are more results available"
+            },
+            "hasPreviousPage": {
+              "type": "boolean",
+              "description": "Whether there are previous results available"
+            },
+            "startCursor": {
+              "type": "string",
+              "nullable": true,
+              "description": "Cursor for the first item in results"
+            },
+            "endCursor": {
+              "type": "string",
+              "nullable": true,
+              "description": "Cursor for the last item in results"
+            }
+          }
+        }
+      }
+    }
+  }
+]
