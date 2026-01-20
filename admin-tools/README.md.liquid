@@ -6,17 +6,17 @@
 
 ## Get started with this extension
 
-This extension provides search functionality for the Shopify Admin. After installation, your app's search results will appear in Admin search.
+This extension demonstrates adding search functionality for Sidekick. After deployment, results will be available to Sidekick.
 
 ### Key files
 
-- `src/index.{{ srcFileExtension }}` - Main extension code that registers the search tool
+- `src/index.{{ srcFileExtension }}` - Main extension code that defines the search tool execution logic
 - `tools.json` - Schema definition for the search tool inputs and outputs
 
 ### How it works
 
 1. The extension registers a `search` tool using `shopify.tools.register()`
-2. When a user searches in the Admin, your search function is called with the query
+2. When Sidekick is asked to search for a resource, your search function is called with the query
 3. Your function returns results matching the schema defined in `tools.json`
 
 ### Customizing the search
