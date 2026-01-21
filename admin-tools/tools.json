@@ -1,7 +1,7 @@
 [
   {
     "name": "search",
-    "description": "Search for resources",
+    "description": "Search for data from this app's external data source",
     "inputSchema": {
       "type": "object",
       "properties": {
