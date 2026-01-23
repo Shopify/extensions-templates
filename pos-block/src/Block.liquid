@@ -6,16 +6,18 @@ export default async () => {
 };
 
 export function Extension() {
+  const {i18n} = shopify;
+  
   return (
-    <s-pos-block heading="Hello World">
+    <s-pos-block heading={i18n.translate('block_heading')}>
       <s-button
         slot="secondary-actions"
         onClick={() => shopify.action.presentModal()}
       >
-        Open action
+        {i18n.translate('open_action')}
       </s-button>
       <s-box padding="large">
-        <s-text>This is a block extension</s-text>
+        <s-text>{i18n.translate('block_content')}</s-text>
       </s-box>
     </s-pos-block>
   );
@@ -57,11 +59,12 @@ import {
 
 export default extension('pos.product-details.block.render', (root, api) => {
   const block = root.createComponent(POSBlock, {
-    action: {title: 'Open action', onPress: api.action.presentModal},
+    title: api.i18n.translate('block_heading'),
+    action: {title: api.i18n.translate('open_action'), onPress: api.action.presentModal},
   });
 
   const mainText = root.createComponent(Text);
-  mainText.append('This is a block extension');
+  mainText.append(api.i18n.translate('block_content'));
 
   const subtitleText = root.createComponent(Text);
   subtitleText.append(`Product ID for this product: ${api.product.id}`);
