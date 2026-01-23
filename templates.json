@@ -405,7 +405,7 @@
     "defaultName": "app-tools",
     "group": "UI extensions",
     "supportLinks": [],
-    "url": "https://github.com/Shopify/extensions-templates#bf/add-admin-tools-data-template",
+    "url": "https://github.com/Shopify/extensions-templates",
     "type": "ui_extension",
     "extensionPoints": [],
     "supportedFlavors": [
@@ -416,7 +416,7 @@
       }
     ],
     "organizationExpFlags": ["d7c1b4ad"],
-    "minimumCliVersion": "3.85.3"
+    "minimumCliVersion": "3.90.0"
   },
   {
     "identifier": "admin_print_legacy",
