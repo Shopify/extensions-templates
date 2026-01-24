@@ -37,12 +37,18 @@ api_access = true
 # products, customers, and more. Learn more:
 # https://shopify.dev/docs/api/checkout-ui-extensions/latest/configuration#metafields
 
+{%- if flavor contains "preact" %}
+[[extensions.metafields]]
+namespace = "$app"
+key = "requestedFreeGift"
+{%- else %}
 # [[extensions.metafields]]
 # namespace = "my_namespace"
 # key = "my_key"
 # [[extensions.metafields]]
 # namespace = "my_namespace"
 # key = "my_other_key"
+{%- endif %}
 
 # Defines settings that will be collected from merchants installing
 # your extension. Learn more:
