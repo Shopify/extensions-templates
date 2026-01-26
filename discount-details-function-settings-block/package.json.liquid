@@ -6,34 +6,8 @@
   "license": "UNLICENSED",
   "dependencies": {
     "preact": "^10.10.x",
-    "@shopify/ui-extensions": "2025.10.x"
-  }
-}
-{%- elsif flavor contains "react" -%}
-{
-  "name": "{{ handle }}",
-  "private": true,
-  "version": "1.0.0",
-  "license": "UNLICENSED",
-  "dependencies": {
-    "react": "^18.0.0",
-    "@shopify/ui-extensions": "2024.10.x",
-    "@shopify/ui-extensions-react": "2024.10.x",
-    "react-reconciler": "0.29.0"
-  },
-  "devDependencies": {
-    "@types/react": "^18.0.0"
-  }
-}
-{%- else -%}
-{
-  "name": "{{ handle }}",
-  "private": true,
-  "version": "1.0.0",
-  "license": "UNLICENSED",
-  "dependencies": {
-    "@shopify/ui-extensions": "2024.10.x"
+    "@preact/signals": "^2.3.x",
+    "@shopify/ui-extensions": "~2026.01.0"
   }
 }
 {%- endif -%}
-

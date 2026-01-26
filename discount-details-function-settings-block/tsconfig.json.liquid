@@ -1,23 +1,18 @@
 {%- if flavor contains "preact" -%}
 {
   "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
-    "target": "ES2020",
-    "checkJs": true,
-    "allowJs": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-  }
-}
-{%- else -%}
-{
-  // This tsconfig.json file is only needed to inform the IDE
-  // About the `react-jsx` tsconfig option, so IDE doesn't complain about missing react import
-  // Changing options here won't affect the build of your extension
-  "compilerOptions": {
-    "jsx": "react-jsx"
+    "lib": ["ES2020", "DOM"],
+    "strict": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "types": []
   },
-  "include": ["./src"]
+  "include": ["./src/**/*", "./*.d.ts"]
 }
 {%- endif -%}
