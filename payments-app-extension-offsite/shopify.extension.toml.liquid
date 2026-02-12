@@ -1,16 +1,16 @@
 # The version of APIs your extension will receive. Learn more:
 # https://shopify.dev/docs/api/usage/versioning
-api_version = "2024-04"
+api_version = "2026-01"
 
 [[extensions]]
 name = "{{ name }}"
 handle = "{{ handle }}"
 type = "payments_extension"
 {% if uid %}uid = "{{ uid }}"{% endif %}
-
+ 
 merchant_label = "Offsite Payments App Extension"
 payment_session_url = "https://example.com/payment"
-supports_oversell_protection = false
+refund_session_url = "https://example.com/refund"
 # List of ISO 3166 (alpha-2) country codes your app is available for installation by merchants. Learn more:
 # https://www.iso.org/iso-3166-country-codes.html
 supported_countries = ["US"]
