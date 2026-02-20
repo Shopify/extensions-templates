@@ -9,6 +9,7 @@ digitalProducts = true
 subscriptions = false
 combinedListings = true
 unlistedProducts = true
+scheduledPublishing = true
 
 [requirements]
 webPresence = true
