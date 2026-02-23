@@ -173,7 +173,7 @@ the subtotal before taxes and duties, the tax amount, and duty charges.
 """
 type CartCost {
   """
-  The amount for the customer to pay at checkout, excluding taxes and discounts.
+  The amount, before taxes and cart-level discounts, for the customer to pay.
   """
   subtotalAmount: MoneyV2!
 
@@ -309,7 +309,7 @@ type CartLine {
   gift wrapping requests, or custom product details. Attributes are stored as key-value pairs.
 
   Cart line attributes are equivalent to the
-  [`line_item`](https://shopify.dev/docs/apps/build/purchase-options/subscriptions/selling-plans)
+  [`line_item`](https://shopify.dev/docs/api/liquid/objects/line_item)
   object in Liquid.
   """
   attribute(
@@ -337,6 +337,12 @@ type CartLine {
   merchandise: Merchandise!
 
   """
+  The [nested relationship](https://shopify.dev/docs/apps/build/product-merchandising/nested-cart-lines)
+  between this line and its parent line, if any.
+  """
+  parentRelationship: CartLineParentRelationship
+
+  """
   The quantity of the item that the customer intends to purchase.
   """
   quantity: Int!
@@ -361,7 +367,7 @@ type CartLineCost {
   amountPerQuantity: MoneyV2!
 
   """
-  The cost of a single unit before any discounts are applied. This field is used to calculate and display
+  The `compareAt` price of a single unit before any discounts are applied. This field is used to calculate and display
   savings for customers. For example, if a product's `compareAtAmountPerQuantity` is $25 and its current price
   is $20, then the customer sees a $5 discount. This value can change based on the buyer's identity and is
   `null` when the value is hidden from buyers.
@@ -379,6 +385,16 @@ type CartLineCost {
   The total cost of items in a cart.
   """
   totalAmount: MoneyV2!
+}
+
+"""
+Represents the relationship between a cart line and its parent line.
+"""
+type CartLineParentRelationship {
+  """
+  The parent line in the relationship.
+  """
+  parent: CartLine!
 }
 
 """
@@ -549,6 +565,16 @@ type CompanyLocation implements HasMetafields {
   The name of the company location.
   """
   name: String!
+
+  """
+  The number of orders placed at this company location.
+  """
+  ordersCount: Int!
+
+  """
+  The total amount spent at this company location.
+  """
+  totalSpent: MoneyV2!
 
   """
   The date and time ([ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601))
@@ -2785,7 +2811,7 @@ type DeliverableCartLine {
   gift wrapping requests, or custom product details. Attributes are stored as key-value pairs.
 
   Cart line attributes are equivalent to the
-  [`line_item`](https://shopify.dev/docs/apps/build/purchase-options/subscriptions/selling-plans)
+  [`line_item`](https://shopify.dev/docs/api/liquid/objects/line_item)
   object in Liquid.
   """
   attribute(
@@ -4452,7 +4478,9 @@ type Metafield {
 }
 
 """
-A precise monetary value and its associated currency. For example, 12.99 USD.
+A precise monetary value and its associated currency. Combines a decimal amount
+with a three-letter currency code to express prices, costs, and other financial
+values throughout the API. For example, 12.99 USD.
 """
 type MoneyV2 {
   """
@@ -4553,6 +4581,19 @@ An operation to apply to the list of payment methods.
 """
 input Operation @oneOf {
   """
+  A request to impose a review requirement on the order.
+
+  When your Function returns this operation, the checkout will be submitted as a draft,
+  requiring merchant review and approval to finalize the order.
+
+  Use this operation to implement custom business rules that require manual review
+  before order completion, such as high-value orders, or orders with specific products.
+
+  This operation is only available for B2B purchases on stores with the Plus plan.
+  """
+  orderReviewAdd: OrderReviewAddOperation
+
+  """
   A request to hide a payment method during checkout.
 
   When your Function returns this operation, it removes the specified payment method
@@ -4599,6 +4640,24 @@ input Operation @oneOf {
   This operation is only available on stores with the Plus plan.
   """
   paymentTermsSet: PaymentTermsSetOperation
+}
+
+"""
+A request to impose a review requirement on the order.
+
+When your Function returns this operation, the checkout will be submitted as a draft,
+requiring merchant review and approval to finalize the order.
+
+Use this operation to implement custom business rules that require manual review
+before order completion, such as high-value orders, or orders with specific products.
+
+This operation is only available for B2B purchases on stores with the Plus plan.
+"""
+input OrderReviewAddOperation {
+  """
+  The reason for the review requirement presented to the merchant.
+  """
+  reason: String!
 }
 
 """
