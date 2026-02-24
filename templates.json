@@ -1322,6 +1322,38 @@
     "minimumCliVersion": "3.85.3"
   },
   {
+    "identifier": "pos_ui_cash_management",
+    "name": "POS UI cash management",
+    "defaultName": "pos-ui-cash-management",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "pos_ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "JavaScript React",
+        "value": "react",
+        "path": "pos-ui-extension-cash-management"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "pos-ui-extension-cash-management"
+      },
+      {
+        "name": "TypeScript React",
+        "value": "typescript-react",
+        "path": "pos-ui-extension-cash-management"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "pos-ui-extension-cash-management"
+      }
+    ]
+  },
+  {
     "identifier": "cart_checkout_validation",
     "name": "Cart and checkout validation",
     "defaultName": "cart-checkout-validation",
