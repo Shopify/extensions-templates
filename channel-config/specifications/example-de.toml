@@ -7,12 +7,14 @@ productFeedManagement = "manual"
 bundles = true
 digitalProducts = true
 subscriptions = false
+preOrders = true
+tryBeforeYouBuy = false
 combinedListings = true
 unlistedProducts = true
 scheduledPublishing = true
 
 [requirements]
-webPresence = true
+expectsOnlineStoreParity = true
 orderInsertion = false
 
 [[countries]]
