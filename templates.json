@@ -289,7 +289,7 @@
       }
     ],
     "minimumCliVersion": "3.78.2",
-     "deprecatedFromCliVersion": "3.85.3"
+    "deprecatedFromCliVersion": "3.85.3"
   },
   {
     "identifier": "admin_action",
@@ -415,7 +415,9 @@
         "path": "admin-tools"
       }
     ],
-    "organizationExpFlags": ["d7c1b4ad"],
+    "organizationExpFlags": [
+      "d7c1b4ad"
+    ],
     "minimumCliVersion": "3.90.0"
   },
   {
@@ -2082,5 +2084,26 @@
         "path": "tax-calculation"
       }
     ]
+  },
+  {
+    "identifier": "admin_intent_link",
+    "name": "Admin intent link",
+    "defaultName": "admin-intent-link",
+    "group": "Links",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "admin_link",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Config only",
+        "value": "config-only",
+        "path": "admin-intent-link"
+      }
+    ],
+    "organizationExpFlags": [
+      "enable_cli_admin_app_intent_link_extension_template"
+    ],
+    "minimumCliVersion": "3.90.0"
   }
 ]

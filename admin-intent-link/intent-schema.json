@@ -1,0 +1,66 @@
+{
+  "$schema": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/intent.json",
+  "inputSchema": {
+    "$ref": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/email.json",
+    "type": "object",
+    "properties": {
+      "recipient": {
+        "type": "string",
+        "description": "Primary recipient email address (e.g., email@example.com)",
+        "format": "email"
+      },
+      "cc": {
+        "type": "array",
+        "description": "CC recipient email addresses",
+        "items": {
+          "type": "string",
+          "format": "email"
+        }
+      },
+      "subject": {
+        "type": "string",
+        "description": "Email subject line (1-200 characters)",
+        "minLength": 1,
+        "maxLength": 200
+      },
+      "body": {
+        "type": "string",
+        "description": "Email message body (supports rich text formatting)"
+      },
+      "template_id": {
+        "type": "string",
+        "description": "Email template to use",
+        "enum": [
+          "blank",
+          "welcome",
+          "promotion"
+        ]
+      },
+      "send_at": {
+        "type": "string",
+        "description": "Schedule email for future delivery (ISO 8601 date-time format)",
+        "format": "date-time"
+      },
+      "priority": {
+        "type": "string",
+        "description": "Email priority level",
+        "enum": [
+          "low",
+          "normal",
+          "high"
+        ],
+        "default": "normal"
+      },
+      "track_opens": {
+        "type": "boolean",
+        "description": "Enable email open tracking",
+        "default": true
+      }
+    },
+    "required": [
+      "recipient",
+      "subject",
+      "body"
+    ]
+  }
+}
