@@ -12,7 +12,7 @@
   },
   "requirements": {
     "expectsOnlineStoreParity": true,
-    "orderInsertion": false
+    "merchantOfRecord": "merchant"
   },
   "countries": [
     {
