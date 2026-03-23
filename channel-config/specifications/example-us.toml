@@ -12,7 +12,7 @@ scheduledPublishing = true
 
 [requirements]
 expectsOnlineStoreParity = true
-orderInsertion = false
+merchantOfRecord = "merchant"
 
 [[countries]]
 code = "US"
