@@ -24,3 +24,7 @@ jobs:
         run: yarn
       - name: Generate types
         run: yarn js-typegen
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli@latest
+      - name: Run Wasm tests
+        run: yarn js-test

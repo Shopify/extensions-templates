@@ -26,7 +26,11 @@ jobs:
         run: cargo fmt --check
       - name: Run clippy
         run: cargo clippy -- -D warnings
-      - name: Run tests
-        run: cargo test
       - name: Build with wasm32-unknown-unknown target
         run: cargo build --release --target wasm32-unknown-unknown
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli@latest
+      - name: Install test dependencies
+        run: yarn
+      - name: Run Wasm tests
+        run: yarn rs-test

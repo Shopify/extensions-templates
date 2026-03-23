@@ -76,6 +76,9 @@ functions*/**/cart_transform_run.ts
 functions*/**/cart_transform_run.test.js
 functions*/**/cart_transform_run.test.ts
 
+# Ignore generated app config from local test runs
+shopify.app.toml
+
 # Ignore local build files
 functions*/generated
 yarn.lock
