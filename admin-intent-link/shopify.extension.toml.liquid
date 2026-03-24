@@ -1,6 +1,6 @@
 [[extensions]]
-# Name will be used for your link text and is defined in locales/en.default.json and other locale files
-name = "t:name"
+name = "Edit email"
+description = "Edit an email campaign"
 
 handle = "{{ handle }}"
 type = "admin_link"
@@ -12,10 +12,16 @@ type = "admin_link"
 # url = "https://yourappdomain.com/path"
 [[extensions.targeting]]
 target = "admin.app.intent.link"
-url = "/{id}"
+url = "/edit/{id}"
 
 # admin.app.intent.link is a special target that is not tied to a Shopify resource.
 # It can be invoked from anywhere in the Shopify Admin via Sidekick.
+
+# Tools define actions Sidekick can perform within the intent context.
+tools = "./tools.json"
+
+# Instructions guide Sidekick on when and how to use your tools.
+instructions = "./instructions.md"
 
 # Register an intent to declare what action your app can perform.
 # `type` describes the kind of data your action works with (e.g., application/email).
@@ -23,5 +29,5 @@ url = "/{id}"
 # `schema` points to a JSON file defining the input your action accepts.
 [[extensions.targeting.intents]]
 type = "application/email"
-action = "open"
+action = "edit"
 schema = "./intent-schema.json"

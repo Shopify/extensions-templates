@@ -14,6 +14,8 @@ This extension demonstrates registering an app action (intent) for Sidekick. Aft
 
 - `shopify.extension.toml` - Extension configuration defining the intent target and action type
 - `intent-schema.json` - Schema definition for the intent's input parameters
+- `tools.json` - Tool definitions for actions Sidekick can perform within the intent context
+- `instructions.md` - Guidelines for Sidekick on when and how to use your tools
 
 ### How it works
 
@@ -27,11 +29,17 @@ This extension demonstrates registering an app action (intent) for Sidekick. Aft
 1. Update the `type` and `action` in `shopify.extension.toml` to match your app's capabilities
 2. Update `intent-schema.json` with the input parameters your action accepts
 3. Update the `url` in `shopify.extension.toml` to point to the correct page in your app
+4. Update `tools.json` with the tools Sidekick can use for your action
+5. Update `instructions.md` with guidelines for when and how Sidekick should use your tools
 
 ### Limits
 
 - Maximum of 5 intents per app
 - Maximum of 20 tools per app (shared across all extension types — data and action)
+- Tool names: up to 64 characters
+- Tool descriptions: up to 512 characters
+- Description fields: 256-token limit
+- Instructions file: 2,048-token limit
 
 ### Testing
 

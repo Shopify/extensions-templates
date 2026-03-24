@@ -2102,7 +2102,7 @@
       }
     ],
     "organizationExpFlags": [
-      "enable_cli_admin_app_intent_link_extension_template"
+      "99125067"
     ],
     "minimumCliVersion": "3.90.0"
   }
