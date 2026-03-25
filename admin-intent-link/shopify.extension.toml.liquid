@@ -6,8 +6,8 @@ handle = "{{ handle }}"
 type = "admin_link"
 {% if uid %}uid = "{{ uid }}"{% endif %}
 
-# For embedded apps URIs are defined relative to the domain of the configured application_url in your shopify.app.toml
-# For example, /path with configured application_url https://my-app-domain.com/home will resolve to https://my-app-domain.com/path
+# For embedded apps, URIs are defined relative to the domain of the configured application_url in your shopify.app.toml
+# For example, `url = "/path"` with configured `application_url = "https://my-app-domain.com/home"` will resolve to https://my-app-domain.com/path
 # For non-embedded apps URIs are an absolute path to your app
 # url = "https://yourappdomain.com/path"
 [[extensions.targeting]]
