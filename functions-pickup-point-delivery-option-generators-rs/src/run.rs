@@ -66,7 +66,7 @@ fn build_pickup_point_delivery_option(
 
 fn build_provider() -> schema::Provider {
     schema::Provider {
-        name: "Shopify Rust Demo".to_string(),
+        name: "Shopify Functions Demo".to_string(),
         logo_url: "https://cdn.shopify.com/s/files/1/0628/3830/9033/files/shopify_icon_146101.png?v=1706120545".to_string(),
     }
 }

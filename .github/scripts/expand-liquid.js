@@ -57,9 +57,10 @@ async function expandExtensionLiquidTemplates(projectName, flavor) {
     ).forEach(async (path) => await fs.rm(path));
   }
 
+  const truncatedProjectName = projectName.substring(0, 47);
   const liquidData = {
     name: `${projectName}`,
-    handle: `${projectName}`,
+    handle: `${truncatedProjectName}-${pathSuffix}`,
     flavor,
   };
 
