@@ -56,11 +56,6 @@
         "description": "Enable email open tracking",
         "default": true
       }
-    },
-    "required": [
-      "recipient",
-      "subject",
-      "body"
-    ]
+    }
   }
 }
