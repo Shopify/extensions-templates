@@ -1,0 +1,20 @@
+api_version = "2026-04"
+
+[[extensions]]
+# Change the merchant-facing name of the extension in locales/en.default.json
+name = "t:name"
+handle = "{{ handle }}"
+type = "ui_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+description = "t:description"
+
+[[extensions.targeting]]
+module = "./src/IntentExtension.{{ srcFileExtension }}"
+target = "admin.app.intent.render"
+tools = "./tools.json"
+instructions = "./instructions.md"
+
+[[extensions.targeting.intents]]
+type = "application/email"
+action = "create"
+schema = "./intent-schema.json"
