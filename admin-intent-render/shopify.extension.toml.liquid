@@ -1,0 +1,32 @@
+api_version = "2026-04"
+
+[[extensions]]
+# Change the merchant-facing name of the extension in locales/en.default.json
+name = "t:name"
+handle = "{{ handle }}"
+type = "ui_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+description = "t:description"
+
+[[extensions.targeting]]
+module = "./src/IntentExtension.{{ srcFileExtension }}"
+target = "admin.app.intent.render"
+
+# admin.app.intent.render renders an inline UI for Sidekick to interact with.
+# Unlike admin.app.intent.link, this target does not navigate to a URL —
+# it renders a UI extension directly within the admin.
+
+# Tools define actions Sidekick can perform within the intent context.
+tools = "./tools.json"
+
+# Instructions guide Sidekick on when and how to use your tools.
+instructions = "./instructions.md"
+
+# Register an intent to declare what action your app can perform.
+# `type` describes the kind of data your action works with (e.g., application/email).
+# `action` describes what the action does (e.g., open, create, edit).
+# `schema` points to a JSON file defining the input your action accepts.
+[[extensions.targeting.intents]]
+type = "application/email"
+action = "edit"
+schema = "./intent-schema.json"

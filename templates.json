@@ -2105,5 +2105,26 @@
       "99125067"
     ],
     "minimumCliVersion": "3.90.0"
+  },
+  {
+    "identifier": "admin_intent_render",
+    "name": "Admin intent render",
+    "defaultName": "admin-intent-render",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "admin-intent-render"
+      }
+    ],
+    "organizationExpFlags": [
+      "99125067"
+    ],
+    "minimumCliVersion": "3.90.0"
   }
 ]
