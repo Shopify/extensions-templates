@@ -1,0 +1,41 @@
+[
+  {
+    "$schema": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/tool.json",
+    "name": "send_email",
+    "description": "Send an email with the specified recipient, subject, and body",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "recipient": {
+          "type": "string",
+          "description": "Email address of the recipient"
+        },
+        "subject": {
+          "type": "string",
+          "description": "Subject line of the email"
+        },
+        "body": {
+          "type": "string",
+          "description": "Body content of the email"
+        }
+      },
+      "required": [
+        "recipient",
+        "subject"
+      ]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "description": "Whether the email was sent successfully"
+        },
+        "messageId": {
+          "type": "string",
+          "description": "Unique identifier for the sent email"
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/intent.json",
+  "inputSchema": {
+    "$ref": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/application/email.json",
+    "type": "object",
+    "properties": {
+      "recipient": {
+        "type": "string",
+        "description": "Primary recipient email address (for example, email@example.com)",
+        "format": "email"
+      },
+      "subject": {
+        "type": "string",
+        "description": "Email subject line (1-200 characters)",
+        "minLength": 1,
+        "maxLength": 200
+      },
+      "body": {
+        "type": "string",
+        "description": "Email message body"
+      }
+    },
+    "required": [
+      "recipient",
+      "subject"
+    ]
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean",
+        "description": "Whether the email was sent successfully"
+      },
+      "messageId": {
+        "type": "string",
+        "description": "Unique identifier for the sent email"
+      }
+    }
+  }
+}

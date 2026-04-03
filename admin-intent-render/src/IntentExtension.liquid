@@ -1,0 +1,111 @@
+import "@shopify/ui-extensions/preact";
+import {render} from 'preact';
+import {useState} from 'preact/hooks';
+
+export default async () => {
+  shopify.tools.register('send_email', sendEmail);
+  render(<Extension />, document.body);
+};
+
+function Extension() {
+  const {
+    i18n,
+    intents,
+    extension: {target},
+  } = shopify;
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
+
+  const input = getIntentInput();
+  const recipient = typeof input.recipient === 'string' ? input.recipient : '';
+  const subject = typeof input.subject === 'string' ? input.subject : '';
+  const body = typeof input.body === 'string' ? input.body : '';
+
+  async function resolveIntent(callback) {
+    if (!intents.response) {
+      setSending(false);
+      setError('This extension can only resolve an active app intent.');
+      return;
+    }
+
+    setError('');
+
+    try {
+      await callback(intents.response);
+    } catch (responseError) {
+      console.error(responseError);
+      setSending(false);
+      setError('Could not resolve the app intent.');
+    }
+  }
+
+  return (
+    <s-stack direction="block" gap="base">
+      <s-stack direction="block">
+        <s-text type="strong">{i18n.translate('welcome', {target})}</s-text>
+        <s-text>Recipient: {recipient || 'N/A'}</s-text>
+        <s-text>Subject: {subject || 'N/A'}</s-text>
+        {body ? <s-text>Body: {body}</s-text> : null}
+      </s-stack>
+      {error ? <s-banner tone="critical">{error}</s-banner> : null}
+      <s-button
+        slot="primary-action"
+        disabled={sending}
+        onClick={() => {
+          setSending(true);
+          resolveIntent(async (response) => {
+            const result = await sendEmail({recipient, subject, body});
+            return response.ok(result);
+          });
+        }}
+      >
+        {sending ? 'Sending...' : 'Send'}
+      </s-button>
+      <s-button
+        slot="secondary-actions"
+        disabled={sending}
+        onClick={() => resolveIntent((response) => response.closed())}
+      >
+        Cancel
+      </s-button>
+    </s-stack>
+  );
+}
+
+function getIntentInput() {
+  // Intent payloads are passed to the extension in the current URL.
+  try {
+    const encodedIntent = new URLSearchParams(location.search).get('intent');
+
+    if (!encodedIntent) {
+      return {};
+    }
+
+    const intent = JSON.parse(encodedIntent);
+
+    if (intent == null || typeof intent !== 'object' || Array.isArray(intent)) {
+      return {};
+    }
+
+    if (intent.data && typeof intent.data === 'object' && !Array.isArray(intent.data)) {
+      return intent.data;
+    }
+
+    if (intent.input && typeof intent.input === 'object' && !Array.isArray(intent.input)) {
+      return intent.input;
+    }
+  } catch (error) {
+    console.error('Failed to parse the current intent payload.', error);
+  }
+
+  return {};
+}
+
+async function sendEmail(input) {
+  console.log('Sending email', input);
+
+  return {
+    success: true,
+    messageId: `demo-${Date.now()}`,
+  };
+}
