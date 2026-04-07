@@ -102,6 +102,11 @@ type Cart implements HasMetafields {
   ): Attribute
 
   """
+  The billing address associated with the cart.
+  """
+  billingAddress: MailingAddress
+
+  """
   Information about the customer that's interacting with the cart. It includes details such as the
   customer's email and phone number, and the total amount of money the customer has spent in the store.
   This information helps personalize the checkout experience and ensures that accurate pricing and delivery options
@@ -134,6 +139,11 @@ type Cart implements HasMetafields {
   instead.
   """
   deliveryGroups: [CartDeliveryGroup!]!
+
+  """
+  The discounts that have been applied to the cart.
+  """
+  discountApplications: [DiscountApplication!]!
 
   """
   The items in a cart that the customer intends to purchase. A cart line is an entry in the
@@ -175,6 +185,12 @@ type Cart implements HasMetafields {
     """
     namespace: String
   ): Metafield
+
+  """
+  A purchase order number associated with the cart, often used for B2B transactions
+  to reference the buyer's internal purchase order.
+  """
+  poNumber: String
 
   """
   The physical location where a retail order is created or completed.
@@ -232,6 +248,11 @@ type CartDeliveryGroup {
   can choose to have their orders shipped. Examples include express shipping or standard shipping.
   """
   deliveryOptions: [CartDeliveryOption!]!
+
+  """
+  The discounts that have been applied to the delivery group.
+  """
+  discountAllocations: [DiscountAllocation!]!
 
   """
   The type of merchandise in the delivery group.
@@ -363,6 +384,11 @@ type CartLine {
   cost: CartLineCost!
 
   """
+  The discounts that have been applied to the cart line.
+  """
+  discountAllocations: [DiscountAllocation!]!
+
+  """
   The ID of the cart line.
   """
   id: ID!
@@ -463,6 +489,25 @@ type CartLineParentRelationship {
   The parent line in the relationship.
   """
   parent: CartLine!
+}
+
+"""
+A cart line that is required for the discount candidate to be applicable. A cart line is an entry in the
+customer's cart that represents a single unit of a product variant. For example, if a customer adds two
+different sizes of the same t-shirt to their cart, then each size is represented as a separate cart line.
+"""
+input CartLinePrerequisite {
+  """
+  The ID of the prerequisite cart line.
+  """
+  id: ID!
+
+  """
+  The number of line items that are required for the discount candidate to be applicable.
+
+  The value is validated against: > 0.
+  """
+  quantity: Int!
 }
 
 """
@@ -3203,6 +3248,127 @@ type Discount implements HasMetafields {
 }
 
 """
+The discount application and the amount applied.
+"""
+type DiscountAllocation {
+  """
+  The discount that was applied.
+  """
+  discountApplication: DiscountApplication!
+
+  """
+  The amount that was discounted.
+  """
+  discountedAmount: MoneyV2!
+}
+
+"""
+Discount that has been applied to the cart.
+"""
+type DiscountApplication implements HasMetafields {
+  """
+  The method by which the discount's value is allocated to its entitled items.
+  """
+  allocationMethod: DiscountApplicationAllocationMethod!
+
+  """
+  A [custom field](https://shopify.dev/docs/apps/build/custom-data) that stores additional information
+  about a Shopify resource, such as products, orders, and
+  [many more](https://shopify.dev/docs/api/admin-graphql/latest/enums/MetafieldOwnerType).
+  Using [metafields with Shopify Functions](https://shopify.dev/docs/apps/build/functions/input-output/metafields-for-input-queries)
+  enables you to customize the checkout experience.
+  """
+  metafield(
+    """
+    The unique identifier for the metafield within its namespace. A metafield is composed of a
+    namespace and a key, in the format `namespace.key`.
+    """
+    key: String!
+
+    """
+    A category that organizes a group of metafields. Namespaces are used to prevent naming conflicts
+    between different apps or different parts of the same app. If omitted, then the
+    [app-reserved namespace](https://shopify.dev/docs/apps/build/custom-data/ownership)
+    is used.
+    """
+    namespace: String
+  ): Metafield
+
+  """
+  The lines on the cart targeted by the discount.
+  """
+  targetSelection: DiscountApplicationTargetSelection!
+
+  """
+  The type of line (i.e. line item or shipping line) on a cart that the discount is applicable towards.
+  """
+  targetType: DiscountApplicationTarget!
+
+  """
+  The total allocated amount of the discount across all items.
+  """
+  totalAllocatedAmount: MoneyV2!
+
+  """
+  The value of the discount.
+  """
+  value: PricingValue!
+}
+
+"""
+The method by which the discount's value is allocated onto its entitled lines.
+"""
+enum DiscountApplicationAllocationMethod {
+  """
+  The value is spread across all entitled lines.
+  """
+  ACROSS
+
+  """
+  The value is applied onto every entitled line.
+  """
+  EACH
+}
+
+"""
+The type of line on an order that the discount is applicable towards.
+"""
+enum DiscountApplicationTarget {
+  """
+  The discount applies onto line items.
+  """
+  LINE_ITEM
+
+  """
+  The discount applies onto shipping lines.
+  """
+  SHIPPING_LINE
+}
+
+"""
+The lines on the order to which the discount is applied, of the type defined by
+the discount application's `targetType`. For example, the value `ENTITLED`, combined with a `targetType` of
+`LINE_ITEM`, applies the discount on all line items that are entitled to the discount.
+The value `ALL`, combined with a `targetType` of `SHIPPING_LINE`, applies the discount on all shipping lines.
+"""
+enum DiscountApplicationTargetSelection {
+  """
+  The discount is allocated onto all the lines.
+  """
+  ALL
+
+  """
+  The discount is allocated onto only the lines that it's entitled for.
+  """
+  ENTITLED
+
+  """
+  The discount is allocated onto explicitly chosen lines.
+  """
+  EXPLICIT
+}
+
+"""
 The [discount class](https://help.shopify.com/manual/discounts/combining-discounts/discount-combinations)
 that's used to control how discounts can be combined.
 """
@@ -4921,6 +5087,71 @@ type Metafield {
 }
 
 """
+An instance of custom structured data defined by a MetaobjectDefinition.
+"""
+type Metaobject {
+  """
+  The field for an object key, or null if the key has no field definition.
+  """
+  field(
+    """
+    The metaobject key to access.
+    """
+    key: String!
+  ): MetaobjectField
+
+  """
+  The unique handle of the metaobject, useful as a custom ID.
+  """
+  handle: String!
+
+  """
+  The type of the metaobject.
+  """
+  type: String!
+}
+
+"""
+Provides a field definition and the data value assigned to it.
+"""
+type MetaobjectField {
+  """
+  The assigned field value in JSON format.
+  """
+  jsonValue: JSON
+
+  """
+  The object key of this field.
+  """
+  key: String!
+
+  """
+  The type of the field.
+  """
+  type: String!
+
+  """
+  The assigned field value, always stored as a string regardless of the field type.
+  """
+  value: String
+}
+
+"""
+The input fields for retrieving a metaobject by handle.
+"""
+input MetaobjectHandleInput {
+  """
+  The handle of the metaobject to retrieve.
+  """
+  handle: String!
+
+  """
+  The type of the metaobject. Must match an existing metaobject definition type.
+  """
+  type: String!
+}
+
+"""
 A precise monetary value and its associated currency. Combines a decimal amount
 with a three-letter currency code to express prices, costs, and other financial
 values throughout the API. For example, 12.99 USD.
@@ -5118,6 +5349,21 @@ input Percentage {
 }
 
 """
+The percentage value of a discount.
+"""
+type PricingPercentageValue {
+  """
+  The percentage value of the discount.
+  """
+  value: Decimal!
+}
+
+"""
+The price value for a discount application.
+"""
+union PricingValue = MoneyV2 | PricingPercentageValue
+
+"""
 The goods and services that merchants offer to customers. Products can include details such as
 title, vendor, and custom data stored in [metafields](https://shopify.dev/docs/apps/build/custom-data).
 Products can be organized by grouping them into a collection.
@@ -5261,6 +5507,11 @@ input ProductDiscountCandidate {
   message: String
 
   """
+  The items required for the discount candidate to be applicable.
+  """
+  prerequisites: [ProductDiscountCandidatePrerequisite!]
+
+  """
   The targets of the discount to be applied to a cart line.
   """
   targets: [ProductDiscountCandidateTarget!]!
@@ -5291,6 +5542,18 @@ input ProductDiscountCandidateFixedAmount {
   When the value is `true`, the value will be applied to each of the entitled items.
   """
   appliesToEachItem: Boolean = false
+}
+
+"""
+The items required for the discount candidate to be applicable.
+"""
+input ProductDiscountCandidatePrerequisite @oneOf {
+  """
+  A cart line that is required for the discount candidate to be applicable. A cart line is an entry in the
+  customer's cart that represents a single unit of a product variant. For example, if a customer adds two
+  different sizes of the same t-shirt to their cart, then each size is represented as a separate cart line.
+  """
+  cartLine: CartLinePrerequisite
 }
 
 """
@@ -5590,6 +5853,22 @@ type Shop implements HasMetafields {
     """
     namespace: String
   ): Metafield
+
+  """
+  Fetch a specific Metaobject by one of its unique identifiers. Only app-owned
+  metaobjects with the $app reserved prefix are accessible to functions.
+  """
+  metaobject(
+    """
+    The handle and type of the metaobject.
+    """
+    handle: MetaobjectHandleInput
+
+    """
+    The ID of the metaobject.
+    """
+    id: ID
+  ): Metaobject
 }
 
 """
