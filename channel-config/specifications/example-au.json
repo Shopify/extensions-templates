@@ -1,7 +1,7 @@
 {
   "handle": "example-au",
   "label": "example.au",
-  "icon": "example-channel-icon.svg",
+  "icon": "icons/example-channel-icon.svg",
   "capabilities": {
     "bundles": true,
     "digitalProducts": true,

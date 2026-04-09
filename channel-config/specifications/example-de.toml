@@ -1,6 +1,6 @@
 handle = "example-de"
 label = "example.de"
-icon = "example-channel-icon.svg"
+icon = "icons/example-channel-icon.svg"
 productFeedManagement = "manual"
 
 [capabilities]
