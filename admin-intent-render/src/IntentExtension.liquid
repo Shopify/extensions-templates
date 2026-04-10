@@ -1,0 +1,109 @@
+import "@shopify/ui-extensions/preact";
+import {render} from 'preact';
+import {useState} from 'preact/hooks';
+
+export default async () => {
+  shopify.tools.register('design_email', designEmail);
+  render(<Extension />, document.body);
+};
+
+function Extension() {
+  const {
+    i18n,
+    intents,
+    data: {intent: {data}},
+    extension: {target},
+  } = shopify;
+  const [applying, setApplying] = useState(false);
+  const [error, setError] = useState('');
+
+  const [backgroundColor, setBackgroundColor] = useState(
+    typeof data?.background_color === 'string' ? data.background_color : '#ffffff',
+  );
+  const [layout, setLayout] = useState(
+    typeof data?.layout === 'string' ? data.layout : 'single-column',
+  );
+  const [fontFamily, setFontFamily] = useState(
+    typeof data?.font_family === 'string' ? data.font_family : '',
+  );
+
+  async function resolveIntent(callback) {
+    if (!intents.response) {
+      setApplying(false);
+      setError('This extension can only resolve an active app intent.');
+      return;
+    }
+
+    setError('');
+
+    try {
+      await callback(intents.response);
+    } catch (responseError) {
+      console.error(responseError);
+      setApplying(false);
+      setError('Could not resolve the app intent.');
+    }
+  }
+
+  const apply = () => {
+    setApplying(true);
+    resolveIntent(async (response) => {
+      const result = await designEmail({
+        background_color: backgroundColor,
+        layout,
+        font_family: fontFamily,
+      });
+      return response.ok(result);
+    });
+  };
+
+  return (
+    <s-form onSubmit={apply}>
+      <s-stack direction="block" gap="base">
+        <s-stack direction="block" gap="small">
+          <s-text type="strong">{i18n.translate('welcome', {target})}</s-text>
+          <s-stack>
+            <s-text>Background color</s-text>
+            <s-text-field
+              name="background_color"
+              value={backgroundColor}
+              onChange={(event) => setBackgroundColor(event.currentTarget.value)}
+            />
+          </s-stack>
+          <s-stack>
+            <s-text>Layout</s-text>
+            <s-select
+              name="layout"
+              value={layout}
+              onChange={(event) => setLayout(event.currentTarget.value)}
+            >
+              <option value="single-column">Single column</option>
+              <option value="two-column">Two column</option>
+              <option value="hero-image">Hero image</option>
+            </s-select>
+          </s-stack>
+          <s-stack>
+            <s-text>Font family</s-text>
+            <s-text-field
+              name="font_family"
+              value={fontFamily}
+              onChange={(event) => setFontFamily(event.currentTarget.value)}
+            />
+          </s-stack>
+          {error ? <s-banner tone="critical">{error}</s-banner> : null}
+          <s-button disabled={applying} onClick={apply}>
+            {applying ? 'Applying...' : 'Apply design'}
+          </s-button>
+        </s-stack>
+      </s-stack>
+    </s-form>
+  );
+}
+
+async function designEmail(input) {
+  console.log('Designing email', input);
+
+  return {
+    success: true,
+  };
+}
