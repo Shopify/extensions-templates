@@ -1,0 +1,18 @@
+## Order Attribution Config Extension
+
+The Order Attribution Config extension allows apps to define order attribution definitions that describe how orders are attributed to specific channels or sources.
+
+### Configuration
+
+Edit `shopify.extension.toml` to configure your order attribution definitions:
+
+- **handle**: A unique identifier for the attribution definition (lowercase letters, numbers, hyphens, and underscores only)
+- **display_name**: A human-readable name shown in the Shopify admin
+- **icon** (optional): Path to an SVG icon file (must be `.svg` format)
+
+### Preparing your SVG icon
+
+- The viewbox of the SVG icon MUST be 20 x 20 with origin at 0
+- Your icon should not include rounded corners
+- Design your app icon at 1200px x 1200px, then scale down
+- Leave a 1/16th margin around your icon free of visual elements

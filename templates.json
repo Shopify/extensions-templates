@@ -2069,6 +2069,23 @@
     ]
   },
   {
+    "identifier": "order_attribution_config",
+    "name": "Order Attribution Config",
+    "defaultName": "order-attribution-config",
+    "group": "Sales channels",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "order_attribution_config",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Config only",
+        "value": "config-only",
+        "path": "order-attribution-config"
+      }
+    ]
+  },
+  {
     "identifier": "tax_calculation",
     "name": "Tax calculation",
     "defaultName": "tax-calculation",
