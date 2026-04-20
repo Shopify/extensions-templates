@@ -22,8 +22,20 @@ esac
 
 # Create a minimal app toml so Shopify CLI can discover the extensions
 cat > shopify.app.toml << EOF
-scopes = ""
+client_id = "00000000000000000000000000000000"
+name = "extensions-templates-ci"
+application_url = "https://example.com"
+embedded = true
 extension_directories = ["${EXT_DIR_PATTERN}"]
+
+[access_scopes]
+scopes = ""
+
+[auth]
+redirect_urls = ["https://example.com/auth/callback"]
+
+[webhooks]
+api_version = "2026-04"
 EOF
 
 for dir in $EXT_DIR_PATTERN; do
