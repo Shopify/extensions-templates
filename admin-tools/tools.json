@@ -1,5 +1,6 @@
 [
   {
+    "$schema": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/tool.json",
     "name": "search",
     "description": "Search for data from this app's external data source",
     "inputSchema": {
