@@ -52,6 +52,7 @@
               {
                 "associatedDiscountCode": null,
                 "message": "20% OFF PRODUCT",
+                "prerequisites": null,
                 "targets": [
                   {
                     "cartLine": {
