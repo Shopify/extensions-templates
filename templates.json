@@ -401,9 +401,9 @@
   },
   {
     "identifier": "app_tools",
-    "name": "Admin app tools",
+    "name": "App data",
     "defaultName": "app-tools",
-    "group": "UI extensions",
+    "group": "Sidekick",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
     "type": "ui_extension",
@@ -2104,9 +2104,9 @@
   },
   {
     "identifier": "admin_intent_link",
-    "name": "Admin intent link",
+    "name": "App actions",
     "defaultName": "admin-intent-link",
-    "group": "Links",
+    "group": "Sidekick",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
     "type": "admin_link",
