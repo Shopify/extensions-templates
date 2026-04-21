@@ -104,6 +104,11 @@ type Cart implements HasMetafields {
   ): Attribute
 
   """
+  The billing address associated with the cart.
+  """
+  billingAddress: MailingAddress
+
+  """
   Information about the customer that's interacting with the cart. It includes details such as the
   customer's email and phone number, and the total amount of money the customer has spent in the store.
   This information helps personalize the checkout experience and ensures that accurate pricing and delivery options
@@ -175,6 +180,11 @@ type CartLine {
   the same t-shirt to their cart, then each size is represented as a separate cart line.
   """
   cost: CartLineCost!
+
+  """
+  The discounts that have been applied to the cart line.
+  """
+  discountAllocations: [DiscountAllocation!]!
 
   """
   The ID of the cart line.
@@ -2733,6 +2743,127 @@ Example values: `"29.99"`, `"29.999"`.
 scalar Decimal
 
 """
+The discount application and the amount applied.
+"""
+type DiscountAllocation {
+  """
+  The discount that was applied.
+  """
+  discountApplication: DiscountApplication!
+
+  """
+  The amount that was discounted.
+  """
+  discountedAmount: MoneyV2!
+}
+
+"""
+Discount that has been applied to the cart.
+"""
+type DiscountApplication implements HasMetafields {
+  """
+  The method by which the discount's value is allocated to its entitled items.
+  """
+  allocationMethod: DiscountApplicationAllocationMethod!
+
+  """
+  A [custom field](https://shopify.dev/docs/apps/build/custom-data) that stores additional information
+  about a Shopify resource, such as products, orders, and
+  [many more](https://shopify.dev/docs/api/admin-graphql/latest/enums/MetafieldOwnerType).
+  Using [metafields with Shopify Functions](https://shopify.dev/docs/apps/build/functions/input-output/metafields-for-input-queries)
+  enables you to customize the checkout experience.
+  """
+  metafield(
+    """
+    The unique identifier for the metafield within its namespace. A metafield is composed of a
+    namespace and a key, in the format `namespace.key`.
+    """
+    key: String!
+
+    """
+    A category that organizes a group of metafields. Namespaces are used to prevent naming conflicts
+    between different apps or different parts of the same app. If omitted, then the
+    [app-reserved namespace](https://shopify.dev/docs/apps/build/custom-data/ownership)
+    is used.
+    """
+    namespace: String
+  ): Metafield
+
+  """
+  The lines on the cart targeted by the discount.
+  """
+  targetSelection: DiscountApplicationTargetSelection!
+
+  """
+  The type of line (i.e. line item or shipping line) on a cart that the discount is applicable towards.
+  """
+  targetType: DiscountApplicationTarget!
+
+  """
+  The total allocated amount of the discount across all items.
+  """
+  totalAllocatedAmount: MoneyV2!
+
+  """
+  The value of the discount.
+  """
+  value: PricingValue!
+}
+
+"""
+The method by which the discount's value is allocated onto its entitled lines.
+"""
+enum DiscountApplicationAllocationMethod {
+  """
+  The value is spread across all entitled lines.
+  """
+  ACROSS
+
+  """
+  The value is applied onto every entitled line.
+  """
+  EACH
+}
+
+"""
+The type of line on an order that the discount is applicable towards.
+"""
+enum DiscountApplicationTarget {
+  """
+  The discount applies onto line items.
+  """
+  LINE_ITEM
+
+  """
+  The discount applies onto shipping lines.
+  """
+  SHIPPING_LINE
+}
+
+"""
+The lines on the order to which the discount is applied, of the type defined by
+the discount application's `targetType`. For example, the value `ENTITLED`, combined with a `targetType` of
+`LINE_ITEM`, applies the discount on all line items that are entitled to the discount.
+The value `ALL`, combined with a `targetType` of `SHIPPING_LINE`, applies the discount on all shipping lines.
+"""
+enum DiscountApplicationTargetSelection {
+  """
+  The discount is allocated onto all the lines.
+  """
+  ALL
+
+  """
+  The discount is allocated onto only the lines that it's entitled for.
+  """
+  ENTITLED
+
+  """
+  The discount is allocated onto explicitly chosen lines.
+  """
+  EXPLICIT
+}
+
+"""
 An operation that expands a single cart line item to form a
 [bundle](https://shopify.dev/docs/apps/build/product-merchandising/bundles)
 of components.
@@ -4089,6 +4220,81 @@ type LocationAddress {
 }
 
 """
+Represents a mailing address.
+"""
+type MailingAddress {
+  """
+  The first line of the address. Typically the street address or PO Box number.
+  """
+  address1: String
+
+  """
+  The second line of the address. Typically the number of the apartment, suite, or unit.
+  """
+  address2: String
+
+  """
+  The name of the city, district, village, or town.
+  """
+  city: String
+
+  """
+  The name of the customer's company or organization.
+  """
+  company: String
+
+  """
+  The two-letter code for the country of the address. For example, US.
+  """
+  countryCode: CountryCode
+
+  """
+  The first name of the customer.
+  """
+  firstName: String
+
+  """
+  The last name of the customer.
+  """
+  lastName: String
+
+  """
+  The approximate latitude of the address.
+  """
+  latitude: Float
+
+  """
+  The approximate longitude of the address.
+  """
+  longitude: Float
+
+  """
+  The market of the address.
+  """
+  market: Market @deprecated(reason: "This `market` field will be removed in a future version of the API.")
+
+  """
+  The full name of the customer, based on firstName and lastName.
+  """
+  name: String
+
+  """
+  A unique phone number for the customer. Formatted using E.164 standard. For example, +16135551111.
+  """
+  phone: String
+
+  """
+  The alphanumeric code for the region. For example, ON.
+  """
+  provinceCode: String
+
+  """
+  The zip or postal code of the address.
+  """
+  zip: String
+}
+
+"""
 A market is a group of one or more regions that you want to target for international sales.
 By creating a market, you can configure a distinct, localized shopping experience for
 customers from a specific area of the world. For example, you can
@@ -4249,6 +4455,71 @@ type Metafield {
 }
 
 """
+An instance of custom structured data defined by a MetaobjectDefinition.
+"""
+type Metaobject {
+  """
+  The field for an object key, or null if the key has no field definition.
+  """
+  field(
+    """
+    The metaobject key to access.
+    """
+    key: String!
+  ): MetaobjectField
+
+  """
+  The unique handle of the metaobject, useful as a custom ID.
+  """
+  handle: String!
+
+  """
+  The type of the metaobject.
+  """
+  type: String!
+}
+
+"""
+Provides a field definition and the data value assigned to it.
+"""
+type MetaobjectField {
+  """
+  The assigned field value in JSON format.
+  """
+  jsonValue: JSON
+
+  """
+  The object key of this field.
+  """
+  key: String!
+
+  """
+  The type of the field.
+  """
+  type: String!
+
+  """
+  The assigned field value, always stored as a string regardless of the field type.
+  """
+  value: String
+}
+
+"""
+The input fields for retrieving a metaobject by handle.
+"""
+input MetaobjectHandleInput {
+  """
+  The handle of the metaobject to retrieve.
+  """
+  handle: String!
+
+  """
+  The type of the metaobject. Must match an existing metaobject definition type.
+  """
+  type: String!
+}
+
+"""
 A precise monetary value and its associated currency. Combines a decimal amount
 with a three-letter currency code to express prices, costs, and other financial
 values throughout the API. For example, 12.99 USD.
@@ -4352,6 +4623,21 @@ input PriceAdjustmentValue {
   """
   value: Decimal!
 }
+
+"""
+The percentage value of a discount.
+"""
+type PricingPercentageValue {
+  """
+  The percentage value of the discount.
+  """
+  value: Decimal!
+}
+
+"""
+The price value for a discount application.
+"""
+union PricingValue = MoneyV2 | PricingPercentageValue
 
 """
 The goods and services that merchants offer to customers. Products can include details such as
@@ -4695,6 +4981,22 @@ type Shop implements HasMetafields {
     """
     namespace: String
   ): Metafield
+
+  """
+  Fetch a specific Metaobject by one of its unique identifiers. Only app-owned
+  metaobjects with the $app reserved prefix are accessible to functions.
+  """
+  metaobject(
+    """
+    The handle and type of the metaobject.
+    """
+    handle: MetaobjectHandleInput
+
+    """
+    The ID of the metaobject.
+    """
+    id: ID
+  ): Metaobject
 }
 
 """

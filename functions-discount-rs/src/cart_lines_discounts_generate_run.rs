@@ -73,6 +73,7 @@ fn cart_lines_discounts_generate_run(
                         value: Decimal(20.0),
                     }),
                     associated_discount_code: None,
+                    prerequisites: None,
                 }],
             },
         ));
