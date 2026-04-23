@@ -1,0 +1,127 @@
+import "@shopify/ui-extensions/preact";
+import {render} from 'preact';
+import {useEffect, useState} from 'preact/hooks';
+
+export default async () => {
+  render(<Extension />, document.body);
+};
+
+const defaultValues = {
+  backgroundColor: '#ffffff',
+  layout: 'single-column',
+  fontFamily: '',
+};
+
+function Extension() {
+  const {
+    i18n,
+    intents,
+    extension: {target},
+  } = shopify;
+
+  const {data} = intents.request.value || {};
+
+  const initialValues = {
+    backgroundColor:
+      typeof data?.backgroundColor === 'string' ? data.backgroundColor : defaultValues.backgroundColor,
+    layout: typeof data?.layout === 'string' ? data.layout : defaultValues.layout,
+    fontFamily: typeof data?.fontFamily === 'string' ? data.fontFamily : defaultValues.fontFamily,
+  };
+
+  const [applying, setApplying] = useState(false);
+  const [error, setError] = useState('');
+
+  const [backgroundColor, setBackgroundColor] = useState(initialValues.backgroundColor);
+  const [layout, setLayout] = useState(initialValues.layout);
+  const [fontFamily, setFontFamily] = useState(initialValues.fontFamily);
+
+  useEffect(() => {
+    const unregister = shopify.tools.register('design_email', async (input) => {
+      if (typeof input?.backgroundColor === 'string') {
+        setBackgroundColor(input.backgroundColor);
+      }
+      if (typeof input?.layout === 'string') {
+        setLayout(input.layout);
+      }
+      if (typeof input?.fontFamily === 'string') {
+        setFontFamily(input.fontFamily);
+      }
+
+      return {success: true};
+    });
+    return () => {
+      unregister();
+    }
+  }, []);
+
+  const apply = async () => {
+    setApplying(true);
+    setError('');
+
+    try {
+      await intents.response.ok({
+        backgroundColor,
+        layout,
+        fontFamily,
+      });
+    } catch (responseError) {
+      console.error(responseError);
+      setApplying(false);
+      setError('Could not resolve the app intent.');
+    }
+  };
+
+  const reset = () => {
+    setBackgroundColor(initialValues.backgroundColor);
+    setLayout(initialValues.layout);
+    setFontFamily(initialValues.fontFamily);
+    setError('');
+  };
+
+  return (
+    <s-form onSubmit={apply} onReset={reset}>
+      <s-stack direction="block" gap="base">
+        <s-stack direction="block" gap="small">
+          <s-text type="strong">{i18n.translate('welcome', {target})}</s-text>
+          <s-stack>
+            <s-text>Background color</s-text>
+            <s-text-field
+              name="backgroundColor"
+              value={backgroundColor}
+              onChange={(event) => setBackgroundColor(event.currentTarget.value)}
+            />
+          </s-stack>
+          <s-stack>
+            <s-text>Layout</s-text>
+            <s-select
+              name="layout"
+              value={layout}
+              onChange={(event) => setLayout(event.currentTarget.value)}
+            >
+              <s-option value="single-column">Single column</s-option>
+              <s-option value="two-column">Two column</s-option>
+              <s-option value="hero-image">Hero image</s-option>
+            </s-select>
+          </s-stack>
+          <s-stack>
+            <s-text>Font family</s-text>
+            <s-text-field
+              name="fontFamily"
+              value={fontFamily}
+              onChange={(event) => setFontFamily(event.currentTarget.value)}
+            />
+          </s-stack>
+          {error ? <s-banner tone="critical">{error}</s-banner> : null}
+          <s-stack direction="inline" gap="small">
+            <s-button type="reset" disabled={applying}>
+              Reset
+            </s-button>
+            <s-button type="submit" disabled={applying}>
+              {applying ? 'Applying...' : 'Apply design'}
+            </s-button>
+          </s-stack>
+        </s-stack>
+      </s-stack>
+    </s-form>
+  );
+}

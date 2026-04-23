@@ -1,0 +1,29 @@
+[
+  {
+    "$schema": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/tool.json",
+    "name": "design_email",
+    "description": "Update visual design of email campaign including colors, layout, styling",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "backgroundColor": {
+          "type": "string",
+          "description": "Background color for the email"
+        },
+        "layout": {
+          "type": "string",
+          "description": "Email layout template",
+          "enum": [
+            "single-column",
+            "two-column",
+            "hero-image"
+          ]
+        },
+        "fontFamily": {
+          "type": "string",
+          "description": "Font family for email text"
+        }
+      }
+    }
+  }
+]
