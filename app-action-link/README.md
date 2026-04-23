@@ -1,6 +1,6 @@
-# App Action Link Extension
+# Sidekick App Action Link Extension
 
-App action link extensions enable app developers to expose actions to Sidekick in the Shopify Admin. When a merchant asks Sidekick to perform an action, Sidekick can navigate the merchant to the right page in your app to complete it.
+Sidekick app action link extensions enable app developers to expose actions to Sidekick in the Shopify Admin. When a merchant asks Sidekick to perform an action, Sidekick can navigate the merchant to the right page in your app to complete it.
 
 Learn more about app action extensions in Shopify's [developer documentation](https://shopify.dev/docs/apps/build/sidekick/build-app-actions).
 

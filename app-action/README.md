@@ -1,6 +1,6 @@
-# App Action Extension
+# Sidekick App Action Extension
 
-App action extensions let app developers render custom UI when Sidekick invokes an app action in Shopify Admin. Use this extension to review the intent payload, collect any final confirmation from the merchant, and resolve the workflow back to Sidekick.
+Sidekick app action extensions let app developers render custom UI when Sidekick invokes an app action in Shopify Admin. Use this extension to review the intent payload, collect any final confirmation from the merchant, and resolve the workflow back to Sidekick.
 
 Learn more about app action extensions in Shopify's [developer documentation](https://shopify.dev/docs/apps/build/sidekick/build-app-actions).
 
