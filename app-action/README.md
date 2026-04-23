@@ -1,6 +1,6 @@
-# Admin App Intent Render Extension
+# App Action Extension
 
-Admin app intent render extensions let app developers render custom UI when Sidekick invokes an app action in Shopify Admin. Use this extension to review the intent payload, collect any final confirmation from the merchant, and resolve the workflow back to Sidekick.
+App action extensions let app developers render custom UI when Sidekick invokes an app action in Shopify Admin. Use this extension to review the intent payload, collect any final confirmation from the merchant, and resolve the workflow back to Sidekick.
 
 Learn more about app action extensions in Shopify's [developer documentation](https://shopify.dev/docs/apps/build/sidekick/build-app-actions).
 
