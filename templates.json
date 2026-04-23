@@ -2104,7 +2104,7 @@
   },
   {
     "identifier": "admin_intent_link",
-    "name": "App actions",
+    "name": "App action link",
     "defaultName": "admin-intent-link",
     "group": "Sidekick",
     "supportLinks": [],
@@ -2125,7 +2125,7 @@
   },
   {
     "identifier": "admin_intent",
-    "name": "Admin intent render",
+    "name": "App action",
     "defaultName": "admin-intent-render",
     "group": "Sidekick",
     "supportLinks": [],
