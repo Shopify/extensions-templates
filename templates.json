@@ -400,9 +400,9 @@
     "minimumCliVersion": "3.85.3"
   },
   {
-    "identifier": "app_tools",
+    "identifier": "app_data",
     "name": "App data",
-    "defaultName": "app-tools",
+    "defaultName": "app-data",
     "group": "Sidekick",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
@@ -412,7 +412,7 @@
       {
         "name": "JavaScript",
         "value": "vanilla-js",
-        "path": "admin-tools"
+        "path": "app-data"
       }
     ],
     "organizationExpFlags": [
@@ -2103,9 +2103,9 @@
     ]
   },
   {
-    "identifier": "admin_intent_link",
+    "identifier": "app_action_link",
     "name": "App action link",
-    "defaultName": "admin-intent-link",
+    "defaultName": "app-action-link",
     "group": "Sidekick",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
@@ -2115,7 +2115,7 @@
       {
         "name": "Config only",
         "value": "config-only",
-        "path": "admin-intent-link"
+        "path": "app-action-link"
       }
     ],
     "organizationExpFlags": [
@@ -2124,9 +2124,9 @@
     "minimumCliVersion": "3.90.0"
   },
   {
-    "identifier": "admin_intent",
+    "identifier": "app_action",
     "name": "App action",
-    "defaultName": "admin-intent-render",
+    "defaultName": "app-action",
     "group": "Sidekick",
     "supportLinks": [],
     "url": "https://github.com/Shopify/extensions-templates",
@@ -2136,7 +2136,7 @@
       {
         "name": "Preact",
         "value": "preact",
-        "path": "admin-intent-render"
+        "path": "app-action"
       }
     ],
     "organizationExpFlags": [
