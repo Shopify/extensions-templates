@@ -1,10 +1,15 @@
 import "@shopify/ui-extensions/preact";
 import {render} from 'preact';
-import {useState} from 'preact/hooks';
+import {useEffect, useState} from 'preact/hooks';
 
 export default async () => {
-  shopify.tools.register('design_email', designEmail);
   render(<Extension />, document.body);
+};
+
+const defaultValues = {
+  backgroundColor: '#ffffff',
+  layout: 'single-column',
+  fontFamily: '',
 };
 
 function Extension() {
@@ -16,58 +21,72 @@ function Extension() {
 
   const {data} = intents.request.value || {};
 
+  const initialValues = {
+    backgroundColor:
+      typeof data?.backgroundColor === 'string' ? data.backgroundColor : defaultValues.backgroundColor,
+    layout: typeof data?.layout === 'string' ? data.layout : defaultValues.layout,
+    fontFamily: typeof data?.fontFamily === 'string' ? data.fontFamily : defaultValues.fontFamily,
+  };
+
   const [applying, setApplying] = useState(false);
   const [error, setError] = useState('');
 
-  const [backgroundColor, setBackgroundColor] = useState(
-    typeof data?.background_color === 'string' ? data.background_color : '#ffffff',
-  );
-  const [layout, setLayout] = useState(
-    typeof data?.layout === 'string' ? data.layout : 'single-column',
-  );
-  const [fontFamily, setFontFamily] = useState(
-    typeof data?.font_family === 'string' ? data.font_family : '',
-  );
+  const [backgroundColor, setBackgroundColor] = useState(initialValues.backgroundColor);
+  const [layout, setLayout] = useState(initialValues.layout);
+  const [fontFamily, setFontFamily] = useState(initialValues.fontFamily);
 
-  async function resolveIntent(callback) {
-    if (!intents.response) {
-      setApplying(false);
-      setError('This extension can only resolve an active app intent.');
-      return;
+  useEffect(() => {
+    const unregister = shopify.tools.register('design_email', async (input) => {
+      if (typeof input?.backgroundColor === 'string') {
+        setBackgroundColor(input.backgroundColor);
+      }
+      if (typeof input?.layout === 'string') {
+        setLayout(input.layout);
+      }
+      if (typeof input?.fontFamily === 'string') {
+        setFontFamily(input.fontFamily);
+      }
+
+      return {success: true};
+    });
+    return () => {
+      unregister();
     }
+  }, []);
 
+  const apply = async () => {
+    setApplying(true);
     setError('');
 
     try {
-      await callback(intents.response);
+      await intents.response.ok({
+        backgroundColor,
+        layout,
+        fontFamily,
+      });
     } catch (responseError) {
       console.error(responseError);
       setApplying(false);
       setError('Could not resolve the app intent.');
     }
-  }
+  };
 
-  const apply = () => {
-    setApplying(true);
-    resolveIntent(async (response) => {
-      const result = await designEmail({
-        background_color: backgroundColor,
-        layout,
-        font_family: fontFamily,
-      });
-      return response.ok(result);
-    });
+  const reset = () => {
+    setBackgroundColor(initialValues.backgroundColor);
+    setLayout(initialValues.layout);
+    setFontFamily(initialValues.fontFamily);
+    setError('');
   };
 
   return (
-    <s-form onSubmit={apply}>
+    <s-form onSubmit={apply} onReset={reset}>
       <s-stack direction="block" gap="base">
         <s-stack direction="block" gap="small">
           <s-text type="strong">{i18n.translate('welcome', {target})}</s-text>
           <s-stack>
             <s-text>Background color</s-text>
             <s-text-field
-              name="background_color"
+              name="backgroundColor"
               value={backgroundColor}
               onChange={(event) => setBackgroundColor(event.currentTarget.value)}
             />
@@ -87,25 +106,22 @@ function Extension() {
           <s-stack>
             <s-text>Font family</s-text>
             <s-text-field
-              name="font_family"
+              name="fontFamily"
               value={fontFamily}
               onChange={(event) => setFontFamily(event.currentTarget.value)}
             />
           </s-stack>
           {error ? <s-banner tone="critical">{error}</s-banner> : null}
-          <s-button disabled={applying} onClick={apply}>
-            {applying ? 'Applying...' : 'Apply design'}
-          </s-button>
+          <s-stack direction="inline" gap="small">
+            <s-button type="reset" disabled={applying}>
+              Reset
+            </s-button>
+            <s-button type="submit" disabled={applying}>
+              {applying ? 'Applying...' : 'Apply design'}
+            </s-button>
+          </s-stack>
         </s-stack>
       </s-stack>
     </s-form>
   );
-}
-
-async function designEmail(input) {
-  console.log('Designing email', input);
-
-  return {
-    success: true,
-  };
 }

@@ -2124,7 +2124,7 @@
     "minimumCliVersion": "3.90.0"
   },
   {
-    "identifier": "admin_intent_render",
+    "identifier": "admin_intent",
     "name": "Admin intent render",
     "defaultName": "admin-intent-render",
     "group": "Sidekick",
@@ -2142,6 +2142,6 @@
     "organizationExpFlags": [
       "99125067"
     ],
-    "minimumCliVersion": "3.90.0"
+    "minimumCliVersion": "3.94.0"
   }
 ]

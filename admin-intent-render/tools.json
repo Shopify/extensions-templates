@@ -6,7 +6,7 @@
     "inputSchema": {
       "type": "object",
       "properties": {
-        "background_color": {
+        "backgroundColor": {
           "type": "string",
           "description": "Background color for the email"
         },
@@ -19,7 +19,7 @@
             "hero-image"
           ]
         },
-        "font_family": {
+        "fontFamily": {
           "type": "string",
           "description": "Font family for email text"
         }
