@@ -1,8 +1,8 @@
-# Admin App Tools Extension
+# App Data Extension
 
-Admin app tools extensions enable app developers to provide data and search functionality to Sidekick in the Shopify Admin. These extensions allow Sidekick to query your app's external data sources and surface results to merchants.
+App data extensions enable app developers to provide data and search functionality to Sidekick in the Shopify Admin. These extensions allow Sidekick to query your app's external data sources and surface results to merchants.
 
-Learn more about Admin app tools extensions in Shopify's [developer documentation](https://shopify.dev/docs/apps/build/sidekick/build-app-data).
+Learn more about App data extensions in Shopify's [developer documentation](https://shopify.dev/docs/apps/build/sidekick/build-app-data).
 
 ---
 
