@@ -1,0 +1,48 @@
+# {{ name }}
+
+A simple app home extension that demonstrates:
+- Basic UI with Shopify's Remote DOM components
+- Simple client-side routing (list view / add view)
+- KV storage for persisting data
+
+## Features
+
+This extension creates a FAQ manager directly in your app's home page:
+
+- **Add FAQs**: Create question and answer pairs
+- **List FAQs**: View all stored FAQs
+- **Delete FAQs**: Remove FAQs you no longer need
+- **Persist data**: Uses `shopify.storage` API to store data
+
+## Storage API
+
+This extension uses Shopify's [Storage API](https://shopify.dev/docs/api/admin-extensions/2026-04-rc/target-apis/core-apis/standard-api#standardapi-propertydetail-storage) to persist FAQ data:
+
+- **App-scoped**: Data is isolated to your app
+- **Simple**: No GraphQL queries needed - `shopify.storage.getItem()` / `shopify.storage.setItem()`
+- **Persistent**: Data survives page reloads
+- **Extension-specific**: Each extension instance has its own storage
+
+## Routing
+
+The extension demonstrates simple view-based routing:
+- `list` - Shows all FAQs (default view)
+- `add` - Form to create a new FAQ
+
+Routing is handled with React state (`useState`), showing how to build multi-view experiences without additional libraries.
+
+## Development
+
+```bash
+# Start dev server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## Learn More
+
+- [App Home documentation](https://shopify.dev/docs/api/app-home)
+- [Storage API](https://shopify.dev/docs/api/admin-extensions/2026-04-rc/target-apis/core-apis/standard-api#standardapi-propertydetail-storage)
+- [Remote DOM Components](https://shopify.dev/docs/api/app-bridge-library/components)
