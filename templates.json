@@ -2162,6 +2162,8 @@
         "path": "app-home"
       }
     ],
-    "minimumCliVersion": "3.90.0"
+    "organizationExpFlags": [
+      "d867a776"
+    ]
   }
 ]
