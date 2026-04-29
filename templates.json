@@ -2143,5 +2143,27 @@
       "99125067"
     ],
     "minimumCliVersion": "3.94.0"
+  },
+  {
+    "identifier": "app_home",
+    "name": "App home",
+    "defaultName": "app-home",
+    "group": "UI extensions",
+    "supportLinks": [
+      "https://shopify.dev/docs/api/app-home"
+    ],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "app-home"
+      }
+    ],
+    "organizationExpFlags": [
+      "d867a776"
+    ]
   }
 ]
