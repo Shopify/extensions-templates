@@ -1,0 +1,218 @@
+import {render} from 'preact';
+import {useState, useEffect} from 'preact/hooks';
+
+export default async () => {
+  render(<App />, document.body);
+};
+
+function App() {
+  const [currentView, setCurrentView] = useState('list');
+  const [faqs, setFaqs] = useState([]);
+  const [newQuestion, setNewQuestion] = useState('');
+  const [newAnswer, setNewAnswer] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  // Load FAQs from storage on mount
+  useEffect(() => {
+    loadFAQs();
+  }, []);
+
+  async function loadFAQs() {
+    setLoading(true);
+    try {
+      const stored = await shopify.storage.getItem('faqs');
+      setFaqs(stored ? JSON.parse(stored) : []);
+    } catch (err) {
+      console.error('Failed to load FAQs:', err);
+      setFaqs([]);
+    }
+    setLoading(false);
+  }
+
+  async function saveFAQ() {
+    if (!newQuestion.trim() || !newAnswer.trim()) {
+      return;
+    }
+
+    const newFaq = {
+      id: Date.now(),
+      question: newQuestion,
+      answer: newAnswer,
+    };
+
+    const updatedFaqs = [...faqs, newFaq];
+
+    try {
+      await shopify.storage.setItem('faqs', JSON.stringify(updatedFaqs));
+      setFaqs(updatedFaqs);
+      setNewQuestion('');
+      setNewAnswer('');
+      setCurrentView('list');
+    } catch (err) {
+      console.error('Failed to save FAQ:', err);
+    }
+  }
+
+  async function deleteFAQ(id) {
+    const updatedFaqs = faqs.filter(faq => faq.id !== id);
+    try {
+      await shopify.storage.setItem('faqs', JSON.stringify(updatedFaqs));
+      setFaqs(updatedFaqs);
+    } catch (err) {
+      console.error('Failed to delete FAQ:', err);
+    }
+  }
+
+  // Add FAQ view
+  if (currentView === 'add') {
+    return (
+      <s-page heading="Add New FAQ">
+        <s-button
+          slot="secondary-actions"
+          onclick={() => setCurrentView('list')}
+        >
+          Cancel
+        </s-button>
+        <s-button
+          slot="primary-action"
+          variant="primary"
+          onclick={saveFAQ}
+        >
+          Save FAQ
+        </s-button>
+
+        <s-section>
+          <s-stack gap="base">
+            <s-text-field
+              label="Question"
+              value={newQuestion}
+              oninput={(e) => setNewQuestion(e.target.value)}
+            />
+
+            <s-text-area
+              label="Answer"
+              value={newAnswer}
+              oninput={(e) => setNewAnswer(e.target.value)}
+              rows={4}
+            />
+          </s-stack>
+        </s-section>
+      </s-page>
+    );
+  }
+
+  // List view (default)
+  const hasFaqs = faqs.length > 0;
+
+  return (
+    <s-page heading="FAQ Manager">
+      <s-button
+        slot="primary-action"
+        variant="primary"
+        onclick={() => setCurrentView('add')}
+      >
+        Add FAQ
+      </s-button>
+
+      <s-section slot="aside" heading="About this template">
+        <s-paragraph>
+          <s-text>{shopify.i18n.translate('welcome', {target: shopify.extension.target})}</s-text>
+        </s-paragraph>
+        <s-paragraph>
+          <s-text>This extension demonstrates:</s-text>
+        </s-paragraph>
+        <s-paragraph>
+          <s-text>• Simple view routing</s-text>
+        </s-paragraph>
+        <s-paragraph>
+          <s-text>• </s-text>
+          <s-link
+            href="https://shopify.dev/docs/api/admin-extensions/2026-04-rc/target-apis/core-apis/standard-api#standardapi-propertydetail-storage"
+            target="_blank"
+          >
+            Storage API
+          </s-link>
+          <s-text> for persistence</s-text>
+        </s-paragraph>
+        <s-paragraph>
+          <s-text>• </s-text>
+          <s-link
+            href="https://shopify.dev/docs/api/app-home/using-polaris-components"
+            target="_blank"
+          >
+            Polaris components
+          </s-link>
+        </s-paragraph>
+      </s-section>
+
+      {loading && (
+        <s-section>
+          <s-paragraph>Loading...</s-paragraph>
+        </s-section>
+      )}
+
+      {!loading && !hasFaqs && (
+        <s-section accessibilityLabel="Empty state section">
+          <s-grid gap="base" justifyItems="center" paddingBlock="large-400">
+            <s-box maxInlineSize="200px" maxBlockSize="200px">
+              <s-image
+                aspectRatio="1/0.5"
+                src="https://cdn.shopify.com/static/images/polaris/patterns/callout.png"
+                alt="Illustration of FAQ creation"
+              />
+            </s-box>
+            <s-grid justifyItems="center" maxInlineSize="450px" gap="base">
+              <s-stack alignItems="center">
+                <s-heading>Start creating FAQs</s-heading>
+                <s-paragraph>
+                  Create frequently asked questions using the Storage API.
+                </s-paragraph>
+              </s-stack>
+              <s-button-group>
+                <s-button
+                  accessibilityLabel="Add a new FAQ"
+                  onclick={() => setCurrentView('add')}
+                >
+                  Add FAQ
+                </s-button>
+              </s-button-group>
+            </s-grid>
+          </s-grid>
+        </s-section>
+      )}
+
+      {!loading && hasFaqs && (
+        <s-section padding="none" accessibilityLabel="FAQs table section">
+          <s-table>
+            <s-table-header-row>
+              <s-table-header listSlot="primary">Question</s-table-header>
+              <s-table-header>Answer</s-table-header>
+              <s-table-header>Actions</s-table-header>
+            </s-table-header-row>
+            <s-table-body>
+              {faqs.map((faq) => (
+                <s-table-row key={faq.id}>
+                  <s-table-cell>
+                    <s-text weight="bold">{faq.question}</s-text>
+                  </s-table-cell>
+                  <s-table-cell>
+                    <s-text>{faq.answer}</s-text>
+                  </s-table-cell>
+                  <s-table-cell>
+                    <s-button
+                      onclick={() => deleteFAQ(faq.id)}
+                      variant="plain"
+                      tone="critical"
+                    >
+                      Delete
+                    </s-button>
+                  </s-table-cell>
+                </s-table-row>
+              ))}
+            </s-table-body>
+          </s-table>
+        </s-section>
+      )}
+    </s-page>
+  );
+}

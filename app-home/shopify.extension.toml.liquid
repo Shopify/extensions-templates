@@ -1,0 +1,17 @@
+api_version = "2026-04"
+
+[[extensions]]
+# Change the merchant-facing name of the extension in locales/en.default.json
+name = "t:name"
+handle = "{{ handle }}"
+type = "ui_extension"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+
+# Only 1 target can be specified for each app-home extension
+[[extensions.targeting]]
+module = "./src/AppHome.{{ srcFileExtension }}"
+target = "admin.app.home.render"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = ""
