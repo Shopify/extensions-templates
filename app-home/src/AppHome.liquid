@@ -65,38 +65,38 @@ function App() {
 
   // Add FAQ view
   if (currentView === 'add') {
+    const handleSubmit = async () => {
+      await saveFAQ();
+    };
+
+    const handleReset = () => {
+      setNewQuestion('');
+      setNewAnswer('');
+      setCurrentView('list');
+    };
+
     return (
       <s-page heading="Add New FAQ">
-        <s-button
-          slot="secondary-actions"
-          onclick={() => setCurrentView('list')}
-        >
-          Cancel
-        </s-button>
-        <s-button
-          slot="primary-action"
-          variant="primary"
-          onclick={saveFAQ}
-        >
-          Save FAQ
-        </s-button>
+        <s-form id="add-faq-form" onSubmit={handleSubmit} onReset={handleReset}>
+          <s-section>
+            <s-stack gap="base">
+              <s-text-field
+                label="Question"
+                name="question"
+                value={newQuestion}
+                oninput={(e) => setNewQuestion(e.target.value)}
+              />
 
-        <s-section>
-          <s-stack gap="base">
-            <s-text-field
-              label="Question"
-              value={newQuestion}
-              oninput={(e) => setNewQuestion(e.target.value)}
-            />
-
-            <s-text-area
-              label="Answer"
-              value={newAnswer}
-              oninput={(e) => setNewAnswer(e.target.value)}
-              rows={4}
-            />
-          </s-stack>
-        </s-section>
+              <s-text-area
+                label="Answer"
+                name="answer"
+                value={newAnswer}
+                oninput={(e) => setNewAnswer(e.target.value)}
+                rows={4}
+              />
+            </s-stack>
+          </s-section>
+        </s-form>
       </s-page>
     );
   }
