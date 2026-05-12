@@ -13,6 +13,28 @@ This extension creates a FAQ manager directly in your app's home page:
 - **List FAQs**: View all stored FAQs
 - **Delete FAQs**: Remove FAQs you no longer need
 - **Persist data**: Uses `shopify.storage` API to store data
+- **Local assets**: Demonstrates loading images from the extension's assets folder
+
+## Using Local Assets
+
+This template demonstrates loading images from your extension's `assets/` folder. Images are referenced using paths relative to the directory you specify:
+
+```jsx
+<s-image src="./my-image.png" alt="Description" />
+```
+
+Place your images in the `assets/` folder at the root of your extension directory:
+
+```
+app-home/
+├── assets/
+│   ├── graphql-logo.png
+│   ├── polaris-icon.png
+│   └── preact-logo.png
+├── src/
+│   └── AppHome.liquid
+└── ...
+```
 
 ## Storage API
 
