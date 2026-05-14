@@ -1,3 +1,5 @@
+# api_version: unstable
+
 schema {
   query: Input
   mutation: MutationRoot

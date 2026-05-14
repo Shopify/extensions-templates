@@ -1,3 +1,5 @@
+# api_version: 2026-04
+
 schema {
   query: Input
   mutation: MutationRoot
