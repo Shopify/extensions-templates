@@ -1,47 +1,45 @@
-import {POS_EVENT_NAMES} from '@shopify/ui-extensions/point-of-sale';
+import { POS_EVENT_NAMES } from '@shopify/ui-extensions/point-of-sale';
 {% if flavor contains "typescript" %}
 import type {
-  CashTrackingSessionCompleteEvent,
-  CashTrackingSessionStartEvent,
   TransactionCompleteEvent,
+  CashTrackingSessionStartEvent,
+  CashTrackingSessionCompleteEvent,
 } from '@shopify/ui-extensions/point-of-sale';
-import type {Api, ShopifyGlobal} from '@shopify/ui-extensions/pos.app.ready.data';
+import type { Api } from '@shopify/ui-extensions/pos.app.ready.data';
 {% endif %}
 
-export default ({% if flavor contains "typescript" %}_api: Api{% endif %}) => {
-  const backgroundShopify = shopify{% if flavor contains "typescript" %} as ShopifyGlobal{% endif %};
+export default ({% if flavor contains "typescript" %}api: Api{% else %}_api{% endif %}) => {
+  console.log('[bgx] background extension started');
 
-  console.log('[pos-background] extension loaded');
-
-  backgroundShopify.addEventListener(
+  shopify.addEventListener(
     POS_EVENT_NAMES.TRANSACTION_COMPLETE,
     (event{% if flavor contains "typescript" %}: TransactionCompleteEvent{% endif %}) => {
       try {
-        console.log('[pos-background] transaction complete', event);
+        console.log('[bgx] transaction complete', event);
       } catch (error) {
-        console.error('[pos-background] transaction complete handler failed', error);
+        console.error('[bgx] transaction complete handler failed', error);
       }
     },
   );
 
-  backgroundShopify.addEventListener(
+  shopify.addEventListener(
     POS_EVENT_NAMES.CASH_TRACKING_SESSION_START,
     (event{% if flavor contains "typescript" %}: CashTrackingSessionStartEvent{% endif %}) => {
       try {
-        console.log('[pos-background] cash tracking session start', event);
+        console.log('[bgx] cash tracking session start', event);
       } catch (error) {
-        console.error('[pos-background] cash tracking session start handler failed', error);
+        console.error('[bgx] cash tracking session start handler failed', error);
       }
     },
   );
 
-  backgroundShopify.addEventListener(
+  shopify.addEventListener(
     POS_EVENT_NAMES.CASH_TRACKING_SESSION_COMPLETE,
     (event{% if flavor contains "typescript" %}: CashTrackingSessionCompleteEvent{% endif %}) => {
       try {
-        console.log('[pos-background] cash tracking session complete', event);
+        console.log('[bgx] cash tracking session complete', event);
       } catch (error) {
-        console.error('[pos-background] cash tracking session complete handler failed', error);
+        console.error('[bgx] cash tracking session complete handler failed', error);
       }
     },
   );
