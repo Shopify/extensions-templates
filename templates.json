@@ -1342,7 +1342,7 @@
       }
     ],
     "organizationBetaFlags": [
-      "onef_pos_background_extensions_deploy"
+      "f_pos_background_extensions_deploy"
     ],
     "minimumCliVersion": "3.85.3"
   },
