@@ -1,0 +1,54 @@
+{%- if flavor contains "preact" -%}
+import "@shopify/ui-extensions/preact";
+import {render} from 'preact';
+
+export default async () => {
+  render(<Extension />, document.body);
+};
+
+function Extension() {
+  const {i18n} = shopify;
+  
+  return (
+    <s-page heading={i18n.translate('modal_heading')}>
+      <s-scroll-box>
+        <s-box padding="small">
+          <s-text>{i18n.translate('welcome', {flavor: '{{flavor}}'})}</s-text>
+        </s-box>
+      </s-scroll-box>
+    </s-page>
+  );
+}
+
+{%- elsif flavor contains "react" -%}
+import { Text, Screen, ScrollView, Navigator, reactExtension } from '@shopify/ui-extensions-react/point-of-sale'
+
+const Modal = () => {
+  return (
+    <Navigator>
+      <Screen name="HelloWorld" title="Hello World!">
+        <ScrollView>
+          <Text>Welcome to the extension!</Text>
+        </ScrollView>
+      </Screen>
+    </Navigator>
+  )
+}
+
+export default reactExtension('pos.home.modal.render', () => <Modal />);
+{%- else -%}
+import { Navigator, Screen, ScrollView, Text, extension } from '@shopify/ui-extensions/point-of-sale'
+
+export default extension('pos.home.modal.render', (root, api) => {
+    const navigator = root.createComponent(Navigator);
+    const screen = root.createComponent(Screen, { name: "HelloWorld", title: api.i18n.translate('modal_heading') });
+    const scrollView = root.createComponent(ScrollView);
+    const text = root.createComponent(Text);
+
+    text.append(api.i18n.translate('welcome', {flavor: '{{flavor}}'}));
+    scrollView.append(text);
+    screen.append(scrollView);
+    navigator.append(screen);
+    root.append(navigator);
+});
+{%- endif -%}
