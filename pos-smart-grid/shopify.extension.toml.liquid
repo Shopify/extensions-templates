@@ -1,22 +1,12 @@
-{%- if flavor contains "preact" -%}
-api_version = "2026-01"
-{% else %}
-api_version = "2025-07"
-{% endif %}
+api_version = "2026-07"
+
 [[extensions]]
 type = "ui_extension"
-# Change the merchant-facing name of the extension in locales/en.default.json
 name = "t:name"
 {% if uid %}uid = "{{ uid }}"{% endif %}
 handle = "{{ handle }}"
-description = "A {{ flavor }} POS UI extension"
-
-# module: file that contains your extension’s source code
-# target: location where your extension appears in POS
-[[extensions.targeting]]
-module = "./src/Tile.{{ srcFileExtension }}"
-target = "pos.home.tile.render"
+description = "A {{ flavor }} POS background extension"
 
 [[extensions.targeting]]
-module = "./src/Modal.{{ srcFileExtension }}"
-target = "pos.home.modal.render"
+module = "./src/BackgroundExtension.{{ srcFileExtension }}"
+target = "pos.app.ready.data"
