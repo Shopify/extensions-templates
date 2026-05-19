@@ -1341,6 +1341,9 @@
         "path": "pos-background"
       }
     ],
+    "organizationBetaFlags": [
+      "onef_pos_background_extensions_deploy"
+    ],
     "minimumCliVersion": "3.85.3"
   },
   {
