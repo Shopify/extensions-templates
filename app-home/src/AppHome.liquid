@@ -5,6 +5,8 @@ export default async () => {
   render(<App />, document.body);
 };
 
+const FAQ_STORAGE_KEY = 'faqs';
+
 function App() {
   const [currentView, setCurrentView] = useState('list');
   const [faqs, setFaqs] = useState([]);
@@ -17,33 +19,42 @@ function App() {
     loadFAQs();
   }, []);
 
+  async function readFAQs() {
+    const stored = await shopify.storage.getItem(FAQ_STORAGE_KEY);
+    const parsedFaqs = stored ? JSON.parse(stored) : [];
+    return Array.isArray(parsedFaqs) ? parsedFaqs : [];
+  }
+
   async function loadFAQs() {
     setLoading(true);
     try {
-      const stored = await shopify.storage.getItem('faqs');
-      setFaqs(stored ? JSON.parse(stored) : []);
+      setFaqs(await readFAQs());
     } catch (err) {
       console.error('Failed to load FAQs:', err);
       setFaqs([]);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   async function saveFAQ() {
-    if (!newQuestion.trim() || !newAnswer.trim()) {
+    const question = newQuestion.trim();
+    const answer = newAnswer.trim();
+
+    if (!question || !answer) {
       return;
     }
 
     const newFaq = {
       id: Date.now(),
-      question: newQuestion,
-      answer: newAnswer,
+      question,
+      answer,
     };
 
-    const updatedFaqs = [...faqs, newFaq];
-
     try {
-      await shopify.storage.setItem('faqs', JSON.stringify(updatedFaqs));
+      const latestFaqs = await readFAQs();
+      const updatedFaqs = [...latestFaqs, newFaq];
+      await shopify.storage.setItem(FAQ_STORAGE_KEY, JSON.stringify(updatedFaqs));
       setFaqs(updatedFaqs);
       setNewQuestion('');
       setNewAnswer('');
@@ -54,9 +65,10 @@ function App() {
   }
 
   async function deleteFAQ(id) {
-    const updatedFaqs = faqs.filter(faq => faq.id !== id);
     try {
-      await shopify.storage.setItem('faqs', JSON.stringify(updatedFaqs));
+      const latestFaqs = await readFAQs();
+      const updatedFaqs = latestFaqs.filter((faq) => faq.id !== id);
+      await shopify.storage.setItem(FAQ_STORAGE_KEY, JSON.stringify(updatedFaqs));
       setFaqs(updatedFaqs);
     } catch (err) {
       console.error('Failed to delete FAQ:', err);
@@ -65,8 +77,10 @@ function App() {
 
   // Add FAQ view
   if (currentView === 'add') {
-    const handleSubmit = async () => {
-      await saveFAQ();
+    const handleSubmit = (event) => {
+      const promise = saveFAQ();
+      event?.waitUntil?.(promise);
+      return promise;
     };
 
     const handleReset = () => {
