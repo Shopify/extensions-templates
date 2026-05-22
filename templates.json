@@ -2161,6 +2161,7 @@
     ],
     "organizationExpFlags": [
       "d867a776"
-    ]
+    ],
+    "minimumCliVersion": "4.0.0"
   }
 ]
