@@ -61,6 +61,7 @@ function App() {
       setCurrentView('list');
     } catch (err) {
       console.error('Failed to save FAQ:', err);
+      throw err;
     }
   }
 
