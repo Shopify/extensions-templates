@@ -116,7 +116,7 @@
     "organizationExpFlags": [
       "d867a776"
     ],
-    "minimumCliVersion": "4.0.0"
+    "minimumCliVersion": "4.1.0"
   },
   {
     "identifier": "post_purchase_ui",
