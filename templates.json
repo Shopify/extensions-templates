@@ -96,6 +96,29 @@
     "minimumCliVersion": "3.85.3"
   },
   {
+    "identifier": "app_home",
+    "name": "App home",
+    "defaultName": "app-home",
+    "group": "UI extensions",
+    "supportLinks": [
+      "https://shopify.dev/docs/api/app-home"
+    ],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "app-home"
+      }
+    ],
+    "organizationExpFlags": [
+      "d867a776"
+    ],
+    "minimumCliVersion": "4.1.0"
+  },
+  {
     "identifier": "post_purchase_ui",
     "name": "Post-purchase UI",
     "defaultName": "post-purchase-ui",
@@ -2140,28 +2163,5 @@
       "99125067"
     ],
     "minimumCliVersion": "3.94.0"
-  },
-  {
-    "identifier": "app_home",
-    "name": "App home",
-    "defaultName": "app-home",
-    "group": "UI extensions",
-    "supportLinks": [
-      "https://shopify.dev/docs/api/app-home"
-    ],
-    "url": "https://github.com/Shopify/extensions-templates",
-    "type": "ui_extension",
-    "extensionPoints": [],
-    "supportedFlavors": [
-      {
-        "name": "Preact",
-        "value": "preact",
-        "path": "app-home"
-      }
-    ],
-    "organizationExpFlags": [
-      "d867a776"
-    ],
-    "minimumCliVersion": "4.0.0"
   }
 ]
