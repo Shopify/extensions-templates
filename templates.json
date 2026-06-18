@@ -2135,9 +2135,6 @@
         "path": "app-action-link"
       }
     ],
-    "organizationExpFlags": [
-      "99125067"
-    ],
     "minimumCliVersion": "3.90.0"
   },
   {
@@ -2155,9 +2152,6 @@
         "value": "preact",
         "path": "app-action"
       }
-    ],
-    "organizationExpFlags": [
-      "99125067"
     ],
     "minimumCliVersion": "3.94.0"
   }
