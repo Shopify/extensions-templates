@@ -1,0 +1,19 @@
+{
+  "payload": {
+    "export": "run",
+    "target": "cart.fulfillment-options.generate.run",
+    "input": {
+      "fulfillments": [
+        { "handle": "fulfillment-1" }
+      ],
+      "fetchResult": {
+        "status": 500,
+        "body": "Server Error"
+      }
+    },
+    "output": {
+      "references": null,
+      "operations": []
+    }
+  }
+}

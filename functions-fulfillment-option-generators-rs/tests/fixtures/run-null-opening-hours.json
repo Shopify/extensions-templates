@@ -1,0 +1,59 @@
+{
+  "payload": {
+    "export": "run",
+    "target": "cart.fulfillment-options.generate.run",
+    "input": {
+      "fulfillments": [
+        { "handle": "fulfillment-1" }
+      ],
+      "fetchResult": {
+        "status": 200,
+        "body": "{\"deliveryPoints\":[{\"pointId\":\"001\",\"pointName\":\"Toronto Store\",\"location\":{\"addressComponents\":{\"streetNumber\":\"620\",\"route\":\"King St W\",\"locality\":\"Toronto\",\"administrativeArea\":{\"name\":\"Ontario\",\"code\":\"ON\"},\"postalCode\":\"M5V 1M6\",\"country\":\"Canada\",\"countryCode\":\"CA\"},\"geometry\":{\"location\":{\"lat\":43.644664618786685,\"lng\":-79.40066267417106}}},\"openingHours\":null}]}"
+      }
+    },
+    "output": {
+      "references": {
+        "providers": [
+          {
+            "handle": "shopify-demo-provider",
+            "externalId": "shopify-demo",
+            "name": "Shopify Functions Demo",
+            "logoUrl": "https://cdn.shopify.com/s/files/1/0628/3830/9033/files/shopify_icon_146101.png?v=1706120545"
+          }
+        ],
+        "servicePoints": [
+          {
+            "handle": "service-point-001",
+            "externalId": "001",
+            "name": "Toronto Store",
+            "address1": "620 King St W",
+            "address2": null,
+            "city": "Toronto",
+            "countryCode": "CA",
+            "provinceCode": "ON",
+            "zip": "M5V 1M6",
+            "phone": null,
+            "latitude": 43.644664618786685,
+            "longitude": -79.40066267417106,
+            "businessHours": null
+          }
+        ]
+      },
+      "operations": [
+        {
+          "fulfillmentOptionsAdd": {
+            "fulfillmentHandle": "fulfillment-1",
+            "code": null,
+            "title": "Toronto Store",
+            "instructions": null,
+            "providerHandle": "shopify-demo-provider",
+            "destinationServicePointHandle": "service-point-001",
+            "cost": null,
+            "timePeriod": null,
+            "metafields": []
+          }
+        }
+      ]
+    }
+  }
+}
