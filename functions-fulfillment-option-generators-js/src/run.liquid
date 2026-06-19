@@ -1,0 +1,232 @@
+{%- if flavor contains "vanilla-js" -%}
+export function run(input) {
+    const { fulfillments, fetchResult } = input;
+    const status = fetchResult?.status;
+    const body = fetchResult?.body;
+
+    if (status !== 200 || !body) {
+        return { operations: [] };
+    }
+
+    const { deliveryPoints } = JSON.parse(body);
+
+    // Providers and service points are deduplicated into the `references` block
+    // and referenced from operations by their handle, to keep the payload small.
+    const provider = buildProvider();
+    const servicePoints = deliveryPoints.map(buildServicePoint);
+
+    // Generate one fulfillment option per service point, for every input fulfillment.
+    const operations = fulfillments.flatMap((fulfillment) =>
+        servicePoints.map((servicePoint) => ({
+            fulfillmentOptionsAdd: {
+                fulfillmentHandle: fulfillment.handle,
+                title: servicePoint.name,
+                providerHandle: provider.handle,
+                destinationServicePointHandle: servicePoint.handle,
+                cost: null,
+                metafields: [],
+            },
+        }))
+    );
+
+    return {
+        references: {
+            providers: [provider],
+            servicePoints,
+        },
+        operations,
+    };
+}
+
+function buildProvider() {
+    return {
+        handle: "shopify-demo-provider",
+        externalId: "shopify-demo",
+        name: "Shopify Functions Demo",
+        logoUrl: "https://cdn.shopify.com/s/files/1/0628/3830/9033/files/shopify_icon_146101.png?v=1706120545",
+    };
+}
+
+function buildServicePoint(externalApiDeliveryPoint) {
+    const { addressComponents } = externalApiDeliveryPoint.location;
+    const geometry = externalApiDeliveryPoint.location.geometry.location;
+
+    return {
+        handle: `service-point-${externalApiDeliveryPoint.pointId}`,
+        externalId: externalApiDeliveryPoint.pointId,
+        name: externalApiDeliveryPoint.pointName,
+        address1: `${addressComponents.streetNumber} ${addressComponents.route}`,
+        address2: null,
+        city: addressComponents.locality,
+        countryCode: addressComponents.countryCode,
+        provinceCode: addressComponents.administrativeArea.code,
+        zip: addressComponents.postalCode,
+        phone: null,
+        latitude: geometry.lat,
+        longitude: geometry.lng,
+        businessHours: buildBusinessHours(externalApiDeliveryPoint),
+    };
+}
+
+// Transforms the opening hours of a delivery point into a list of `BusinessHours` objects.
+// Each day's opening hours are represented using a `BusinessHours` object as follows:
+// "Monday: 9:00 AM – 5:00 PM" is transformed to {day: "MONDAY", periods: [{openingTime: "09:00:00", closingTime: "17:00:00"}]}
+// "Tuesday: Closed" is transformed to {day: "TUESDAY", periods: []}
+function buildBusinessHours(externalApiDeliveryPoint) {
+    if (!externalApiDeliveryPoint.openingHours) {
+        return null;
+    }
+
+    return externalApiDeliveryPoint.openingHours.weekdayText
+        .map(day => {
+            let dayParts = day.split(": ");
+            let dayName = dayParts[0].toUpperCase();
+            if (dayParts[1] === "Closed") {
+                return { day: dayName, periods: [] };
+            } else {
+                let openingClosingTimes = dayParts[1].split(" – ");
+                return {
+                    day: dayName,
+                    periods: [{
+                        openingTime: formatTime(openingClosingTimes[0]),
+                        closingTime: formatTime(openingClosingTimes[1]),
+                    }],
+                };
+            }
+        });
+}
+
+// Converts a time string from 12-hour to 24-hour format.
+// Example: "9:00 AM" => "09:00:00", "5:00 PM" => "17:00:00"
+function formatTime(time) {
+    let timeParts = time.split(' ');
+    let hourMin = timeParts[0].split(':');
+    let hour = parseInt(hourMin[0]);
+    let min = hourMin[1];
+    let period = timeParts[1];
+
+    let hourIn24Format = period === 'AM' ? (hour === 12 ? 0 : hour) : (hour === 12 ? hour : hour + 12);
+
+    return `${hourIn24Format.toString().padStart(2, '0')}:${min}:00`;
+}
+{%- elsif flavor contains "typescript" -%}
+import {
+    BusinessHours,
+    FunctionRunResult,
+    Operation,
+    Provider,
+    ServicePoint,
+    RunInput
+} from "../generated/api";
+
+export function run(input: RunInput): FunctionRunResult {
+    const { fulfillments, fetchResult } = input;
+    const status = fetchResult?.status;
+    const body = fetchResult?.body;
+
+    if (status !== 200 || !body) {
+        return { operations: [] };
+    }
+
+    const { deliveryPoints: externalApiDeliveryPoints } = JSON.parse(body);
+
+    // Providers and service points are deduplicated into the `references` block
+    // and referenced from operations by their handle, to keep the payload small.
+    const provider = buildProvider();
+    const servicePoints = externalApiDeliveryPoints.map(buildServicePoint);
+
+    // Generate one fulfillment option per service point, for every input fulfillment.
+    const operations: Operation[] = fulfillments.flatMap((fulfillment) =>
+        servicePoints.map((servicePoint: ServicePoint) => ({
+            fulfillmentOptionsAdd: {
+                fulfillmentHandle: fulfillment.handle,
+                title: servicePoint.name,
+                providerHandle: provider.handle,
+                destinationServicePointHandle: servicePoint.handle,
+                cost: null,
+                metafields: [],
+            },
+        }))
+    );
+
+    return {
+        references: {
+            providers: [provider],
+            servicePoints,
+        },
+        operations,
+    };
+}
+
+function buildProvider(): Provider {
+    return {
+        handle: "shopify-demo-provider",
+        externalId: "shopify-demo",
+        name: "Shopify Functions Demo",
+        logoUrl: "https://cdn.shopify.com/s/files/1/0628/3830/9033/files/shopify_icon_146101.png?v=1706120545",
+    };
+}
+
+function buildServicePoint(externalApiDeliveryPoint: any): ServicePoint {
+    const { addressComponents } = externalApiDeliveryPoint.location;
+    const geometry = externalApiDeliveryPoint.location.geometry.location;
+
+    return {
+        handle: `service-point-${externalApiDeliveryPoint.pointId}`,
+        externalId: externalApiDeliveryPoint.pointId,
+        name: externalApiDeliveryPoint.pointName,
+        address1: `${addressComponents.streetNumber} ${addressComponents.route}`,
+        address2: null,
+        city: addressComponents.locality,
+        countryCode: addressComponents.countryCode,
+        provinceCode: addressComponents.administrativeArea.code,
+        zip: addressComponents.postalCode,
+        phone: null,
+        latitude: geometry.lat,
+        longitude: geometry.lng,
+        businessHours: buildBusinessHours(externalApiDeliveryPoint),
+    };
+}
+
+// Transforms the opening hours of a delivery point into a list of `BusinessHours` objects.
+// Each day's opening hours are represented using a `BusinessHours` object as follows:
+// "Monday: 9:00 AM – 5:00 PM" is transformed to {day: "MONDAY", periods: [{openingTime: "09:00:00", closingTime: "17:00:00"}]}
+// "Tuesday: Closed" is transformed to {day: "TUESDAY", periods: []}
+function buildBusinessHours(externalApiDeliveryPoint: any): BusinessHours[] | null {
+    if (!externalApiDeliveryPoint.openingHours) {
+        return null;
+    }
+
+    return externalApiDeliveryPoint.openingHours.weekdayText
+        .map((dayOpeningHours: string) => {
+            let dayParts = dayOpeningHours.split(": ");
+            let dayName = dayParts[0].toUpperCase();
+            if (dayParts[1] === "Closed") {
+                return { day: dayName, periods: [] };
+            } else {
+                let openingClosingTimes = dayParts[1].split(" – ");
+                return {
+                    day: dayName,
+                    periods: [{
+                        openingTime: formatTime(openingClosingTimes[0]),
+                        closingTime: formatTime(openingClosingTimes[1]),
+                    }],
+                };
+            }
+        });
+}
+
+// Converts a time string from 12-hour to 24-hour format.
+// Example: "9:00 AM" => "09:00:00", "5:00 PM" => "17:00:00"
+function formatTime(time: string): string {
+    let timeParts = time.split(' ');
+    let hourMin = timeParts[0].split(':');
+    let hour = parseInt(hourMin[0]);
+    let min = hourMin[1];
+    let period = timeParts[1];
+
+    let hourIn24Format = period === 'AM' ? (hour === 12 ? 0 : hour) : (hour === 12 ? hour : hour + 12);
+
+    return `${hourIn24Format.toString().padStart(2, '0')}:${min}:00`;
+}
+{%- endif -%}

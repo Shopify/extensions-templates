@@ -1,0 +1,71 @@
+{%- if flavor contains "vanilla-js" -%}
+export function fetch(input) {
+    const countryCode = input?.localization?.country?.isoCode;
+
+    // Only reach out to the external service when it can return relevant
+    // fulfillment options. Returning `null` skips the network call entirely.
+    if (countryCode === 'CA') {
+        return {
+            request: buildExternalApiRequest(),
+        };
+    }
+
+    return { request: null };
+}
+
+function buildExternalApiRequest() {
+    const url = "https://cdn.shopify.com/s/files/1/0628/3830/9033/files/pickup-points-external-api-v2.json?v=1714588690";
+
+    return {
+        method: 'GET',
+        url,
+        headers: [{
+            name: "Accept",
+            value: "application/json; charset=utf-8"
+        }],
+        body: null,
+        policy: {
+            readTimeoutMs: 500,
+        },
+    };
+}
+{%- elsif flavor contains "typescript" -%}
+import {
+    CountryCode,
+    HttpRequest,
+    HttpRequestMethod,
+    FunctionFetchResult,
+    FetchInput
+} from '../generated/api';
+
+export function fetch(input: FetchInput): FunctionFetchResult {
+    const countryCode = input?.localization?.country?.isoCode;
+
+    // Only reach out to the external service when it can return relevant
+    // fulfillment options. Returning `null` skips the network call entirely.
+    if (countryCode === CountryCode.Ca) {
+        return {
+            request: buildExternalApiRequest(),
+        };
+    }
+
+    return { request: null };
+}
+
+function buildExternalApiRequest(): HttpRequest {
+    const url = "https://cdn.shopify.com/s/files/1/0628/3830/9033/files/pickup-points-external-api-v2.json?v=1714588690";
+
+    return {
+        method: HttpRequestMethod.Get,
+        url,
+        headers: [{
+            name: "Accept",
+            value: "application/json; charset=utf-8"
+        }],
+        body: null,
+        policy: {
+            readTimeoutMs: 500,
+        },
+    };
+}
+{%- endif -%}

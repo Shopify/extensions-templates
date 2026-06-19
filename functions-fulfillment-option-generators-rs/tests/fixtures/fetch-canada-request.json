@@ -1,0 +1,27 @@
+{
+  "payload": {
+    "export": "fetch",
+    "target": "cart.fulfillment-options.generate.fetch",
+    "input": {
+      "localization": {
+        "country": {
+          "isoCode": "CA"
+        }
+      }
+    },
+    "output": {
+      "request": {
+        "method": "GET",
+        "url": "https://cdn.shopify.com/s/files/1/0628/3830/9033/files/pickup-points-external-api-v2.json?v=1714588690",
+        "headers": [
+          { "name": "Accept", "value": "application/json; charset=utf-8" }
+        ],
+        "body": null,
+        "jsonBody": null,
+        "policy": {
+          "readTimeoutMs": 500
+        }
+      }
+    }
+  }
+}
