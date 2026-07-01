@@ -1341,6 +1341,29 @@
     "minimumCliVersion": "3.85.3"
   },
   {
+    "identifier": "pos_background",
+    "name": "POS background",
+    "defaultName": "pos-background",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "pos-background"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "pos-background"
+      }
+    ],
+    "minimumCliVersion": "3.85.3"
+  },
+  {
     "identifier": "cart_checkout_validation",
     "name": "Cart and checkout validation",
     "defaultName": "cart-checkout-validation",
