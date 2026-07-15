@@ -112,14 +112,14 @@ function formatTime(time) {
 {%- elsif flavor contains "typescript" -%}
 import {
     BusinessHours,
-    FunctionRunResult,
+    CartFulfillmentOptionsGenerateRunResult,
     Operation,
     Provider,
     ServicePoint,
     RunInput
 } from "../generated/api";
 
-export function run(input: RunInput): FunctionRunResult {
+export function run(input: RunInput): CartFulfillmentOptionsGenerateRunResult {
     const { fulfillments, fetchResult } = input;
     const status = fetchResult?.status;
     const body = fetchResult?.body;

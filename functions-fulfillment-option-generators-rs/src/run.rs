@@ -7,7 +7,7 @@ use serde_json::Value;
 type TimeWithoutTimezone = String;
 
 #[shopify_function]
-fn run(input: schema::run::Input) -> Result<schema::FunctionRunResult> {
+fn run(input: schema::run::Input) -> Result<schema::CartFulfillmentOptionsGenerateRunResult> {
     // The HTTP response from the `fetch` target is available here in `fetch_result`.
     let Some(fetch_result) = input.fetch_result() else {
         return Ok(empty_result());
@@ -50,14 +50,13 @@ fn run(input: schema::run::Input) -> Result<schema::FunctionRunResult> {
                     provider_handle: Some(provider.handle.clone()),
                     destination_service_point_handle: Some(service_point.handle.clone()),
                     cost: None,
-                    time_period: None,
                     metafields: Some(vec![]),
                 },
             });
         }
     }
 
-    Ok(schema::FunctionRunResult {
+    Ok(schema::CartFulfillmentOptionsGenerateRunResult {
         references: Some(schema::References {
             providers: Some(vec![provider]),
             service_points: Some(service_points),
@@ -66,8 +65,8 @@ fn run(input: schema::run::Input) -> Result<schema::FunctionRunResult> {
     })
 }
 
-fn empty_result() -> schema::FunctionRunResult {
-    schema::FunctionRunResult {
+fn empty_result() -> schema::CartFulfillmentOptionsGenerateRunResult {
+    schema::CartFulfillmentOptionsGenerateRunResult {
         operations: vec![],
         references: None,
     }

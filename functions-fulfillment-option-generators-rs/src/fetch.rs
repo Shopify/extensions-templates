@@ -3,16 +3,16 @@ use shopify_function::prelude::*;
 use shopify_function::Result;
 
 #[shopify_function]
-fn fetch(input: schema::fetch::Input) -> Result<schema::FunctionFetchResult> {
+fn fetch(input: schema::fetch::Input) -> Result<schema::CartFulfillmentOptionsGenerateFetchResult> {
     // Only reach out to the external service when it can return relevant
     // fulfillment options. Returning no request skips the network call entirely.
     if input.localization().country().iso_code().as_str() == "CA" {
-        return Ok(schema::FunctionFetchResult {
+        return Ok(schema::CartFulfillmentOptionsGenerateFetchResult {
             request: Some(build_external_api_request()),
         });
     }
 
-    Ok(schema::FunctionFetchResult { request: None })
+    Ok(schema::CartFulfillmentOptionsGenerateFetchResult { request: None })
 }
 
 fn build_external_api_request() -> schema::HttpRequest {

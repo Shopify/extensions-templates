@@ -60,7 +60,7 @@ by the `Input` type in the [schema](./schema.graphql). In our demo, we are only 
 country, which we specify within the [**fetch** target input query](./src/fetch.graphql).
 
 The [**fetch** target](./src/fetch.rs) reads the input and generates an output representing an HTTP request to the
-external API if the buyer's country is Canada. The output API is defined by the `FunctionFetchResult` type in
+external API if the buyer's country is Canada. The output API is defined by the `CartFulfillmentOptionsGenerateFetchResult` type in
 the [schema](./schema.graphql).
 
 #### Fetch target input/output example
@@ -106,7 +106,7 @@ in the [schema](./schema.graphql). In our demo, we are interested in the cart's 
 API HTTP response status and body, which we specify within the [**run** target input query](./src/run.graphql).
 
 The [**run** target](./src/run.rs) parses the response body and produces fulfillment options in the format specified
-by the `FunctionRunResult` type in the [schema](./schema.graphql). Providers and service points are deduplicated into
+by the `CartFulfillmentOptionsGenerateRunResult` type in the [schema](./schema.graphql). Providers and service points are deduplicated into
 the `references` block and referenced from `fulfillmentOptionsAdd` operations by their handle, to keep the payload
 small. One fulfillment option is generated per service point, for every input fulfillment.
 
@@ -181,7 +181,6 @@ small. One fulfillment option is generated per service point, for every input fu
         "providerHandle": "shopify-demo-provider",
         "destinationServicePointHandle": "service-point-001",
         "cost": null,
-        "timePeriod": null,
         "metafields": []
       }
     }
