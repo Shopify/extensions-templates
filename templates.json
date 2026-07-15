@@ -2153,8 +2153,8 @@
         "path": "discount-app-action-link"
       }
     ],
-    "organizationBetaFlags": [
-      "discount_app_action_link"
+    "organizationExpFlags": [
+      "f_discount_app_action_link_cli_template"
     ],
     "minimumCliVersion": "3.90.0"
   },
@@ -2174,8 +2174,8 @@
         "path": "discount-app-action-link-edit"
       }
     ],
-    "organizationBetaFlags": [
-      "discount_app_action_link"
+    "organizationExpFlags": [
+      "f_discount_app_action_link_cli_template"
     ],
     "minimumCliVersion": "3.90.0"
   },
