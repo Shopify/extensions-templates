@@ -33,35 +33,13 @@ This extension demonstrates registering a `create` intent for the `shopify/Disco
 
 ### Adding an `edit` intent
 
-Editing is a separate extension (each `admin.app.intent.link` extension registers one intent). Generate a second extension from this template and change:
-
-- `shopify.extension.toml`: set `action = "edit"` and use a URL that carries the discount id, e.g. `url = "/app/discount/:id"`. The edit route derives the function from the discount, so it only needs the id.
-- `intent-schema.json`: map the discount GID to the `id` route param via a top-level `value` block, and drop the `functionId` `matchValue`:
+Editing is a separate extension (each `admin.app.intent.link` extension registers one intent). Use the dedicated [`discount_app_action_link_edit`](../discount-app-action-link-edit) template to generate it:
 
 ```
-{
-  "$schema": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/shopify-intent.json",
-  "value": {
-    "$ref": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/shopify/discount/gid.json",
-    "mapTo": "param",
-    "fieldName": "id"
-  },
-  "inputSchema": {
-    "type": "object",
-    "$ref": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/shopify/discount.json",
-    "additionalProperties": true,
-    "properties": {}
-  },
-  "outputSchema": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "$ref": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/shopify/discount/gid.json"
-      }
-    }
-  }
-}
+shopify app generate extension --template discount_app_action_link_edit
 ```
+
+The edit template sets `action = "edit"`, uses a URL that carries the discount id (`/app/discount/:id`), and maps the discount GID to the `id` route param via a top-level `value` block instead of pinning a `functionId` (the edit route derives the function from the discount).
 
 ### Disambiguation (multiple functions)
 
