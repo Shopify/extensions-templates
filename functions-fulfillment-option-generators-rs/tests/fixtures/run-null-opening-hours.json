@@ -49,7 +49,6 @@
             "providerHandle": "shopify-demo-provider",
             "destinationServicePointHandle": "service-point-001",
             "cost": null,
-            "timePeriod": null,
             "metafields": []
           }
         }

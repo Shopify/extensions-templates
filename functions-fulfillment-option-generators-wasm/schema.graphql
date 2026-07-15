@@ -1,9 +1,4 @@
-# This file is auto-generated from the current state of the GraphQL API. Instead of editing this file,
-# please edit the ruby definition files and run `bin/rails graphql:schema:dump` to regenerate the schema.
-#
-# If you're just looking to browse, you may find it friendlier to use the graphiql browser which is
-# available in services-internal at https://app.shopify.com/services/internal/shops/14168/graphql.
-# Check out the "Docs" tab in the top right.
+# api_version: unstable
 
 schema {
   query: Input
@@ -19,11 +14,6 @@ directive @restrictTarget(only: [String!]!) on FIELD_DEFINITION
 Scale the Functions resource limits based on the field's length.
 """
 directive @scaleLimits(rate: Float!) on FIELD_DEFINITION
-
-"""
-Requires that exactly one field must be supplied and that field must not be `null`.
-"""
-directive @oneOf on INPUT_OBJECT
 
 """
 Represents an app.
@@ -382,7 +372,7 @@ type CartDeliveryOption {
 """
 The fetch target result. Refer to network access for Shopify Functions.
 """
-input FunctionFetchResult {
+input CartFulfillmentOptionsGenerateFetchResult {
   """
   HTTP request to dispatch on behalf of the function.
   """
@@ -394,7 +384,7 @@ The output of the Function `run` target. Contains the operations to
 apply, plus a `References` block with deduplicated lookup tables for
 providers and service points.
 """
-input FunctionRunResult {
+input CartFulfillmentOptionsGenerateRunResult {
   """
   The ordered list of operations to apply.
   """
@@ -2802,6 +2792,11 @@ type Customer implements HasMetafields {
   amountSpent: MoneyV2!
 
   """
+  The date and time ([ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601)) at which the customer was created in Shopify.
+  """
+  createdAt: DateTime!
+
+  """
   The full name of the customer, based on the values for `firstName` and `lastName`.
   If `firstName` and `lastName` aren't specified, then the value is the customer's email address.
   If the email address isn't specified, then the value is the customer's phone number.
@@ -3102,11 +3097,6 @@ enum DiscountApplicationTargetSelection {
 }
 
 """
-An ISO 8601 duration string. For example: "P2D", "PT8H", "PT0S".
-"""
-scalar Duration
-
-"""
 A set of one or more packages traveling together from a single origin
 address to a single destination address. The function generates one or
 more `FulfillmentOption`s per fulfillment.
@@ -3228,12 +3218,6 @@ input FulfillmentOptionsAddOperation {
   Reference to a provider in `References.providers` by handle.
   """
   providerHandle: Handle
-
-  """
-  Estimated fulfillment time period. Null means a `start` and `end` of
-  `after` P0D (zero duration).
-  """
-  timePeriod: TimePeriod
 
   """
   Human-facing display name, localized. Can be a carrier service level or service point name.
@@ -5067,7 +5051,7 @@ type MutationRoot {
     """
     The result of the Function.
     """
-    result: FunctionFetchResult!
+    result: CartFulfillmentOptionsGenerateFetchResult!
   ): Void!
 
   """
@@ -5077,7 +5061,7 @@ type MutationRoot {
     """
     The result of the Function.
     """
-    result: FunctionRunResult!
+    result: CartFulfillmentOptionsGenerateRunResult!
   ): Void!
 }
 
@@ -5675,42 +5659,6 @@ type ShopUser implements HasMetafields {
     """
     namespace: String
   ): Metafield
-}
-
-"""
-A period of time bounded by two `TimePoint`s. `end` must be greater than
-or equal to `start`. Reads as, e.g.,
-`{ "start": { "at": "2026-06-09T12:10:23Z" }, "end": { "after": "P2D" } }`.
-"""
-input TimePeriod {
-  """
-  Upper bound of the period. Must be >= `start`.
-  """
-  end: TimePoint!
-
-  """
-  Lower bound of the period.
-  """
-  start: TimePoint!
-}
-
-"""
-A single point in time, expressed as exactly one of:
-
-- `at`: an absolute `DateTime` (e.g. "2026-06-09T12:10:23Z").
-- `after`: a relative ISO 8601 `Duration` measured from the
-  fulfillment's ready time (e.g. "P2D").
-"""
-input TimePoint @oneOf {
-  """
-  A point in time relative to the fulfillment's ready time, as an ISO 8601 duration.
-  """
-  after: Duration
-
-  """
-  An absolute point in time.
-  """
-  at: DateTime
 }
 
 """

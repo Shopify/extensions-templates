@@ -34,11 +34,11 @@ import {
     CountryCode,
     HttpRequest,
     HttpRequestMethod,
-    FunctionFetchResult,
+    CartFulfillmentOptionsGenerateFetchResult,
     FetchInput
 } from '../generated/api';
 
-export function fetch(input: FetchInput): FunctionFetchResult {
+export function fetch(input: FetchInput): CartFulfillmentOptionsGenerateFetchResult {
     const countryCode = input?.localization?.country?.isoCode;
 
     // Only reach out to the external service when it can return relevant
