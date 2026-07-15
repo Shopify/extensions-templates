@@ -1,0 +1,25 @@
+[
+  {
+    "name": "create_discount",
+    "description": "Create a discount powered by this app's discount function.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "functionId": {
+          "type": "string",
+          "description": "The discount function this action creates a discount for. This extension is pinned to a single function; replace the value in intent-schema.json with your function's ID."
+        }
+      },
+      "required": ["functionId"]
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The GID of the created discount."
+        }
+      }
+    }
+  }
+]
