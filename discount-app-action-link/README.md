@@ -25,7 +25,7 @@ This extension demonstrates registering a `create` intent for the `shopify/Disco
 
 ### Customizing the intent
 
-1. **Set your URL.** Point `url` in `shopify.extension.toml` at the page in your app that creates the discount. The golden path is a stable, unique URL — either one create route (`/app/discount/new`) or a distinct route per discount type (`/app/discount/loyalty`). Avoid wildcard placeholders.
+1. **Set your URL.** Replace the `YOUR_CREATE_ROUTE` placeholder in `url` in `shopify.extension.toml` with the page in your app that creates the discount. The golden path is a stable, unique route — either one create route (`/app/discount/new`) or a distinct route per discount type (`/app/discount/loyalty`). Avoid wildcard placeholders.
 2. **Pin your function.** Replace `YOUR_DISCOUNT_FUNCTION_ID` in `intent-schema.json` with the ID of the discount function this extension creates discounts for. The `functionId` `matchValue` narrows a generic "create a discount" request to your function; without it, a generic create routes to the native discount picker instead. If your create route needs the function ID, you can also embed it in the URL (`/app/discount/{functionId}/new`).
 3. Update `tools.json` with the tools Sidekick can use for your action.
 4. Update `instructions.md` with guidelines for when and how Sidekick should use your tools.

@@ -14,17 +14,14 @@ type = "admin_link"
 [[extensions.targeting]]
 target = "admin.app.intent.link"
 # When Sidekick invokes this action, the merchant is navigated to this URL to create the discount.
+# Replace YOUR_CREATE_ROUTE with a stable, unique route for the kind of discount your app creates
+# (for example /app/discount/new for a single create flow, or /app/discount/loyalty for a distinct
+# route per discount type). Avoid wildcard placeholders.
 #
-# Golden path: use a stable, unique URL for the kind of discount your app creates. Avoid wildcard placeholders.
-#   url = "/app/discount/new"              # one create route, if your app builds a single kind of discount
-#   url = "/app/discount/loyalty"          # a distinct route per discount type, if your app builds several
-#
-# Other options:
-#   - Pin the route to a specific function if your create flow needs it (pair with `matchValue` in intent-schema.json):
-#       url = "/app/discount/{functionId}/new"
-#   - For an `edit` intent, use a route that carries the discount id (see README for the full edit variant):
-#       url = "/app/discount/:id"
-url = "/app/discount/new"
+# If your create flow must target a specific function, encode it in the route and pair it with
+# `matchValue` in intent-schema.json (for example /app/discount/YOUR_FUNCTION_ID/new). For an `edit`
+# intent, use a route that carries the discount id instead (see README for the full edit variant).
+url = "/app/discount/YOUR_CREATE_ROUTE"
 
 # admin.app.intent.link is a special target that is not tied to a Shopify resource.
 # It can be invoked from anywhere in the Shopify Admin via Sidekick.
