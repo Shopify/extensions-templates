@@ -2156,7 +2156,7 @@
     "organizationExpFlags": [
       "a9b1bd3a"
     ],
-    "minimumCliVersion": "3.90.0"
+    "minimumCliVersion": "3.92.0"
   },
   {
     "identifier": "discount_app_action_link_edit",
@@ -2177,7 +2177,7 @@
     "organizationExpFlags": [
       "a9b1bd3a"
     ],
-    "minimumCliVersion": "3.90.0"
+    "minimumCliVersion": "3.92.0"
   },
   {
     "identifier": "app_action",

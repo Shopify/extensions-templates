@@ -1,6 +1,6 @@
 # Sidekick Discount App Action Link Extension
 
-Sidekick app action link extensions let app developers expose actions to Sidekick in the Shopify Admin. This template registers a **discount** app action (a `shopify/Discount` intent) so that when a merchant asks Sidekick to create a discount your app powers, Sidekick navigates the merchant to the right page in your app to complete it.
+Sidekick app action link extensions let app developers expose actions to Sidekick in the Shopify Admin. This template registers a **discount** app action (a `shopify/discount` intent) so that when a merchant asks Sidekick to create a discount your app powers, Sidekick navigates the merchant to the right page in your app to complete it.
 
 Learn more about app action extensions in Shopify's [developer documentation](https://shopify.dev/docs/apps/build/sidekick/build-app-actions).
 
@@ -8,7 +8,7 @@ Learn more about app action extensions in Shopify's [developer documentation](ht
 
 ## Get started with this extension
 
-This extension demonstrates registering a `create` intent for the `shopify/Discount` type on an `admin.app.intent.link` target. After deployment, Sidekick can invoke your app's action and navigate the merchant to your discount creation flow.
+This extension demonstrates registering a `create` intent for the `shopify/discount` type on an `admin.app.intent.link` target. After deployment, Sidekick can invoke your app's action and navigate the merchant to your discount creation flow.
 
 ### Key files
 
@@ -19,14 +19,14 @@ This extension demonstrates registering a `create` intent for the `shopify/Disco
 
 ### How it works
 
-1. The extension registers an intent via `[[extensions.targeting.intents]]` with `type = "shopify/Discount"` and `action = "create"`.
+1. The extension registers an intent via `[[extensions.targeting.intents]]` with `type = "shopify/discount"` and `action = "create"`.
 2. `intent-schema.json` uses the `shopify-intent.json` meta-schema and references the `shopify/discount.json` baseline for the input. The `outputSchema` returns the created discount's GID.
 3. When Sidekick invokes the action, the merchant is navigated to your app at the configured `url`.
 
 ### Customizing the intent
 
-1. **Set your URL.** Replace the `YOUR_CREATE_ROUTE` placeholder in `url` in `shopify.extension.toml` with the page in your app that creates the discount. The golden path is a stable, unique route — either one create route (`/app/discount/new`) or a distinct route per discount type (`/app/discount/loyalty`). Avoid wildcard placeholders.
-2. **Pin your function.** Replace `YOUR_DISCOUNT_FUNCTION_ID` in `intent-schema.json` with the ID of the discount function this extension creates discounts for. The `functionId` `matchValue` narrows a generic "create a discount" request to your function; without it, a generic create routes to the native discount picker instead. If your create route needs the function ID, you can also embed it in the URL (`/app/discount/{functionId}/new`).
+1. **Set your URL.** Replace the `YOUR_CREATE_ROUTE` placeholder in `url` in `shopify.extension.toml` with the page in your app that creates the discount. The whole path is up to your app (there's no required prefix), but it must be a stable, unique route for the kind of discount this extension creates (for example `/discounts/loyalty/new` or `/promotions/create`). Avoid wildcard placeholders.
+2. **Pin your function.** Replace `YOUR_DISCOUNT_FUNCTION_ID` in `intent-schema.json` with the ID of the discount function this extension creates discounts for. The `functionId` `matchValue` narrows a generic "create a discount" request to your function; without it, a generic create routes to the native discount picker instead. If your create route needs the function ID, you can also embed it in the URL (`/discounts/{functionId}/new`).
 3. Update `tools.json` with the tools Sidekick can use for your action.
 4. Update `instructions.md` with guidelines for when and how Sidekick should use your tools.
 5. Update the merchant-facing name and description in `locales/en.default.json`.
@@ -39,7 +39,7 @@ Editing is a separate extension (each `admin.app.intent.link` extension register
 shopify app generate extension --template discount_app_action_link_edit
 ```
 
-The edit template sets `action = "edit"`, uses a URL that carries the discount id (`/app/discount/:id`), and maps the discount GID to the `id` route param via a top-level `value` block instead of pinning a `functionId` (the edit route derives the function from the discount).
+The edit template sets `action = "edit"`, uses a URL that carries the discount id (`/YOUR_EDIT_ROUTE/:id`), and maps the discount GID to the `id` route param via a top-level `value` block instead of pinning a `functionId` (the edit route derives the function from the discount).
 
 ### Disambiguation (multiple functions)
 

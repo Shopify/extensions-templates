@@ -14,14 +14,16 @@ type = "admin_link"
 [[extensions.targeting]]
 target = "admin.app.intent.link"
 # When Sidekick invokes this action, the merchant is navigated to this URL to create the discount.
-# Replace YOUR_CREATE_ROUTE with a stable, unique route for the kind of discount your app creates
-# (for example /app/discount/new for a single create flow, or /app/discount/loyalty for a distinct
-# route per discount type). Avoid wildcard placeholders.
+# Replace YOUR_CREATE_ROUTE with the route in your own app that opens this discount's create flow.
+# The whole path is up to your app; there is no required prefix. The one requirement: the route
+# must be stable and unique to the kind of discount this extension creates, so Sidekick can route
+# to it deterministically. Examples: /discounts/loyalty/new, /bundles/create, /promotions/create.
+# Avoid wildcard placeholders.
 #
 # If your create flow must target a specific function, encode it in the route and pair it with
-# `matchValue` in intent-schema.json (for example /app/discount/YOUR_FUNCTION_ID/new). For an `edit`
+# `matchValue` in intent-schema.json (for example /discounts/YOUR_FUNCTION_ID/new). For an `edit`
 # intent, use a route that carries the discount id instead (see README for the full edit variant).
-url = "/app/discount/YOUR_CREATE_ROUTE"
+url = "/YOUR_CREATE_ROUTE"
 
 # admin.app.intent.link is a special target that is not tied to a Shopify resource.
 # It can be invoked from anywhere in the Shopify Admin via Sidekick.
@@ -33,10 +35,10 @@ tools = "./tools.json"
 instructions = "./instructions.md"
 
 # Register an intent to declare what action your app can perform.
-# `type` describes the kind of data your action works with (here, shopify/Discount).
+# `type` describes the kind of data your action works with (here, shopify/discount).
 # `action` describes what the action does (create or edit).
 # `schema` points to a JSON file defining the input your action accepts.
 [[extensions.targeting.intents]]
-type = "shopify/Discount"
+type = "shopify/discount"
 action = "create"
 schema = "./intent-schema.json"

@@ -1,6 +1,6 @@
 # Sidekick Discount App Action Link Extension (Edit)
 
-Sidekick app action link extensions let app developers expose actions to Sidekick in the Shopify Admin. This template registers an **edit** discount app action (an `edit` intent for the `shopify/Discount` type) so that when a merchant asks Sidekick to change a discount your app powers, Sidekick navigates the merchant to the right page in your app to edit it.
+Sidekick app action link extensions let app developers expose actions to Sidekick in the Shopify Admin. This template registers an **edit** discount app action (an `edit` intent for the `shopify/discount` type) so that when a merchant asks Sidekick to change a discount your app powers, Sidekick navigates the merchant to the right page in your app to edit it.
 
 This is the edit counterpart to the [`discount_app_action_link`](../discount-app-action-link) (create) template. Each `admin.app.intent.link` extension registers exactly one intent, so create and edit are separate extensions with separate handles. Generate whichever intents your app supports.
 
@@ -10,7 +10,7 @@ Learn more about app action extensions in Shopify's [developer documentation](ht
 
 ## Get started with this extension
 
-This extension demonstrates registering an `edit` intent for the `shopify/Discount` type on an `admin.app.intent.link` target. After deployment, Sidekick can invoke your app's action and navigate the merchant to your discount edit flow for a specific discount.
+This extension demonstrates registering an `edit` intent for the `shopify/discount` type on an `admin.app.intent.link` target. After deployment, Sidekick can invoke your app's action and navigate the merchant to your discount edit flow for a specific discount.
 
 ### Key files
 
@@ -19,7 +19,7 @@ This extension demonstrates registering an `edit` intent for the `shopify/Discou
 
 ### How it works
 
-1. The extension registers an intent via `[[extensions.targeting.intents]]` with `type = "shopify/Discount"` and `action = "edit"`.
+1. The extension registers an intent via `[[extensions.targeting.intents]]` with `type = "shopify/discount"` and `action = "edit"`.
 2. `intent-schema.json` uses the `shopify-intent.json` meta-schema. A top-level `value` block maps the discount GID to the `id` route param (`fieldName: "id"`), so Sidekick fills the `:id` in the URL. The `outputSchema` returns the edited discount's GID.
 3. When Sidekick invokes the action, the merchant is navigated to your app at the configured `url` with the discount id filled in.
 
@@ -29,7 +29,7 @@ Unlike the create template, the edit route derives the function from the existin
 
 ### Customizing the intent
 
-1. **Set your URL.** Point `url` in `shopify.extension.toml` at the page in your app that edits a discount. Customize the path prefix, but keep the `:id` param so the discount id is passed through (for example `/app/discount/:id`).
+1. **Set your URL.** Point `url` in `shopify.extension.toml` at the page in your app that edits a discount. Replace `YOUR_EDIT_ROUTE` with your app's edit path (the prefix is up to your app), but keep the `:id` param so the discount id is passed through (for example `/discounts/:id`).
 2. Update the merchant-facing name and description in `locales/en.default.json`.
 
 ### Limits
