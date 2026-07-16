@@ -1,16 +1,21 @@
+# This template registers two Sidekick app action link intents in one extension module:
+# a `create` intent and an `edit` intent for the shopify/discount type. Apps that power
+# discounts with a function typically want both so Sidekick can drive the full create and
+# edit flow. Each [[extensions]] block below is its own admin.app.intent.link extension
+# with its own handle; delete one block if your app only supports that action.
+
 [[extensions]]
-# Change the merchant-facing name and description of the extension in locales/en.default.json
-name = "t:name"
-description = "t:description"
+# Merchant-facing name and description live in locales/en.default.json under the `create` key.
+name = "t:create.name"
+description = "t:create.description"
 
-handle = "{{ handle }}"
+handle = "{{ handle }}-create"
 type = "admin_link"
-{% if uid %}uid = "{{ uid }}"{% endif %}
 
-# For embedded apps, URIs are defined relative to the domain of the configured application_url in your shopify.app.toml
-# For example, `url = "/path"` with configured `application_url = "https://my-app-domain.com/home"` will resolve to https://my-app-domain.com/path
-# For non-embedded apps URIs are an absolute path to your app
-# url = "https://yourappdomain.com/path"
+# For embedded apps, URIs are defined relative to the domain of the configured application_url
+# in your shopify.app.toml. For example, `url = "/path"` with `application_url =
+# "https://my-app-domain.com/home"` resolves to https://my-app-domain.com/path. For non-embedded
+# apps, use an absolute path to your app (https://yourappdomain.com/path).
 [[extensions.targeting]]
 target = "admin.app.intent.link"
 # When Sidekick invokes this action, the merchant is navigated to this URL to create the discount.
@@ -18,15 +23,9 @@ target = "admin.app.intent.link"
 # The whole path is up to your app; there is no required prefix. The one requirement: the route
 # must be stable and unique to the kind of discount this extension creates, so Sidekick can route
 # to it deterministically. Examples: /discounts/loyalty/new, /bundles/create, /promotions/create.
-# Avoid wildcard placeholders.
-#
-# If your create flow must target a specific function, encode it in the route and pair it with
-# `matchValue` in intent-schema.json (for example /discounts/YOUR_FUNCTION_ID/new). For an `edit`
-# intent, use a route that carries the discount id instead (see README for the full edit variant).
+# Avoid wildcard placeholders. To target a specific function, encode it in the route and pair it
+# with the `functionId` matchValue in intent-schema.json (for example /discounts/YOUR_FUNCTION_ID/new).
 url = "/YOUR_CREATE_ROUTE"
-
-# admin.app.intent.link is a special target that is not tied to a Shopify resource.
-# It can be invoked from anywhere in the Shopify Admin via Sidekick.
 
 # Tools define actions Sidekick can perform within the intent context.
 tools = "./tools.json"
@@ -42,3 +41,26 @@ instructions = "./instructions.md"
 type = "shopify/discount"
 action = "create"
 schema = "./intent-schema.json"
+
+[[extensions]]
+# Merchant-facing name and description live in locales/en.default.json under the `edit` key.
+name = "t:edit.name"
+description = "t:edit.description"
+
+handle = "{{ handle }}-edit"
+type = "admin_link"
+
+[[extensions.targeting]]
+target = "admin.app.intent.link"
+# When Sidekick invokes this action, the merchant is navigated to this URL to edit the discount.
+# The edit route derives the function from the discount, so it only needs the discount id. Replace
+# YOUR_EDIT_ROUTE with the edit path in your own app (the prefix is entirely up to your app), but
+# keep the `:id` param so the discount id is passed through. The id is filled from the intent
+# `value` block in intent-schema-edit.json and mapped to the `:id` route param (for example
+# /discounts/:id).
+url = "/YOUR_EDIT_ROUTE/:id"
+
+[[extensions.targeting.intents]]
+type = "shopify/discount"
+action = "edit"
+schema = "./intent-schema-edit.json"
