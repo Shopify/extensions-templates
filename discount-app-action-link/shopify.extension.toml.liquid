@@ -50,12 +50,15 @@ type = "admin_link"
 [[extensions.targeting]]
 target = "admin.app.intent.link"
 # When Sidekick invokes this action, the merchant is navigated to this URL to edit the discount.
-# The edit route derives the function from the discount, so it only needs the discount id. Replace
-# YOUR_EDIT_ROUTE with the edit path in your own app (the prefix is entirely up to your app), but
-# keep the `:id` param so the discount id is passed through. The id is filled from the intent
+# Replace YOUR_EDIT_ROUTE with the edit path in your own app (the prefix is entirely up to your app),
+# but keep the `:id` param so the discount id is passed through. The id is filled from the intent
 # `value` block in intent-schema-edit.json and mapped to the `:id` route param (for example
-# /discounts/:id).
+# /discounts/:id). Like create, the edit intent also pins your `functionId` via `matchValue` in
+# intent-schema-edit.json so Sidekick resolves the edit directly to this app.
 url = "/YOUR_EDIT_ROUTE/:id"
+
+# Instructions tell Sidekick to pass functionId on edit so it resolves to this app's edit flow.
+instructions = "./instructions.md"
 
 [[extensions.targeting.intents]]
 type = "shopify/Discount"
