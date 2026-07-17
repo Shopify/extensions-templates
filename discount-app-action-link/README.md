@@ -17,7 +17,7 @@ The module defines two `admin.app.intent.link` extensions, each registering one 
 
 Both intents are navigation-only: Sidekick routes the merchant to your app to complete the action, and the intents alone make the extension discoverable by Sidekick (no `tools.json` needed). The create intent ships an `instructions.md` telling Sidekick to pass your `functionId` so it resolves directly to your app's create flow.
 
-Each `admin.app.intent.link` extension registers exactly one intent, which is why create and edit are two `[[extensions]]` blocks (with distinct handles `{handle}-create` and `{handle}-edit`) rather than one.
+Each `admin.app.intent.link` extension is tied to only a single url, which is why create and edit are two `[[extensions]]` blocks (with distinct handles `{handle}-create` and `{handle}-edit`) rather than one.
 
 ### Key files
 
@@ -62,8 +62,7 @@ If your app ships more than one discount function, register one create intent pe
 
 ### Limits
 
-- Maximum of 5 intents per app
-- Description fields: 256-token limit
+See the [Sidekick app action limits](https://shopify.dev/docs/apps/build/sidekick#limits) in the developer docs.
 
 ### Testing
 
