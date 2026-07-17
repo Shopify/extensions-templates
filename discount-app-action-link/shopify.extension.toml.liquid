@@ -12,10 +12,9 @@ description = "t:create.description"
 handle = "{{ handle }}-create"
 type = "admin_link"
 
-# For embedded apps, URIs are defined relative to the domain of the configured application_url
-# in your shopify.app.toml. For example, `url = "/path"` with `application_url =
-# "https://my-app-domain.com/home"` resolves to https://my-app-domain.com/path. For non-embedded
-# apps, use an absolute path to your app (https://yourappdomain.com/path).
+# App intent links require an embedded app. URIs are relative to the domain of the configured
+# application_url in your shopify.app.toml — e.g. `url = "/path"` with
+# `application_url = "https://my-app-domain.com/home"` resolves to https://my-app-domain.com/path.
 [[extensions.targeting]]
 target = "admin.app.intent.link"
 # When Sidekick invokes this action, the merchant is navigated to this URL to create the discount.
@@ -23,8 +22,9 @@ target = "admin.app.intent.link"
 # The whole path is up to your app; there is no required prefix. The one requirement: the route
 # must be stable and unique to the kind of discount this extension creates, so Sidekick can route
 # to it deterministically. Examples: /discounts/loyalty/new, /bundles/create, /promotions/create.
-# Avoid wildcard placeholders. To target a specific function, encode it in the route and pair it
-# with the `functionId` matchValue in intent-schema.json (for example /discounts/YOUR_FUNCTION_ID/new).
+# Avoid wildcard placeholders. To target a specific function, template it into the route with
+# `{functionId}` (matching the intent input property) — e.g. /discounts/{functionId}/new — and the
+# platform fills it from the `functionId` matchValue in intent-schema.json.
 url = "/YOUR_CREATE_ROUTE"
 
 # Instructions tell Sidekick to pass functionId on create so it resolves to this app's intent.
@@ -51,11 +51,14 @@ type = "admin_link"
 target = "admin.app.intent.link"
 # When Sidekick invokes this action, the merchant is navigated to this URL to edit the discount.
 # Replace YOUR_EDIT_ROUTE with the edit path in your own app (the prefix is entirely up to your app),
-# but keep the `:id` param so the discount id is passed through. The id is filled from the intent
-# `value` block in intent-schema-edit.json and mapped to the `:id` route param (for example
-# /discounts/:id). Like create, the edit intent also pins your `functionId` via `matchValue` in
+# but keep the `{id}` template param so the discount id is passed through. The id is filled from the
+# intent `value` block in intent-schema-edit.json and mapped into the `{id}` route param (e.g.
+# /discounts/{id}). Like create, the edit intent also pins your `functionId` via `matchValue` in
 # intent-schema-edit.json so Sidekick resolves the edit directly to this app.
-url = "/YOUR_EDIT_ROUTE/:id"
+# How intent values map into the URL, and how GIDs are handled:
+#   https://shopify.dev/docs/apps/build/sidekick/build-app-actions#map-intent-values-into-the-url
+#   https://shopify.dev/docs/apps/build/sidekick/build-app-actions#working-with-gids
+url = "/YOUR_EDIT_ROUTE/{id}"
 
 # Instructions tell Sidekick to pass functionId on edit so it resolves to this app's edit flow.
 instructions = "./instructions.md"
