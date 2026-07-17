@@ -100,7 +100,9 @@
     "name": "App home",
     "defaultName": "app-home",
     "group": "UI extensions",
-    "supportLinks": ["https://shopify.dev/docs/api/app-home"],
+    "supportLinks": [
+      "https://shopify.dev/docs/api/app-home"
+    ],
     "url": "https://github.com/Shopify/extensions-templates",
     "type": "ui_extension",
     "extensionPoints": [],
@@ -118,7 +120,9 @@
     "name": "Post-purchase UI",
     "defaultName": "post-purchase-ui",
     "group": "UI extensions",
-    "supportLinks": ["https://shopify.dev/docs/apps/checkout/post-purchase"],
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/checkout/post-purchase"
+    ],
     "url": "https://github.com/Shopify/extensions-templates",
     "type": "checkout_post_purchase",
     "extensionPoints": [],
@@ -753,7 +757,9 @@
         "path": "customer-segment-template-extension"
       }
     ],
-    "organizationBetaFlags": ["enable_cli_customer_segment_template_extension"],
+    "organizationBetaFlags": [
+      "enable_cli_customer_segment_template_extension"
+    ],
     "deprecatedFromCliVersion": "3.85.0"
   },
   {
@@ -857,7 +863,9 @@
     "name": "Discount function settings",
     "defaultName": "Discount function settings",
     "group": "UI extensions",
-    "supportLinks": ["https://shopify.dev/docs/apps/discounts"],
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
     "url": "https://github.com/Shopify/extensions-templates",
     "type": "ui_extension",
     "extensionPoints": [],
@@ -875,7 +883,9 @@
     "name": "Discount function settings",
     "defaultName": "Discount function settings",
     "group": "UI extensions",
-    "supportLinks": ["https://shopify.dev/docs/apps/discounts"],
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
     "url": "https://github.com/Shopify/extensions-templates",
     "type": "ui_extension",
     "extensionPoints": [],
@@ -1017,7 +1027,9 @@
         "path": "order-routing-location-rule"
       }
     ],
-    "organizationBetaFlags": ["order_routing_extensibility_partner"],
+    "organizationBetaFlags": [
+      "order_routing_extensibility_partner"
+    ],
     "minimumCliVersion": "3.85.3"
   },
   {
@@ -1053,7 +1065,9 @@
         "path": "order-routing-location-rule"
       }
     ],
-    "organizationBetaFlags": ["order_routing_extensibility_partner"],
+    "organizationBetaFlags": [
+      "order_routing_extensibility_partner"
+    ],
     "deprecatedFromCliVersion": "3.85.3"
   },
   {
@@ -1429,7 +1443,9 @@
     "name": "Discount",
     "defaultName": "discount-function",
     "group": "Functions",
-    "supportLinks": ["https://shopify.dev/docs/apps/discounts"],
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
     "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
@@ -1461,7 +1477,9 @@
     "name": "Order discount (deprecated)",
     "defaultName": "order-discount",
     "group": "Functions",
-    "supportLinks": ["https://shopify.dev/docs/apps/discounts"],
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
     "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
@@ -1493,7 +1511,9 @@
     "name": "Product discount (deprecated)",
     "defaultName": "product-discount",
     "group": "Functions",
-    "supportLinks": ["https://shopify.dev/docs/apps/discounts"],
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
     "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
@@ -1525,7 +1545,9 @@
     "name": "Shipping discount (deprecated)",
     "defaultName": "shipping-discount",
     "group": "Functions",
-    "supportLinks": ["https://shopify.dev/docs/apps/discounts"],
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
     "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
@@ -1557,7 +1579,9 @@
     "name": "Discounts allocator",
     "defaultName": "discounts-allocator",
     "group": "Functions",
-    "supportLinks": ["https://shopify.dev/docs/apps/discounts"],
+    "supportLinks": [
+      "https://shopify.dev/docs/apps/discounts"
+    ],
     "url": "https://github.com/Shopify/extensions-templates",
     "type": "function",
     "extensionPoints": [],
@@ -1745,7 +1769,9 @@
         "path": "functions-location-rules-wasm"
       }
     ],
-    "organizationBetaFlags": ["order_routing_extensibility_partner"]
+    "organizationBetaFlags": [
+      "order_routing_extensibility_partner"
+    ]
   },
   {
     "identifier": "theme_app_extension",
@@ -1938,7 +1964,9 @@
         "path": "payments-app-extension-card-present"
       }
     ],
-    "organizationBetaFlags": ["payments_extensions_card_present"]
+    "organizationBetaFlags": [
+      "payments_extensions_card_present"
+    ]
   },
   {
     "identifier": "credit_card_payments",
@@ -1956,7 +1984,9 @@
         "path": "payments-app-extension-credit-card"
       }
     ],
-    "organizationBetaFlags": ["payments_extensions_credit_card"]
+    "organizationBetaFlags": [
+      "payments_extensions_credit_card"
+    ]
   },
   {
     "identifier": "custom_credit_card_payments",
@@ -1974,7 +2004,9 @@
         "path": "payments-app-extension-custom-credit-card"
       }
     ],
-    "organizationBetaFlags": ["payments_extensions_custom_credit_card"]
+    "organizationBetaFlags": [
+      "payments_extensions_custom_credit_card"
+    ]
   },
   {
     "identifier": "custom_onsite_payments",
@@ -1992,7 +2024,9 @@
         "path": "payments-app-extension-custom-onsite"
       }
     ],
-    "organizationBetaFlags": ["payments_extensions_custom_onsite"]
+    "organizationBetaFlags": [
+      "payments_extensions_custom_onsite"
+    ]
   },
   {
     "identifier": "offsite_payments",
@@ -2010,7 +2044,9 @@
         "path": "payments-app-extension-offsite"
       }
     ],
-    "organizationBetaFlags": ["payments_extensions_offsite"]
+    "organizationBetaFlags": [
+      "payments_extensions_offsite"
+    ]
   },
   {
     "identifier": "redeemable_payments",
@@ -2028,7 +2064,9 @@
         "path": "payments-app-extension-redeemable"
       }
     ],
-    "organizationBetaFlags": ["payments_extensions_redeemable"]
+    "organizationBetaFlags": [
+      "payments_extensions_redeemable"
+    ]
   },
   {
     "identifier": "channel_config",
@@ -2115,7 +2153,9 @@
         "path": "discount-app-action-link"
       }
     ],
-    "organizationExpFlags": ["a9b1bd3a"],
+    "organizationExpFlags": [
+      "a9b1bd3a"
+    ],
     "minimumCliVersion": "3.92.0"
   },
   {
