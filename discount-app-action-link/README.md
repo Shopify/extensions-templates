@@ -66,6 +66,4 @@ See the [Sidekick app action limits](https://shopify.dev/docs/apps/build/sidekic
 
 ### Testing
 
-Run `shopify app deploy` to deploy your extensions and test them with Sidekick in the Shopify Admin.
-
-> **Note:** `shopify app dev` may not upload the intent schema correctly. Use `shopify app deploy` for testing.
+Run `shopify app dev` to preview your extensions and test them with Sidekick in the Shopify Admin.
