@@ -2138,6 +2138,27 @@
     "minimumCliVersion": "3.90.0"
   },
   {
+    "identifier": "discount_app_action_link",
+    "name": "Discount app action link",
+    "defaultName": "discount-app-action-link",
+    "group": "Sidekick",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "admin_link",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Config only",
+        "value": "config-only",
+        "path": "discount-app-action-link"
+      }
+    ],
+    "organizationExpFlags": [
+      "a9b1bd3a"
+    ],
+    "minimumCliVersion": "3.92.0"
+  },
+  {
     "identifier": "app_action",
     "name": "App action",
     "defaultName": "app-action",
