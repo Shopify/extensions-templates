@@ -1,0 +1,27 @@
+{
+  "$schema": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/shopify-intent.json",
+  "value": {
+    "$ref": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/shopify/discount/gid.json",
+    "mapTo": "param",
+    "fieldName": "id"
+  },
+  "inputSchema": {
+    "type": "object",
+    "$ref": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/shopify/discount.json",
+    "additionalProperties": true,
+    "properties": {
+      "functionId": {
+        "mapTo": "param",
+        "matchValue": "YOUR_DISCOUNT_FUNCTION_ID"
+      }
+    }
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "$ref": "https://extensions.shopifycdn.com/shopifycloud/schemas/v1/shopify/discount/gid.json"
+      }
+    }
+  }
+}
