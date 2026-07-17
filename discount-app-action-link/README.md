@@ -12,8 +12,10 @@ Learn more about app action extensions in Shopify's [developer documentation](ht
 
 The module defines two `admin.app.intent.link` extensions, each registering one intent:
 
-- **Create** (`action = "create"`) — opens your app's discount creation flow. Pinned to a single discount function via the `functionId` `matchValue` in `intent-schema.json`. Ships a `tools.json` and `instructions.md`.
-- **Edit** (`action = "edit"`) — opens your app's discount edit flow for a specific discount. Navigation-only: it maps the discount GID to the `:id` route param and ships no tools or instructions.
+- **Create** (`action = "create"`) — opens your app's discount creation flow. Pinned to a single discount function via the `functionId` `matchValue` in `intent-schema.json`.
+- **Edit** (`action = "edit"`) — opens your app's discount edit flow for a specific discount. Maps the discount GID to the `:id` route param.
+
+Both intents are navigation-only: Sidekick routes the merchant to your app to complete the action. Neither ships a `tools.json`, since the intents alone make the extension discoverable by Sidekick.
 
 Each `admin.app.intent.link` extension registers exactly one intent, which is why create and edit are two `[[extensions]]` blocks (with distinct handles `{handle}-create` and `{handle}-edit`) rather than one.
 
@@ -22,8 +24,6 @@ Each `admin.app.intent.link` extension registers exactly one intent, which is wh
 - `shopify.extension.toml` - Two `[[extensions]]` blocks defining the create and edit intent targets, URLs, and action types
 - `intent-schema.json` - Create intent schema (references the `shopify/discount.json` baseline, pins `functionId`, returns the created discount's GID)
 - `intent-schema-edit.json` - Edit intent schema (maps the discount GID to the `:id` route param and returns the edited discount's GID)
-- `tools.json` - Tool definitions for actions Sidekick can perform within the create intent context
-- `instructions.md` - Guidelines for Sidekick on when and how to use your create tools
 
 ### How it works
 
@@ -35,9 +35,7 @@ Each `admin.app.intent.link` extension registers exactly one intent, which is wh
 
 1. **Set your URLs.** Replace `YOUR_CREATE_ROUTE` and `YOUR_EDIT_ROUTE` in `shopify.extension.toml` with the routes in your app that create and edit the discount. The whole path is up to your app (there's no required prefix), but each must be a stable, unique route (for example `/discounts/loyalty/new` and `/discounts/:id`). Keep the `:id` param on the edit route. Avoid wildcard placeholders.
 2. **Pin your function.** Replace `YOUR_DISCOUNT_FUNCTION_ID` in `intent-schema.json` with the ID of the discount function this extension creates discounts for. The `functionId` `matchValue` narrows a generic "create a discount" request to your function; without it, a generic create routes to the native discount picker instead. If your create route needs the function ID, you can also embed it in the URL (`/discounts/{functionId}/new`). The edit route derives the function from the existing discount, so it needs no `functionId`.
-3. Update `tools.json` with the tools Sidekick can use for your create action.
-4. Update `instructions.md` with guidelines for when and how Sidekick should use your tools.
-5. Update the merchant-facing names and descriptions in `locales/en.default.json` (under the `create` and `edit` keys).
+3. Update the merchant-facing names and descriptions in `locales/en.default.json` (under the `create` and `edit` keys).
 
 ### Disambiguation (multiple functions)
 
@@ -46,11 +44,7 @@ If your app ships more than one discount function, register one create intent pe
 ### Limits
 
 - Maximum of 5 intents per app
-- Maximum of 20 tools per app (shared across all extension types — data and action)
-- Tool names: up to 64 characters
-- Tool descriptions: up to 512 characters
 - Description fields: 256-token limit
-- Instructions file: 2,048-token limit
 
 ### Testing
 
