@@ -22,9 +22,10 @@ target = "admin.app.intent.link"
 # The whole path is up to your app; there is no required prefix. The one requirement: the route
 # must be stable and unique to the kind of discount this extension creates, so Sidekick can route
 # to it deterministically. Examples: /discounts/loyalty/new, /bundles/create, /promotions/create.
-# Avoid wildcard placeholders. To target a specific function, template it into the route with
-# `{functionId}` (matching the intent input property) — e.g. /discounts/{functionId}/new — and the
-# platform fills it from the `functionId` matchValue in intent-schema.json.
+# Avoid wildcard placeholders, and don't template `{functionId}` into the route: `functionId` is
+# an optional intent input, so the platform can't fill a URL path segment from it. It's used only
+# as `matchValue` in intent-schema.json to route the intent to your app. If you need the function
+# ID in the path, include it directly (e.g. /discounts/019f7c00-0000-0000-0000-000000000000/new).
 url = "/YOUR_CREATE_ROUTE"
 
 # Instructions tell Sidekick to pass functionId on create so it resolves to this app's intent.
