@@ -1,0 +1,16 @@
+{
+  "payload": {
+    "export": "fetch",
+    "target": "cart.fulfillment-options.generate.fetch",
+    "input": {
+      "localization": {
+        "country": {
+          "isoCode": "US"
+        }
+      }
+    },
+    "output": {
+      "request": null
+    }
+  }
+}

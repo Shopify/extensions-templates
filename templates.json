@@ -1682,6 +1682,42 @@
     ]
   },
   {
+    "identifier": "fulfillment_option_generator",
+    "name": "Fulfillment option generator",
+    "defaultName": "fulfillment-option-generators",
+    "group": "Functions",
+    "sortPriority": null,
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "function",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Rust",
+        "value": "rust",
+        "path": "functions-fulfillment-option-generators-rs"
+      },
+      {
+        "name": "JavaScript",
+        "value": "vanilla-js",
+        "path": "functions-fulfillment-option-generators-js"
+      },
+      {
+        "name": "TypeScript",
+        "value": "typescript",
+        "path": "functions-fulfillment-option-generators-js"
+      },
+      {
+        "name": "Wasm",
+        "value": "wasm",
+        "path": "functions-fulfillment-option-generators-wasm"
+      }
+    ],
+    "organizationExpFlags": [
+      "abd45e54"
+    ]
+  },
+  {
     "identifier": "payment_customization",
     "name": "Payment customization",
     "defaultName": "payment-customization",
