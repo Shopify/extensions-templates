@@ -26,8 +26,6 @@
           "orderDiscountsAdd": {
             "candidates": [
               {
-                "associatedDiscountCode": null,
-                "conditions": null,
                 "message": "10% OFF ORDER",
                 "targets": [
                   {
@@ -50,14 +48,11 @@
           "productDiscountsAdd": {
             "candidates": [
               {
-                "associatedDiscountCode": null,
                 "message": "20% OFF PRODUCT",
-                "prerequisites": null,
                 "targets": [
                   {
                     "cartLine": {
-                      "id": "gid://shopify/CartLine/0",
-                      "quantity": null
+                      "id": "gid://shopify/CartLine/0"
                     }
                   }
                 ],

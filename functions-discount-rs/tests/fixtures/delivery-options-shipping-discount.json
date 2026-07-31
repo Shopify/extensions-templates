@@ -20,7 +20,6 @@
           "deliveryDiscountsAdd": {
             "candidates": [
               {
-                "associatedDiscountCode": null,
                 "message": "FREE DELIVERY",
                 "targets": [
                   {
