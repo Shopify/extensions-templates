@@ -16,8 +16,6 @@
         "headers": [
           { "name": "Accept", "value": "application/json; charset=utf-8" }
         ],
-        "body": null,
-        "jsonBody": null,
         "policy": {
           "readTimeoutMs": 500
         }
