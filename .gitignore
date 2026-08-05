@@ -83,5 +83,7 @@ shopify.app.toml
 functions*/generated
 yarn.lock
 package-lock.json
+pnpm-lock.yaml
+pnpm-workspace.yaml
 Cargo.lock
 target/
