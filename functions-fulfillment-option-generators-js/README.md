@@ -176,7 +176,7 @@ small. One fulfillment option is generated per service point, for every input fu
         "fulfillmentHandle": "fulfillment-1",
         "title": "Toronto Store",
         "providerHandle": "shopify-demo-provider",
-        "destinationServicePointHandle": "service-point-001",
+        "destinationHandle": "service-point-001",
         "cost": null,
         "metafields": []
       }

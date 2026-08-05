@@ -3193,11 +3193,11 @@ input FulfillmentOptionsAddOperation {
   cost: MoneyV2Output
 
   """
-  Override the destination address by referencing a service point in
+  Override the destination address by referencing a declared destination in
   `References.service_points` by handle. Required when the fulfillment's destination
   address is a service area.
   """
-  destinationServicePointHandle: Handle
+  destinationHandle: Handle
 
   """
   Handle of the input fulfillment this fulfillment option applies to.
@@ -5394,7 +5394,7 @@ input References {
   providers: [Provider!] = []
 
   """
-  Deduplicated list of service points referenced by `fulfillment_options_add.destination_service_point_handle`.
+  Deduplicated list of service points referenced by `fulfillment_options_add.destination_handle`.
   """
   servicePoints: [ServicePoint!] = []
 }
@@ -5546,7 +5546,7 @@ input ServicePoint {
 
   """
   Stable handle identifying this service point within the run result. Referenced
-  by `FulfillmentOptionsAddOperation.destination_service_point_handle`.
+  by `FulfillmentOptionsAddOperation.destination_handle`.
   """
   handle: Handle!
 

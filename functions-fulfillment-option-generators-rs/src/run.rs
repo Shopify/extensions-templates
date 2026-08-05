@@ -48,7 +48,7 @@ fn run(input: schema::run::Input) -> Result<schema::CartFulfillmentOptionsGenera
                     title: Some(service_point.name.clone()),
                     instructions: None,
                     provider_handle: Some(provider.handle.clone()),
-                    destination_service_point_handle: Some(service_point.handle.clone()),
+                    destination_handle: Some(service_point.handle.clone()),
                     cost: None,
                     metafields: Some(vec![]),
                 },
