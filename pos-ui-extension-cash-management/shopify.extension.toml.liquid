@@ -1,0 +1,28 @@
+# The version of APIs your extension will receive. Learn more:
+# https://shopify.dev/docs/api/usage/versioning
+api_version = "2025-10"
+
+[[extensions]]
+type = "ui_extension"
+name = "{{ name }}"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+handle = "{{ handle }}"
+description = "A {{ flavor }} POS UI extension"
+
+# Controls where in POS your extension will be injected,
+# and the file that contains your extension’s source code.
+[[extensions.targeting]]
+module = "./src/Action.{{ srcFileExtension }}"
+target = "pos.cash-tracking-session-details.action.render"
+
+[[extensions.targeting]]
+module = "./src/Block.{{ srcFileExtension }}"
+target = "pos.cash-tracking-session-details.block.render"
+
+[[extensions.targeting]]
+module = "./src/MenuItem.{{ srcFileExtension }}"
+target = "pos.cash-tracking-session-details.action.menu-item.render"
+
+[[extensions.targeting]]
+module = "./src/Banner.{{ srcFileExtension }}"
+target = "pos.cash-tracking-session-details.block.render-before"
