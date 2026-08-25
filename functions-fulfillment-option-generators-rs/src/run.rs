@@ -37,13 +37,13 @@ fn run(input: schema::run::Input) -> Result<schema::CartFulfillmentOptionsGenera
         .filter_map(build_service_point)
         .collect();
 
-    // Generate one fulfillment option per service point, for every input fulfillment.
+    // Generate one fulfillment option per service point, for every input package.
     let mut operations = Vec::new();
-    for fulfillment in input.fulfillments().iter() {
+    for package in input.packages().iter() {
         for service_point in service_points.iter() {
             operations.push(schema::Operation {
-                fulfillment_options_add: schema::FulfillmentOptionsAddOperation {
-                    fulfillment_handle: fulfillment.handle().to_string(),
+                fulfillment_option_add: schema::FulfillmentOptionAddOperation {
+                    package_handle: package.handle().to_string(),
                     code: None,
                     title: Some(service_point.name.clone()),
                     instructions: None,

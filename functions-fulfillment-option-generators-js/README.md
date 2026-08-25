@@ -1,6 +1,6 @@
 # Fulfillment option generators demo
 
-This repository contains a function that demonstrates how to generate fulfillment options for the fulfillments in a
+This repository contains a function that demonstrates how to generate fulfillment options for the packages in a
 cart, based on an external API accessible via an HTTP request. To simulate an external API, we have hosted a
 [JSON file](https://cdn.shopify.com/s/files/1/0628/3830/9033/files/pickup-points-external-api-v2.json?v=1714588690),
 which contains delivery point information in the following format:
@@ -101,13 +101,13 @@ the [schema](./schema.graphql).
 ### Run target
 
 The **run** target is responsible for generating the fulfillment options. Its input API is defined by the `Input` type
-in the [schema](./schema.graphql). In our demo, we are interested in the cart's fulfillments along with the external
+in the [schema](./schema.graphql). In our demo, we are interested in the cart's packages along with the external
 API HTTP response status and body, which we specify within the [**run** target input query](./src/run.graphql).
 
 The [**run** target](./src/run.js) parses the response body and produces fulfillment options in the format specified
 by the `CartFulfillmentOptionsGenerateRunResult` type in the [schema](./schema.graphql). Providers and service points are deduplicated into
-the `references` block and referenced from `fulfillmentOptionsAdd` operations by their handle, to keep the payload
-small. One fulfillment option is generated per service point, for every input fulfillment.
+the `references` block and referenced from `fulfillmentOptionAdd` operations by their handle, to keep the payload
+small. One fulfillment option is generated per service point, for every input package.
 
 #### Run target input/output example
 
@@ -115,8 +115,8 @@ small. One fulfillment option is generated per service point, for every input fu
 
 ```json
 {
-  "fulfillments": [
-    { "handle": "fulfillment-1" }
+  "packages": [
+    { "handle": "package-1" }
   ],
   "fetchResult": {
     "status": 200,
@@ -172,8 +172,8 @@ small. One fulfillment option is generated per service point, for every input fu
   },
   "operations": [
     {
-      "fulfillmentOptionsAdd": {
-        "fulfillmentHandle": "fulfillment-1",
+      "fulfillmentOptionAdd": {
+        "packageHandle": "package-1",
         "title": "Toronto Store",
         "providerHandle": "shopify-demo-provider",
         "destinationHandle": "service-point-001",

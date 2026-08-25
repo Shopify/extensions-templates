@@ -3,8 +3,8 @@
     "export": "run",
     "target": "cart.fulfillment-options.generate.run",
     "input": {
-      "fulfillments": [
-        { "handle": "fulfillment-1" }
+      "packages": [
+        { "handle": "package-1" }
       ],
       "fetchResult": {
         "status": 200,
@@ -44,8 +44,8 @@
       },
       "operations": [
         {
-          "fulfillmentOptionsAdd": {
-            "fulfillmentHandle": "fulfillment-1",
+          "fulfillmentOptionAdd": {
+            "packageHandle": "package-1",
             "title": "Toronto Store",
             "providerHandle": "shopify-demo-provider",
             "destinationHandle": "service-point-001",

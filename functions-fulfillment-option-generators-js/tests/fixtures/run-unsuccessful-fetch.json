@@ -3,8 +3,8 @@
     "export": "run",
     "target": "cart.fulfillment-options.generate.run",
     "input": {
-      "fulfillments": [
-        { "handle": "fulfillment-1" }
+      "packages": [
+        { "handle": "package-1" }
       ],
       "fetchResult": {
         "status": 404,

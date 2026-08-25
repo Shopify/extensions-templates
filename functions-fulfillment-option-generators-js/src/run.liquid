@@ -1,6 +1,6 @@
 {%- if flavor contains "vanilla-js" -%}
 export function run(input) {
-    const { fulfillments, fetchResult } = input;
+    const { packages, fetchResult } = input;
     const status = fetchResult?.status;
     const body = fetchResult?.body;
 
@@ -15,11 +15,11 @@ export function run(input) {
     const provider = buildProvider();
     const servicePoints = deliveryPoints.map(buildServicePoint);
 
-    // Generate one fulfillment option per service point, for every input fulfillment.
-    const operations = fulfillments.flatMap((fulfillment) =>
+    // Generate one fulfillment option per service point, for every input package.
+    const operations = packages.flatMap((pkg) =>
         servicePoints.map((servicePoint) => ({
-            fulfillmentOptionsAdd: {
-                fulfillmentHandle: fulfillment.handle,
+            fulfillmentOptionAdd: {
+                packageHandle: pkg.handle,
                 title: servicePoint.name,
                 providerHandle: provider.handle,
                 destinationHandle: servicePoint.handle,
@@ -120,7 +120,7 @@ import {
 } from "../generated/api";
 
 export function run(input: RunInput): CartFulfillmentOptionsGenerateRunResult {
-    const { fulfillments, fetchResult } = input;
+    const { packages, fetchResult } = input;
     const status = fetchResult?.status;
     const body = fetchResult?.body;
 
@@ -135,11 +135,11 @@ export function run(input: RunInput): CartFulfillmentOptionsGenerateRunResult {
     const provider = buildProvider();
     const servicePoints = externalApiDeliveryPoints.map(buildServicePoint);
 
-    // Generate one fulfillment option per service point, for every input fulfillment.
-    const operations: Operation[] = fulfillments.flatMap((fulfillment) =>
+    // Generate one fulfillment option per service point, for every input package.
+    const operations: Operation[] = packages.flatMap((pkg) =>
         servicePoints.map((servicePoint: ServicePoint) => ({
-            fulfillmentOptionsAdd: {
-                fulfillmentHandle: fulfillment.handle,
+            fulfillmentOptionAdd: {
+                packageHandle: pkg.handle,
                 title: servicePoint.name,
                 providerHandle: provider.handle,
                 destinationHandle: servicePoint.handle,

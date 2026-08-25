@@ -328,7 +328,7 @@ Information about a delivery option that's available for an item in a cart. Deli
 ways that customers can choose to have their orders shipped. Examples include express shipping or standard
 shipping.
 """
-type CartDeliveryOption {
+type CartDeliveryOption implements HasMetafields {
   """
   A unique identifier that represents the delivery option offered to customers.
   For example, `Canada Post Expedited`.
@@ -360,6 +360,29 @@ type CartDeliveryOption {
   For example, `standard-shipping`.
   """
   handle: Handle!
+
+  """
+  A [custom field](https://shopify.dev/docs/apps/build/custom-data) that stores additional information
+  about a Shopify resource, such as products, orders, and
+  [many more](https://shopify.dev/docs/api/admin-graphql/latest/enums/MetafieldOwnerType).
+  Using [metafields with Shopify Functions](https://shopify.dev/docs/apps/build/functions/input-output/metafields-for-input-queries)
+  enables you to customize the checkout experience.
+  """
+  metafield(
+    """
+    The unique identifier for the metafield within its namespace. A metafield is composed of a
+    namespace and a key, in the format `namespace.key`.
+    """
+    key: String!
+
+    """
+    A category that organizes a group of metafields. Namespaces are used to prevent naming conflicts
+    between different apps or different parts of the same app. If omitted, then the
+    [app-reserved namespace](https://shopify.dev/docs/apps/build/custom-data/ownership)
+    is used.
+    """
+    namespace: String
+  ): Metafield
 
   """
   The name of the delivery option that displays to customers. The title is used to construct the delivery
@@ -3097,56 +3120,51 @@ enum DiscountApplicationTargetSelection {
 }
 
 """
-A set of one or more packages traveling together from a single origin
-address to a single destination address. The function generates one or
-more `FulfillmentOption`s per fulfillment.
+Add a single fulfillment option for a specific package.
 """
-type Fulfillment {
+input FulfillmentOptionAddOperation {
   """
-  Handle of the fulfillment's destination address reference in `address_references`.
+  The specific carrier service level or service point to uniquely identify each fulfillment option in the context
+  of a single input package.
   """
-  destinationAddressHandle: Handle!
+  code: String
 
   """
-  Stable handle identifying the fulfillment within the function input.
+  Cost of the fulfillment option. Null defaults to 0 or a configured fallback.
   """
-  handle: Handle!
+  cost: MoneyV2Output
 
   """
-  Handle of the fulfillment's origin address reference in `address_references`.
+  Override the destination address by referencing a declared destination in
+  `References.servicePoints` by handle. Required when the package's destination
+  address is a service area.
   """
-  originAddressHandle: Handle!
+  destinationHandle: Handle
 
   """
-  The packages that make up the fulfillment.
+  Instructions shown to the buyer about how to receive the package, localized.
   """
-  packages: [Package!]!
-}
-
-"""
-A polymorphic address used as the origin or destination of a fulfillment.
-
-- `MailingAddress`: a specific buyer-facing mailing address.
-- `Location`: a merchant location, such as a retail store or warehouse.
-- `ServiceArea`: a region (e.g. a pickup-point service area).
-"""
-union FulfillmentAddress = Location | MailingAddress | ServiceArea
-
-"""
-A deduplicated fulfillment address referenced by a `Handle`. Fulfillments
-reference addresses through their handle so the same address never has to
-be serialized into the function input twice.
-"""
-type FulfillmentAddressReference {
-  """
-  The polymorphic fulfillment address.
-  """
-  address: FulfillmentAddress!
+  instructions: String
 
   """
-  Stable handle identifying this fulfillment address reference within the function input.
+  Metafields associated with the fulfillment option.
   """
-  handle: Handle!
+  metafields: [MetafieldOutput!] = []
+
+  """
+  Handle of the input package this fulfillment option applies to.
+  """
+  packageHandle: Handle!
+
+  """
+  Reference to a provider in `References.providers` by handle.
+  """
+  providerHandle: Handle
+
+  """
+  Human-facing display name, localized. Can be a carrier service level or service point name.
+  """
+  title: String
 }
 
 """
@@ -3175,54 +3193,6 @@ type FulfillmentOptionGenerator implements HasMetafields {
     """
     namespace: String
   ): Metafield
-}
-
-"""
-Add a single fulfillment option for a specific fulfillment.
-"""
-input FulfillmentOptionsAddOperation {
-  """
-  The specific carrier service level or service point to uniquely identify each fulfillment option in the context
-  of a single input fulfillment.
-  """
-  code: String
-
-  """
-  Cost of the fulfillment option. Null defaults to 0 or a configured fallback.
-  """
-  cost: MoneyV2Output
-
-  """
-  Override the destination address by referencing a declared destination in
-  `References.service_points` by handle. Required when the fulfillment's destination
-  address is a service area.
-  """
-  destinationHandle: Handle
-
-  """
-  Handle of the input fulfillment this fulfillment option applies to.
-  """
-  fulfillmentHandle: Handle!
-
-  """
-  Instructions shown to the buyer about how to receive the fulfillment, localized.
-  """
-  instructions: String
-
-  """
-  Metafields associated with the fulfillment option.
-  """
-  metafields: [MetafieldOutput!] = []
-
-  """
-  Reference to a provider in `References.providers` by handle.
-  """
-  providerHandle: Handle
-
-  """
-  Human-facing display name, localized. Can be a carrier service level or service point name.
-  """
-  title: String
 }
 
 """
@@ -3437,12 +3407,11 @@ scalar ID
 
 type Input {
   """
-  Deduplicated list of fulfillment addresses referenced by fulfillments via
-  `Fulfillment.origin_address_handle` and
-  `Fulfillment.destination_address_handle`. Each reference's address can be
-  any variant of `FulfillmentAddress`.
+  Deduplicated list of package addresses referenced by packages via
+  `Package.originAddressHandle` and `Package.destinationAddressHandle`.
+  Each reference's address can be any variant of `PackageAddress`.
   """
-  addressReferences: [FulfillmentAddressReference!]!
+  addressReferences: [PackageAddressReference!]!
 
   """
   The cart where the Function is running. A cart contains the merchandise that a customer intends to purchase
@@ -3462,18 +3431,18 @@ type Input {
   fulfillmentOptionGenerator: FulfillmentOptionGenerator!
 
   """
-  The fulfillments the function should produce fulfillment options for. Each
-  fulfillment has an origin, a destination, and a set of packages.
-  """
-  fulfillments: [Fulfillment!]! @scaleLimits(rate: 0.05)
-
-  """
   The regional and language settings that determine how the Function
   handles currency, numbers, dates, and other locale-specific values
   during discount calculations. These settings are based on the store's configured
   [localization practices](https://shopify.dev/docs/apps/build/functions/localization-practices-shopify-functions).
   """
   localization: Localization!
+
+  """
+  The packages the function should produce fulfillment options for. Each package
+  has an origin, a destination, and a set of cart-line quantities.
+  """
+  packages: [Package!]! @scaleLimits(rate: 0.05)
 
   """
   The exchange rate used to convert discounts between the shop's default
@@ -5072,18 +5041,60 @@ input Operation {
   """
   Add a fulfillment option.
   """
-  fulfillmentOptionsAdd: FulfillmentOptionsAddOperation!
+  fulfillmentOptionAdd: FulfillmentOptionAddOperation!
 }
 
 """
-A package within a fulfillment. Carries one or more cart-line quantities
-and, when available, the package's physical attributes.
+A set of cart-line quantities traveling together from a single origin
+address to a single destination address. The function generates one or
+more fulfillment options per package.
 """
 type Package {
+  """
+  Handle of the package's destination address reference in `addressReferences`.
+  """
+  destinationAddressHandle: Handle!
+
+  """
+  Stable handle identifying the package within the function input.
+  """
+  handle: Handle!
+
   """
   The cart-line quantities included in the package.
   """
   lineQuantities: [LineQuantity!]!
+
+  """
+  Handle of the package's origin address reference in `addressReferences`.
+  """
+  originAddressHandle: Handle!
+}
+
+"""
+A polymorphic address used as the origin or destination of a package.
+
+- `MailingAddress`: a specific buyer-facing mailing address.
+- `Location`: a merchant location, such as a retail store or warehouse.
+- `ServiceArea`: a region (e.g. a pickup-point service area).
+"""
+union PackageAddress = Location | MailingAddress | ServiceArea
+
+"""
+A deduplicated package address referenced by a `Handle`. Packages reference
+addresses through their handle so the same address never has to be serialized
+into the function input twice.
+"""
+type PackageAddressReference {
+  """
+  The polymorphic package address.
+  """
+  address: PackageAddress!
+
+  """
+  Stable handle identifying this package address reference within the function input.
+  """
+  handle: Handle!
 }
 
 """
@@ -5389,12 +5400,12 @@ operations.
 """
 input References {
   """
-  Deduplicated list of providers referenced by `fulfillment_options_add.provider_handle`.
+  Deduplicated list of providers referenced by `fulfillmentOptionAdd.providerHandle`.
   """
   providers: [Provider!] = []
 
   """
-  Deduplicated list of service points referenced by `fulfillment_options_add.destination_handle`.
+  Deduplicated list of service points referenced by `fulfillmentOptionAdd.destinationHandle`.
   """
   servicePoints: [ServicePoint!] = []
 }
@@ -5491,7 +5502,7 @@ type SellingPlanAllocationPriceAdjustment {
 }
 
 """
-A geographical region a fulfillment can be sent to (e.g. a pickup-point
+A geographical region a package can be sent to (e.g. a pickup-point
 service area) where the precise address may not be known up front. Expressed
 as a radius around a center address.
 """
@@ -5509,7 +5520,7 @@ type ServiceArea {
 
 """
 A third-party service point (such as a pickup-point locker or partner
-location) returned by the function as a fulfillment address. Combines a
+location) returned by the function as a package address. Combines a
 physical address with operational metadata.
 """
 input ServicePoint {
@@ -5546,7 +5557,7 @@ input ServicePoint {
 
   """
   Stable handle identifying this service point within the run result. Referenced
-  by `FulfillmentOptionsAddOperation.destination_handle`.
+  by `FulfillmentOptionAddOperation.destinationHandle`.
   """
   handle: Handle!
 
