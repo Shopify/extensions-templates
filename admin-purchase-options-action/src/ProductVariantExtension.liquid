@@ -1,4 +1,3 @@
-{%- if flavor == "preact" -%}
 import "@shopify/ui-extensions/preact";
 import {render} from 'preact';
 import PurchaseOptionsActionExtension from './PurchaseOptionsActionExtension.jsx';
@@ -6,35 +5,3 @@ import PurchaseOptionsActionExtension from './PurchaseOptionsActionExtension.jsx
 export default async () => {
   render(<PurchaseOptionsActionExtension />, document.body);
 }
-{%- elsif flavor contains "react" -%}
-import {reactExtension} from '@shopify/ui-extensions-react/admin';
-{%- if flavor == "react" -%}
-import PurchaseOptionsActionExtension from './PurchaseOptionsActionExtension.jsx';
-{%- else -%}
-import PurchaseOptionsActionExtension from './PurchaseOptionsActionExtension';
-{%- endif %}
-
-export default reactExtension('admin.product-variant-purchase-option.action.render', () => (
-  <PurchaseOptionsActionExtension extension="admin.product-variant-purchase-option.action.render" />
-));
-
-{%- else -%}
-import {extension} from '@shopify/ui-extensions/admin';
-import PurchaseOptionsActionExtension from './PurchaseOptionsActionExtension';
-
-export default extension(
-  'admin.product-variant-purchase-option.action.render',
-  (root, {i18n, close, data}) => {
-    PurchaseOptionsActionExtension(
-      'admin.product-variant-purchase-option.action.render',
-      root,
-      {
-        i18n,
-        close,
-        data,
-      },
-    );
-  },
-);
-
-{%- endif -%}
