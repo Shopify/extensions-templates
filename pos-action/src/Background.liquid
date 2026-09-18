@@ -1,0 +1,19 @@
+// @extension-target: pos.app.ready.data
+import {PRODUCT_ID} from './ProductCheck.{{ srcFileExtension }}';
+
+export default function extension() {
+  shopify.intercept('cartvalidations', ({cart}) => ({
+    operations: cart.lineItems
+      .filter((item) =>
+        item.productId === PRODUCT_ID &&
+        item.properties.example_product_checked !== 'true',
+      )
+      .map((item) => ({
+        validationAdd: {
+          level: 'ERROR',
+          handle: 'product-check-required',
+          target: `$.cart.lineItems['${item.uuid}']`,
+        },
+      })),
+  }));
+}

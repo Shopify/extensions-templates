@@ -1,25 +1,23 @@
-{%- if flavor contains "preact" -%}
-api_version = "2026-07"
-{% else %}
-api_version = "2025-07"
-{% endif %}
+api_version = "2026-10"
 [[extensions]]
 type = "ui_extension"
 # Change the merchant-facing name of the extension in locales/en.default.json
 name = "t:name"
 {% if uid %}uid = "{{ uid }}"{% endif %}
 handle = "{{ handle }}"
-description = "A {{ flavor }} POS UI extension"
+description = "A cart product-check acknowledgment example"
 
-# module: path to the file that contains your extension’s source code
-# target: string that describes where your extension appears in POS
-[[extensions.targeting]]
-module = "./src/Action.{{ srcFileExtension }}"
-target = "pos.product-details.action.render"
+[extensions.supported_features]
+runs_offline = true
 
-# You can omit the menu-item target and POS will provide a default menu item for this extension.
-# The menu item will present the action target on click.
-# This template has the same behavior as the POS-provided default, but is included for completeness.
 [[extensions.targeting]]
-module = "./src/MenuItem.{{ srcFileExtension }}"
-target = "pos.product-details.action.menu-item.render"
+module = "./src/Background.{{ srcFileExtension }}"
+target = "pos.app.ready.data"
+
+[[extensions.targeting.capabilities.intercepts]]
+event = "cartvalidations"
+blocking = true
+
+[[extensions.targeting]]
+module = "./src/CartResolution.{{ srcFileExtension }}"
+target = "pos.cart.validations.resolution.render"

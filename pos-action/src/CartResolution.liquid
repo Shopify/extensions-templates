@@ -1,0 +1,47 @@
+import "@shopify/ui-extensions/preact";
+import {render} from 'preact';
+import {useEffect, useState} from 'preact/hooks';
+import {PRODUCT_ID} from './ProductCheck.{{ srcFileExtension }}';
+
+export default async () => {
+  render(<Extension />, document.body);
+};
+
+function Extension() {
+  const {i18n} = shopify;
+  const [event, setEvent] = useState(shopify.resolution.event.value);
+
+  useEffect(() => {
+    const unsubscribe = shopify.resolution.event.subscribe(setEvent);
+    setEvent(shopify.resolution.event.value);
+    return unsubscribe;
+  }, []);
+
+  const uncheckedItems = event.cart.lineItems.filter((item) =>
+    item.productId === PRODUCT_ID &&
+    item.properties.example_product_checked !== 'true',
+  );
+
+  return (
+    <s-stack gap="base">
+      <s-text>{i18n.translate(uncheckedItems.length ? 'instructions' : 'noChecksRequired')}</s-text>
+      {uncheckedItems.map((item) => (
+        <s-stack key={item.uuid} gap="small">
+          <s-text>{item.title ?? i18n.translate('product')}</s-text>
+          <s-button onClick={async () => {
+            try {
+              await shopify.cart.addLineItemProperties(item.uuid, {
+                example_product_checked: 'true',
+              });
+              shopify.toast.show(i18n.translate('saved'));
+            } catch {
+              shopify.toast.show(i18n.translate('saveFailed'));
+            }
+          }}>
+            {i18n.translate('productChecked')}
+          </s-button>
+        </s-stack>
+      ))}
+    </s-stack>
+  );
+}
