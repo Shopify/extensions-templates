@@ -1,6 +1,6 @@
 # {{ name }}
 
-Temporary cart product-check example for a POS intercept bug bash. This branch overrides the existing `pos_action` template; it is not a new catalog entry and must not be merged into the default template.
+Standalone cart product-check example for a temporary POS intercept bug bash. The opt-in `pos_intercept` catalog entry selects `pos-intercept/`; the standard `pos_action` template and public `templates.json` catalog remain unchanged.
 
 ## Setup
 
@@ -8,13 +8,16 @@ Temporary cart product-check example for a POS intercept bug bash. This branch o
 - In `src/ProductCheck.{{ srcFileExtension }}`, replace `1234567890` with a test product's numeric **product ID**, not a variant ID or `gid://` string. Both modules import this one setting. Make the product available in the test POS environment.
 - Keep the generated extension identity. `shopify.extension.toml` uses API `2026-10`, offline support, and the paired background/cart-resolution targets. Install dependencies and run `shopify app build` from your app root before testing in your authorized POS environment.
 
-After the branch has been published, generate this override into an existing app:
+Use `templates.pos-intercept.json` from a local checkout of this branch as the custom catalog. After the branch has been published, generate the extension into an existing app:
 
 ```shell
-pnpm shopify app generate extension --template pos_action --name pos-intercept-bugbash --clone-url "https://github.com/Shopify/extensions-templates#vctrchu/pos-intercept-bugbash" --path ./your-app-root
+SHOPIFY_CLI_APP_TEMPLATES_JSON_PATH="/absolute/path/to/extensions-templates/templates.pos-intercept.json" \
+  pnpm shopify app generate extension --template pos_intercept --name pos-intercept-bugbash --clone-url "https://github.com/Shopify/extensions-templates#vctrchu/pos-intercept-bugbash" --path ./your-app-root
 ```
 
-Do not pass `--flavor`; the current `pos_action` catalog entry selects Preact. This command requires the branch to exist remotely. Generation does not approve or deploy the app.
+Do not pass `--flavor`; this custom catalog entry selects Preact. The environment variable selects the opt-in catalog for this command only; `--clone-url` selects the template repository and branch. The remote command requires the branch to exist on GitHub. For an unpublished, locally committed branch, replace the clone URL with `file:///absolute/path/to/extensions-templates#vctrchu/pos-intercept-bugbash`.
+
+Generation still requires a linked app and App Management access. The custom catalog does not bypass authentication, app approval, or POS preview prerequisites, and does not approve or deploy the app.
 
 ## Test in POS
 
