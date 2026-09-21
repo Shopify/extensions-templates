@@ -1,10 +1,10 @@
 # {{ name }}
 
-Standalone cash-payment recommendation example for a temporary POS intercept bug bash. The opt-in `pos_payment_intercept` catalog entry selects `pos-payment-intercept/`; the public `templates.json` catalog and cart-intercept draft remain unchanged.
+Standalone cash-payment review example for a temporary POS intercept bug bash. The opt-in `pos_payment_intercept` catalog entry selects `pos-payment-intercept/`; the public `templates.json` catalog and cart-intercept draft remain unchanged.
 
 ## Setup
 
-- Use Shopify CLI 4.8.0 or later and `@shopify/ui-extensions@2026.10.0-rc.13` or later. The app must be approved for POS intercepts and the POS environment must be preview-enabled. Installing the CLI or SDK does not grant access.
+- Use Shopify CLI 4.8.0 or later and the pinned `@shopify/ui-extensions@2026.10.0-rc.13` dependency, which includes `resolution.onSave`. The app must be approved for POS intercepts and the POS environment must be preview-enabled. Installing the CLI or SDK does not grant access.
 - Keep the generated extension identity. `shopify.extension.toml` uses API `2026-10`, offline support, `paymentvalidations`, `applies_to = ["cash"]`, and its matching payment-resolution target. Install dependencies and run `shopify app build` from your app root before testing.
 
 Save `templates.pos-payment-intercept.json` from this branch locally. `SHOPIFY_CLI_APP_TEMPLATES_JSON_PATH` accepts a local file path and replaces the default catalog for that invocation.
@@ -18,12 +18,15 @@ Do not pass `--flavor`; this custom catalog selects Preact. Generation requires 
 
 ## Test in POS
 
-1. Add any product and start checkout. Card and other non-cash attempts don't invoke this example. Select or confirm cash: the synchronous callback returns one `WARNING` with handle `cash-count-recommended`, targeted at `$.payment`.
-2. Confirm POS labels the finding **Recommended**. The warning doesn't block payment or open payment resolution automatically.
-3. Repeat another cash attempt, including a split cash payment if available. The example returns the recommendation for each attempt and doesn't record confirmation.
+1. Add any product and start checkout. Card and other non-cash attempts don't invoke this example. Select or confirm cash: the synchronous callback returns one blocking `ERROR` with handle `cash-count-required`, targeted at `$.payment`.
+2. POS renders `pos.payment.validations.resolution.render`. Confirm the target displays the intercepted payment method and cash amount.
+3. Review the cash count, then use Shopify-owned **Save**, **Next**, or **Done**. POS waits for the registered `shopify.resolution.onSave` handler.
+4. The handler awaits `shopify.storage.set` to store a fingerprint for that cart and cash payment. POS then revalidates, and the background callback returns no finding while those details match.
+5. If saving fails, the target shows an error and the missing acknowledgment keeps the finding active. Use the POS control again to retry.
+6. Change the cash amount, or add or remove a cart line. The fingerprint no longer matches, so the target requires a new confirmation. Other payment methods remain outside this cash-only example.
 
-The matching payment-resolution module displays the intercepted payment method and cash amount received. It exists because every declared interceptor requires its matching target; this warning-only flow doesn't open it automatically. Payment resolution has read-only cart access.
+The resolution target registers one save handler on mount and unregisters it on unmount. Payment resolution has read-only cart access, so the handler uses extension storage rather than a cart write. `onSave` is not a completion API; POS waits for the handler and then revalidates.
 
-This is a cash-count recommendation example, not confirmation that staff counted cash, payment approval, or a compliance record. To require resolution, use `ERROR` with `blocking = true` and store any payment-only acknowledgment outside the cart.
+This is a cash-count review example, not payment approval, identity verification, or a compliance record.
 
 Local generation, build, and simulated callback checks don't verify real POS payment behavior. Real testing requires an approved app in a preview-enabled POS environment.

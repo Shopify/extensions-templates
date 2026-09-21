@@ -5,7 +5,7 @@ type = "ui_extension"
 name = "t:name"
 {% if uid %}uid = "{{ uid }}"{% endif %}
 handle = "{{ handle }}"
-description = "A cash-payment recommendation example"
+description = "A blocking cash-payment review example"
 
 [extensions.supported_features]
 runs_offline = true
@@ -16,7 +16,7 @@ target = "pos.app.ready.data"
 
 [[extensions.targeting.capabilities.intercepts]]
 event = "paymentvalidations"
-blocking = false
+blocking = true
 applies_to = ["cash"]
 
 [[extensions.targeting]]

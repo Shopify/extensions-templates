@@ -1,0 +1,17 @@
+export const CASH_REVIEW_KEY = 'example_cash_count_review';
+
+export function cashReviewFingerprint(event, cart) {
+  return [
+    event.paymentMethod.type,
+    event.paymentMethod.identifier ?? '',
+    event.amount.currencyCode,
+    event.amount.amount,
+    ...cart.lineItems.map((line) => line.uuid),
+  ].join(':');
+}
+
+export function readCashReview(value) {
+  return value && typeof value === 'object' && typeof value.fingerprint === 'string'
+    ? value.fingerprint
+    : undefined;
+}
