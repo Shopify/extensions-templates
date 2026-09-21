@@ -1,11 +1,10 @@
 # {{ name }}
 
-Standalone cart product-check example for a temporary POS intercept bug bash. The opt-in `pos_intercept` catalog entry selects `pos-intercept/`; the standard `pos_action` template and public `templates.json` catalog remain unchanged.
+Standalone cart acknowledgment example for a temporary POS intercept bug bash. The opt-in `pos_intercept` catalog entry selects `pos-intercept/`; the standard `pos_action` template and public `templates.json` catalog remain unchanged.
 
 ## Setup
 
 - Use Shopify CLI 4.8.0 or later and the pinned `@shopify/ui-extensions@2026.10.0-rc.13` dependency, which includes `resolution.onSave`. Earlier RCs through `rc.12` do not include this method. The app must be approved for POS intercepts and the POS environment must be preview-enabled. Installing the CLI or SDK does not grant access.
-- In `src/ProductCheck.{{ srcFileExtension }}`, replace `1234567890` with a test product's numeric **product ID**, not a variant ID or `gid://` string. Both modules import this one setting. Make the product available in the test POS environment.
 - Keep the generated extension identity. `shopify.extension.toml` uses API `2026-10`, offline support, and the paired background/cart-resolution targets. Install dependencies and run `shopify app build` from your app root before testing in your authorized POS environment.
 
 Save `templates.pos-intercept.json` from this branch locally, either from a checkout or by downloading the file after publication. `SHOPIFY_CLI_APP_TEMPLATES_JSON_PATH` accepts a local file path, not a URL. It replaces the default catalog for that invocation; this file exposes only `pos_intercept`.
@@ -23,14 +22,14 @@ Generation still requires a linked app and App Management access. The custom cat
 
 ## Test in POS
 
-1. Start a fresh cart and add the configured product without `example_product_checked`. The synchronous background callback returns an `ERROR` with handle `product-check-required`, targeted at that cart line's current UUID. Confirm checkout is blocked.
-2. Select the cart validation banner to open resolution. Check the product and select **Product checked**. The check is selected locally, not saved yet; the cart property and blocking finding remain unchanged.
-3. Use Shopify-owned **Save**, **Next**, or **Done**. POS invokes `shopify.resolution.onSave`, waits for the selected lines' cart updates, then revalidates. The callback no longer reports a line whose `example_product_checked` property is the string `'true'`. Unselected lines and other validators still apply.
-4. If saving fails, an error toast prompts staff to retry with the POS controls. Successfully saved lines stay acknowledged; failed selections remain pending. A rejected save handler does not itself block the flow: POS still revalidates, and the background findings decide whether checkout can continue.
-5. In a fresh cart, try another product: this interceptor must add no finding. With multiple unchecked lines of the configured product, select each line you checked. Remove and re-add a test line without the property to require a new check. Closing resolution without saving discards pending selections.
+1. Start a fresh cart. An empty cart produces no finding. Add any product: the synchronous background callback returns one `ERROR` with handle `cart-review-required`, targeted at `$.cart`. Confirm checkout is blocked.
+2. Select the cart validation banner to open resolution and review the cart. Opening or closing this screen does not acknowledge the cart.
+3. Use Shopify-owned **Save**, **Next**, or **Done** to confirm. POS invokes `shopify.resolution.onSave`, awaits `shopify.cart.addCartProperties({example_cart_reviewed: 'true'})`, then revalidates. The background callback returns no finding for the acknowledged cart. Other validators remain unaffected.
+4. If saving fails, a toast prompts staff to retry with the POS controls. A rejected save handler does not itself block the flow: the missing cart acknowledgment keeps the background finding active.
+5. Add or change products after acknowledging the cart: this example does not require another review. Start a new cart to test the flow again.
 
-The resolution registers one save handler and reads the current event inside it, so removed or replaced line UUIDs are not written from a stale snapshot. Registration and cleanup are asynchronous: unmount removes the event subscription and awaits the registered handler's cleanup, including when registration finishes after unmount. Neither selecting a check nor running `onSave` is a completion API.
+The resolution registers one save handler and shows a static instruction—no product configuration, selection state, or event subscription. Cleanup unregisters the handler when the screen unmounts, including when registration finishes after unmount. `onSave` is not a completion API; POS controls revalidation and completion.
 
-This is a generic staff acknowledgment **per cart line**, not per unit, age or identity verification, or evidence of regulatory compliance. Quantity changes on an acknowledged line do not require another check. No identity or customer data is collected. Cash and payment validation are outside this example.
+This is a generic staff acknowledgment **once per cart**, not product, per-unit, age or identity verification, or evidence of regulatory compliance. The `example_cart_reviewed` property persists through checkout, and later cart edits do not invalidate it. No identity or customer data is collected. Cash and payment validation are outside this example.
 
 A local generation, build, or simulated API smoke check does not verify the real POS banner, navigation, checkout blocking, or Shopify-owned revalidation controls. Those checks require the approved app in a preview-enabled POS environment.
