@@ -4,7 +4,7 @@ Standalone cart acknowledgment example for a temporary POS intercept bug bash. T
 
 ## Setup
 
-- Use Shopify CLI 4.8.0 or later and the pinned `@shopify/ui-extensions@2026.10.0-rc.13` dependency, which includes `resolution.onSave`. Earlier RCs through `rc.12` do not include this method. The app must be approved for POS intercepts and the POS environment must be preview-enabled. Installing the CLI or SDK does not grant access.
+- Use Shopify CLI 4.8.0 or later and the pinned `@shopify/ui-extensions@2026.10.0-rc.13` dependency, which includes `resolution.onSave`. The app must be approved for POS intercepts and the POS environment must be preview-enabled. Installing the CLI or SDK does not grant access.
 - Keep the generated extension identity. `shopify.extension.toml` uses API `2026-10`, offline support, and the paired background/cart-resolution targets. Install dependencies and run `shopify app build` from your app root before testing in your authorized POS environment.
 
 Save `templates.pos-intercept.json` from this branch locally, either from a checkout or by downloading the file after publication. `SHOPIFY_CLI_APP_TEMPLATES_JSON_PATH` accepts a local file path, not a URL. It replaces the default catalog for that invocation; this file exposes only `pos_intercept`.
@@ -23,12 +23,13 @@ Generation still requires a linked app and App Management access. The custom cat
 ## Test in POS
 
 1. Start a fresh cart. An empty cart produces no finding. Add any product: the synchronous background callback returns one `ERROR` with handle `cart-review-required`, targeted at `$.cart`. Confirm checkout is blocked.
-2. Select the cart validation banner to open resolution and review the cart. Opening or closing this screen does not acknowledge the cart.
-3. Use Shopify-owned **Save**, **Next**, or **Done** to confirm. POS invokes `shopify.resolution.onSave`, awaits `shopify.cart.addCartProperties({example_cart_reviewed: 'true'})`, then revalidates. The background callback returns no finding for the acknowledged cart. Other validators remain unaffected.
-4. If saving fails, a toast prompts staff to retry with the POS controls. A rejected save handler does not itself block the flow: the missing cart acknowledgment keeps the background finding active.
-5. Add or change products after acknowledging the cart: this example does not require another review. Start a new cart to test the flow again.
+2. Select the cart validation banner. POS renders `pos.cart.validations.resolution.render`.
+3. Review the cart, then use Shopify-owned **Save**, **Next**, or **Done**. POS waits for the registered `shopify.resolution.onSave` handler.
+4. The handler awaits `shopify.cart.addCartProperties({example_cart_reviewed: 'true'})`, confirms the cart signal, and returns. POS then revalidates, and the background callback returns no finding for the acknowledged cart.
+5. If saving fails, the target shows an error and the missing acknowledgment keeps the finding active. Use the POS control again to retry.
+6. Add or change products after acknowledging the cart: this example does not require another review. Start a new cart to test the flow again.
 
-The resolution registers one save handler and shows a static instruction—no product configuration, selection state, or event subscription. Cleanup unregisters the handler when the screen unmounts, including when registration finishes after unmount. `onSave` is not a completion API; POS controls revalidation and completion.
+The resolution target registers one save handler on mount and unregisters it on unmount. `onSave` is not a completion API; POS waits for the handler and then revalidates.
 
 This is a generic staff acknowledgment **once per cart**, not product, per-unit, age or identity verification, or evidence of regulatory compliance. The `example_cart_reviewed` property persists through checkout, and later cart edits do not invalidate it. No identity or customer data is collected. Cash and payment validation are outside this example.
 
