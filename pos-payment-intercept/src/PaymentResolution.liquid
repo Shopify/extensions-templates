@@ -1,0 +1,23 @@
+import "@shopify/ui-extensions/preact";
+import {render} from 'preact';
+
+export default async () => {
+  render(<Extension />, document.body);
+};
+
+function Extension() {
+  const {i18n} = shopify;
+  const {paymentMethod, amount} = shopify.resolution.event.value;
+
+  // The matching target is required, but a warning does not open it automatically.
+  return (
+    <s-stack gap="base">
+      <s-text>{i18n.translate('instructions')}</s-text>
+      <s-text>{i18n.translate('paymentMethod', {method: paymentMethod.type})}</s-text>
+      <s-text>{i18n.translate('cashReceived', {
+        amount: amount.amount,
+        currencyCode: amount.currencyCode,
+      })}</s-text>
+    </s-stack>
+  );
+}

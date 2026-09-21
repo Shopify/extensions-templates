@@ -1,0 +1,14 @@
+// @extension-target: pos.app.ready.data
+
+export default function extension() {
+  // Recommend a review on every cash attempt without recording a completed review.
+  shopify.intercept('paymentvalidations', () => ({
+    operations: [{
+      validationAdd: {
+        level: 'WARNING',
+        handle: 'cash-count-recommended',
+        target: '$.payment',
+      },
+    }],
+  }));
+}

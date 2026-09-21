@@ -1,0 +1,24 @@
+api_version = "2026-10"
+[[extensions]]
+type = "ui_extension"
+# Change the merchant-facing name of the extension in locales/en.default.json
+name = "t:name"
+{% if uid %}uid = "{{ uid }}"{% endif %}
+handle = "{{ handle }}"
+description = "A cash-payment recommendation example"
+
+[extensions.supported_features]
+runs_offline = true
+
+[[extensions.targeting]]
+module = "./src/Background.{{ srcFileExtension }}"
+target = "pos.app.ready.data"
+
+[[extensions.targeting.capabilities.intercepts]]
+event = "paymentvalidations"
+blocking = false
+applies_to = ["cash"]
+
+[[extensions.targeting]]
+module = "./src/PaymentResolution.{{ srcFileExtension }}"
+target = "pos.payment.validations.resolution.render"

@@ -1,0 +1,29 @@
+# {{ name }}
+
+Standalone cash-payment recommendation example for a temporary POS intercept bug bash. The opt-in `pos_payment_intercept` catalog entry selects `pos-payment-intercept/`; the public `templates.json` catalog and cart-intercept draft remain unchanged.
+
+## Setup
+
+- Use Shopify CLI 4.8.0 or later and `@shopify/ui-extensions@2026.10.0-rc.13` or later. The app must be approved for POS intercepts and the POS environment must be preview-enabled. Installing the CLI or SDK does not grant access.
+- Keep the generated extension identity. `shopify.extension.toml` uses API `2026-10`, offline support, `paymentvalidations`, `applies_to = ["cash"]`, and its matching payment-resolution target. Install dependencies and run `shopify app build` from your app root before testing.
+
+Save `templates.pos-payment-intercept.json` from this branch locally. `SHOPIFY_CLI_APP_TEMPLATES_JSON_PATH` accepts a local file path and replaces the default catalog for that invocation.
+
+```shell
+SHOPIFY_CLI_APP_TEMPLATES_JSON_PATH="/absolute/path/to/extensions-templates/templates.pos-payment-intercept.json" \
+  shopify app generate extension --template pos_payment_intercept --name pos-payment-intercept-bugbash --clone-url "https://github.com/Shopify/extensions-templates#vctrchu/pos-payment-intercept-bugbash" --path ./your-app-root
+```
+
+Do not pass `--flavor`; this custom catalog selects Preact. Generation requires an existing linked app and App Management access. It does not approve or deploy the app.
+
+## Test in POS
+
+1. Add any product and start checkout. Card and other non-cash attempts don't invoke this example. Select or confirm cash: the synchronous callback returns one `WARNING` with handle `cash-count-recommended`, targeted at `$.payment`.
+2. Confirm POS labels the finding **Recommended**. The warning doesn't block payment or open payment resolution automatically.
+3. Repeat another cash attempt, including a split cash payment if available. The example returns the recommendation for each attempt and doesn't record confirmation.
+
+The matching payment-resolution module displays the intercepted payment method and cash amount received. It exists because every declared interceptor requires its matching target; this warning-only flow doesn't open it automatically. Payment resolution has read-only cart access.
+
+This is a cash-count recommendation example, not confirmation that staff counted cash, payment approval, or a compliance record. To require resolution, use `ERROR` with `blocking = true` and store any payment-only acknowledgment outside the cart.
+
+Local generation, build, and simulated callback checks don't verify real POS payment behavior. Real testing requires an approved app in a preview-enabled POS environment.

@@ -1,0 +1,20 @@
+[
+  {
+    "identifier": "pos_payment_intercept",
+    "name": "POS payment intercept (bug bash)",
+    "defaultName": "pos-payment-intercept",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "pos-payment-intercept"
+      }
+    ],
+    "minimumCliVersion": "4.8.0"
+  }
+]
