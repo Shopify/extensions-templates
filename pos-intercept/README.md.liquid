@@ -4,7 +4,7 @@ Standalone cart product-check example for a temporary POS intercept bug bash. Th
 
 ## Setup
 
-- Use Shopify CLI 4.8.0 or later and the pinned `@shopify/ui-extensions@2026.10.0-rc.7` dependency. The app must be approved for POS intercepts and the POS environment must be preview-enabled. Installing the CLI or SDK does not grant access.
+- Use Shopify CLI 4.8.0 or later and the pinned `@shopify/ui-extensions@2026.10.0-rc.13` dependency, which includes `resolution.onSave`. Earlier RCs through `rc.12` do not include this method. The app must be approved for POS intercepts and the POS environment must be preview-enabled. Installing the CLI or SDK does not grant access.
 - In `src/ProductCheck.{{ srcFileExtension }}`, replace `1234567890` with a test product's numeric **product ID**, not a variant ID or `gid://` string. Both modules import this one setting. Make the product available in the test POS environment.
 - Keep the generated extension identity. `shopify.extension.toml` uses API `2026-10`, offline support, and the paired background/cart-resolution targets. Install dependencies and run `shopify app build` from your app root before testing in your authorized POS environment.
 
@@ -24,9 +24,12 @@ Generation still requires a linked app and App Management access. The custom cat
 ## Test in POS
 
 1. Start a fresh cart and add the configured product without `example_product_checked`. The synchronous background callback returns an `ERROR` with handle `product-check-required`, targeted at that cart line's current UUID. Confirm checkout is blocked.
-2. Select the cart validation banner to open resolution. Check the product and select **Product checked**. Wait for the saved confirmation. A failed save shows an error; retry it without assuming the check was saved.
-3. Use Shopify-owned **Save**, **Next**, or **Done** to revalidate. The callback no longer reports the line whose `example_product_checked` property is the string `'true'`. Writing the property does not itself complete resolution or authorize checkout. Other validators still apply.
-4. In a fresh cart, try another product: this interceptor must add no finding. With multiple unchecked lines of the configured product, acknowledge each line. Remove and re-add a test line without the property to require a new check.
+2. Select the cart validation banner to open resolution. Check the product and select **Product checked**. The check is selected locally, not saved yet; the cart property and blocking finding remain unchanged.
+3. Use Shopify-owned **Save**, **Next**, or **Done**. POS invokes `shopify.resolution.onSave`, waits for the selected lines' cart updates, then revalidates. The callback no longer reports a line whose `example_product_checked` property is the string `'true'`. Unselected lines and other validators still apply.
+4. If saving fails, an error toast prompts staff to retry with the POS controls. Successfully saved lines stay acknowledged; failed selections remain pending. A rejected save handler does not itself block the flow: POS still revalidates, and the background findings decide whether checkout can continue.
+5. In a fresh cart, try another product: this interceptor must add no finding. With multiple unchecked lines of the configured product, select each line you checked. Remove and re-add a test line without the property to require a new check. Closing resolution without saving discards pending selections.
+
+The resolution registers one save handler and reads the current event inside it, so removed or replaced line UUIDs are not written from a stale snapshot. Registration and cleanup are asynchronous: unmount removes the event subscription and awaits the registered handler's cleanup, including when registration finishes after unmount. Neither selecting a check nor running `onSave` is a completion API.
 
 This is a generic staff acknowledgment **per cart line**, not per unit, age or identity verification, or evidence of regulatory compliance. Quantity changes on an acknowledged line do not require another check. No identity or customer data is collected. Cash and payment validation are outside this example.
 

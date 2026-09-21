@@ -1,6 +1,6 @@
 import "@shopify/ui-extensions/preact";
 import {render} from 'preact';
-import {useEffect, useState} from 'preact/hooks';
+import {useEffect, useRef, useState} from 'preact/hooks';
 import {PRODUCT_ID} from './ProductCheck.{{ srcFileExtension }}';
 
 export default async () => {
@@ -10,11 +10,57 @@ export default async () => {
 function Extension() {
   const {i18n} = shopify;
   const [event, setEvent] = useState(shopify.resolution.event.value);
+  const pendingChecks = useRef(new Set());
+  const [selectedChecks, setSelectedChecks] = useState([]);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    let active = true;
     const unsubscribe = shopify.resolution.event.subscribe(setEvent);
     setEvent(shopify.resolution.event.value);
-    return unsubscribe;
+
+    const registration = (async () => {
+      const unregister = await shopify.resolution.onSave(async () => {
+        if (!active) return;
+
+        try {
+          for (const item of shopify.resolution.event.value.cart.lineItems) {
+            if (!active) break;
+            if (
+              pendingChecks.current.has(item.uuid) &&
+              item.productId === PRODUCT_ID &&
+              item.properties.example_product_checked !== 'true'
+            ) {
+              await shopify.cart.addLineItemProperties(item.uuid, {
+                example_product_checked: 'true',
+              });
+              pendingChecks.current.delete(item.uuid);
+            }
+          }
+        } catch (error) {
+          if (active) shopify.toast.show(i18n.translate('saveFailed'));
+          throw error;
+        } finally {
+          if (active) setSelectedChecks([...pendingChecks.current]);
+        }
+      });
+      if (active) setReady(true);
+      return unregister;
+    })();
+
+    void registration.catch(() => {
+      if (active) shopify.toast.show(i18n.translate('saveUnavailable'));
+    });
+
+    return () => {
+      active = false;
+      unsubscribe();
+      void registration.then(async (unregister) => {
+        await unregister();
+      }).catch((error) => {
+        console.error('Could not clean up the product-check save handler.', error);
+      });
+    };
   }, []);
 
   const uncheckedItems = event.cart.lineItems.filter((item) =>
@@ -28,17 +74,14 @@ function Extension() {
       {uncheckedItems.map((item) => (
         <s-stack key={item.uuid} gap="small">
           <s-text>{item.title ?? i18n.translate('product')}</s-text>
-          <s-button onClick={async () => {
-            try {
-              await shopify.cart.addLineItemProperties(item.uuid, {
-                example_product_checked: 'true',
-              });
-              shopify.toast.show(i18n.translate('saved'));
-            } catch {
-              shopify.toast.show(i18n.translate('saveFailed'));
-            }
-          }}>
-            {i18n.translate('productChecked')}
+          <s-button
+            disabled={!ready || selectedChecks.includes(item.uuid)}
+            onClick={() => {
+              pendingChecks.current.add(item.uuid);
+              setSelectedChecks([...pendingChecks.current]);
+            }}
+          >
+            {i18n.translate(selectedChecks.includes(item.uuid) ? 'checkPending' : 'productChecked')}
           </s-button>
         </s-stack>
       ))}
