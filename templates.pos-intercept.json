@@ -1,0 +1,20 @@
+[
+  {
+    "identifier": "pos_intercept",
+    "name": "POS intercept (bug bash)",
+    "defaultName": "pos-intercept",
+    "group": "UI extensions",
+    "supportLinks": [],
+    "url": "https://github.com/Shopify/extensions-templates",
+    "type": "ui_extension",
+    "extensionPoints": [],
+    "supportedFlavors": [
+      {
+        "name": "Preact",
+        "value": "preact",
+        "path": "pos-intercept"
+      }
+    ],
+    "minimumCliVersion": "4.8.0"
+  }
+]

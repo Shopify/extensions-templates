@@ -1,0 +1,58 @@
+// @extension-target: pos.cart.validations.resolution.render
+import "@shopify/ui-extensions/preact";
+import {render} from 'preact';
+import {useEffect, useState} from 'preact/hooks';
+
+export default async () => {
+  render(<Extension />, document.body);
+};
+
+function Extension() {
+  const {i18n} = shopify;
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    let active = true;
+    const registration = shopify.resolution.onSave(async () => {
+      if (!active) return;
+      setError('');
+
+      try {
+        await shopify.cart.addCartProperties({
+          example_cart_reviewed: 'true',
+        });
+        if (shopify.cart.current.value.properties.example_cart_reviewed !== 'true') {
+          throw new Error('Cart review was not saved.');
+        }
+        shopify.toast.show(i18n.translate('saved'));
+      } catch (saveError) {
+        if (active) {
+          setError('saveFailed');
+          shopify.toast.show(i18n.translate('saveFailed'));
+        }
+        throw saveError;
+      }
+    });
+
+    void registration.catch(() => {
+      if (active) setError('saveUnavailable');
+    });
+
+    return () => {
+      active = false;
+      void registration.then((unregister) => unregister()).catch(console.error);
+    };
+  }, []);
+
+  return (
+    <s-scroll-box padding="base">
+      <s-stack direction="block" gap="large">
+        <s-heading>{i18n.translate('heading')}</s-heading>
+        <s-text>{i18n.translate('instructions')}</s-text>
+        {error ? (
+          <s-banner tone="critical" heading={i18n.translate(error)} />
+        ) : undefined}
+      </s-stack>
+    </s-scroll-box>
+  );
+}

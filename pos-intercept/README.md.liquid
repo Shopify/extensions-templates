@@ -1,0 +1,36 @@
+# {{ name }}
+
+Standalone cart acknowledgment example for a temporary POS intercept bug bash. The opt-in `pos_intercept` catalog entry selects `pos-intercept/`; the standard `pos_action` template and public `templates.json` catalog remain unchanged.
+
+## Setup
+
+- Use Shopify CLI 4.8.0 or later and the pinned `@shopify/ui-extensions@2026.10.0-rc.13` dependency, which includes `resolution.onSave`. The app must be approved for POS intercepts and the POS environment must be preview-enabled. Installing the CLI or SDK does not grant access.
+- Keep the generated extension identity. `shopify.extension.toml` uses API `2026-10`, offline support, and the paired background/cart-resolution targets. Install dependencies and run `shopify app build` from your app root before testing in your authorized POS environment.
+
+Save `templates.pos-intercept.json` from this branch locally, either from a checkout or by downloading the file after publication. `SHOPIFY_CLI_APP_TEMPLATES_JSON_PATH` accepts a local file path, not a URL. It replaces the default catalog for that invocation; this file exposes only `pos_intercept`.
+
+After the branch has been published, use the installed `shopify` CLI to generate the extension into an existing app:
+
+```shell
+SHOPIFY_CLI_APP_TEMPLATES_JSON_PATH="/absolute/path/to/extensions-templates/templates.pos-intercept.json" \
+  shopify app generate extension --template pos_intercept --name pos-intercept-bugbash --clone-url "https://github.com/Shopify/extensions-templates#vctrchu/pos-intercept-bugbash" --path ./your-app-root
+```
+
+Do not pass `--flavor`; this custom catalog entry selects Preact. Keep the environment variable scoped to this command. `--clone-url` selects only the template repository and branch; it does not load the branch's `templates.json`. The remote command requires the branch to exist on GitHub. For an unpublished, locally committed branch, replace the clone URL with `file:///absolute/path/to/extensions-templates#vctrchu/pos-intercept-bugbash`.
+
+Generation still requires a linked app and App Management access. The custom catalog does not bypass authentication, app approval, or POS preview prerequisites, and does not approve or deploy the app.
+
+## Test in POS
+
+1. Start a fresh cart. An empty cart produces no finding. Add any product: the synchronous background callback returns one `ERROR` with handle `cart-review-required`, targeted at `$.cart`. Confirm checkout is blocked.
+2. Select the cart validation banner. POS renders `pos.cart.validations.resolution.render`.
+3. Review the cart, then use Shopify-owned **Save**, **Next**, or **Done**. POS waits for the registered `shopify.resolution.onSave` handler.
+4. The handler awaits `shopify.cart.addCartProperties({example_cart_reviewed: 'true'})`, confirms the cart signal, and returns. POS then revalidates, and the background callback returns no finding for the acknowledged cart.
+5. If saving fails, the target shows an error and the missing acknowledgment keeps the finding active. Use the POS control again to retry.
+6. Add or change products after acknowledging the cart: this example does not require another review. Start a new cart to test the flow again.
+
+The resolution target registers one save handler on mount and unregisters it on unmount. `onSave` is not a completion API; POS waits for the handler and then revalidates.
+
+This is a generic staff acknowledgment **once per cart**, not product, per-unit, age or identity verification, or evidence of regulatory compliance. The `example_cart_reviewed` property persists through checkout, and later cart edits do not invalidate it. No identity or customer data is collected. Cash and payment validation are outside this example.
+
+A local generation, build, or simulated API smoke check does not verify the real POS banner, navigation, checkout blocking, or Shopify-owned revalidation controls. Those checks require the approved app in a preview-enabled POS environment.
