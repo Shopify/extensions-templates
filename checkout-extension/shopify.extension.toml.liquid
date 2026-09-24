@@ -17,7 +17,7 @@ type = "ui_extension"
 
 # Controls where in Shopify your extension will be injected,
 # and the file that contains your extension’s source code. Learn more:
-# https://shopify.dev/docs/api/checkout-ui-extensions/latest/extension-targets-overview
+# https://shopify.dev/docs/api/checkout-ui-extensions/latest/targets
 
 [[extensions.targeting]]
 module = "./src/Checkout.{{ srcFileExtension }}"
@@ -25,25 +25,22 @@ target = "purchase.checkout.block.render"
 
 [extensions.capabilities]
 # Gives your extension access to directly query Shopify’s storefront API.
-# https://shopify.dev/docs/api/checkout-ui-extensions/latest/configuration#api-access
+# https://shopify.dev/docs/apps/build/checkout/capabilities#storefront-api-access
 api_access = true
 
 # Gives your extension access to make external network calls, using the
 # JavaScript `fetch()` API. Learn more:
-# https://shopify.dev/docs/api/checkout-ui-extensions/latest/configuration#network-access
+# https://shopify.dev/docs/apps/build/checkout/capabilities#network-access
+
 # network_access = true
 
-# Loads metafields on checkout resources, including the cart,
-# products, customers, and more. Learn more:
-# https://shopify.dev/docs/api/checkout-ui-extensions/latest/configuration#metafields
-
-[[extensions.metafields]]
-namespace = "$app"
-key = "requestedFreeGift"
+# Learn more about loading metafields on checkout resources, including the cart,
+# products, and customers:
+# https://shopify.dev/docs/api/checkout-ui-extensions/latest#configuration
 
 # Defines settings that will be collected from merchants installing
 # your extension. Learn more:
-# https://shopify.dev/docs/api/checkout-ui-extensions/latest/configuration#settings-definition
+# https://shopify.dev/docs/api/checkout-ui-extensions/latest#configuration
 
 # [extensions.settings]
 # [[extensions.settings.fields]]
