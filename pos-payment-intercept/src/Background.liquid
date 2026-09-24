@@ -1,0 +1,35 @@
+// @extension-target: pos.app.ready.data
+import {
+  CASH_REVIEW_KEY,
+  cashReviewFingerprint,
+  readCashReview,
+} from './CashReview.{{ srcFileExtension }}';
+
+export default function extension() {
+  let storedReview;
+  void shopify.storage.get(CASH_REVIEW_KEY).then((value) => {
+    storedReview = value;
+  });
+
+  const reviewSignal = shopify.storage.current?.[CASH_REVIEW_KEY];
+  reviewSignal?.subscribe((value) => {
+    storedReview = value;
+  });
+
+  shopify.intercept('paymentvalidations', (event) => {
+    const fingerprint = cashReviewFingerprint(event, shopify.cart.current.value);
+    const completedReview = readCashReview(reviewSignal?.value ?? storedReview);
+
+    if (completedReview === fingerprint) return {operations: []};
+
+    return {
+      operations: [{
+        validationAdd: {
+          level: 'ERROR',
+          handle: 'cash-count-required',
+          target: '$.payment',
+        },
+      }],
+    };
+  });
+}
