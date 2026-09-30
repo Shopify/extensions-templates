@@ -10,8 +10,9 @@ description = "A blocking cash-payment review example"
 [extensions.supported_features]
 runs_offline = true
 
+# Keep modules nested: CLI 4.8 appends .jsx to every top-level src file for Preact.
 [[extensions.targeting]]
-module = "./src/Background.{{ srcFileExtension }}"
+module = "./src/payment_intercept/background.js"
 target = "pos.app.ready.data"
 
 [[extensions.targeting.capabilities.intercepts]]
@@ -20,5 +21,5 @@ blocking = true
 applies_to = ["cash"]
 
 [[extensions.targeting]]
-module = "./src/PaymentResolution.{{ srcFileExtension }}"
+module = "./src/payment_intercept/payment_resolution.jsx"
 target = "pos.payment.validations.resolution.render"

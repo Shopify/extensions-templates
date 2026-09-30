@@ -1,6 +1,6 @@
 # {{ name }}
 
-Standalone cash-payment review example for a temporary POS intercept bug bash. The opt-in `pos_payment_intercept` catalog entry selects `pos-payment-intercept/`; the public `templates.json` catalog and cart-intercept draft remain unchanged.
+Standalone cash-payment review example for the POS intercept feature preview. The opt-in `pos_payment_intercept` catalog entry selects `pos-payment-intercept/`; the public `templates.json` catalog and cart-intercept draft remain unchanged.
 
 ## Setup
 
@@ -11,7 +11,7 @@ Save `templates.pos-payment-intercept.json` from this branch locally. `SHOPIFY_C
 
 ```shell
 SHOPIFY_CLI_APP_TEMPLATES_JSON_PATH="/absolute/path/to/extensions-templates/templates.pos-payment-intercept.json" \
-  shopify app generate extension --template pos_payment_intercept --name pos-payment-intercept-bugbash --clone-url "https://github.com/Shopify/extensions-templates#vctrchu/pos-payment-intercept-bugbash" --path ./your-app-root
+  shopify app generate extension --template pos_payment_intercept --name pos-payment-intercept-feature-preview --clone-url "https://github.com/Shopify/extensions-templates#vctrchu/pos-payment-intercept-feature-preview" --path ./your-app-root
 ```
 
 Do not pass `--flavor`; this custom catalog selects Preact. Generation requires an existing linked app and App Management access. It does not approve or deploy the app.
