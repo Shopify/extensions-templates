@@ -23,11 +23,13 @@ Generation still requires a linked app and App Management access. The custom cat
 ## Test in POS
 
 1. Start a fresh cart. An empty cart produces no finding. Add any product: the synchronous background callback returns one `ERROR` with handle `cart-review-required`, targeted at `$.cart`. Confirm checkout is blocked.
-2. Select the cart validation banner. POS renders `pos.cart.validations.resolution.render`.
+2. Select the cart validation banner. POS renders `pos.cart.validations.resolution.render`. Confirm the target displays the total and currency from the intercepted cart.
 3. Review the cart, then use Shopify-owned **Save**, **Next**, or **Done**. POS waits for the registered `shopify.resolution.onSave` handler.
 4. The handler awaits `shopify.cart.addCartProperties({example_cart_reviewed: 'true'})`, confirms the cart signal, and returns. POS then revalidates, and the background callback returns no finding for the acknowledged cart.
 5. If saving fails, the target shows an error and the missing acknowledgment keeps the finding active. Use the POS control again to retry.
 6. Add or change products after acknowledging the cart: this example does not require another review. Start a new cart to test the flow again.
+
+Use `shopify.resolution.event.value.cart` for the intercepted cart's review context. It is an event snapshot, not the live cart: commit changes through `shopify.cart` inside `resolution.onSave` and check `shopify.cart.current.value` after the write.
 
 The resolution target registers one save handler on mount and unregisters it on unmount. `onSave` is not a completion API; POS waits for the handler and then revalidates.
 
