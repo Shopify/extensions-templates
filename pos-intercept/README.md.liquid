@@ -1,6 +1,6 @@
 # {{ name }}
 
-Standalone cart acknowledgment example for a temporary POS intercept bug bash. The opt-in `pos_intercept` catalog entry selects `pos-intercept/`; the standard `pos_action` template and public `templates.json` catalog remain unchanged.
+Standalone cart acknowledgment example for the POS intercept feature preview. The opt-in `pos_intercept` catalog entry selects `pos-intercept/`; the standard `pos_action` template and public `templates.json` catalog remain unchanged.
 
 ## Setup
 
@@ -13,10 +13,10 @@ After the branch has been published, use the installed `shopify` CLI to generate
 
 ```shell
 SHOPIFY_CLI_APP_TEMPLATES_JSON_PATH="/absolute/path/to/extensions-templates/templates.pos-intercept.json" \
-  shopify app generate extension --template pos_intercept --name pos-intercept-bugbash --clone-url "https://github.com/Shopify/extensions-templates#vctrchu/pos-intercept-bugbash" --path ./your-app-root
+  shopify app generate extension --template pos_intercept --name pos-intercept-feature-preview --clone-url "https://github.com/Shopify/extensions-templates#vctrchu/pos-intercept-feature-preview" --path ./your-app-root
 ```
 
-Do not pass `--flavor`; this custom catalog entry selects Preact. Keep the environment variable scoped to this command. `--clone-url` selects only the template repository and branch; it does not load the branch's `templates.json`. The remote command requires the branch to exist on GitHub. For an unpublished, locally committed branch, replace the clone URL with `file:///absolute/path/to/extensions-templates#vctrchu/pos-intercept-bugbash`.
+Do not pass `--flavor`; this custom catalog entry selects Preact. Keep the environment variable scoped to this command. `--clone-url` selects only the template repository and branch; it does not load the branch's `templates.json`. The remote command requires the branch to exist on GitHub. For an unpublished, locally committed branch, replace the clone URL with `file:///absolute/path/to/extensions-templates#vctrchu/pos-intercept-feature-preview`.
 
 Generation still requires a linked app and App Management access. The custom catalog does not bypass authentication, app approval, or POS preview prerequisites, and does not approve or deploy the app.
 

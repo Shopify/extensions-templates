@@ -1,7 +1,7 @@
 [
   {
     "identifier": "pos_intercept",
-    "name": "POS intercept (bug bash)",
+    "name": "POS intercept (feature preview)",
     "defaultName": "pos-intercept",
     "group": "UI extensions",
     "supportLinks": [],
