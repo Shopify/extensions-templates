@@ -25,6 +25,8 @@ Do not pass `--flavor`; this custom catalog selects Preact. Generation requires 
 5. If saving fails, the target shows an error and the missing acknowledgment keeps the finding active. Use the POS control again to retry.
 6. Change the cash amount, or add or remove a cart line. The fingerprint no longer matches, so the target requires a new confirmation. Other payment methods remain outside this cash-only example.
 
+Use `shopify.resolution.event.value` for the intercepted payment method and amount. Read it again inside `resolution.onSave` so the saved acknowledgment uses the latest host-provided event rather than a value captured when the screen mounted.
+
 The resolution target registers one save handler on mount and unregisters it on unmount. Payment resolution has read-only cart access, so the handler uses extension storage rather than a cart write. `onSave` is not a completion API; POS waits for the handler and then revalidates.
 
 This is a cash-count review example, not payment approval, identity verification, or a compliance record.
