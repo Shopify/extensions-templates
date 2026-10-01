@@ -1,0 +1,20 @@
+// @extension-target: pos.app.ready.data
+
+export default function extension() {
+  shopify.intercept('cartvalidations', ({cart}) => {
+    // Acknowledgment survives cart edits; invalidate it if edits must require another review.
+    const requiresReview =
+      cart.lineItems.length > 0 &&
+      cart.properties.example_cart_reviewed !== 'true';
+
+    return {
+      operations: requiresReview ? [{
+        validationAdd: {
+          level: 'ERROR',
+          handle: 'cart-review-required',
+          target: '$.cart',
+        },
+      }] : [],
+    };
+  });
+}
