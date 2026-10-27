@@ -1,0 +1,56 @@
+name: Validate Function Templates
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "functions-*/**"
+      - ".github/workflows/validate-function-templates.yml"
+  push:
+    branches: ["main"]
+    paths:
+      - "functions-*/**"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  validate-templates:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        flavor: [javascript, typescript, rust]
+      fail-fast: false
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Install Node.js dependencies
+        run: yarn
+      
+      - name: Install Rust toolchain (Rust only)
+        if: matrix.flavor == 'rust'
+        run: rustup target add wasm32-wasip1
+      
+      - name: Expand liquid templates for ${{ matrix.flavor }}
+        run: CI=1 yarn expand-liquid ${{ matrix.flavor }}
+      
+      - name: Install workspace dependencies (JS/TS only)
+        if: matrix.flavor == 'javascript' || matrix.flavor == 'typescript'
+        run: yarn
+      
+      - name: Generate types (JS/TS only)
+        if: matrix.flavor == 'javascript' || matrix.flavor == 'typescript'
+        run: yarn js-typegen
+      
+      - name: Run tests (JS/TS only)
+        if: matrix.flavor == 'javascript' || matrix.flavor == 'typescript'
+        run: yarn js-test
+      
+      - name: Run Rust tests (Rust only)
+        if: matrix.flavor == 'rust'
+        run: cargo test
+      
+      - name: Build Rust WASM target (Rust only)
+        if: matrix.flavor == 'rust'
+        run: cargo build --release --target wasm32-wasip1
