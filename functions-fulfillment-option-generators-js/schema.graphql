@@ -16,16 +16,6 @@ Scale the Functions resource limits based on the field's length.
 directive @scaleLimits(rate: Float!) on FIELD_DEFINITION
 
 """
-Represents an app.
-"""
-type App {
-  """
-  The ID of the app.
-  """
-  id: ID!
-}
-
-"""
 A custom property. Attributes are used to store additional information about a Shopify resource, such as
 products, customers, or orders. Attributes are stored as key-value pairs.
 
@@ -1854,11 +1844,6 @@ enum CountryCode {
   UM
 
   """
-  Unknown country code.
-  """
-  UNKNOWN__
-
-  """
   United States.
   """
   US
@@ -1978,7 +1963,7 @@ enum CurrencyCode {
   """
   Netherlands Antillean Guilder.
   """
-  ANG
+  ANG @deprecated(reason: "Use `XCG` instead.")
 
   """
   Angolan Kwanza (AOA).
@@ -2736,6 +2721,11 @@ enum CurrencyCode {
   XCD
 
   """
+  Caribbean Guilder (XCG).
+  """
+  XCG
+
+  """
   West African CFA franc (XOF).
   """
   XOF
@@ -2959,6 +2949,22 @@ type DeliverableCartLine {
 
   """
   The quantity of the item that the customer intends to purchase.
+  """
+  quantity: Int!
+}
+
+"""
+A deliverable line represents merchandise to fulfill. This type specifies the
+quantity of that merchandise included in a package.
+"""
+type DeliverableLineQuantity {
+  """
+  The cart deliverable line ID.
+  """
+  deliverableLineId: ID!
+
+  """
+  The number of units of the deliverable line included in the package. Will be a positive number.
   """
   quantity: Int!
 }
@@ -3196,16 +3202,6 @@ type FulfillmentOptionGenerator implements HasMetafields {
 }
 
 """
-Represents a fulfillment service that prepares and ships orders on behalf of the store owner.
-"""
-type FulfillmentService {
-  """
-  The app associated with this fulfillment service.
-  """
-  app: App
-}
-
-"""
 A function-scoped handle to a refer a resource.
 The Handle type appears in a JSON response as a String, but it is not intended to be human-readable.
 Example value: `"10079785100"`
@@ -3440,7 +3436,7 @@ type Input {
 
   """
   The packages the function should produce fulfillment options for. Each package
-  has an origin, a destination, and a set of cart-line quantities.
+  has an origin, a destination, and a set of deliverable-line quantities.
   """
   packages: [Package!]! @scaleLimits(rate: 0.05)
 
@@ -4198,21 +4194,6 @@ enum LanguageCode {
 }
 
 """
-A quantity of a single cart line included in a package.
-"""
-type LineQuantity {
-  """
-  The cart line ID.
-  """
-  lineId: ID!
-
-  """
-  The number of units of the line included in the package. Will be a positive number.
-  """
-  quantity: Int!
-}
-
-"""
 Local pickup settings associated with a location.
 """
 type LocalPickup {
@@ -4324,7 +4305,8 @@ type Localization {
   language: Language!
 
   """
-  The market of the active localized experience.
+  The market that applies to the buyer's country. In cases where multiple
+  markets match, this returns the most-specific country region market.
   """
   market: Market! @deprecated(reason: "This `market` field will be removed in a future version of the API.")
 }
@@ -4552,11 +4534,6 @@ type Location implements HasMetafields {
   address: LocationAddress!
 
   """
-  The fulfillment service, if any, that's associated with the location.
-  """
-  fulfillmentService: FulfillmentService
-
-  """
   The location handle.
   """
   handle: Handle!
@@ -4715,7 +4692,8 @@ type MailingAddress {
   longitude: Float
 
   """
-  The market of the address.
+  The market that applies to the address's country. In cases where multiple
+  markets match, this returns the most-specific country region market.
   """
   market: Market @deprecated(reason: "This `market` field will be removed in a future version of the API.")
 
@@ -4760,11 +4738,6 @@ type Market implements HasMetafields {
   id: ID!
 
   """
-  The manager of the market, if the accessing app is the market’s manager. Otherwise, this will be null.
-  """
-  manager: MarketManager
-
-  """
   A [custom field](https://shopify.dev/docs/apps/build/custom-data) that stores additional information
   about a Shopify resource, such as products, orders, and
   [many more](https://shopify.dev/docs/api/admin-graphql/latest/enums/MetafieldOwnerType).
@@ -4791,17 +4764,6 @@ type Market implements HasMetafields {
   A geographic region which comprises a market.
   """
   regions: [MarketRegion!]!
-}
-
-"""
-The entity that manages a particular market.
-"""
-type MarketManager {
-  """
-  The identity of the manager. This can either be `merchant` if the market is
-  manually managed by the merchant or an ID of the app responsible for managing the market.
-  """
-  identifier: String!
 }
 
 """
@@ -5045,11 +5007,16 @@ input Operation {
 }
 
 """
-A set of cart-line quantities traveling together from a single origin
+A set of deliverable-line quantities traveling together from a single origin
 address to a single destination address. The function generates one or
 more fulfillment options per package.
 """
 type Package {
+  """
+  The deliverable line quantities included in the package.
+  """
+  deliverableLineQuantities: [DeliverableLineQuantity!]!
+
   """
   Handle of the package's destination address reference in `addressReferences`.
   """
@@ -5059,11 +5026,6 @@ type Package {
   Stable handle identifying the package within the function input.
   """
   handle: Handle!
-
-  """
-  The cart-line quantities included in the package.
-  """
-  lineQuantities: [LineQuantity!]!
 
   """
   Handle of the package's origin address reference in `addressReferences`.
