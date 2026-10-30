@@ -41,10 +41,10 @@ app-home/
 
 ## Storage API
 
-This extension uses Shopify's [Storage API](https://shopify.dev/docs/api/admin-extensions/2026-04-rc/target-apis/core-apis/standard-api#standardapi-propertydetail-storage) to persist FAQ data:
+This extension uses Shopify's [Storage API](https://shopify.dev/docs/api/admin-extensions/2026-07/target-apis/core-apis/standard-api#standardapi-propertydetail-storage) to persist FAQ data:
 
 - **App-scoped**: Data is isolated to your app
-- **Simple**: No GraphQL queries needed - `shopify.storage.getItem()` / `shopify.storage.setItem()`
+- **Simple**: No GraphQL queries needed - `shopify.storage.get()` / `shopify.storage.set()`
 - **Persistent**: Data survives page reloads
 - **Extension-specific**: Each extension instance has its own storage
 
