@@ -6,7 +6,8 @@
       "cart": {
         "deliveryGroups": [
           {
-            "id": "gid://shopify/DeliveryGroup/0"
+            "id": "gid://shopify/DeliveryGroup/0",
+            "deliveryOptions": [{ "deliveryMethodType": "SHIPPING" }]
           }
         ]
       },

@@ -9,7 +9,8 @@
       "cart": {
         "deliveryGroups": [
           {
-            "id": "gid://shopify/CartDeliveryGroup/1"
+            "id": "gid://shopify/CartDeliveryGroup/1",
+            "deliveryOptions": [{ "deliveryMethodType": "SHIPPING" }]
           }
         ]
       }
