@@ -3,9 +3,8 @@ export const EMPTY_FAQ = {question: '', answer: ''};
 const FAQ_STORAGE_KEY = 'faqs';
 
 export async function listFAQs() {
-  const stored = await shopify.storage.getItem(FAQ_STORAGE_KEY);
-  const parsedFaqs = stored ? JSON.parse(stored) : [];
-  return Array.isArray(parsedFaqs) ? parsedFaqs : [];
+  const stored = await shopify.storage.get(FAQ_STORAGE_KEY);
+  return Array.isArray(stored) ? stored : [];
 }
 
 export async function getFAQ(id) {
@@ -45,5 +44,5 @@ export async function deleteFAQ(id) {
 }
 
 async function writeFAQs(faqs) {
-  await shopify.storage.setItem(FAQ_STORAGE_KEY, JSON.stringify(faqs));
+  await shopify.storage.set(FAQ_STORAGE_KEY, faqs);
 }
