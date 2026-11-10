@@ -131,7 +131,7 @@ export function cartLinesDiscountsGenerateRun(
     return maxLine;
   }, input.cart.lines[0]);
 
-  const operations = [];
+  const operations: CartLinesDiscountsGenerateRunResult['operations'] = [];
 
   if (hasOrderDiscountClass) {
     operations.push({

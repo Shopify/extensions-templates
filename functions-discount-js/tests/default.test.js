@@ -43,3 +43,19 @@ describe("Default Integration Test", () => {
     }, 10000);
   });
 });
+
+describe("TypeScript template", () => {
+  test("types operations from the generated result", () => {
+    const template = fs.readFileSync(
+      path.join(__dirname, "../src/cart_lines_discounts_generate_run.liquid"),
+      "utf8",
+    );
+    const typescriptTemplate = template.split(
+      '{%- elsif flavor contains "typescript" -%}',
+    )[1];
+
+    expect(typescriptTemplate).toContain(
+      "const operations: CartLinesDiscountsGenerateRunResult['operations'] = [];",
+    );
+  });
+});
